@@ -20,7 +20,7 @@
 project = 'LESSON NAME'
 copyright = '2020, The contributors'
 author = 'The contributors'
-github_user = 'coderefinery'
+github_user = 'AaltoSciComp'
 github_repo_name = ''  # auto-detected from dirname if blank
 github_version = 'master/' # with trailing slash
 
