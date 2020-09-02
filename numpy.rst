@@ -1,6 +1,17 @@
 Enter NumPy
 ===========
 
+.. questions::
+
+   - Q1
+   - Q2
+
+.. objectives::
+
+   - O1
+   - O2
+
+
 Introduction
 ------------
 
@@ -286,3 +297,13 @@ more information about Einstein notation in NumPy see
 - `A basic introduction to NumPy's einsum <http://ajcr.net/Basic-guide-to-einsum/>`_
 - `Einsten Summation in NumPy <https://obilaniu6266h16.wordpress.com/2016/02/04/einstein-summation-in-numpy/>`_
 - `Einsum is all you need - Einstein summation in deep learning <https://rockt.github.io/2018/04/30/einsum>`_
+
+
+(lesson here)
+
+
+
+.. keypoints::
+
+   - K1
+   - K2

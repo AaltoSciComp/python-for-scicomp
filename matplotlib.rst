@@ -1,6 +1,17 @@
 Matplotlib
 ==========
 
+.. questions::
+
+   - Q1
+   - Q2
+
+.. objectives::
+
+   - O1
+   - O2
+
+
 Matplotlib is the 'standard' Python plotting library. It is quite
 full-featured, and provides a MATLAB-like plotting API.
 
@@ -176,3 +187,13 @@ Find an image on the internet or already on the machine you're working
 on, load it into a NumPy array (you can use ``imageio.imread()`` for
 this), and see if you can create an Andy Warhol-like print by using a
 suitable colormap.
+
+
+(lesson here)
+
+
+
+.. keypoints::
+
+   - K1
+   - K2
