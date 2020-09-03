@@ -11,15 +11,17 @@ Python for Scientific Computing
    :widths: auto
    :delim: ;
 
-   XX min ; :doc:`intro-to-python`
-   XX min ; :doc:`organizing-code`
-   XX min ; :doc:`exercises-1`
+   XX min ; :doc:`python`
+   XX min ; :doc:`jupyter`
    XX min ; :doc:`numpy`
-   XX min ; :doc:`scipy`
    XX min ; :doc:`matplotlib`
-   XX min ; :doc:`demo-app`
-   XX min ; :doc:`see-also`
-   XX min ; :doc:`homework`
+   XX min ; :doc:`scripts`
+   XX min ; :doc:`packaging`
+   XX min ; :doc:`scipy`
+   XX min ; :doc:`pandas`
+   XX min ; :doc:`libraries`
+   XX min ; :doc:`dependencies`
+   XX min ; :doc:`binder`
 
 
 .. toctree::
@@ -27,12 +29,20 @@ Python for Scientific Computing
    :caption: The lesson
    :hidden:
 
-   intro-to-python
+   python
+   jupyter
+   numpy
+   matplotlib
+   scripts
+   packaging
+   scipy
+   pandas
+   libraries
+   dependencies
+   binder
+
    organizing-code
    exercises-1
-   numpy
-   scipy
-   matplotlib
    demo-app
    see-also
    homework

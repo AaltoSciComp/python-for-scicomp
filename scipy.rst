@@ -1,6 +1,18 @@
 SciPy
 =====
 
+.. questions::
+
+   - Q1
+   - Q2
+
+.. objectives::
+
+   - O1
+   - O2
+
+
+
 SciPy is a library that builds on top of NumPy. It contains a lot of
 interfaces to battle-tested numerical routines written in Fortran or
 C, as well as python implementations of many common
@@ -42,3 +54,13 @@ method to calculate the matrix-vector product.
 
 Can you figure out a quick rule of thumb when it's worth using a
 sparse matrix representation vs. a dense representation?
+
+
+(lesson here)
+
+
+
+.. keypoints::
+
+   - K1
+   - K2

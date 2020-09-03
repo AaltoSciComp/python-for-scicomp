@@ -1,6 +1,16 @@
 Introduction to Python
 ======================
 
+.. questions::
+
+   - Q1
+   - Q2
+
+.. objectives::
+
+   - O1
+   - O2
+
 If you are not familiar with Python, a *very* short introduction;
 first, the builtin scalar and collection types:
 
@@ -141,3 +151,13 @@ variable can be redefined to refer to an instance of another type:
 *Jargon*: Types are associated with rvalues, not lvalues. In
 statically typed language, types are associated with lvalues, and are
 (typically) reified during compilation.
+
+
+(lesson here)
+
+
+
+.. keypoints::
+
+   - K1
+   - K2
