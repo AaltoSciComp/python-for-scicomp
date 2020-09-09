@@ -2,26 +2,54 @@
 Python for Scientific Computing
 ===============================
 
+Python is a modern, object-oriented programming language, which has
+become popular in several areas of software development. This course
+discusses how Python can be utilized in scientific computing. The
+course starts by introducing the main Python package for numerical
+computing, NumPy, and discusses then SciPy toolbox for various
+scientific computing tasks as well as visualization with the
+Matplotlib package.  In addition, it talks about *how* python is used:
+related scientific libraries, reproducibility, and the broader
+ecosystem of science in Python.
+
+This course (like any course) can't teach you Python... it can show
+your some examples, let you see how experts do things, and prepare you
+to learn yourself as you need to.
+
 .. prereq::
 
-   prerequisites
+   - Knowing basic Python syntax.  We assume that you can do some
+     Python programming, but not much more that that.  We don't cover
+     standard Python programming.
+   - Watch or read the `command line crash course
+     <https://scicomp.aalto.fi/scicomp/shell/>`__, if you aren't
+     familiar.
+   - You should be able to use a text editor to edit files some.
+   - The software installation <installation> described below
+     (basically, anaconda).
+
+   These are not prerequisites:
+
+   - Any external libraries, e.g. numpy
+   - Knowing how to make scripts or use Jupyter
+
 
 
 .. csv-table::
    :widths: auto
    :delim: ;
 
-   XX min ; :doc:`python`
-   XX min ; :doc:`jupyter`
-   XX min ; :doc:`numpy`
-   XX min ; :doc:`matplotlib`
-   XX min ; :doc:`scripts`
-   XX min ; :doc:`packaging`
-   XX min ; :doc:`scipy`
-   XX min ; :doc:`pandas`
-   XX min ; :doc:`libraries`
-   XX min ; :doc:`dependencies`
-   XX min ; :doc:`binder`
+   (prereq) ; :doc:`python`
+   30 min   ; :doc:`jupyter`
+   60 min   ; :doc:`numpy`
+   30 min   ; :doc:`matplotlib`
+   60 min   ; :doc:`scripts`
+   60 min   ; :doc:`packaging`
+   ?? min   ; :doc:`scipy`
+   ?? min   ; :doc:`pandas`
+   ?? min   ; :doc:`libraries`
+   ?? min   ; :doc:`dependencies`
+   ?? min   ; :doc:`binder`
 
 
 .. toctree::
@@ -56,16 +84,27 @@ Python for Scientific Computing
 
 
 
-Abstract
-========
+Who is the course for?
+======================
 
-Python is a modern, object-oriented programming language, which has
-become popular in several areas of software development. This course
-discusses how Python can be utilized in scientific computing. The
-course starts by introducing the main Python package for numerical
-computing, NumPy, and discusses then SciPy toolbox for various
-scientific computing tasks as well as visualization with the
-Matplotlib package.
+The course is targeted towards these learner personas:
+
+* A is a early career PhD researcher who has been using Python a bit,
+  but is not sure what they know or don't know.  They want to be able
+  to do their research more efficiently and make sure that they are
+  using the right tools.  A may know that numpy exists, etc. and could
+  theoretically read some about it themselves, but aren't sure if they
+  are going in the right direction.
+
+* A2 can use numpy and pandas, but have learned little bits here and
+  there and hasn't had a comprehensive introduction.  They want to
+  ensure they are using best practices.  (Baseline of high-level
+  packages)
+
+* B is a mid-to-late undergraduate student who has used Python in some
+  classes.  They have possibly learned the syntax and enough to use it
+  in courses, but in a course-like manner where they are expected to
+  create everything themselves.
 
 
 Motivation
@@ -127,53 +166,14 @@ statement <https://python3statement.org/>`_ by many other the major
 projects.
 
 
-Practical details
-=================
 
-The instructor will use the ``anaconda3/latest`` module available on
-triton.  However, if you have Python 3 with the usual scientific
-libraries installed locally on your laptop, you should be able to use
-that as well, if you prefer.
+Credits
+=======
 
-For interactively testing things in Python, you can use a Jupyter
-notebook, or the ``ipython`` shell.  For writing Python code you will
-need a text editor or IDE; Jupyter Lab does have one, if you prefer to
-work in a browser based environment. Popular free programming text
-editors or IDE's with good Python support include:
+This course was originally designed by Janne Blomqvist.
 
-- Emacs
-- Vim
-- VS Code
-- Spyder
-- Eclipse + PyDev
-- PyCharm
+In 2020 it was completely redesigned by a team of the following:
 
-You're not expected to know much Python at the start of the course,
-but a little bit of programming proficiency is needed as a
-prerequisite.
-
-Although not necessary for this course, knowledge of a version control
-system is useful when programming (or writing papers with LaTeX or
-other text-based formats).  The most common and powerful version
-control system today is git.  To get started with git, see our list of
-`Git tutorials </scicomp/git>`.
-
-The course focuses on hands-on demonstrations and exercises rather
-than lectures.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* Authors:
+* Editor:
+* Testers and advisors:
