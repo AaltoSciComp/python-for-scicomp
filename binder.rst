@@ -65,7 +65,7 @@ Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://ope
    1. Fork `the following github repository
       <https://github.com/coderefinery/binder-exercise>`_. In the top-right corner of the page, click Fork.
 
-.. image:: https://docs.github.com/assets/images/help/repository/fork_button.jpg
+      .. image:: https://docs.github.com/assets/images/help/repository/fork_button.jpg
 
    2. Follow instruction given `here <https://coderefinery.github.io/jupyter/06-sharing/#exercise-making-your-notebooks-reproducible-by-anyone-via-binder>`_ to share the forked repository via `Binder <https://mybinder.org/>`_.
 
