@@ -20,8 +20,9 @@ To use it, typically you start with
 ::
 
    import matplotlib.pyplot as plt
-   # ...
-   x = linspace(-4, 4)
+   import numpy as np
+   
+   x = np.linspace(-4, 4)
    plt.plot(x, np.sin(x))
    plt.show()
 
