@@ -3,13 +3,13 @@ Introduction to Python
 
 .. questions::
 
-   - Q1
-   - Q2
+   - Q1 What are the basic blocks of Python language?
+   - Q2 How are functions and classes defined in Python? 
 
 .. objectives::
 
-   - O1
-   - O2
+   - O1 Get a *very* short introduction to Python types and syntax
+   - O2 ???
 
 If you are not familiar with Python, a *very* short introduction;
 first, the builtin scalar and collection types:
@@ -42,7 +42,8 @@ Collections are data structures capable of storing multiple values.
    l[1] = True                        # list elements can be any type
    d = {"Janne": 123, "Richard": 456} # dictionary
    d["Janne"]
-   s = set()                          # Set of unique values
+   s = set(("apple", "cherry", "banana", "apple")) # Set of unique values
+   s
 
 
 Control structures
@@ -112,6 +113,8 @@ number of arguments, and return a number of return values.
        """Say hello to the person given by the argument"""
        print('Hello', name)
        return 'Hello ' + name
+       
+   hello("Anne")
 
 Classes are defined by the ``class`` keyword:
 
@@ -122,6 +125,9 @@ Classes are defined by the ``class`` keyword:
            self._name = name
        def say(self):
            print('Hello', self._name)
+           
+   h = Hello("Richard")
+   h.say()
 
 
 Python type system
@@ -153,11 +159,11 @@ statically typed language, types are associated with lvalues, and are
 (typically) reified during compilation.
 
 
-(lesson here)
+??? (lesson here)
 
 
 
 .. keypoints::
 
-   - K1
-   - K2
+   - K1 Python offers a nice set of basic types as many other programming languages
+   - K2 Python is strongly typed and dynamically typed
