@@ -86,14 +86,14 @@ the most common ones:
 
    np.zeros((2, 3))      # 2x3 array with all elements 0
    np.ones((3, 2), bool) # 3x2 boolean array
-   np.arange(3)          # Evenly spaced values in an interval
-   np.linspace(..)       # similar to above
+   np.arange(10)         # Evenly spaced values in an interval
+   np.linspace(0,9,10)   # similar to above... but what is the difference?
 
 NumPy array slicing syntax
 --------------------------
 
 NumPy provides a convenient array syntax to reference subarrays,
-similar to MATLAB for Fortran.
+similar to MATLAB or Fortran.
 
 ::
 
@@ -255,7 +255,7 @@ functionality, index manipulation etc.
 7. Recall the identity :math:`\sin^2(x) + \cos^2(x) = 1`. Create a
    random 4x4 array with values in the range [0, 10). Now test the
    equality with ``np.equal``. What result do you get with
-   ``np.allclose``instead of ``np.equal``?
+   ``np.allclose`` instead of ``np.equal``?
 
 8. Create a 1D array with 10 random elements. Sort it.
 
