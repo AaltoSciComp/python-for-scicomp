@@ -63,7 +63,7 @@ Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://ope
 .. challenge::
 
    1. Fork `the following github repository
-<https://github.com/coderefinery/binder-exercise>`_. In the top-right corner of the page, click Fork.
+      <https://github.com/coderefinery/binder-exercise>`_. In the top-right corner of the page, click Fork.
 
 .. image:: https://docs.github.com/assets/images/help/repository/fork_button.jpg
 
