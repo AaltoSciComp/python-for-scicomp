@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'LESSON NAME'
+project = 'PYTHON FOR SCIENTIFIC COMPUTING'
 copyright = '2020, The contributors'
 author = 'The contributors'
 github_user = 'AaltoSciComp'
