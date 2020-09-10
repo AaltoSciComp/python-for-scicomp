@@ -25,7 +25,7 @@ to learn yourself as you need to.
      <https://scicomp.aalto.fi/scicomp/shell/>`__, if you aren't
      familiar.
    - You should be able to use a text editor to edit files some.
-   - The software installation <installation> described below
+   - The :doc:`software installation <installation>` described below
      (basically, anaconda).
 
    These are not prerequisites:
@@ -79,6 +79,7 @@ to learn yourself as you need to.
    :maxdepth: 1
    :caption: Reference
 
+   installation
    quick-reference
    guide
 
