@@ -22,7 +22,7 @@ Scalar types, that is, single elements of various types:
 ::
 
    i = 42       # integer
-   i = 2**77    # Integers are arbitrary precision
+   i = 2**77    # Integers have arbitrary precision
    g = 3.14     # floating point number
    c = 2 - 3j   # Complex number
    b = True     # boolean
