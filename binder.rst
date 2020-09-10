@@ -90,6 +90,7 @@ How can I get a DOI from Zenodo?
 - Click on Create release button at the top of the page. Zenodo will redirect you back to GitHub’s repo page to generate a release 
 
 3. Trigger Zenodo to Archive your repository
+
 - Go to GitHub and create a release. Zenodo will automatically download a .zip-ball of each new release and register a DOI. 
 - If this is the first release of your code then you should give it a version number of v1.0.0. Add description for your release then click the Publish release button.
 - Zenodo takes an archive of your GitHub repository each time you create a new Release
