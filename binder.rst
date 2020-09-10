@@ -7,11 +7,13 @@ Binder
    - How to share computational environment?
    - What is Binder?
    - How to binderize my python repository?
+   - How to publish my python repository?
 
 .. objectives::
 
    - Learn about reproducible computational environments
    - Learn to create and share custom computing environments with myBinder
+   - Learn to get a DOI from zenodo for a repository.
 
 
 
@@ -66,6 +68,51 @@ Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://ope
 .. image:: https://docs.github.com/assets/images/help/repository/fork_button.jpg
 
    2. Follow instruction given `here <https://coderefinery.github.io/jupyter/06-sharing/#exercise-making-your-notebooks-reproducible-by-anyone-via-binder>`_ to share the forked repository via `Binder <https://mybinder.org/>`_.
+
+How can I get a DOI from Zenodo?
+---------------------------------
+
+`Zenodo <https://about.zenodo.org/>`_ is a general purpose open-access repository built and operated by `CERN <https://home.cern/>`_ and `OpenAIRE <https://www.openaire.eu/>`_ that allows researchers to archive and get a `Digital Object Identifier (DOI) <https://www.doi.org/>`_ to data that they share.
+
+1. Link GitHub with Zenodo:
+
+- Go to `https://zenodo.org <https://zenodo.org>`_
+- Log in to Zenodo with your GitHub account. Be aware that you may need to authorize Zenodo application (Zenodo will redirect you back to GitHub for Authorization)
+- Choose the repository webhooks options
+- From the drop-down menu next to your email address at the top of the page, select GitHub.
+- You will be presented with a list of all your Github repositories
+
+2. Archiving a repo:
+
+- Select a repository you want to archive on Zenodo.
+- Toggle the "on" button next to the repository ou need to archive.
+- Click on the Repo that you want to reserve.
+- Click on Create release button at the top of the page. Zenodo will redirect you back to GitHub’s repo page to generate a release 
+
+3. Trigger Zenodo to Archive your repository
+- Go to GitHub and create a release. Zenodo will automatically download a .zip-ball of each new release and register a DOI. 
+- If this is the first release of your code then you should give it a version number of v1.0.0. Add description for your release then click the Publish release button.
+- Zenodo takes an archive of your GitHub repository each time you create a new Release
+
+4.  To ensure that everything is working:
+
+- Go to https://zenodo.org/account/settings/github/,  or the Upload page (https://zenodo.org/deposit), you will find your repo is listed 
+- Click on the repo, Zenodo will redirect you to a page that contains a DOI for your repo will the information that you added to the repo. 
+- You can edit the archive on Zenodo and/or publish a new version of your software.
+- It is recommended that you add a description for your repo and fill in other metadata in the edit page. 
+- Your code is now published on a Github public repository and archived on Zenodo. 
+- Update the README file in your repository with the newly created zenodo badge.
+
+How to create a Binder link for your Zenodo DOI?
+-------------------------------------------------
+
+We use the same recipe as in our previous exercise:
+
+- Go to `https://mybinder.org <https://mybinder.org>`_ and fill information using Zenodo DOI (as shown on the figure below)
+
+.. image:: https://miro.medium.com/max/1050/1*xOABVY2hNtVmjV5-LXreFw.gif
+
+- Get your Binder badge and update the README file in your repository. It is good practice to add both the zenodo badge and the corresponding binder badge.
 
 
 .. keypoints::
