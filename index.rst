@@ -178,6 +178,9 @@ This course was originally designed by Janne Blomqvist.
 
 In 2020 it was completely redesigned by a team of the following:
 
-* Authors:
+* Authors: Radovan Bast, Richard Darst, Anne Fouilloux, ...
 * Editor:
-* Testers and advisors:
+* Testers and advisors: Enrico Glerean
+
+We follow The Carpentries Code of Conduct: https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
+
