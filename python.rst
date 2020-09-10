@@ -3,13 +3,13 @@ Introduction to Python
 
 .. questions::
 
-   - Q1 What are the basic blocks of Python language?
-   - Q2 How are functions and classes defined in Python? 
+   - What are the basic blocks of Python language?
+   - How are functions and classes defined in Python? 
 
 .. objectives::
 
-   - O1 Get a *very* short introduction to Python types and syntax
-   - O2 ???
+   - Get a *very* short introduction to Python types and syntax
+   - Be able to follow the rest of the examples in the course, even if you don't understand everything perfectly.
 
 If you are not familiar with Python, a *very* short introduction;
 first, the builtin scalar and collection types:
@@ -165,5 +165,5 @@ statically typed language, types are associated with lvalues, and are
 
 .. keypoints::
 
-   - K1 Python offers a nice set of basic types as many other programming languages
-   - K2 Python is strongly typed and dynamically typed
+   - Python offers a nice set of basic types as many other programming languages
+   - Python is strongly typed and dynamically typed
