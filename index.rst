@@ -16,6 +16,8 @@ This course (like any course) can't teach you Python... it can show
 your some examples, let you see how experts do things, and prepare you
 to learn yourself as you need to.
 
+.. _prerequisites:
+
 .. prereq::
 
    - Knowing basic Python syntax.  We assume that you can do some
@@ -84,6 +86,7 @@ to learn yourself as you need to.
    guide
 
 
+.. _learner-personas:
 
 Who is the course for?
 ======================
