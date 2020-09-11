@@ -44,7 +44,7 @@ to learn yourself as you need to.
    (prereq) ; :doc:`python`
    30 min   ; :doc:`jupyter`
    60 min   ; :doc:`numpy`
-   30 min   ; :doc:`matplotlib`
+   60 min   ; :doc:`matplotlib`
    60 min   ; :doc:`scripts`
    60 min   ; :doc:`packaging`
    ?? min   ; :doc:`scipy`
