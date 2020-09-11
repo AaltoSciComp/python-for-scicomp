@@ -2,10 +2,27 @@ Software installation
 =====================
 
 This page contains instructions for installing the required software
-on your computer.  The workshop could be done with a remote Jupyter
+on your computer.  
+Please make sure before the course that you have all the required software
+installed or in any other way access to it.
+
+For example, the workshop could be done with a remote Jupyter
 server, as long as you can use the terminal from the Jupyter (you need
 to be able to access the command line sometime).
 
+
+List of software needed during the course
+------------------------------------------
+
+* Zoom (not needed for 'non interactive' people following the workshop on Twitch)
+* Pyhton 3 (Anaconda is suggested)
+   * numpy
+   * pandas
+   * scipy
+   * matplotlib
+* Jupyter lab
+* Text editor
+* git
 
 
 Python
