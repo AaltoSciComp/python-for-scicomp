@@ -45,9 +45,9 @@ Depending on how you install this python package, it may be necessary to have `l
 Binder
 ------
 
-`Binder <https://mybinder.readthedocs.io/en/latest/>`_ allows you to create custom computing environments that can be shared and used by many remote users. It uses  `repo2docker <https://repo2docker.readthedocs.io/en/latest/>`_  to create a container image (`docker <https://www.docker.com/>`_ image) of a project using information contained in included configuration files.
+`Binder <https://mybinder.readthedocs.io/en/latest/>`__ allows you to create custom computing environments that can be shared and used by many remote users. It uses  `repo2docker <https://repo2docker.readthedocs.io/en/latest/>`__  to create a container image (`docker <https://www.docker.com/>`__ image) of a project using information contained in included configuration files.
 
-Repo2docker is a standalone package that you can install locally on your laptop but an `online Binder <https://mybinder.org/>`_ service is freely available. This is what we will be using in the tutorial.
+Repo2docker is a standalone package that you can install locally on your laptop but an `online Binder <https://mybinder.org/>`__ service is freely available. This is what we will be using in the tutorial.
 
 How can I share my computing environment with myBinder?
 -------------------------------------------------------
@@ -67,12 +67,12 @@ Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://ope
 
       .. image:: https://docs.github.com/assets/images/help/repository/fork_button.jpg
 
-   2. Follow instruction given `here <https://coderefinery.github.io/jupyter/06-sharing/#exercise-making-your-notebooks-reproducible-by-anyone-via-binder>`_ to share the forked repository via `Binder <https://mybinder.org/>`_.
+   2. Follow instruction given `here <https://coderefinery.github.io/jupyter/06-sharing/#exercise-making-your-notebooks-reproducible-by-anyone-via-binder>`__ to share the forked repository via `Binder <https://mybinder.org/>`_.
 
 How can I get a DOI from Zenodo?
 ---------------------------------
 
-`Zenodo <https://about.zenodo.org/>`_ is a general purpose open-access repository built and operated by `CERN <https://home.cern/>`_ and `OpenAIRE <https://www.openaire.eu/>`_ that allows researchers to archive and get a `Digital Object Identifier (DOI) <https://www.doi.org/>`_ to data that they share.
+`Zenodo <https://about.zenodo.org/>`__ is a general purpose open-access repository built and operated by `CERN <https://home.cern/>`__ and `OpenAIRE <https://www.openaire.eu/>`__ that allows researchers to archive and get a `Digital Object Identifier (DOI) <https://www.doi.org/>`__ to data that they share.
 
 1. Link GitHub with Zenodo:
 
@@ -109,7 +109,7 @@ How to create a Binder link for your Zenodo DOI?
 
 We use the same recipe as in our previous exercise:
 
-- Go to `https://mybinder.org <https://mybinder.org>`_ and fill information using Zenodo DOI (as shown on the figure below)
+- Go to `https://mybinder.org <https://mybinder.org>`__ and fill information using Zenodo DOI (as shown on the figure below)
 
 .. image:: https://miro.medium.com/max/1050/1*xOABVY2hNtVmjV5-LXreFw.gif
 
