@@ -36,7 +36,9 @@ After activating the conda environment, you should be able to check
 the Python version from the command line.  Any version of python3
 should work:
 
-You should be able to start JupyterLab:
+You should be able to start JupyterLab.  You can do this from the
+Anaconda Navigator (recommended if you have it), or from the command
+line like this:
 
 .. code-block:: console
 
