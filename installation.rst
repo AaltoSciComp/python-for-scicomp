@@ -37,7 +37,7 @@ the Python version from the command line.  Any version of python3
 should work:
 
 You should be able to start JupyterLab.  You can do this from the
-Anaconda Navigator (recommended if you have it), or from the command
+`Anaconda Navigator <https://docs.anaconda.com/anaconda/navigator/>`__ (recommended if you have it), or from the command
 line like this:
 
 .. code-block:: console
