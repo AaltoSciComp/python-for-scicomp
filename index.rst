@@ -2,6 +2,12 @@
 Python for Scientific Computing
 ===============================
 
+.. admonition:: Attending the course 14-23.sep?
+
+   `See the course page here
+   <https://scicomp.aalto.fi/training/scip/python-for-scicomp/>`__,
+   below is the course material.
+
 Python is a modern, object-oriented programming language, which has
 become popular in several areas of software development. This course
 discusses how Python can be utilized in scientific computing. The
