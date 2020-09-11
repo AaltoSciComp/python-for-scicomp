@@ -8,9 +8,21 @@ Matplotlib
 
 .. objectives::
 
-   - O1
-   - O2
+   - Know it exists
+   - Make a simple plot
+   - Know about object-oriented vs stateful interface
+   - Headless rendering by setting backend
+   - Know about other tools: seaborn, plotly, altair
+   - Be able to adapt gallery examples
 
+
+Why are we learning matplotlib?
+-------------------------------
+
+While python offers a large range of python packages for plotting
+spatio-temporal data, we will focus here on the most generic python interface
+to create maps. Most of other python packages used for plotting spatio-temporal
+data are based on matplotlib.
 
 Matplotlib is the 'standard' Python plotting library. It is quite
 full-featured, and provides a MATLAB-like plotting API.
@@ -21,7 +33,7 @@ To use it, typically you start with
 
    import matplotlib.pyplot as plt
    import numpy as np
-   
+
    x = np.linspace(-4, 4)
    plt.plot(x, np.sin(x))
    plt.show()
@@ -34,6 +46,37 @@ When using Jupyter notebooks, use the magic
 
 which will cause matplotlib plots to appear inline in the
 notebooks. Very convenient for quick analysis!
+
+
+Rendering figures in Jupyter and on a remote server
+---------------------------------------------------
+
+Basically, the steps needed to run it on a remote server, when you
+don't have a display ('headless' jargon).  Occassionally we get people
+with this problem::
+
+  import matplotlib
+  matplotlib.use("Agg")
+
+We need also instructions for Jupyter.
+
+
+Matplotlib has two different interfaces
+---------------------------------------
+
+* The first mimics MATLAB plotting and uses the pylab interface.
+* The second option is an object-oriented interface which is much more powerful.
+
+When plotting with matplotlib, it is very important to know and understand that there are two approaches even though the reasons of this dual approach is outside the scope of this lesson.
+
+When searching for help on the internet, you will find solutions where the two approaches are mixed which may be very confusing for you. The best for new codes is to stick to the object-oriented interface and this is what we will show in this lesson.
+
+**New matplotlib users should learn and use the object oriented interface.**
+
+.. instructor-note::
+
+   - Demonstrate same code with OO and stateful
+   - Exercise: convert between them
 
 Matplotlib has two slightly different interfaces, a state machine
 interface similar to MATLAB and an object based interface. The state
@@ -88,6 +131,17 @@ And here is the same thing, but using the object-based interface
    ax.set_ylabel('Undamped')
 
    plt.show()
+
+
+Parts of a figure
+-----------------
+
+It may be useful to show
+https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure
+
+Understanding the notion of Figure, axes, etc. is quite useful. the approach in
+python is different from R and R users may be a bit confused without some basic
+principles on how to build a figure with matplotlib.
 
 
 Exercise 4.1
