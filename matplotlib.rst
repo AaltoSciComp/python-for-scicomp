@@ -8,9 +8,12 @@ Matplotlib
 
 .. objectives::
 
-   - O1
-   - O2
-
+   - Know it exists
+   - Make a simple plot
+   - Know about object-oriented vs stateful interface
+   - Headless rendering by setting backend
+   - Know about other tools: seaborn, plotly, altair
+   - Be able to adapt gallery examples
 
 Matplotlib is the 'standard' Python plotting library. It is quite
 full-featured, and provides a MATLAB-like plotting API.
