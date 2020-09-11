@@ -32,10 +32,6 @@ Verify the installation
    <https://youtu.be/OEX1ss_HCHc>`__ - if you can do this, you are
    ready to go for day one.
 
-After activating the conda environment, you should be able to check
-the Python version from the command line.  Any version of python3
-should work:
-
 You should be able to start JupyterLab.  You can do this from the
 `Anaconda Navigator <https://docs.anaconda.com/anaconda/navigator/>`__ (recommended if you have it), or from the command
 line like this:
@@ -49,13 +45,14 @@ You also need to be able to run Python from the command line (starting
 on day 2).  For this, you can start the "terminal" application from
 within JupyterLab, and do everything from there.  This is sufficient
 for the course, so we recommend this if you don't normally use the
-command line.
+command line.:
 
 .. code-block:: console
 
    $ python3 -V
    Python 3.8.3
 
+Any version of Python 3 through Anaconda should work for the course.
 
 
 Text editor
