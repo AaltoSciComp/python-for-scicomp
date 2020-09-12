@@ -1,5 +1,5 @@
-Matplotlib
-==========
+Data visualization with Matplotlib
+==================================
 
 .. questions::
 
