@@ -40,6 +40,32 @@ dimensions.  An array has:
 
 * TODO: List vs array performance demonstration using %timeit similar to: https://webcourses.ucf.edu/courses/1249560/pages/python-lists-vs-numpy-arrays-what-is-the-difference
 
+To test the performance of pure Python vs numpy we can write in our jupyter notebook
+
+Create one list and one 'empty' list, to store the result in ::
+
+  a = list(range(10000))
+  b = [ 0 ] * 10000
+
+In a new cell starting with %%timeit, loop through the list a and fill the second list b with a squared ::
+  
+  %%timeit
+  for i in range(len(a)):
+    b[i] = a[i]**2
+
+For the numpy example, create one array and one 'empty' array to store the result in ::
+
+  import numpy as np
+  a = np.arange(10000)
+  b = np.zeros(10000)
+
+In a new cell starting with %%timeit, fill be with a squared ::
+
+  %%timeit
+  b = a ** 2
+
+
+
 Creating arrays
 ---------------
 
@@ -223,7 +249,7 @@ functions with standardized arguments:
   x                    #  array([[ 0,  1,  2,  3],
                                  [ 4,  5,  6,  7],
                                  [ 8,  9, 10, 11]])
-  x.max()              #   11
+  x.max()              #  11
   x.max(axis=0)        #  array([ 8,  9, 10, 11])
   x.max(axis=1)        #  array([ 3,  7, 11])
 
