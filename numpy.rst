@@ -18,20 +18,39 @@ TODO:
   - Types of operations: scalar, ufunc, methods, functions + broadcasting?
 
 So, we already know about python lists, and that we can put all kinds of things in there.
-But in scientific usage, lists are often not enough. They are slow and not very flexible.
+But in scientific usage, lists are often not enough. They are slow and
+not very flexible.
+
+
+What is an array?
+-----------------
+
+For example, consider `[1, 2.5, 'asdf', False, [1.5, True]]` -
+this is a Python string, but it has different types for every
+element.  When you do math on this, every element has to be handled separately.
 
 Numpy is the most used library for scientific computing. 
 (Even if you are not using it directly, chances are high that some library uses it in the background)
 Numpy provides the high-performance multidimensional array object and tools to use it. 
 
-An array is a 'grid' of values, with all the same types. It is indexed by tuples of 
-non negative indices and provides the framework for multiple dimensions.
+An array is a 'grid' of values, with all the same types. It is indexed by tuples of
+non negative indices and provides the framework for multiple
+dimensions.  An array has:
 
-* List vs array performance demonstration
+* `dtype` - data type.  Arrays always contain one type
+* `shape` - shape of the data, for example `3×2` or `3×2×500` or even
+  `500` (one dimensional) or `[]` (zero dimensional).
+* `data` - raw data storage in memory.  This can be passed to C or
+  Fortran code for efficient calculations.
 
-Array definition
------------------
-::
+* TODO: List vs array performance demonstration
+
+
+
+Creating arrays
+---------------
+
+There are different ways of creating arrays::
 
   a = np.array([1,2,3])               # 1-dimensional array (rank 1)
   b = np.array([[1,2,3],[4,5,6]])     # 2-dimensional array (rank 2)
@@ -39,9 +58,7 @@ Array definition
   b.shape                             # the shape (rows,columns)
   b.size                              # number of elements 
 
-In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content:
-
-::
+In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content::
 
    np.zeros((2, 3))           # 2x3 array with all elements 0
    np.ones((1,2))             # 1x2 array with all elements 1
@@ -54,19 +71,21 @@ In addition to above ways of creating arrays, there are many other ways of creat
    c = np.ones((3,3))
    d = np.ones((3, 2), bool)  # 3x2 boolean array
 
-Arrays can also be stored and read from a (.npy) file :
-
-:: 
+Arrays can also be stored and read from a (.npy) file:: 
 
    np.save('x.npy')           # save an array to a .npy file
    np.load('x.npy')           # load an array from a .npy file
 
-In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array:
+In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array::
 
-::
-
-   d.dtype                    # datatype of the array       
+   d.dtype                    # datatype of the array
    d.astype('int')            # change datatype from boolean to integer
+
+In the last example, `.astype('int')`, it will make a **copy** of the
+array, and re-allocate data - unless the dtype is exactly the same as
+before.  Understanding and minimizing copies is one of the most
+important things to do for speed.
+
 
 .. challenge::
 
@@ -80,8 +99,8 @@ In many occasions (especially when something goes different than expected) it is
 
 .. solution::
 
-   - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype int64, 
-   while ``np.linspace(0,9,10)`` results in array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.]) with dtype float64. 
+   - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**, 
+   while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**. 
    Both ``np.linspace`` and ``np.arange`` take dtype as an argument and can be adjusted to match each other in that way.
 
    - **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int.
@@ -91,10 +110,18 @@ In many occasions (especially when something goes different than expected) it is
    - **NumpyI/O** ``np.save('x.npy')`` and ``np.load('x.npy')`` 
 
 
+
 Array maths
 ------------
 
-::
+Clearly, you can do math on arrays.  Math in numpy, is very fast
+because it is implemented in C or Fortran - just like most other
+high-level languages such as R, Matlab, etc do.
+
+By default, in numpy all math is element-by-element.  This is unlike
+Matlab, where most things are element-by-element, but ``*`` becomes
+array multiplication.  Numpy values consistency and does not treat
+2-dimensional arrays specially::
 
   a = np.array([[1,2],[3,4]])
   b = np.array([[5,6],[7,8]])
@@ -108,7 +135,8 @@ Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sq
 .. challenge::
 
    - **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? 
-   - **Axis** What is the difference between ``np.sum(axis=1)`` vs ``np.sum(axis=0)``? 
+   - **Axis** What is the difference between ``np.sum(axis=1)`` vs
+     ``np.sum(axis=0)`` on a two-dimensional array? 
 
 
 .. solution::
@@ -116,8 +144,22 @@ Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sq
    - **Matrix multiplication** 
    - **Axis** 
 
+
+
 Indexing and Slicing
 --------------------
+
+Numpy has many ways to extract values out of arrays:
+
+- You can select a single element
+- You can select rows or columns
+- You can select ranges where a condition is true.
+
+Clever and efficient use of these operations is a key to numpy's
+speed: you should try to cleverly use these selectors (written in C)
+to extract data to be used with other numpy functions written in C or
+Fortran.  This will give you the benefits of Python with most of the
+speed of C.
 
 ::
 
@@ -128,9 +170,7 @@ Indexing and Slicing
 
   a[(0, 1), (1, 1)]  # second element of first and second row as array
 
-Boolean indexing
-
-::
+Boolean indexing::
 
   a = np.eye(4)
   idx = (a > 0)      # creates boolean matrix of same size as a 
@@ -167,6 +207,58 @@ Boolean indexing
 
    - Numpy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
    - Be aware of some numpy specific pecularities
+
+
+
+Types of operations
+-------------------
+
+There are different types of standard operations in numpy:
+
+**ufuncs**, "universal functions": These are element-by-element
+functions with standardized arguments:
+
+- One, two, or three input arguments
+- ``out=`` output argument, store output in this array (rather than
+  make a new array) - saves copying data!
+- See the `full reference <https://numpy.org/doc/stable/reference/ufuncs.html>`__
+
+**Array methods** do something about the array itself::
+
+  x = np.arange(12)
+  x.shape = (3, 4)
+  x                    #  array([[ 0,  1,  2,  3],
+                                 [ 4,  5,  6,  7],
+                                 [ 8,  9, 10, 11]])
+  x.max()              #   11
+  x.max(axis=0)        #  array([ 8,  9, 10, 11])
+  x.max(axis=1)        #  array([ 3,  7, 11])
+
+**Other functions**: there are countless other functions covering
+linear algebra, scientific functions, etc.
+
+
+.. challenge::
+
+   - **In-place addition**: Create an array, add it to itself using a unfunc.
+
+
+
+Linear algebra
+--------------
+
+In addition to the array type, there is a ``matrix`` type which is
+specialized:
+
+- two-dimensional only
+- ``*`` operator is matrix multiplication
+
+
+.. challenge::
+
+   - **Matrixes are always 2D**  Make a 2x3 array and a 2x3 matrix.
+     Extract just the first row of each of them and check the ``.shape``.
+
 
 
 Additional Exercises
