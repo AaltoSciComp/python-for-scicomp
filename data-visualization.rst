@@ -430,3 +430,4 @@ Let's practice this!
    - Avoid manual post-processing, script everything.
    - Browse a number of example galleries to help you choose the library that fits best your work/style.
    - Figures for presentation slides and figures for manuscripts have different requirements.
+   - Think about color-vision deficiencies when choosing colors. Use existing solutions for this problem.
