@@ -14,7 +14,6 @@ Enter NumPy
 
 TODO:
   - Why is the array data structure good?
-  - Why learn numpy?  You rarely use it directly, but almost any other package uses it.
   - Slice arrays, basic and fancy
   - Types of operations: scalar, ufunc, methods, functions
 
@@ -50,7 +49,7 @@ Other ways of creating arrays
    np.eye(2)                  # 2x2 identity matrix
 
    np.arange(10)              # Evenly spaced values in an interval
-   np.linspace(0,9,10)        # same as above
+   np.linspace(0,9,10)        # same as above, see exercise
 
    np.load('x.npy')           # load an array from a .npy file
 
@@ -63,11 +62,13 @@ Other ways of creating arrays
 Exercise 1
 -----------
 
-* arange vs linspace, can you make them do same thing?
+* Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
 
-* playing around with reshape
+* Create a 3x2 array of random float numbers (check np.random) between 0 and 1. Now change the arrays datatype to int (array.astype). How does the array look like? 
 
-* numpy I/O 
+* Create a 3x2 array of random float numbers (check np.random) between 0 and 1. Reshape the array in any way possible. What is not possible?
+
+* Save above array to .npy file (np.save) and read it in again.
 
 
 Array maths
@@ -83,11 +84,12 @@ Array maths
 
 Also: - (np.subtract()), * (np.multiply()), / (np.divide()), np.sqrt(), np.sum(), np.mean()
 
+
 Exercise 2
 -----------
 
-*np.multiply vs np.dot
-*np.sum(axis=1) vs np.sum(axis=0)
+* What is the difference between ``np.multiply`` and ``np.dot`` ? 
+* What is the difference between ``np.sum(axis=1)`` vs ``np.sum(axis=0)``? 
 
 
 Indexing and Slicing
@@ -119,7 +121,7 @@ a = np.eye(4)
 b = a[:,0]
 b[0,0] = 5
 
-* how does a look, how to avoid? -> view vs copy
+* Try out above code. How does a look like before b has changed and after? How could it be avoided?
 
 
 Exercise 4
@@ -156,8 +158,8 @@ Additional Exercises
    ``np.sort(np_array)``?
 
 9. For the random array in question 8, instead of sorting it, perform
-    an indirect sort. That is, return the list of indices which would
-    index the array in sorted order.
+   an indirect sort. That is, return the list of indices which would
+   index the array in sorted order.
 
 10. Create a 4x4 array of zeros, and another 4x4 array of ones. Next
     combine them into a single 8x4 array with the content of the zeros
