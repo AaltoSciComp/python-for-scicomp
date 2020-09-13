@@ -222,13 +222,6 @@ Boolean indexing::
    - **Numpy functionality**
 
 
-..keypoints::
-
-   - Numpy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
-   - Be aware of some numpy specific pecularities
-
-
-
 Types of operations
 -------------------
 
@@ -278,7 +271,12 @@ specialized:
    - **Matrixes are always 2D**  Make a 2x3 array and a 2x3 matrix.
      Extract just the first row of each of them and check the ``.shape``.
 
+     
 
+..keypoints::
+
+   - Numpy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
+   - Be aware of some numpy specific pecularities
 
 Additional Exercises
 --------------------
