@@ -248,7 +248,7 @@ recommend to learn and use the object oriented interface.**
 .. solution::
 
   .. code-block:: python
-     :emphasize-lines: 10-11
+     :emphasize-lines: 6,10-11
 
      import matplotlib.pyplot as plt
      import numpy as np
