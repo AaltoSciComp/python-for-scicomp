@@ -41,7 +41,6 @@ dimensions.  An array has:
 * `data` - raw data storage in memory.  This can be passed to C or
   Fortran code for efficient calculations.
 
-* TODO: List vs array performance demonstration using %timeit similar to: https://webcourses.ucf.edu/courses/1249560/pages/python-lists-vs-numpy-arrays-what-is-the-difference
 
 To test the performance of pure Python vs numpy we can write in our jupyter notebook
 
@@ -337,7 +336,7 @@ Matrix or not, there are many different functions available:
    - **Matrixes are always 2D** (advanced) Make a 2x3 array and a 2x3 matrix.
      Extract just the first row of each of them and check the ``.shape``.
 
-     
+
 
 ..keypoints::
 
