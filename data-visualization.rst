@@ -156,8 +156,6 @@ outside the scope of this lesson.
    ax.set_ylabel("we should label the y axis")
    ax.set_title("some title")
 
-   plt.show()
-
 - The more traditional option mimics MATLAB plotting and uses the **pyplot interface** (``plt`` carries
   the global settings):
 
@@ -176,8 +174,6 @@ outside the scope of this lesson.
    plt.xlabel("we should label the x axis")
    plt.ylabel("we should label the y axis")
    plt.title("some title")
-
-   plt.show()
 
 When searching for help on the internet, you will find both approaches, they
 can also be mixed. Although the pyplot interface looks more compact, **we
