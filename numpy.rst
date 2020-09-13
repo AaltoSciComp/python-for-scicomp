@@ -261,18 +261,18 @@ functions with standardized arguments:
   The basic idea is that it expands dimensions of the smaller array so
   that they are compatible in shape.
 
-**Array methods** do something about the array itself.
+**Array methods** do something to one array:
 
-  - Some of these are the same as ufuncs::
+- Some of these are the same as ufuncs::
 
-    x = np.arange(12)
-    x.shape = (3, 4)
-    x                    #  array([[ 0,  1,  2,  3],
-                         #         [ 4,  5,  6,  7],
-                         #         [ 8,  9, 10, 11]])
-    x.max()              #  11
-    x.max(axis=0)        #  array([ 8,  9, 10, 11])
-    x.max(axis=1)        #  array([ 3,  7, 11])
+     x = np.arange(12)
+     x.shape = (3, 4)
+     x                    #  array([[ 0,  1,  2,  3],
+                          #         [ 4,  5,  6,  7],
+                          #         [ 8,  9, 10, 11]])
+     x.max()              #  11
+     x.max(axis=0)        #  array([ 8,  9, 10, 11])
+     x.max(axis=1)        #  array([ 3,  7, 11])
 
 **Other functions**: there are countless other functions covering
 linear algebra, scientific functions, etc.
