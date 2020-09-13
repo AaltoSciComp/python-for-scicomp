@@ -109,7 +109,7 @@ before.  Understanding and minimizing copies is one of the most
 important things to do for speed.
 
 
-.. challenge::
+.. challenge:: Exercises: Numpy-1
 
    - **Datatypes** Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
 
@@ -119,7 +119,7 @@ important things to do for speed.
 
    - **NumPyI/O** Save above array to .npy file (``np.save``) and read it in again.
 
-.. solution::
+.. solution:: Solutions: Numpy-1
 
    - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**, 
    while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**. 
@@ -154,14 +154,14 @@ array multiplication.  NumPy values consistency and does not treat
 Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``, ...
 
 
-.. challenge::
+.. challenge:: Exercises: Numpy-2
 
    - **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? Try it.
    - **Axis** What is the difference between ``np.sum(axis=1)`` vs
      ``np.sum(axis=0)`` on a two-dimensional array? What if you leave out the axis parameter?
 
 
-.. solution::
+.. solution:: Solutions: Numpy-2
 
    - **Matrix multiplication** ``np.multiply`` does elementwise multiplication on two arrays, while ``np.dot`` enables matrix multiplication.
    - **Axis** ``axis=1`` does the operation (here: ``np.sum``) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.
@@ -200,7 +200,7 @@ Boolean indexing on above created array::
   a[a > 0]           # same as above in one line 
 
 
-.. challenge::
+.. challenge:: Exercise: Numpy-3
 
    ::
 
@@ -210,18 +210,18 @@ Boolean indexing on above created array::
 
    - **View vs copy** Try out above code. How does ``a`` look like before ``b`` has changed and after? How could it be avoided?
 
-.. solution::
+.. solution:: Solution: Numpy-3
 
    - **View vs copy** The change in ``b`` has also changed the array ``a``! This is because ``b`` is merely a view of a part of array ``a``. 
    Both variables point to the same memory. Hence, if one is changed, the other one also changes. If you need to keep the original array as is, use ``np.copy(a)``.
 
 
 
-.. challenge::
+.. challenge:: Exercise: Numpy-4
 
    - **NumPy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
 
-.. solution::
+.. solution:: Solution: Numpy-4
 
    - **Numpy functionality**
 
@@ -278,7 +278,7 @@ functions with standardized arguments:
 linear algebra, scientific functions, etc.
 
 
-.. challenge::
+.. challenge:: Exercises: Numpy-5
 
    - **In-place addition**: Create an array, add it to itself using a
      ufunc.
@@ -287,7 +287,7 @@ linear algebra, scientific functions, etc.
      ``dtype='float'``, and an array of ``dtype='int'``.  Try to use the
      int array is the output argument of the first two arrays.
 
-.. solution::
+.. solution:: Solution: Numpy-5
 
    - **in-place addition**::
 
@@ -331,7 +331,7 @@ Matrix or not, there are many different functions available:
   <https://docs.python.org/3/extending/>`__.
 
 
-.. challenge::
+.. challenge:: Exercises: Numpy-6
 
    - **Matrixes are always 2D** (advanced) Make a 2x3 array and a 2x3 matrix.
      Extract just the first row of each of them and check the ``.shape``.
@@ -344,8 +344,10 @@ Matrix or not, there are many different functions available:
 
 
 
-Additional Exercises
---------------------
+Additional Exercises Numpy-7
+----------------------------
+
+These are advanced and optional, and will not be done in most courses.
 
 1. Reverse a vector. Given a vector, reverse it such that the last
    element becomes the first, e.g. ``[1, 2, 3]`` => ``[3, 2, 1]``
@@ -382,7 +384,7 @@ Additional Exercises
     the rigth.
 
 
-.. solution::
+.. solution:: Solution Numpy-7
 
    1. One solution is:: 
     
