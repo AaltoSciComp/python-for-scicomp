@@ -60,7 +60,7 @@ Other ways of creating arrays
    d.dtype                    # datatype of the array       
 
 
-..challenge::
+.. challenge::
 
 * **Datatypes** Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
 
@@ -85,7 +85,7 @@ Array maths
 Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``, ...
 
 
-..challenge::
+.. challenge::
 
 * **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? 
 * **Axis** What is the difference between ``np.sum(axis=1)`` vs ``np.sum(axis=0)``? 
@@ -114,7 +114,7 @@ Boolean indexing
   a[a > 0]           # same as above in one line 
 
 
-..challenge::
+.. challenge::
 
 ::
 
@@ -125,7 +125,7 @@ Boolean indexing
 * **View vs copy** Try out above code. How does a look like before b has changed and after? How could it be avoided?
 
 
-..challenge::
+.. challenge::
 
 * **Numpy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
 
