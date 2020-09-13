@@ -45,6 +45,8 @@ Why are we learning matplotlib?
 - MATLAB users will feel familiar.
 - Even if you choose to use another library (see above list), chances are high
   that you need to adapt a Matplotlib plot of somebody else.
+- Libraries that built on top of Matplotlib may need knowledge of Matplotlib
+  for custom adjustments.
 
 
 Getting started with Matplotlib
@@ -73,8 +75,6 @@ to show the generated figure in the notebook, we don't need this when running th
    ax.set_ylabel("we should label the y axis")
    ax.set_title("some title")
 
-   plt.show()
-
 This is the result:
 
 .. image:: data-visualization/getting-started.png
@@ -82,12 +82,16 @@ This is the result:
 When plotting using a script, you often want to also save the generated figure:
 
 .. code-block:: python
-   :emphasize-lines: 4
+   :emphasize-lines: 3
 
    # ... rest of the script
 
+   fig.savefig("my-plot.png")
+
    plt.show()
-   plt.savefig("my-plot.png")
+
+We also added ``plt.show()`` to show the figure on screen. We did not need this
+in a Jupyter notebook.
 
 When running a Matplotlib script on a remote server without a "display" (e.g.
 compute cluster), you may need to add this line:
@@ -152,8 +156,6 @@ outside the scope of this lesson.
    ax.set_ylabel("we should label the y axis")
    ax.set_title("some title")
 
-   plt.show()
-
 - The more traditional option mimics MATLAB plotting and uses the **pyplot interface** (``plt`` carries
   the global settings):
 
@@ -172,8 +174,6 @@ outside the scope of this lesson.
    plt.xlabel("we should label the x axis")
    plt.ylabel("we should label the y axis")
    plt.title("some title")
-
-   plt.show()
 
 When searching for help on the internet, you will find both approaches, they
 can also be mixed. Although the pyplot interface looks more compact, **we
@@ -202,6 +202,18 @@ Imagine we wanted to learn how to create a histogram and web searched
 - Try this example out in the Jupyter notebook.
 - Change the number of bins.
 - Convert it from pyplot interface to using the object oriented interface.
+
+.. discussion::
+
+   Why did we do this? One day you may want to write functions which wrap
+   around Matplotlib function calls and then you can send ``fig`` and ``ax``
+   into these functions and there is less risk that adjusting figures changes
+   settings also for unrelated figures created in other functions.
+
+   When using the pyplot interface, settings are modified for the entire
+   ``plt`` package. The latter is acceptable for linear scripts but may yield
+   surprising results when introducing functions to enhance/abstract Matplotlib
+   calls.
 
 
 Styling and customizing plots
