@@ -34,7 +34,7 @@ From jupyter notebooks to python scripts
 ----------------------------------------- 
 
 Save as python script
-======================
+---------------------
 
 Jupyter notebooks can be parameterized for instance using `papermill <https://papermill.readthedocs.io/en/latest/>`_. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate python scripts. This will also force you to modularize your code.
 
@@ -62,7 +62,7 @@ Actually, you could also export your notebook in many other formats. Check `Jupy
    python plot_inflammation.py
 
 Run a python script 
-====================
+-------------------
 
 TODO: Explain how to create a script with `#!`  to run it:
 
@@ -72,7 +72,7 @@ TODO: Explain how to create a script with `#!`  to run it:
 
 
 Synchronize with Jupytext
-==========================
+-------------------------
 
 `jupytext <https://jupytext.readthedocs.io/en/latest/>`_` is a python package you can use for automatically synchronizing your notebooks into python scripts.
 
@@ -106,7 +106,7 @@ Generalize your python script
 ------------------------------
 
 Importing other python files
-=============================
+----------------------------
 
 To avoid having large notebook/scripts, it is recommended to organize your python code in modules.
 
@@ -118,11 +118,11 @@ TODO: show an example where we create a module that we import in the python scri
 
 
 Parameterize your inputs
-========================
+------------------------
 
 
 Command line arguments with `sys.argv`
-======================================
+--------------------------------------
 
 
 **Example**
@@ -137,7 +137,7 @@ We create a python script to sum two integers and print the result. The two inte
 
 
 Parsing command line arguments with `argparse`
-==============================================
+----------------------------------------------
 
 ::
 
