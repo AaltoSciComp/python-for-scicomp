@@ -252,14 +252,6 @@ Exercise 4.3
   exercise will be to change this to log scale.
 
 
-Exercise 4.4
-------------
-
-.. instructor-note::
-
-  Example for fetching csv data from the web and plot a heatmap
-
-
 How to choose between the many libraries
 ----------------------------------------
 
