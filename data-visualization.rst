@@ -31,8 +31,15 @@ From `Claus O. Wilke: "Fundamentals of Data Visualization" <https://clauswilke.c
   after the person who created them left the group.
 - **Use free tools**: Python or R.
 - There is not the one perfect language and **not the one perfect library** for everything.
-- Within Python, many libraries exist: Matplotlib, Seaborn, Altair, Plotly,
-  Bokeh, ggplot, PyNGL, and others.
+- Within Python, many libraries exist:
+  `Matplotlib <https://matplotlib.org/>`__,
+  `Seaborn <https://seaborn.pydata.org/>`__,
+  `Altair <https://altair-viz.github.io/>`__,
+  `Plotly <https://plotly.com/python/>`__,
+  `Bokeh <https://bokeh.org/>`__,
+  `ggplot <https://yhat.github.io/ggpy/>`__,
+  `PyNGL <https://www.pyngl.ucar.edu/>`__,
+  and many others.
 - Two main families of libraries: procedural (e.g. Matplotlib) and declarative
   (using grammar of graphics).
 
@@ -256,20 +263,48 @@ Exercise 4.4
 How to choose between the many libraries
 ----------------------------------------
 
-.. instructor-note::
+`Matplotlib <https://matplotlib.org/>`__ is probably the most standard and most
+widely used library.  However it is a relatively low-level interface for
+drawing (in terms of abstractions, not in terms of quality) and does not
+provide statistical functions.
 
-  Will write more here on how to choose ...
-  the pros and cons.
+Many libraries exist with their own strengths, it is also a matter of taste:
+
+- `Seaborn <https://seaborn.pydata.org/>`__: high-level interface to
+  Matplotlib, statistical functions built in.
+- `Altair <https://altair-viz.github.io/>`__: declarative visualization (R users
+  will be more at home), statistics built in.
+- `Plotly <https://plotly.com/python/>`__: interactive graphs.
+- `Bokeh <https://bokeh.org/>`__: also here good for interactivity.
+- `ggplot <https://yhat.github.io/ggpy/>`__: R users will be more at home.
+- `PyNGL <https://www.pyngl.ucar.edu/>`__: used in the weather forecast community.
 
 
 Exercise 4.5
 ------------
 
-.. instructor-note::
+What many people do (including the instructor) is to browse existing example
+galleries for inspiration and to start with an example that is already close to
+what we have in mind and then to replace the example with own data and to
+customize the looks.
 
-  I will point to seaborn, altair, ... galleries and the goal of the exercise
-  is to select an example that the learner is most interested (closest to their
-  research) and try to get the same result as the gallery.
+Let's practice this!
+
+- Browse the various example galleries (links below)
+- Take an example that is close to your recent visualization project or simply interests you
+- Try to reproduce this example in the Jupyter notebook
+
+Example galleries and demos:
+
+- `Seaborn <https://seaborn.pydata.org/examples/index.html>`__
+- `Altair <https://altair-viz.github.io/gallery/index.html>`__
+  (not part of a default Anaconda installation)
+- `Plotly <https://plotly.com/python/>`__
+- `Bokeh <https://demo.bokeh.org/>`__
+- `ggplot <https://yhat.github.io/ggpy/>`__
+  (not part of a default Anaconda installation)
+- `PyNGL <https://www.pyngl.ucar.edu/Examples/gallery.shtml>`__
+  (not part of a default Anaconda installation)
 
 
 .. keypoints::
