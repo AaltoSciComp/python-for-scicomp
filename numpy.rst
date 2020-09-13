@@ -380,3 +380,57 @@ Additional Exercises
     array on top and the ones on the bottom.  Finally, do the same,
     but create a 4x8 array with the zeros on the left and the ones on
     the rigth.
+
+
+.. solution::
+
+    1. :: 
+    
+        a = np.array([1, 2, 3])
+        a[::-1]
+        
+    2. ::
+        
+        b = np.ones((10,10))
+        b[:,[0, -1]]=0
+        b[[0, -1],:]=0
+
+    3. ::
+        
+        x = np.random.rand(100)
+        y = x + 10*(x >= 0.2)*(x < 0.7)
+    
+    4. For values exactly halfway between rounded decimal values, NumPy rounds to the nearest even value.
+
+    5. ::
+
+        a = np.array([-3.3, -2.5, -1.5, -0.75, -0.5, 0.5, 0.75, 1.5, 2.5, 3])
+        np.round(a)
+        np.ceil(a)
+        np.floor(a)
+        np.trun(a)
+
+    6. ::
+
+        x = 10*np.random.rand(4,4)
+        oo = np.ones((4,4))
+        s2c2 = np.square(np.sin(x))+np.square(np.cos(x))
+        np.equal(oo,s2c2)
+        np.allclose(oo,s2c2)
+
+    7. ::
+        
+        x = np.random.rand(10)
+        x.sort()
+
+    8. NumPy.sort() returns a sorted copy of an array. 
+
+    9. ``np.argsort(x)``
+
+    10. ::
+
+        z = np.zeros((4,4))
+        o = np.ones((4,4))
+        np.concatenate((z,o))
+        np.concatenate((z,o),axis=1)
+
