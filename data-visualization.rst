@@ -3,17 +3,16 @@ Data visualization with Matplotlib
 
 .. questions::
 
-   - Q1
-   - Q2
+   - When to use Matplotlib for data visualization?
+   - When to prefer other libraries?
 
 .. objectives::
 
-   - Know it exists
-   - Make a simple plot
-   - Know about object-oriented vs stateful interface
-   - Headless rendering by setting backend
-   - Know about other tools: seaborn, plotly, altair
+   - Be able to create simple plots and tweak them
+   - Know about object-oriented vs pyplot interfaces of Matplotlib
    - Be able to adapt gallery examples
+   - Know how to look for help
+   - Know that other tools exist
 
 
 Repeatability/reproducibility
@@ -44,7 +43,7 @@ From `Claus O. Wilke: "Fundamentals of Data Visualization" <https://clauswilke.c
   (using grammar of graphics).
 
 
-Why are we learning matplotlib?
+Why are we learning Matplotlib?
 -------------------------------
 
 - Matplotlib is perhaps the most "standard" Python plotting library.
@@ -52,7 +51,7 @@ Why are we learning matplotlib?
 - MATLAB users will feel familiar.
 - Even if you choose to use another library (see above list), chances are high
   that you need to adapt a Matplotlib plot of somebody else.
-- Libraries that built on top of Matplotlib may need knowledge of Matplotlib
+- Libraries that are built on top of Matplotlib may need knowledge of Matplotlib
   for custom adjustments.
 
 
@@ -97,8 +96,8 @@ When plotting using a script, you often want to also save the generated figure:
 
    plt.show()
 
-We also added ``plt.show()`` to show the figure on screen. We did not need this
-in a Jupyter notebook.
+This code snipped also contains ``plt.show()`` to show the figure on screen. We
+did not need this in a Jupyter notebook.
 
 When running a Matplotlib script on a remote server without a "display" (e.g.
 compute cluster), you may need to add this line:
@@ -177,7 +176,7 @@ there are **two approaches** even though the reasons of this dual approach is
 outside the scope of this lesson.
 
 - The more modern option is an **object-oriented interface** (the ``fig`` and ``ax`` objects
-  can be configured and passed around):
+  can be configured separately and passed around to functions):
 
 .. code-block:: python
    :emphasize-lines: 8-14
@@ -281,7 +280,6 @@ Styling and customizing plots
 -----------------------------
 
 - Matplotlib allows to customize almost every aspect of a plot.
-- Do not customize manually using a graphical program (not easily repeatable/reproducible).
 - It is useful to study `Matplotlib parts of a figure <https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure>`__
   so that we know what to search for to customize things.
 - You can also select among pre-defined themes/
@@ -291,10 +289,12 @@ Styling and customizing plots
 
    plt.style.use('ggplot')
 
+- **Do not customize "manually"** using a graphical program (not easily repeatable/reproducible).
+
 
 .. challenge:: Exercise 4.3
 
-  In this exercise we will learn how to use log scale.
+  In this exercise we will learn how to use log scales.
   To demonstrate this we first fetch some data to plot:
 
   .. code-block:: python
@@ -307,7 +307,9 @@ Styling and customizing plots
     data = px.data.gapminder().query("year == 2007")
     data
 
-  Then we can plot the data, first using a linear scale:
+  - Try the above snippet in a notebook and it will give you an overview over the data.
+
+  - Then we can plot the data, first using a linear scale:
 
   .. code-block:: python
 
@@ -380,10 +382,10 @@ How to choose between the many libraries
 `Matplotlib <https://matplotlib.org/>`__ is probably the most standard and most
 widely used library.  However it is a relatively low-level interface for
 drawing (in terms of abstractions, not in terms of quality) and does not
-provide statistical functions.
+provide statistical functions. Some figures require typing and tweaking many lines of code.
 
-Many libraries exist with their own strengths, it is also a matter of personal
-preferences:
+Many other visualization libraries exist with their own strengths, it is also a
+matter of personal preferences:
 
 - `Seaborn <https://seaborn.pydata.org/>`__: high-level interface to
   Matplotlib, statistical functions built in.
@@ -394,7 +396,7 @@ preferences:
 - `ggplot <https://yhat.github.io/ggpy/>`__: R users will be more at home.
 - `PyNGL <https://www.pyngl.ucar.edu/>`__: used in the weather forecast community.
 
-What many people do (including the instructor) is to browse existing example
+What many people do (including the present instructor) is to browse existing example
 galleries for inspiration and to start with an example that is already close to
 what we have in mind and then to replace the example with own data and to
 customize the looks.
@@ -420,9 +422,11 @@ Let's practice this!
   - Browse the various example galleries (links above).
   - Take an example that is close to your recent visualization project or simply interests you.
   - Try to reproduce this example in the Jupyter notebook.
+  - If you have time, try to tweak it.
 
 
 .. keypoints::
 
-   - K1
-   - K2
+   - Avoid manual post-processing, script everything.
+   - Browse a number of example galleries to help you choose the library that fits best your work/style.
+   - Figures for presentation slides and figures for manuscripts have different requirements.
