@@ -82,7 +82,7 @@ Array maths
   c = a + b
   d = np.add(a,b)
 
-Also: - (np.subtract()), * (np.multiply()), / (np.divide()), np.sqrt(), np.sum(), np.mean()
+Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``
 
 
 Exercise 2
@@ -117,9 +117,11 @@ Boolean indexing
 Exercise 3
 -----------
 
-a = np.eye(4)
-b = a[:,0]
-b[0,0] = 5
+::
+
+  a = np.eye(4)
+  b = a[:,0]
+  b[0,0] = 5
 
 * Try out above code. How does a look like before b has changed and after? How could it be avoided?
 
