@@ -111,7 +111,8 @@ Boolean indexing
 
   a = np.eye(4)
   idx = (a > 0)      # creates boolean matrix of same size as a 
-  a[idx]             # array of trues
+  a[idx]             # array with matching values of above criterion
+  
   a[a > 0]           # same as above in one line 
 
 
