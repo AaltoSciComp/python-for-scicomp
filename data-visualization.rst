@@ -251,10 +251,21 @@ Exercise 4.4
 How to choose between the many libraries
 ----------------------------------------
 
-.. instructor-note::
+`Matplotlib <https://matplotlib.org/>`__ is probably the most standard and most
+widely used library.  However it is a relatively low-level interface for
+drawing (in terms of abstractions, not in terms of quality) and does not
+provide statistical functions.
 
-  Will write more here on how to choose ...
-  the pros and cons.
+Many libraries exist with their own strengths, it is also a matter of taste:
+
+- `Seaborn <https://seaborn.pydata.org/>`__: high-level interface to
+  Matplotlib, statistical functions built in.
+- `Altair <https://altair-viz.github.io/>`__: declarative visualization (R users
+  will be more at home), statistics built in.
+- `Plotly <https://plotly.com/python/>`__: interactive graphs.
+- `Bokeh <https://bokeh.org/>`__: also here good for interactivity.
+- `ggplot <https://yhat.github.io/ggpy/>`__: R users will be more at home.
+- `PyNGL <https://www.pyngl.ucar.edu/>`__: used in the weather forecast community.
 
 
 Exercise 4.5
