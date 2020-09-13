@@ -16,6 +16,9 @@ So, we already know about python lists, and that we can put all kinds of things 
 But in scientific usage, lists are often not enough. They are slow and
 not very flexible.
 
+.. highlight:: python
+
+
 
 What is an array?
 -----------------
@@ -238,17 +241,43 @@ There are different types of standard operations in numpy:
 functions with standardized arguments:
 
 - One, two, or three input arguments
+- For example, ``a + b`` is similar to ``np.add(a, b)`` but the ufunc
+  has more control.
 - ``out=`` output argument, store output in this array (rather than
   make a new array) - saves copying data!
-- See the `full reference <https://numpy.org/doc/stable/reference/ufuncs.html>`__
+- See the `full reference
+  <https://numpy.org/doc/stable/reference/ufuncs.html>`__
 
-**Array methods** do something about the array itself::
+- They also do **broadcasting**.  Can you add a 1-dimensional array of shape `(3)`
+  to an 2-dimensional array of shape `(3, 2)`?   With broadcasting you
+  can!
+
+  ::
+
+     a = np.array([[1, 2, 3],
+                   [4, 5, 6]])
+     b = np.array([10, 10, 10])
+     a + b                       # array([[11, 12, 13],
+                                 #        [14, 15, 16]])
+
+  Broadcasting is smart and consistent about what it does, which I'm
+  not clever enough to explain quickly here: `the manual page on
+  broadcasting
+  <https://numpy.org/doc/stable/user/basics.broadcasting.html>`__.
+  The basic idea is that it expands dimensions of the smaller array so
+  that they are compatible in shape.
+
+**Array methods** do something about the array itself.
+
+  - Some of these are the same as ufuncs.
+
+  ::
 
   x = np.arange(12)
   x.shape = (3, 4)
   x                    #  array([[ 0,  1,  2,  3],
-                                 [ 4,  5,  6,  7],
-                                 [ 8,  9, 10, 11]])
+                       #         [ 4,  5,  6,  7],
+                       #         [ 8,  9, 10, 11]])
   x.max()              #  11
   x.max(axis=0)        #  array([ 8,  9, 10, 11])
   x.max(axis=1)        #  array([ 3,  7, 11])
@@ -259,12 +288,33 @@ linear algebra, scientific functions, etc.
 
 .. challenge::
 
-   - **In-place addition**: Create an array, add it to itself using a unfunc.
+   - **In-place addition**: Create an array, add it to itself using a
+     ufunc.
+
+   - **In-place addition** (advanced): Create an array of
+     `dtype='float'`, and an array of `dtype='int'`.  Try to use the
+     int array is the output argument of the first two arrays.
+
+.. solution::
+
+   - **in-place addition**::
+
+       x = np.array([1, 2, 3])
+       id(x)                        # get the memory-ID of x
+       np.add(x, x, x)              # Third argument is output array
+       np.add(x, x, x)
+       print(x)
+       id(x)                        # get the memory-ID of x
+                                    # - notice  it is the same
+
+     You note that ``np.add()`` has a third argument that is the
+     output array (same as ``out=``), *and* the function returns that
+     same array.
 
 
 
-Linear algebra
---------------
+Linear algebra and other advanced math
+--------------------------------------
 
 In addition to the array type, there is a ``matrix`` type which is
 specialized:
@@ -272,10 +322,26 @@ specialized:
 - two-dimensional only
 - ``*`` operator is matrix multiplication
 
+Matrix or not, there are many different functions available:
+
+- `Linear algebra in numpy
+  <https://numpy.org/doc/stable/reference/routines.linalg.html>`__
+
+- `Scipy <https://docs.scipy.org/doc/scipy/reference/>`__ has even
+  more functions
+
+- Many other libraries use numpy arrays as the standard data
+  structure: they take data in this format, and return it similarly.
+  Thus, all the other packages you may want to use are compatible
+
+- If you need to write your own fast code in C, numpy arrays can be
+  used to pass data.  This is known as `extending Python
+  <https://docs.python.org/3/extending/>`__.
+
 
 .. challenge::
 
-   - **Matrixes are always 2D**  Make a 2x3 array and a 2x3 matrix.
+   - **Matrixes are always 2D** (advanced) Make a 2x3 array and a 2x3 matrix.
      Extract just the first row of each of them and check the ``.shape``.
 
 
