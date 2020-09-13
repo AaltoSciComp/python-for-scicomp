@@ -285,11 +285,12 @@ Example galleries and demos:
 
 Let's practice this!
 
+
 .. challenge:: Exercise 4.4
 
-  - Browse the various example galleries (links below)
-  - Take an example that is close to your recent visualization project or simply interests you
-  - Try to reproduce this example in the Jupyter notebook
+  - Browse the various example galleries (links above).
+  - Take an example that is close to your recent visualization project or simply interests you.
+  - Try to reproduce this example in the Jupyter notebook.
 
 
 .. keypoints::
