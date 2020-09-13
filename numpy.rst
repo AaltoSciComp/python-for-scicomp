@@ -18,8 +18,6 @@ not very flexible.
 
 .. highlight:: python
 
-
-
 What is an array?
 -----------------
 
@@ -42,7 +40,7 @@ dimensions.  An array has:
   Fortran code for efficient calculations.
 
 
-To test the performance of pure Python vs numpy we can write in our jupyter notebook
+To test the performance of pure Python vs numpy we can write in our jupyter notebook:
 
 Create one list and one 'empty' list, to store the result in ::
 
@@ -55,7 +53,9 @@ In a new cell starting with %%timeit, loop through the list a and fill the secon
   for i in range(len(a)):
     b[i] = a[i]**2
 
-For the numpy example, create one array and one 'empty' array to store the result in ::
+That looks and feels quite fast. But let's take a look at how numpy performs for the same task.
+
+So for the numpy example, create one array and one 'empty' array to store the result in ::
 
   import numpy as np
   a = np.arange(10000)
@@ -66,6 +66,7 @@ In a new cell starting with %%timeit, fill be with a squared ::
   %%timeit
   b = a ** 2
 
+We see that compared to working with numpy arrays, working with traditional python lists is actually slow.
 
 
 Creating arrays
@@ -94,8 +95,8 @@ In addition to above ways of creating arrays, there are many other ways of creat
 
 Arrays can also be stored and read from a (.npy) file:: 
 
-   np.save('x.npy')           # save an array to a .npy file
-   np.load('x.npy')           # load an array from a .npy file
+   np.save('x.npy', a)           # save the array a to a .npy file
+   x = np.load('x.npy')          # load an array from a .npy file and store it in variable x
 
 In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array::
 
@@ -128,7 +129,7 @@ important things to do for speed.
 
    - **Reshape** eg ``b = np.random.randint(0,10,(3,2)``. ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible. It is not possible to reshape to shapes using more or less elements than ``b.size = 6``.
 
-   - **NumpyI/O** ``np.save('x.npy')`` and ``np.load('x.npy')`` 
+   - **NumpyI/O** ``np.save('x.npy', b)`` and ``x = np.load('x.npy')`` 
 
 
 
@@ -184,16 +185,15 @@ speed of C.
 
 ::
 
-  a = np.eye(4)      # 4x4 identity matrix
+  a = np.arange(16)      # 4x4 identity matrix
   a[0]               # first row
   a[:,0]             # first column
   a[1:3,1:3]         # middle 2x2 array
 
   a[(0, 1), (1, 1)]  # second element of first and second row as array
 
-Boolean indexing::
+Boolean indexing on above created array::
 
-  a = np.eye(4)
   idx = (a > 0)      # creates boolean matrix of same size as a 
   a[idx]             # array with matching values of above criterion
   
@@ -206,13 +206,15 @@ Boolean indexing::
 
       a = np.eye(4)
       b = a[:,0]
-      b[0,0] = 5
+      b[0] = 5
 
    - **View vs copy** Try out above code. How does a look like before b has changed and after? How could it be avoided?
 
 .. solution::
 
-   - **View vs copy**
+   - **View vs copy** The change in b has also changed the array a! This is because b is merely a view of a part of array a. 
+   Both variables point to the same memory. Hence, if one is changed, the other one also changes. If you need to keep the original array as is, use ``np.copy(a)``.
+
 
 
 .. challenge::
@@ -261,18 +263,16 @@ functions with standardized arguments:
 
 **Array methods** do something about the array itself.
 
-  - Some of these are the same as ufuncs.
+  - Some of these are the same as ufuncs::
 
-  ::
-
-  x = np.arange(12)
-  x.shape = (3, 4)
-  x                    #  array([[ 0,  1,  2,  3],
-                       #         [ 4,  5,  6,  7],
-                       #         [ 8,  9, 10, 11]])
-  x.max()              #  11
-  x.max(axis=0)        #  array([ 8,  9, 10, 11])
-  x.max(axis=1)        #  array([ 3,  7, 11])
+    x = np.arange(12)
+    x.shape = (3, 4)
+    x                    #  array([[ 0,  1,  2,  3],
+                         #         [ 4,  5,  6,  7],
+                         #         [ 8,  9, 10, 11]])
+    x.max()              #  11
+    x.max(axis=0)        #  array([ 8,  9, 10, 11])
+    x.max(axis=1)        #  array([ 3,  7, 11])
 
 **Other functions**: there are countless other functions covering
 linear algebra, scientific functions, etc.
@@ -337,11 +337,12 @@ Matrix or not, there are many different functions available:
      Extract just the first row of each of them and check the ``.shape``.
 
 
-
-..keypoints::
+.. keypoints::
 
    - Numpy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
    - Be aware of some numpy specific pecularities
+
+
 
 Additional Exercises
 --------------------
