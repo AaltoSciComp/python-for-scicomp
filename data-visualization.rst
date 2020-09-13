@@ -280,27 +280,98 @@ recommend to learn and use the object oriented interface.**
 Styling and customizing plots
 -----------------------------
 
-.. instructor-note::
+- Matplotlib allows to customize almost every aspect of a plot.
+- Do not customize manually using a graphical program (not easily repeatable/reproducible).
+- It is useful to study `Matplotlib parts of a figure <https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure>`__
+  so that we know what to search for to customize things.
+- You can also select among pre-defined themes/
+  `style sheets <https://matplotlib.org/3.1.1/gallery/style_sheets/style_sheets_reference.html>`__, for instance:
 
-  Point to some details on how to customize your plots
-  (changing font size, labels, etc.). Too many researchers importing png
-  file in powerpoints and overwritting labels, titles. Not so good for
-  repeatability/reproducibility.
+.. code-block:: python
 
-  It may be useful to show
-  https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure
-
-  Understanding the notion of Figure, axes, etc. is quite useful. the approach in
-  python is different from R and R users may be a bit confused without some basic
-  principles on how to build a figure with matplotlib.
-
-  Also I will show how to use pre-defined themes.
+   plt.style.use('ggplot')
 
 
-.. instructor-note::
+.. challenge:: Exercise 4.3
 
-  I will provide an example which is not useful on default scale and the
-  exercise will be to change this to log scale.
+  In this exercise we will learn how to use log scale.
+  To demonstrate this we first fetch some data to plot:
+
+  .. code-block:: python
+
+    # we use plotly, a different visualization library (more about this later)
+    # to fetch some data
+    import plotly.express as px
+
+    # we will be interested in the lifeExp and gdpPercap columns
+    data = px.data.gapminder().query("year == 2007")
+    data
+
+  Then we can plot the data, first using a linear scale:
+
+  .. code-block:: python
+
+     fig, ax = plt.subplots()
+
+     ax.scatter(x=data["gdpPercap"], y=data["lifeExp"], alpha=0.5)
+     ax.set_xlabel("GDP (USD) per capita")
+     ax.set_ylabel("life expectancy (years)")
+
+  This is the result but we realize that a linear scale is not ideal here:
+
+  .. image:: data-visualization/exercise-4.3-linear.png
+
+  - Your task is to switch to a log scale and arrive at this result:
+
+  .. image:: data-visualization/exercise-4.3-log.png
+
+  - What does ``alpha=0.5`` do?
+
+
+.. solution::
+
+  .. code-block:: python
+     :emphasize-lines: 4
+
+     fig, ax = plt.subplots()
+
+     ax.scatter(x=data["gdpPercap"], y=data["lifeExp"], alpha=0.5)
+     ax.set_xscale("log")
+     ax.set_xlabel("GDP (USD) per capita")
+     ax.set_ylabel("life expectancy (years)")
+
+
+.. challenge:: Exercise 4.4
+
+  Often we need to create figures for presentation slides and for publications
+  but both have different requirements: for presentation slides you have the whole
+  screen but for a figure in a publication you may only have few centimeters/inches.
+
+  For figures that go to print it is good practice to look at them at the size
+  they will be printed in and then often fonts and tickmarks are too small.
+
+  Your task is to make the tickmarks and the axis label font larger, using
+  `Matplotlib parts of a figure <https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure>`__
+  and web search, and to arrive at this:
+
+  .. image:: data-visualization/exercise-4.4.png
+
+
+.. solution::
+
+  .. code-block:: python
+     :emphasize-lines: 5-10
+
+     fig, ax = plt.subplots()
+
+     ax.scatter(x=data["gdpPercap"], y=data["lifeExp"], alpha=0.5)
+     ax.set_xscale("log")
+     ax.set_xlabel("GDP (USD) per capita", fontsize=15)
+     ax.set_ylabel("life expectancy (years)", fontsize=15)
+     ax.tick_params(which="major", length=10)
+     ax.tick_params(which="minor", length=5)
+     ax.tick_params(labelsize=15)
+     ax.tick_params(labelsize=15)
 
 
 How to choose between the many libraries
@@ -344,7 +415,7 @@ Example galleries and demos:
 Let's practice this!
 
 
-.. challenge:: Exercise 4.4
+.. challenge:: Exercise 4.5
 
   - Browse the various example galleries (links above).
   - Take an example that is close to your recent visualization project or simply interests you.
