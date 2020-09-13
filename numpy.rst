@@ -1,309 +1,382 @@
-Enter NumPy
-===========
+NumPy
+=====
 
 .. questions::
 
-   - Q1
-   - Q2
+   - Why using numpy instead of pure python?
+   - How to use basic numpy?
 
 .. objectives::
 
-   - O1
-   - O2
+   - Be able to use basic numpy functionality
+   - Understand enough of numpy to seach for answers to the rest of your questions ;)
 
 
-Introduction
+So, we already know about python lists, and that we can put all kinds of things in there.
+But in scientific usage, lists are often not enough. They are slow and
+not very flexible.
+
+.. highlight:: python
+
+What is an array?
+-----------------
+
+For example, consider `[1, 2.5, 'asdf', False, [1.5, True]]` -
+this is a Python list but it has different types for every
+element.  When you do math on this, every element has to be handled separately.
+
+Numpy is the most used library for scientific computing. 
+(Even if you are not using it directly, chances are high that some library uses it in the background)
+Numpy provides the high-performance multidimensional array object and tools to use it. 
+
+An array is a 'grid' of values, with all the same types. It is indexed by tuples of
+non negative indices and provides the framework for multiple
+dimensions.  An array has:
+
+* `dtype` - data type.  Arrays always contain one type
+* `shape` - shape of the data, for example `3×2` or `3×2×500` or even
+  `500` (one dimensional) or `[]` (zero dimensional).
+* `data` - raw data storage in memory.  This can be passed to C or
+  Fortran code for efficient calculations.
+
+
+To test the performance of pure Python vs numpy we can write in our jupyter notebook:
+
+Create one list and one 'empty' list, to store the result in ::
+
+  a = list(range(10000))
+  b = [ 0 ] * 10000
+
+In a new cell starting with %%timeit, loop through the list a and fill the second list b with a squared ::
+  
+  %%timeit
+  for i in range(len(a)):
+    b[i] = a[i]**2
+
+That looks and feels quite fast. But let's take a look at how numpy performs for the same task.
+
+So for the numpy example, create one array and one 'empty' array to store the result in ::
+
+  import numpy as np
+  a = np.arange(10000)
+  b = np.zeros(10000)
+
+In a new cell starting with %%timeit, fill be with a squared ::
+
+  %%timeit
+  b = a ** 2
+
+We see that compared to working with numpy arrays, working with traditional python lists is actually slow.
+
+
+Creating arrays
+---------------
+
+There are different ways of creating arrays::
+
+  a = np.array([1,2,3])               # 1-dimensional array (rank 1)
+  b = np.array([[1,2,3],[4,5,6]])     # 2-dimensional array (rank 2)
+
+  b.shape                             # the shape (rows,columns)
+  b.size                              # number of elements 
+
+In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content::
+
+   np.zeros((2, 3))           # 2x3 array with all elements 0
+   np.ones((1,2))             # 1x2 array with all elements 1
+   np.full((2,2),7)           # 2x2 array with all elements 7
+   np.eye(2)                  # 2x2 identity matrix
+
+   np.arange(10)              # Evenly spaced values in an interval
+   np.linspace(0,9,10)        # same as above, see exercise
+
+   c = np.ones((3,3))
+   d = np.ones((3, 2), bool)  # 3x2 boolean array
+
+Arrays can also be stored and read from a (.npy) file:: 
+
+   np.save('x.npy', a)           # save the array a to a .npy file
+   x = np.load('x.npy')          # load an array from a .npy file and store it in variable x
+
+In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array::
+
+   d.dtype                    # datatype of the array
+   d.astype('int')            # change datatype from boolean to integer
+
+In the last example, `.astype('int')`, it will make a **copy** of the
+array, and re-allocate data - unless the dtype is exactly the same as
+before.  Understanding and minimizing copies is one of the most
+important things to do for speed.
+
+
+.. challenge::
+
+   - **Datatypes** Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
+
+   - **Datatypes** Create a 3x2 array of random float numbers (check np.random) between 0 and 1. Now change the arrays datatype to int (array.astype). How does the array look like? 
+
+   - **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Reshape the array in any way possible. What is not possible?
+
+   - **NumpyI/O** Save above array to .npy file (np.save) and read it in again.
+
+.. solution::
+
+   - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**, 
+   while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**. 
+   Both ``np.linspace`` and ``np.arange`` take dtype as an argument and can be adjusted to match each other in that way.
+
+   - **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int.
+
+   - **Reshape** eg ``b = np.random.randint(0,10,(3,2)``. ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible. It is not possible to reshape to shapes using more or less elements than ``b.size = 6``.
+
+   - **NumpyI/O** ``np.save('x.npy', b)`` and ``x = np.load('x.npy')`` 
+
+
+
+Array maths
 ------------
 
-The NumPy package provides a N-dimensional array type, and syntax and
-utility functions for working with these arrays.
+Clearly, you can do math on arrays.  Math in numpy, is very fast
+because it is implemented in C or Fortran - just like most other
+high-level languages such as R, Matlab, etc do.
 
-In contrast to a python list, a numpy array can only hold elements of
-the same type. The element type can be seen via the 'dtype' attribute.
+By default, in numpy all math is element-by-element.  This is unlike
+Matlab, where most things are element-by-element, but ``*`` becomes
+array multiplication.  Numpy values consistency and does not treat
+2-dimensional arrays specially::
 
-::
+  a = np.array([[1,2],[3,4]])
+  b = np.array([[5,6],[7,8]])
 
-   import numpy as np
-   a = np.array(((1,2,3),(4,5,6)))
-   a.dtype
-   a[0, 0] = "hello"  # error!
-   a[0, 0] = 2**100    # error!
+  c = a + b
+  d = np.add(a,b)
 
-What these restrictions buy you is that the memory layout of a numpy
-array is very efficient, similar to what you see in low level
-languages like C or Fortran.  This means operating on these arrays is
-very efficient; in fact, much of the speed advantage of numpy comes
-from the fact that array syntax is implemented in fast C code.
-
-Due to the memory layout of numpy being compatible with C and Fortran,
-numpy arrays allows one to use functionality written in these other
-languages.  Much of the SciPy ecosystem (NumPy, SciPy, etc.) consist
-of python wrappers around widely used and battle-tested numerical
-libraries written in C or Fortran such as LAPACK and BLAS.
-
-The Python list
-
-::
-
-   a_list = [1, "hello", 1.2]
-
-has roughly the following layout in memory:
-
-.. image:: a_list.svg
-
-In contrast, the NumPy array
-
-::
-
-   n = np.array((1,2,3))
-
-has the memory layout like
-
-.. image:: ndarray.svg
-
-Exercise 2.1
-------------
-
-1. In the example above we saw that ``2**100`` was too large. What is
-   the default datatype of a numpy integer array if we don't
-   explicitly specify some type, and what is the largest possible
-   integer we can store in such an element.
-
-2. What is the smallest negative element (that is, the largest
-   absolute value of a negative number)?  Is it different from the
-   largest positive number, and if so, why?
-
-3. What is the absolute value of the smallest negative element? Why?
+Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``, ...
 
 
-Other ways of creating NumPy arrays
------------------------------------
+.. challenge::
 
-There are many different ways to create NumPy arrays, here's a few of
-the most common ones:
-
-::
-
-   np.zeros((2, 3))      # 2x3 array with all elements 0
-   np.ones((3, 2), bool) # 3x2 boolean array
-   np.arange(10)         # Evenly spaced values in an interval
-   np.linspace(0,9,10)   # similar to above... but what is the difference?
-
-NumPy array slicing syntax
---------------------------
-
-NumPy provides a convenient array syntax to reference subarrays,
-similar to MATLAB or Fortran.
-
-::
-
-   a[low:high:step]
-
-returns the array elements in the range ``[low, high)`` with a stride
-of ``step``. Equivalently for multidimensional arrays.  For
-multidimensional arrays NumPy by default stores arrays in row-major
-order, like C. Note that this is in contrast to e.g. Fortran, MATLAB
-or Julia that use a column-major layout.
-
-Using array syntax efficiently is **key** to using NumPy in a fashion
-that leads to short as well as efficient code.
-
-NumPy also provides so-called *advanced indexing*, where you can
-select elements with a list of indices.
-
-::
-
-   a = np.zeros((3, 3))
-   b = a[(0, 1), (1, 1)]
-   b[0] = 1    # Will this modify a?
+   - **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? Try it.
+   - **Axis** What is the difference between ``np.sum(axis=1)`` vs
+     ``np.sum(axis=0)`` on a two-dimensional array? What if you leave out the axis parameter?
 
 
-Views vs. copies
-----------------
+.. solution::
 
-When slicing an array, you **DO NOT** get a copy of those elements,
-but rather a *view*.  That is, the data elements are the same as in
-the original array
-
-::
-
-   a = np.ones((2, 2))
-   b = a[1, 1:2]
-   b[0] = 2
-
-Views rather than copies is more efficient, particularly for large
-arrays, but they can sometimes be confusing. Be careful!
-
-If you do need a copy, NumPy arrays have a ``copy`` method to create a
-copy rather than getting a view.
-
-**NOTE** With advanced indexing, you always get a copy!
+   - **Matrix multiplication** ``np.multiply`` does elementwise multiplication on two arrays, while ``np.dot`` enables matrix multiplication.
+   - **Axis** axis=1 does the operation (here: ``np.sum``) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.
 
 
-Array shape and size
+
+Indexing and Slicing
 --------------------
 
-NumPy arrays have a shape and size attribute.
+Numpy has many ways to extract values out of arrays:
+
+- You can select a single element
+- You can select rows or columns
+- You can select ranges where a condition is true.
+
+Clever and efficient use of these operations is a key to numpy's
+speed: you should try to cleverly use these selectors (written in C)
+to extract data to be used with other numpy functions written in C or
+Fortran.  This will give you the benefits of Python with most of the
+speed of C.
 
 ::
 
-   a = np.zeros((2,3))
-   a.size               # Number of elements
-   a.shape              # shape tuple
+  a = np.arange(16)      # 4x4 identity matrix
+  a[0]               # first row
+  a[:,0]             # first column
+  a[1:3,1:3]         # middle 2x2 array
 
-We can modify the shape of an array with the ``reshape`` or ``resize``
-methods. Or for the special case of flattening an array to a 1D array,
-``ravel``.
+  a[(0, 1), (1, 1)]  # second element of first and second row as array
 
-Combining, splitting and rolling arrays
----------------------------------------
+Boolean indexing on above created array::
 
-For combining multiple arrays into a larger array, see the
-``concatenate``, ``stack``, ``block``, and the more specialized
-variants ``hstack``, ``vstack``, ``dstack``.
-
-Similarly, for splitting an array into multiple parts, there's
-``split``, ``hsplit``, ``vsplit``.
-
-To roll an array, that is shift the elements along a give axis, use
-``roll``.
+  idx = (a > 0)      # creates boolean matrix of same size as a 
+  a[idx]             # array with matching values of above criterion
+  
+  a[a > 0]           # same as above in one line 
 
 
-Exercise 2.2
-------------
+.. challenge::
 
-Create an array ``x`` of 100 evenly spaced numbers in the range
-[-2*pi, 2*pi].
+   ::
 
-Next, create an array ``y``, where each element is the ``sin`` of each
-element in the previously created array.
+      a = np.eye(4)
+      b = a[:,0]
+      b[0] = 5
 
-Then, figure out the indices where the array ``y`` changes sign. What
-are the ``x`` values for these indices?
+   - **View vs copy** Try out above code. How does a look like before b has changed and after? How could it be avoided?
 
+.. solution::
 
-NumPy I/O
----------
-
-NumPy has functionality for saving and loading NumPy arrays from
-files.  For reading/writing textfiles there is ``loadtxt`` and
-``savetxt``. See also ``genfromtxt`` with more sophisticated handling
-of missing values etc.
-
-For large arrays, it's faster to use a binary format. For these NumPy
-defines a ``.npy`` format. Loading and saving these files can be done
-with the ``load`` and ``save`` methods.  There's also the ``.npz``
-format, which is a zip archive containing several numpy ndarrays in
-one file. ``.npz`` format files can be read/written with ``load``,
-``savez`` and ``savez_compressed`` methods. This is a good choice for
-temporary or intermediate files such as checkpoints etc. Note that the
-format is Numpy-specific, and other languages might not easily be able
-to read it. Similarly, for long-term archiving other formats might be
-a better choice.
+   - **View vs copy** The change in b has also changed the array a! This is because b is merely a view of a part of array a. 
+   Both variables point to the same memory. Hence, if one is changed, the other one also changes. If you need to keep the original array as is, use ``np.copy(a)``.
 
 
-Random Numbers in NumPy
------------------------
 
-The ``numpy.random`` module contains functionality to create
-pseudorandom numbers following different distributions.
+.. challenge::
 
-Linear algebra in Numpy
------------------------
+   - **Numpy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
 
-The ``dot`` method provides a generalized dot product. It can compute
-dot products of 1D vectors, matrix-vector products as well as
-matrix-matrix products.  It is an interface to the famous BLAS
-library, of which multiple highly optimized versions exist.  The
-``numpy.linalg`` module contains interfaces to the most common linear
-algebra operations, such as calculating eigenvalues, Cholesky and
-singular value decompositions, solving linear systems, least squares,
-(pseudo)inverse. This module is an interface to the LAPACK library
-(which in turn builds on top of BLAS).
+.. solution::
 
-Exercise 2.3
-------------
-
-Remember our first exercise, implementing matrix multiplication? Now
-do the same, but use NumPy arrays and the ``dot`` method. Compare
-performance to the code you wrote yourself earlier, using the IPython
-%timeit macro.
+   - **Numpy functionality**
 
 
-Exercise 2.4
-------------
+Types of operations
+-------------------
 
-Here's a number of quick numpy exercises to get you a feel of numpy
-functionality, index manipulation etc.
+There are different types of standard operations in numpy:
 
-1. Reverse a vector. Given a vector, reverse it such that the last
-   element becomes the first, e.g. [1, 2, 3] => [3, 2, 1]
+**ufuncs**, "universal functions": These are element-by-element
+functions with standardized arguments:
 
-2. Create an identity matrix of size 4x4.
+- One, two, or three input arguments
+- For example, ``a + b`` is similar to ``np.add(a, b)`` but the ufunc
+  has more control.
+- ``out=`` output argument, store output in this array (rather than
+  make a new array) - saves copying data!
+- See the `full reference
+  <https://numpy.org/doc/stable/reference/ufuncs.html>`__
 
-3. Create a 2D array with zeros on the borders and 1 inside.
+- They also do **broadcasting**.  Can you add a 1-dimensional array of shape `(3)`
+  to an 2-dimensional array of shape `(3, 2)`?   With broadcasting you
+  can!
 
-4. Create a random array with elements [0, 1), then add 10 to all
-   elements in the range [0.2, 0.7).
+  ::
 
-5. What is ``np.round(0.5)``? What is ``np.round(1.5)``? Why?
+     a = np.array([[1, 2, 3],
+                   [4, 5, 6]])
+     b = np.array([10, 10, 10])
+     a + b                       # array([[11, 12, 13],
+                                 #        [14, 15, 16]])
 
-6. In addition to ``np.round``, explore ``np.ceil``, ``np.floor``,
-   ``np.trunc``. In particular, take note of how they behave with
-   negative numbers.
+  Broadcasting is smart and consistent about what it does, which I'm
+  not clever enough to explain quickly here: `the manual page on
+  broadcasting
+  <https://numpy.org/doc/stable/user/basics.broadcasting.html>`__.
+  The basic idea is that it expands dimensions of the smaller array so
+  that they are compatible in shape.
 
-7. Recall the identity :math:`\sin^2(x) + \cos^2(x) = 1`. Create a
-   random 4x4 array with values in the range [0, 10). Now test the
-   equality with ``np.equal``. What result do you get with
-   ``np.allclose`` instead of ``np.equal``?
+**Array methods** do something about the array itself.
 
-8. Create a 1D array with 10 random elements. Sort it.
+  - Some of these are the same as ufuncs::
 
-9. What's the difference between ``np_array.sort()`` and
-   ``np.sort(np_array)``?
+    x = np.arange(12)
+    x.shape = (3, 4)
+    x                    #  array([[ 0,  1,  2,  3],
+                         #         [ 4,  5,  6,  7],
+                         #         [ 8,  9, 10, 11]])
+    x.max()              #  11
+    x.max(axis=0)        #  array([ 8,  9, 10, 11])
+    x.max(axis=1)        #  array([ 3,  7, 11])
 
-10. For the random array in question 8, instead of sorting it, perform
-    an indirect sort. That is, return the list of indices which would
-    index the array in sorted order.
-
-11. Create a 4x4 array of zeros, and another 4x4 array of ones. Next
-    combine them into a single 8x4 array with the content of the zeros
-    array on top and the ones on the bottom.  Finally, do the same,
-    but create a 4x8 array with the zeros on the left and the ones on
-    the rigth.
-
-More quick NumPy exercises like this one `over here
-<https://www.labri.fr/perso/nrougier/teaching/numpy.100/>`_.
-
-
-Exercise 2.5
-------------
-
-The topic of this exercise is ``np.einsum`` which implements the
-'Einstein summation convention'.  The `Einstein summation convention
-<https://en.wikipedia.org/wiki/Einstein_notation>`_ is a commonly used
-when working with tensors, but can also be useful for succintly
-representing array expressions.
-
-For instance, matrix multiplication can be expressed as
-
-.. math:: C^i_k = A^i_j B^j_k
-
-Implement this with the help of ``np.einsum``.
-
-Einstein notation is also available in pytorch and tensorflow. For
-more information about Einstein notation in NumPy see
-
-- `A basic introduction to NumPy's einsum <http://ajcr.net/Basic-guide-to-einsum/>`_
-- `Einsten Summation in NumPy <https://obilaniu6266h16.wordpress.com/2016/02/04/einstein-summation-in-numpy/>`_
-- `Einsum is all you need - Einstein summation in deep learning <https://rockt.github.io/2018/04/30/einsum>`_
+**Other functions**: there are countless other functions covering
+linear algebra, scientific functions, etc.
 
 
-(lesson here)
+.. challenge::
 
+   - **In-place addition**: Create an array, add it to itself using a
+     ufunc.
+
+   - **In-place addition** (advanced): Create an array of
+     `dtype='float'`, and an array of `dtype='int'`.  Try to use the
+     int array is the output argument of the first two arrays.
+
+.. solution::
+
+   - **in-place addition**::
+
+       x = np.array([1, 2, 3])
+       id(x)                        # get the memory-ID of x
+       np.add(x, x, x)              # Third argument is output array
+       np.add(x, x, x)
+       print(x)
+       id(x)                        # get the memory-ID of x
+                                    # - notice  it is the same
+
+     You note that ``np.add()`` has a third argument that is the
+     output array (same as ``out=``), *and* the function returns that
+     same array.
+
+
+
+Linear algebra and other advanced math
+--------------------------------------
+
+In addition to the array type, there is a ``matrix`` type which is
+specialized:
+
+- two-dimensional only
+- ``*`` operator is matrix multiplication
+
+Matrix or not, there are many different functions available:
+
+- `Linear algebra in numpy
+  <https://numpy.org/doc/stable/reference/routines.linalg.html>`__
+
+- `Scipy <https://docs.scipy.org/doc/scipy/reference/>`__ has even
+  more functions
+
+- Many other libraries use numpy arrays as the standard data
+  structure: they take data in this format, and return it similarly.
+  Thus, all the other packages you may want to use are compatible
+
+- If you need to write your own fast code in C, numpy arrays can be
+  used to pass data.  This is known as `extending Python
+  <https://docs.python.org/3/extending/>`__.
+
+
+.. challenge::
+
+   - **Matrixes are always 2D** (advanced) Make a 2x3 array and a 2x3 matrix.
+     Extract just the first row of each of them and check the ``.shape``.
 
 
 .. keypoints::
 
-   - K1
-   - K2
+   - Numpy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
+   - Be aware of some numpy specific pecularities
+
+
+
+Additional Exercises
+--------------------
+
+1. Reverse a vector. Given a vector, reverse it such that the last
+   element becomes the first, e.g. [1, 2, 3] => [3, 2, 1]
+
+2. Create a 2D array with zeros on the borders and 1 inside.
+
+3. Create a random array with elements [0, 1), then add 10 to all
+   elements in the range [0.2, 0.7).
+
+4. What is ``np.round(0.5)``? What is ``np.round(1.5)``? Why?
+
+5. In addition to ``np.round``, explore ``np.ceil``, ``np.floor``,
+   ``np.trunc``. In particular, take note of how they behave with
+   negative numbers.
+
+6. Recall the identity :math:`\sin^2(x) + \cos^2(x) = 1`. Create a
+   random 4x4 array with values in the range [0, 10). Now test the
+   equality with ``np.equal``. What result do you get with
+   ``np.allclose`` instead of ``np.equal``?
+
+7. Create a 1D array with 10 random elements. Sort it.
+
+8. What's the difference between ``np_array.sort()`` and
+   ``np.sort(np_array)``?
+
+9. For the random array in question 8, instead of sorting it, perform
+   an indirect sort. That is, return the list of indices which would
+   index the array in sorted order.
+
+10. Create a 4x4 array of zeros, and another 4x4 array of ones. Next
+    combine them into a single 8x4 array with the content of the zeros
+    array on top and the ones on the bottom.  Finally, do the same,
+    but create a 4x8 array with the zeros on the left and the ones on
+    the rigth.

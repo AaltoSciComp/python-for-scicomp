@@ -31,8 +31,15 @@ From `Claus O. Wilke: "Fundamentals of Data Visualization" <https://clauswilke.c
   after the person who created them left the group.
 - **Use free tools**: Python or R.
 - There is not the one perfect language and **not the one perfect library** for everything.
-- Within Python, many libraries exist: Matplotlib, Seaborn, Altair, Plotly,
-  Bokeh, ggplot, PyNGL, and others.
+- Within Python, many libraries exist:
+  `Matplotlib <https://matplotlib.org/>`__,
+  `Seaborn <https://seaborn.pydata.org/>`__,
+  `Altair <https://altair-viz.github.io/>`__,
+  `Plotly <https://plotly.com/python/>`__,
+  `Bokeh <https://bokeh.org/>`__,
+  `ggplot <https://yhat.github.io/ggpy/>`__,
+  `PyNGL <https://www.pyngl.ucar.edu/>`__,
+  and many others.
 - Two main families of libraries: procedural (e.g. Matplotlib) and declarative
   (using grammar of graphics).
 
@@ -45,6 +52,8 @@ Why are we learning matplotlib?
 - MATLAB users will feel familiar.
 - Even if you choose to use another library (see above list), chances are high
   that you need to adapt a Matplotlib plot of somebody else.
+- Libraries that built on top of Matplotlib may need knowledge of Matplotlib
+  for custom adjustments.
 
 
 Getting started with Matplotlib
@@ -73,8 +82,6 @@ to show the generated figure in the notebook, we don't need this when running th
    ax.set_ylabel("we should label the y axis")
    ax.set_title("some title")
 
-   plt.show()
-
 This is the result:
 
 .. image:: data-visualization/getting-started.png
@@ -82,12 +89,16 @@ This is the result:
 When plotting using a script, you often want to also save the generated figure:
 
 .. code-block:: python
-   :emphasize-lines: 4
+   :emphasize-lines: 3
 
    # ... rest of the script
 
+   fig.savefig("my-plot.png")
+
    plt.show()
-   plt.savefig("my-plot.png")
+
+We also added ``plt.show()`` to show the figure on screen. We did not need this
+in a Jupyter notebook.
 
 When running a Matplotlib script on a remote server without a "display" (e.g.
 compute cluster), you may need to add this line:
@@ -101,27 +112,61 @@ compute cluster), you may need to add this line:
    # ... rest of the script
 
 
-Exercise 4.1
-------------
+.. challenge:: Exercise 4.1
 
-- Extend the previous plot by also plotting this set of values but this time
-  using a different color (``#56B4E9``)::
+  - Extend the previous plot by also plotting this set of values but this time
+    using a different color (``#56B4E9``)::
 
-    # this is dataset 2
-    data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
+      # this is dataset 2
+      data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
 
-- Then add another color (``#009E73``) which plots the second dataset, scaled
-  by 2.0.
+  - Then add another color (``#009E73``) which plots the second dataset, scaled
+    by 2.0.
 
-- Can you try to find out how to add a legend to the plot?
+  - Can you try to find out how to add a legend to the plot?
 
-At the end it should look like this one:
+  At the end it should look like this one:
 
-.. image:: data-visualization/exercise-4.1.png
+  .. image:: data-visualization/exercise-4.1.png
 
-Why these colors? This qualitative color palette is opimized for all color-vision
-deficiencies, see https://clauswilke.com/dataviz/color-pitfalls.html and
-`Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD): How to Make Figures and Presentations That Are Friendly to Colorblind People." <http://jfly.iam.u-tokyo.ac.jp/color/>`__.
+
+.. solution::
+
+  .. code-block:: python
+     :emphasize-lines: 11,16,18-19,24
+
+     %matplotlib inline
+
+     import matplotlib.pyplot as plt
+
+     # this is dataset 1 from
+     # https://en.wikipedia.org/wiki/Anscombe%27s_quartet
+     data_x = [10.0, 8.0, 13.0, 9.0, 11.0, 14.0, 6.0, 4.0, 12.0, 7.0, 5.0]
+     data_y = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
+
+     # this is dataset 2
+     data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
+
+     fig, ax = plt.subplots()
+
+     ax.scatter(x=data_x, y=data_y, c="#E69F00", label='set 1')
+     ax.scatter(x=data_x, y=data2_y, c="#56B4E9", label='set 2')
+
+     scaled = [y*2.0 for y in data2_y]
+     ax.scatter(x=data_x, y=scaled, c="#009E73", label='set 2 (scaled)')
+
+     ax.set_xlabel("we should label the x axis")
+     ax.set_ylabel("we should label the y axis")
+     ax.set_title("some title")
+     ax.legend()
+
+
+.. discussion::
+
+  Why these colors? This qualitative color palette is opimized for all color-vision
+  deficiencies, see https://clauswilke.com/dataviz/color-pitfalls.html and
+  `Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD):
+  How to Make Figures and Presentations That Are Friendly to Colorblind People." <http://jfly.iam.u-tokyo.ac.jp/color/>`__.
 
 
 Matplotlib has two different interfaces
@@ -152,8 +197,6 @@ outside the scope of this lesson.
    ax.set_ylabel("we should label the y axis")
    ax.set_title("some title")
 
-   plt.show()
-
 - The more traditional option mimics MATLAB plotting and uses the **pyplot interface** (``plt`` carries
   the global settings):
 
@@ -173,35 +216,65 @@ outside the scope of this lesson.
    plt.ylabel("we should label the y axis")
    plt.title("some title")
 
-   plt.show()
-
 When searching for help on the internet, you will find both approaches, they
 can also be mixed. Although the pyplot interface looks more compact, **we
 recommend to learn and use the object oriented interface.**
 
 
-Exercise 4.2
-------------
+.. challenge:: Exercise 4.2
 
-Imagine we wanted to learn how to create a histogram and web searched
-"matplotlib plot histogram stack overflow" and found (https://stackoverflow.com/a/5328669):
+  Imagine we wanted to learn how to create a histogram and web searched
+  "matplotlib plot histogram stack overflow" and found https://stackoverflow.com/a/5328669::
 
-.. code-block:: python
+    import matplotlib.pyplot as plt
+    import numpy as np
 
-   import matplotlib.pyplot as plt
-   import numpy as np
+    mu, sigma = 100, 15
+    x = mu + sigma * np.random.randn(10000)
+    hist, bins = np.histogram(x, bins=50)
+    width = 0.7 * (bins[1] - bins[0])
+    center = (bins[:-1] + bins[1:]) / 2
+    plt.bar(center, hist, align='center', width=width)
+    plt.show()
 
-   mu, sigma = 100, 15
-   x = mu + sigma * np.random.randn(10000)
-   hist, bins = np.histogram(x, bins=50)
-   width = 0.7 * (bins[1] - bins[0])
-   center = (bins[:-1] + bins[1:]) / 2
-   plt.bar(center, hist, align='center', width=width)
-   plt.show()
+  - Try this example out in the Jupyter notebook.
+  - Change the number of bins to 20.
+  - Convert it from pyplot interface to using the object oriented interface.
 
-- Try this example out in the Jupyter notebook.
-- Change the number of bins.
-- Convert it from pyplot interface to using the object oriented interface.
+  At the end it should look like this one:
+
+  .. image:: data-visualization/exercise-4.2.png
+
+
+.. solution::
+
+  .. code-block:: python
+     :emphasize-lines: 6,10-11
+
+     import matplotlib.pyplot as plt
+     import numpy as np
+
+     mu, sigma = 100, 15
+     x = mu + sigma * np.random.randn(10000)
+     hist, bins = np.histogram(x, bins=20)
+     width = 0.7 * (bins[1] - bins[0])
+     center = (bins[:-1] + bins[1:]) / 2
+
+     fig, ax = plt.subplots()
+     ax.bar(center, hist, align='center', width=width)
+
+
+.. discussion::
+
+   Why did we do this? One day you may want to write functions which wrap
+   around Matplotlib function calls and then you can send ``fig`` and ``ax``
+   into these functions and there is less risk that adjusting figures changes
+   settings also for unrelated figures created in other functions.
+
+   When using the pyplot interface, settings are modified for the entire
+   ``plt`` package. The latter is acceptable for linear scripts but may yield
+   surprising results when introducing functions to enhance/abstract Matplotlib
+   calls.
 
 
 Styling and customizing plots
@@ -224,40 +297,58 @@ Styling and customizing plots
   Also I will show how to use pre-defined themes.
 
 
-Exercise 4.3
-------------
-
 .. instructor-note::
 
   I will provide an example which is not useful on default scale and the
   exercise will be to change this to log scale.
 
 
-Exercise 4.4
-------------
-
-.. instructor-note::
-
-  Example for fetching csv data from the web and plot a heatmap
-
-
 How to choose between the many libraries
 ----------------------------------------
 
-.. instructor-note::
+`Matplotlib <https://matplotlib.org/>`__ is probably the most standard and most
+widely used library.  However it is a relatively low-level interface for
+drawing (in terms of abstractions, not in terms of quality) and does not
+provide statistical functions.
 
-  Will write more here on how to choose ...
-  the pros and cons.
+Many libraries exist with their own strengths, it is also a matter of personal
+preferences:
+
+- `Seaborn <https://seaborn.pydata.org/>`__: high-level interface to
+  Matplotlib, statistical functions built in.
+- `Altair <https://altair-viz.github.io/>`__: declarative visualization (R users
+  will be more at home), statistics built in.
+- `Plotly <https://plotly.com/python/>`__: interactive graphs.
+- `Bokeh <https://bokeh.org/>`__: also here good for interactivity.
+- `ggplot <https://yhat.github.io/ggpy/>`__: R users will be more at home.
+- `PyNGL <https://www.pyngl.ucar.edu/>`__: used in the weather forecast community.
+
+What many people do (including the instructor) is to browse existing example
+galleries for inspiration and to start with an example that is already close to
+what we have in mind and then to replace the example with own data and to
+customize the looks.
+
+Example galleries and demos:
+
+- `Matplotlib <https://matplotlib.org/gallery.html>`__
+- `Seaborn <https://seaborn.pydata.org/examples/index.html>`__
+- `Altair <https://altair-viz.github.io/gallery/index.html>`__
+  (not part of default Anaconda installation)
+- `Plotly <https://plotly.com/python/>`__
+- `Bokeh <https://demo.bokeh.org/>`__
+- `ggplot <https://yhat.github.io/ggpy/>`__
+  (not part of default Anaconda installation)
+- `PyNGL <https://www.pyngl.ucar.edu/Examples/gallery.shtml>`__
+  (not part of default Anaconda installation)
+
+Let's practice this!
 
 
-Exercise 4.5
-------------
+.. challenge:: Exercise 4.4
 
-.. instructor-note::
-
-  I will point to seaborn, altair, ... galleries and the goal of the exercise
-  is to select an example that the learner is most interested (closest to their
-  research) and try to get the same result as the gallery.
+  - Browse the various example galleries (links above).
+  - Take an example that is close to your recent visualization project or simply interests you.
+  - Try to reproduce this example in the Jupyter notebook.
 
 
 .. keypoints::
