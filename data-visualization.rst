@@ -271,11 +271,28 @@ Many libraries exist with their own strengths, it is also a matter of taste:
 Exercise 4.5
 ------------
 
-.. instructor-note::
+What many people do (including the instructor) is to browse existing example
+galleries for inspiration and to start with an example that is already close to
+what we have in mind and then to replace the example with own data and to
+customize the looks.
 
-  I will point to seaborn, altair, ... galleries and the goal of the exercise
-  is to select an example that the learner is most interested (closest to their
-  research) and try to get the same result as the gallery.
+Let's practice this!
+
+- Browse the various example galleries (links below)
+- Take an example that is close to your recent visualization project or simply interests you
+- Try to reproduce this example in the Jupyter notebook
+
+Example galleries and demos:
+
+- `Seaborn <https://seaborn.pydata.org/examples/index.html>`__
+- `Altair <https://altair-viz.github.io/gallery/index.html>`__
+  (not part of a default Anaconda installation)
+- `Plotly <https://plotly.com/python/>`__
+- `Bokeh <https://demo.bokeh.org/>`__
+- `ggplot <https://yhat.github.io/ggpy/>`__
+  (not part of a default Anaconda installation)
+- `PyNGL <https://www.pyngl.ucar.edu/Examples/gallery.shtml>`__
+  (not part of a default Anaconda installation)
 
 
 .. keypoints::
