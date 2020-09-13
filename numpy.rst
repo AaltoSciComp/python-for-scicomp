@@ -16,6 +16,7 @@ TODO:
   - Why is the array data structure good?
   - Slice arrays, basic and fancy
   - Types of operations: scalar, ufunc, methods, functions
+  - broadcasting?
 
 So, we already know about python lists, and that we can put all kinds of things in there.
 But in scientific usage, lists are often not enough. They are slow and not very flexible.
@@ -130,6 +131,11 @@ Exercise 4
 -----------
 
 * Understand when numpy arrays are still slow
+
+..keypoints::
+
+   - Numpy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
+   - Be aware of some numpy specific pecularities
 
 
 Additional Exercises
