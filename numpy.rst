@@ -37,8 +37,8 @@ Array definition
   a = np.array([1,2,3])               # 1-dimensional array (rank 1)
   b = np.array([[1,2,3],[4,5,6]])     # 2-dimensional array (rank 2)
 
-  b.shape      # the shape (rows,columns)
-  b.size       # number of elements 
+  b.shape                             # the shape (rows,columns)
+  b.size                              # number of elements 
 
 Other ways of creating arrays
 
@@ -60,16 +60,15 @@ Other ways of creating arrays
    d.dtype                    # datatype of the array       
 
 
-Exercise 1
------------
+..challenge::
 
-* Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
+* **Datatypes** Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
 
-* Create a 3x2 array of random float numbers (check np.random) between 0 and 1. Now change the arrays datatype to int (array.astype). How does the array look like? 
+* **Datatypes** Create a 3x2 array of random float numbers (check np.random) between 0 and 1. Now change the arrays datatype to int (array.astype). How does the array look like? 
 
-* Create a 3x2 array of random float numbers (check np.random) between 0 and 1. Reshape the array in any way possible. What is not possible?
+* **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Reshape the array in any way possible. What is not possible?
 
-* Save above array to .npy file (np.save) and read it in again.
+* **NumpyI/O** Save above array to .npy file (np.save) and read it in again.
 
 
 Array maths
@@ -83,14 +82,13 @@ Array maths
   c = a + b
   d = np.add(a,b)
 
-Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``
+Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``, ...
 
 
-Exercise 2
------------
+..challenge::
 
-* What is the difference between ``np.multiply`` and ``np.dot`` ? 
-* What is the difference between ``np.sum(axis=1)`` vs ``np.sum(axis=0)``? 
+* **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? 
+* **Axis** What is the difference between ``np.sum(axis=1)`` vs ``np.sum(axis=0)``? 
 
 
 Indexing and Slicing
@@ -116,8 +114,7 @@ Boolean indexing
   a[a > 0]           # same as above in one line 
 
 
-Exercise 3
------------
+..challenge::
 
 ::
 
@@ -125,13 +122,12 @@ Exercise 3
   b = a[:,0]
   b[0,0] = 5
 
-* Try out above code. How does a look like before b has changed and after? How could it be avoided?
+* **View vs copy** Try out above code. How does a look like before b has changed and after? How could it be avoided?
 
 
-Exercise 4
------------
+..challenge::
 
-* Understand when numpy arrays are still slow
+* **Numpy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
 
 ..keypoints::
 
