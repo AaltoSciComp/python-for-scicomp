@@ -207,6 +207,18 @@ Imagine we wanted to learn how to create a histogram and web searched
 - Change the number of bins.
 - Convert it from pyplot interface to using the object oriented interface.
 
+.. discussion::
+
+   Why did we do this? One day you may want to write functions which wrap
+   around Matplotlib function calls and then you can send ``fig`` and ``ax``
+   into these functions and there is less risk that adjusting figures changes
+   settings also for unrelated figures created in other functions.
+
+   When using the pyplot interface, settings are modified for the entire
+   ``plt`` package. The latter is acceptable for linear scripts but may yield
+   surprising results when introducing functions to enhance/abstract Matplotlib
+   calls.
+
 
 Styling and customizing plots
 -----------------------------
