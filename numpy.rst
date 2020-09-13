@@ -386,42 +386,42 @@ Additional Exercises
 
    1. One solution is:: 
     
-      a = np.array([1, 2, 3])
-      a[::-1]
+       a = np.array([1, 2, 3])
+       a[::-1]
         
    2. One solution is::
         
-      b = np.ones((10,10))
-      b[:,[0, -1]]=0
-      b[[0, -1],:]=0
+       b = np.ones((10,10))
+       b[:,[0, -1]]=0
+       b[[0, -1],:]=0
 
    3. A possible solution is::
         
-      x = np.random.rand(100)
-      y = x + 10*(x >= 0.2)*(x < 0.7)
+       x = np.random.rand(100)
+       y = x + 10*(x >= 0.2)*(x < 0.7)
     
    4. For values exactly halfway between rounded decimal values, NumPy rounds to the nearest even value.
 
    5. Let's test those functions with few negative and positive values::
 
-      a = np.array([-3.3, -2.5, -1.5, -0.75, -0.5, 0.5, 0.75, 1.5, 2.5, 3])
-      np.round(a)
-      np.ceil(a)
-      np.floor(a)
-      np.trun(a)
+       a = np.array([-3.3, -2.5, -1.5, -0.75, -0.5, 0.5, 0.75, 1.5, 2.5, 3])
+       np.round(a)
+       np.ceil(a)
+       np.floor(a)
+       np.trun(a)
 
    6. One solution is::
 
-      x = 10*np.random.rand(4,4)
-      oo = np.ones((4,4))
-      s2c2 = np.square(np.sin(x))+np.square(np.cos(x))
-      np.equal(oo,s2c2)
-      np.allclose(oo,s2c2)
+       x = 10*np.random.rand(4,4)
+       oo = np.ones((4,4))
+       s2c2 = np.square(np.sin(x))+np.square(np.cos(x))
+       np.equal(oo,s2c2)
+       np.allclose(oo,s2c2)
 
    7. Sorting the array itself, without copying it::
         
-      x = np.random.rand(10)
-      x.sort()
+       x = np.random.rand(10)
+       x.sort()
 
    8. NumPy.sort() returns a sorted copy of an array. 
 
@@ -429,8 +429,8 @@ Additional Exercises
 
    10. One solution is::
 
-        z = np.zeros((4,4))
-        o = np.ones((4,4))
-        np.concatenate((z,o))
-        np.concatenate((z,o),axis=1)
+       z = np.zeros((4,4))
+       o = np.ones((4,4))
+       np.concatenate((z,o))
+       np.concatenate((z,o),axis=1)
 
