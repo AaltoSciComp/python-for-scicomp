@@ -31,8 +31,15 @@ From `Claus O. Wilke: "Fundamentals of Data Visualization" <https://clauswilke.c
   after the person who created them left the group.
 - **Use free tools**: Python or R.
 - There is not the one perfect language and **not the one perfect library** for everything.
-- Within Python, many libraries exist: Matplotlib, Seaborn, Altair, Plotly,
-  Bokeh, ggplot, PyNGL, and others.
+- Within Python, many libraries exist:
+  `Matplotlib <https://matplotlib.org/>`__,
+  `Seaborn <https://seaborn.pydata.org/>`__,
+  `Altair <https://altair-viz.github.io/>`__,
+  `Plotly <https://plotly.com/python/>`__,
+  `Bokeh <https://bokeh.org/>`__,
+  `ggplot <https://yhat.github.io/ggpy/>`__,
+  `PyNGL <https://www.pyngl.ucar.edu/>`__,
+  and many others.
 - Two main families of libraries: procedural (e.g. Matplotlib) and declarative
   (using grammar of graphics).
 
