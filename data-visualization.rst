@@ -45,6 +45,8 @@ Why are we learning matplotlib?
 - MATLAB users will feel familiar.
 - Even if you choose to use another library (see above list), chances are high
   that you need to adapt a Matplotlib plot of somebody else.
+- Libraries that built on top of Matplotlib may need knowledge of Matplotlib
+  for custom adjustments.
 
 
 Getting started with Matplotlib
