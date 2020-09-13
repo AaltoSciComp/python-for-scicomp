@@ -328,7 +328,7 @@ Styling and customizing plots
   .. image:: data-visualization/exercise-4.3-log.png
 
   - What does ``alpha=0.5`` do?
-
+  - Try adding ``plt.style.use('ggplot')``.
 
 .. solution::
 
