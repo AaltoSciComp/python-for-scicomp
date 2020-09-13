@@ -129,6 +129,39 @@ compute cluster), you may need to add this line:
 
   .. image:: data-visualization/exercise-4.1.png
 
+
+.. solution::
+
+  .. code-block:: python
+
+    %matplotlib inline
+
+    import matplotlib.pyplot as plt
+
+    # this is dataset 1 from
+    # https://en.wikipedia.org/wiki/Anscombe%27s_quartet
+    data_x = [10.0, 8.0, 13.0, 9.0, 11.0, 14.0, 6.0, 4.0, 12.0, 7.0, 5.0]
+    data_y = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
+
+    # this is dataset 2
+    data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
+
+    fig, ax = plt.subplots()
+
+    ax.scatter(x=data_x, y=data_y, c="#E69F00", label='set 1')
+    ax.scatter(x=data_x, y=data2_y, c="#56B4E9", label='set 2')
+
+    scaled = [y*2.0 for y in data2_y]
+    ax.scatter(x=data_x, y=scaled, c="#009E73", label='set 2 (scaled)')
+
+    ax.set_xlabel("we should label the x axis")
+    ax.set_ylabel("we should label the y axis")
+    ax.set_title("some title")
+    ax.legend()
+
+
+.. discussion::
+
   Why these colors? This qualitative color palette is opimized for all color-vision
   deficiencies, see https://clauswilke.com/dataviz/color-pitfalls.html and
   `Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD):
@@ -204,8 +237,30 @@ recommend to learn and use the object oriented interface.**
     plt.show()
 
   - Try this example out in the Jupyter notebook.
-  - Change the number of bins.
+  - Change the number of bins to 20.
   - Convert it from pyplot interface to using the object oriented interface.
+
+  At the end it should look like this one:
+
+  .. image:: data-visualization/exercise-4.2.png
+
+
+.. solution::
+
+  .. code-block:: python
+     :emphasize-lines: 10-11
+
+     import matplotlib.pyplot as plt
+     import numpy as np
+
+     mu, sigma = 100, 15
+     x = mu + sigma * np.random.randn(10000)
+     hist, bins = np.histogram(x, bins=20)
+     width = 0.7 * (bins[1] - bins[0])
+     center = (bins[:-1] + bins[1:]) / 2
+
+     fig, ax = plt.subplots()
+     ax.bar(center, hist, align='center', width=width)
 
 
 .. discussion::
