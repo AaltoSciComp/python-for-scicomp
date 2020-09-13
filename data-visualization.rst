@@ -73,8 +73,6 @@ to show the generated figure in the notebook, we don't need this when running th
    ax.set_ylabel("we should label the y axis")
    ax.set_title("some title")
 
-   plt.show()
-
 This is the result:
 
 .. image:: data-visualization/getting-started.png
@@ -82,12 +80,16 @@ This is the result:
 When plotting using a script, you often want to also save the generated figure:
 
 .. code-block:: python
-   :emphasize-lines: 4
+   :emphasize-lines: 3
 
    # ... rest of the script
 
+   fig.savefig("my-plot.png")
+
    plt.show()
-   plt.savefig("my-plot.png")
+
+We also added ``plt.show()`` to show the figure on screen. We did not need this
+in a Jupyter notebook.
 
 When running a Matplotlib script on a remote server without a "display" (e.g.
 compute cluster), you may need to add this line:
