@@ -311,7 +311,8 @@ widely used library.  However it is a relatively low-level interface for
 drawing (in terms of abstractions, not in terms of quality) and does not
 provide statistical functions.
 
-Many libraries exist with their own strengths, it is also a matter of taste:
+Many libraries exist with their own strengths, it is also a matter of personal
+preferences:
 
 - `Seaborn <https://seaborn.pydata.org/>`__: high-level interface to
   Matplotlib, statistical functions built in.
@@ -329,6 +330,7 @@ customize the looks.
 
 Example galleries and demos:
 
+- `Matplotlib <https://matplotlib.org/gallery.html>`__
 - `Seaborn <https://seaborn.pydata.org/examples/index.html>`__
 - `Altair <https://altair-viz.github.io/gallery/index.html>`__
   (not part of default Anaconda installation)
