@@ -101,7 +101,7 @@ Indexing and Slicing
   a[:,0]             # first column
   a[1:3,1:3]         # middle 2x2 array
 
-  a[(0, 1), (1, 1)]  #slicing with lists
+  a[(0, 1), (1, 1)]  # second element of first and second row as array
 
 Boolean indexing
 
