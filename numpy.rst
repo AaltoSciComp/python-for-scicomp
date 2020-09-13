@@ -1,5 +1,5 @@
-Enter NumPy
-===========
+NumPy
+=====
 
 .. questions::
 
@@ -12,11 +12,6 @@ Enter NumPy
    - Understand enough of numpy to seach for answers to the rest of your questions ;)
 
 
-TODO:
-  - Why is the array data structure good?
-  - Slice arrays, basic and fancy -> more examples?
-  - Types of operations: scalar, ufunc, methods, functions + broadcasting?
-
 So, we already know about python lists, and that we can put all kinds of things in there.
 But in scientific usage, lists are often not enough. They are slow and
 not very flexible.
@@ -26,7 +21,7 @@ What is an array?
 -----------------
 
 For example, consider `[1, 2.5, 'asdf', False, [1.5, True]]` -
-this is a Python string, but it has different types for every
+this is a Python list but it has different types for every
 element.  When you do math on this, every element has to be handled separately.
 
 Numpy is the most used library for scientific computing. 
@@ -43,9 +38,7 @@ dimensions.  An array has:
 * `data` - raw data storage in memory.  This can be passed to C or
   Fortran code for efficient calculations.
 
-* TODO: List vs array performance demonstration
-
-
+* TODO: List vs array performance demonstration using %timeit similar to: https://webcourses.ucf.edu/courses/1249560/pages/python-lists-vs-numpy-arrays-what-is-the-difference
 
 Creating arrays
 ---------------
@@ -134,15 +127,15 @@ Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sq
 
 .. challenge::
 
-   - **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? 
+   - **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? Try it.
    - **Axis** What is the difference between ``np.sum(axis=1)`` vs
-     ``np.sum(axis=0)`` on a two-dimensional array? 
+     ``np.sum(axis=0)`` on a two-dimensional array? What if you leave out the axis parameter?
 
 
 .. solution::
 
-   - **Matrix multiplication** 
-   - **Axis** 
+   - **Matrix multiplication** ``np.multiply`` does elementwise multiplication on two arrays, while ``np.dot`` enables matrix multiplication.
+   - **Axis** axis=1 does the operation (here: ``np.sum``) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.
 
 
 
