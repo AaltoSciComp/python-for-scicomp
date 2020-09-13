@@ -3,13 +3,13 @@ NumPy
 
 .. questions::
 
-   - Why using numpy instead of pure python?
-   - How to use basic numpy?
+   - Why using NumPy instead of pure python?
+   - How to use basic NumPy?
 
 .. objectives::
 
-   - Be able to use basic numpy functionality
-   - Understand enough of numpy to seach for answers to the rest of your questions ;)
+   - Be able to use basic NumPy functionality
+   - Understand enough of NumPy to seach for answers to the rest of your questions ;)
 
 
 So, we already know about python lists, and that we can put all kinds of things in there.
@@ -21,47 +21,47 @@ not very flexible.
 What is an array?
 -----------------
 
-For example, consider `[1, 2.5, 'asdf', False, [1.5, True]]` -
+For example, consider ``[1, 2.5, 'asdf', False, [1.5, True]]`` -
 this is a Python list but it has different types for every
 element.  When you do math on this, every element has to be handled separately.
 
-Numpy is the most used library for scientific computing. 
-(Even if you are not using it directly, chances are high that some library uses it in the background)
-Numpy provides the high-performance multidimensional array object and tools to use it. 
+NumPy is the most used library for scientific computing. 
+Even if you are not using it directly, chances are high that some library uses it in the background.
+NumPy provides the high-performance multidimensional array object and tools to use it. 
 
 An array is a 'grid' of values, with all the same types. It is indexed by tuples of
 non negative indices and provides the framework for multiple
 dimensions.  An array has:
 
-* `dtype` - data type.  Arrays always contain one type
-* `shape` - shape of the data, for example `3×2` or `3×2×500` or even
-  `500` (one dimensional) or `[]` (zero dimensional).
-* `data` - raw data storage in memory.  This can be passed to C or
+* ``dtype`` - data type.  Arrays always contain one type
+* ``shape`` - shape of the data, for example ``3×2`` or ``3×2×500`` or even
+  ``500`` (one dimensional) or ``[]`` (zero dimensional).
+* ``data`` - raw data storage in memory.  This can be passed to C or
   Fortran code for efficient calculations.
 
 
-To test the performance of pure Python vs numpy we can write in our jupyter notebook:
+To test the performance of pure Python vs NumPy we can write in our jupyter notebook:
 
 Create one list and one 'empty' list, to store the result in ::
 
   a = list(range(10000))
   b = [ 0 ] * 10000
 
-In a new cell starting with %%timeit, loop through the list a and fill the second list b with a squared ::
+In a new cell starting with ``%%timeit``, loop through the list ``a`` and fill the second list ``b`` with ``a`` squared ::
   
   %%timeit
   for i in range(len(a)):
     b[i] = a[i]**2
 
-That looks and feels quite fast. But let's take a look at how numpy performs for the same task.
+That looks and feels quite fast. But let's take a look at how NumPy performs for the same task.
 
-So for the numpy example, create one array and one 'empty' array to store the result in ::
+So for the NumPy example, create one array and one 'empty' array to store the result in ::
 
   import numpy as np
   a = np.arange(10000)
   b = np.zeros(10000)
 
-In a new cell starting with %%timeit, fill be with a squared ::
+In a new cell starting with ``%%timeit``, fill ``b`` with ``a`` squared ::
 
   %%timeit
   b = a ** 2
@@ -103,7 +103,7 @@ In many occasions (especially when something goes different than expected) it is
    d.dtype                    # datatype of the array
    d.astype('int')            # change datatype from boolean to integer
 
-In the last example, `.astype('int')`, it will make a **copy** of the
+In the last example, ``.astype('int')``, it will make a **copy** of the
 array, and re-allocate data - unless the dtype is exactly the same as
 before.  Understanding and minimizing copies is one of the most
 important things to do for speed.
@@ -113,11 +113,11 @@ important things to do for speed.
 
    - **Datatypes** Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
 
-   - **Datatypes** Create a 3x2 array of random float numbers (check np.random) between 0 and 1. Now change the arrays datatype to int (array.astype). How does the array look like? 
+   - **Datatypes** Create a 3x2 array of random float numbers (check ``np.random``) between 0 and 1. Now change the arrays datatype to int (``array.astype``). How does the array look like? 
 
    - **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Reshape the array in any way possible. What is not possible?
 
-   - **NumpyI/O** Save above array to .npy file (np.save) and read it in again.
+   - **NumPyI/O** Save above array to .npy file (``np.save``) and read it in again.
 
 .. solution::
 
@@ -127,22 +127,22 @@ important things to do for speed.
 
    - **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int.
 
-   - **Reshape** eg ``b = np.random.randint(0,10,(3,2)``. ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible. It is not possible to reshape to shapes using more or less elements than ``b.size = 6``.
+   - **Reshape** eg ``b = np.random.randint(0,10,(3,2))``. ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible. It is not possible to reshape to shapes using more or less elements than ``b.size = 6``.
 
-   - **NumpyI/O** ``np.save('x.npy', b)`` and ``x = np.load('x.npy')`` 
+   - **NumPyI/O** ``np.save('x.npy', b)`` and ``x = np.load('x.npy')`` 
 
 
 
 Array maths
 ------------
 
-Clearly, you can do math on arrays.  Math in numpy, is very fast
+Clearly, you can do math on arrays.  Math in NumPy, is very fast
 because it is implemented in C or Fortran - just like most other
 high-level languages such as R, Matlab, etc do.
 
-By default, in numpy all math is element-by-element.  This is unlike
+By default, in NumPy all math is element-by-element.  This is unlike
 Matlab, where most things are element-by-element, but ``*`` becomes
-array multiplication.  Numpy values consistency and does not treat
+array multiplication.  NumPy values consistency and does not treat
 2-dimensional arrays specially::
 
   a = np.array([[1,2],[3,4]])
@@ -164,22 +164,22 @@ Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sq
 .. solution::
 
    - **Matrix multiplication** ``np.multiply`` does elementwise multiplication on two arrays, while ``np.dot`` enables matrix multiplication.
-   - **Axis** axis=1 does the operation (here: ``np.sum``) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.
+   - **Axis** ``axis=1`` does the operation (here: ``np.sum``) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.
 
 
 
 Indexing and Slicing
 --------------------
 
-Numpy has many ways to extract values out of arrays:
+NumPy has many ways to extract values out of arrays:
 
 - You can select a single element
 - You can select rows or columns
 - You can select ranges where a condition is true.
 
-Clever and efficient use of these operations is a key to numpy's
+Clever and efficient use of these operations is a key to NumPy's
 speed: you should try to cleverly use these selectors (written in C)
-to extract data to be used with other numpy functions written in C or
+to extract data to be used with other NumPy functions written in C or
 Fortran.  This will give you the benefits of Python with most of the
 speed of C.
 
@@ -208,18 +208,18 @@ Boolean indexing on above created array::
       b = a[:,0]
       b[0] = 5
 
-   - **View vs copy** Try out above code. How does a look like before b has changed and after? How could it be avoided?
+   - **View vs copy** Try out above code. How does ``a`` look like before ``b`` has changed and after? How could it be avoided?
 
 .. solution::
 
-   - **View vs copy** The change in b has also changed the array a! This is because b is merely a view of a part of array a. 
+   - **View vs copy** The change in ``b`` has also changed the array ``a``! This is because ``b`` is merely a view of a part of array ``a``. 
    Both variables point to the same memory. Hence, if one is changed, the other one also changes. If you need to keep the original array as is, use ``np.copy(a)``.
 
 
 
 .. challenge::
 
-   - **Numpy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
+   - **NumPy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
 
 .. solution::
 
@@ -229,7 +229,7 @@ Boolean indexing on above created array::
 Types of operations
 -------------------
 
-There are different types of standard operations in numpy:
+There are different types of standard operations in NumPy:
 
 **ufuncs**, "universal functions": These are element-by-element
 functions with standardized arguments:
@@ -284,7 +284,7 @@ linear algebra, scientific functions, etc.
      ufunc.
 
    - **In-place addition** (advanced): Create an array of
-     `dtype='float'`, and an array of `dtype='int'`.  Try to use the
+     ``dtype='float'``, and an array of ``dtype='int'``.  Try to use the
      int array is the output argument of the first two arrays.
 
 .. solution::
@@ -322,11 +322,11 @@ Matrix or not, there are many different functions available:
 - `Scipy <https://docs.scipy.org/doc/scipy/reference/>`__ has even
   more functions
 
-- Many other libraries use numpy arrays as the standard data
+- Many other libraries use NumPy arrays as the standard data
   structure: they take data in this format, and return it similarly.
   Thus, all the other packages you may want to use are compatible
 
-- If you need to write your own fast code in C, numpy arrays can be
+- If you need to write your own fast code in C, NumPy arrays can be
   used to pass data.  This is known as `extending Python
   <https://docs.python.org/3/extending/>`__.
 
@@ -339,8 +339,8 @@ Matrix or not, there are many different functions available:
 
 .. keypoints::
 
-   - Numpy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
-   - Be aware of some numpy specific pecularities
+   - NumPy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
+   - Be aware of some NumPy specific pecularities
 
 
 
@@ -348,7 +348,7 @@ Additional Exercises
 --------------------
 
 1. Reverse a vector. Given a vector, reverse it such that the last
-   element becomes the first, e.g. [1, 2, 3] => [3, 2, 1]
+   element becomes the first, e.g. ``[1, 2, 3]`` => ``[3, 2, 1]``
 
 2. Create a 2D array with zeros on the borders and 1 inside.
 
