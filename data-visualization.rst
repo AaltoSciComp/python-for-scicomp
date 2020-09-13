@@ -112,27 +112,27 @@ compute cluster), you may need to add this line:
    # ... rest of the script
 
 
-Exercise 4.1
-------------
+.. challenge:: Exercise 4.1
 
-- Extend the previous plot by also plotting this set of values but this time
-  using a different color (``#56B4E9``)::
+  - Extend the previous plot by also plotting this set of values but this time
+    using a different color (``#56B4E9``)::
 
-    # this is dataset 2
-    data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
+      # this is dataset 2
+      data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
 
-- Then add another color (``#009E73``) which plots the second dataset, scaled
-  by 2.0.
+  - Then add another color (``#009E73``) which plots the second dataset, scaled
+    by 2.0.
 
-- Can you try to find out how to add a legend to the plot?
+  - Can you try to find out how to add a legend to the plot?
 
-At the end it should look like this one:
+  At the end it should look like this one:
 
-.. image:: data-visualization/exercise-4.1.png
+  .. image:: data-visualization/exercise-4.1.png
 
-Why these colors? This qualitative color palette is opimized for all color-vision
-deficiencies, see https://clauswilke.com/dataviz/color-pitfalls.html and
-`Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD): How to Make Figures and Presentations That Are Friendly to Colorblind People." <http://jfly.iam.u-tokyo.ac.jp/color/>`__.
+  Why these colors? This qualitative color palette is opimized for all color-vision
+  deficiencies, see https://clauswilke.com/dataviz/color-pitfalls.html and
+  `Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD):
+  How to Make Figures and Presentations That Are Friendly to Colorblind People." <http://jfly.iam.u-tokyo.ac.jp/color/>`__.
 
 
 Matplotlib has two different interfaces
@@ -187,28 +187,26 @@ can also be mixed. Although the pyplot interface looks more compact, **we
 recommend to learn and use the object oriented interface.**
 
 
-Exercise 4.2
-------------
+.. challenge:: Exercise 4.2
 
-Imagine we wanted to learn how to create a histogram and web searched
-"matplotlib plot histogram stack overflow" and found (https://stackoverflow.com/a/5328669):
+  Imagine we wanted to learn how to create a histogram and web searched
+  "matplotlib plot histogram stack overflow" and found https://stackoverflow.com/a/5328669::
 
-.. code-block:: python
+    import matplotlib.pyplot as plt
+    import numpy as np
 
-   import matplotlib.pyplot as plt
-   import numpy as np
+    mu, sigma = 100, 15
+    x = mu + sigma * np.random.randn(10000)
+    hist, bins = np.histogram(x, bins=50)
+    width = 0.7 * (bins[1] - bins[0])
+    center = (bins[:-1] + bins[1:]) / 2
+    plt.bar(center, hist, align='center', width=width)
+    plt.show()
 
-   mu, sigma = 100, 15
-   x = mu + sigma * np.random.randn(10000)
-   hist, bins = np.histogram(x, bins=50)
-   width = 0.7 * (bins[1] - bins[0])
-   center = (bins[:-1] + bins[1:]) / 2
-   plt.bar(center, hist, align='center', width=width)
-   plt.show()
+  - Try this example out in the Jupyter notebook.
+  - Change the number of bins.
+  - Convert it from pyplot interface to using the object oriented interface.
 
-- Try this example out in the Jupyter notebook.
-- Change the number of bins.
-- Convert it from pyplot interface to using the object oriented interface.
 
 .. discussion::
 
@@ -243,9 +241,6 @@ Styling and customizing plots
   Also I will show how to use pre-defined themes.
 
 
-Exercise 4.3
-------------
-
 .. instructor-note::
 
   I will provide an example which is not useful on default scale and the
@@ -271,32 +266,30 @@ Many libraries exist with their own strengths, it is also a matter of taste:
 - `ggplot <https://yhat.github.io/ggpy/>`__: R users will be more at home.
 - `PyNGL <https://www.pyngl.ucar.edu/>`__: used in the weather forecast community.
 
-
-Exercise 4.5
-------------
-
 What many people do (including the instructor) is to browse existing example
 galleries for inspiration and to start with an example that is already close to
 what we have in mind and then to replace the example with own data and to
 customize the looks.
 
-Let's practice this!
-
-- Browse the various example galleries (links below)
-- Take an example that is close to your recent visualization project or simply interests you
-- Try to reproduce this example in the Jupyter notebook
-
 Example galleries and demos:
 
 - `Seaborn <https://seaborn.pydata.org/examples/index.html>`__
 - `Altair <https://altair-viz.github.io/gallery/index.html>`__
-  (not part of a default Anaconda installation)
+  (not part of default Anaconda installation)
 - `Plotly <https://plotly.com/python/>`__
 - `Bokeh <https://demo.bokeh.org/>`__
 - `ggplot <https://yhat.github.io/ggpy/>`__
-  (not part of a default Anaconda installation)
+  (not part of default Anaconda installation)
 - `PyNGL <https://www.pyngl.ucar.edu/Examples/gallery.shtml>`__
-  (not part of a default Anaconda installation)
+  (not part of default Anaconda installation)
+
+Let's practice this!
+
+.. challenge:: Exercise 4.4
+
+  - Browse the various example galleries (links below)
+  - Take an example that is close to your recent visualization project or simply interests you
+  - Try to reproduce this example in the Jupyter notebook
 
 
 .. keypoints::
