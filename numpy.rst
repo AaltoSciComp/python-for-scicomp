@@ -22,7 +22,7 @@ So, we already know about python lists, and that we can put all kinds of things 
 But in scientific usage, lists are often not enough. They are slow and not very flexible.
 
 Numpy is the most used library for scientific computing. 
-(You will probably rarely use it directly, but many libraries use it in the background)
+(Even if you are not using it directly, chances are high that some library uses it in the background)
 Numpy provides the high-performance multidimensional array object and tools to use it. 
 
 An array is a 'grid' of values, with all the same types. It is indexed by tuples of 
