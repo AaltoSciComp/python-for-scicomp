@@ -14,9 +14,8 @@ Enter NumPy
 
 TODO:
   - Why is the array data structure good?
-  - Slice arrays, basic and fancy
-  - Types of operations: scalar, ufunc, methods, functions
-  - broadcasting?
+  - Slice arrays, basic and fancy -> more examples?
+  - Types of operations: scalar, ufunc, methods, functions + broadcasting?
 
 So, we already know about python lists, and that we can put all kinds of things in there.
 But in scientific usage, lists are often not enough. They are slow and not very flexible.
@@ -40,7 +39,7 @@ Array definition
   b.shape                             # the shape (rows,columns)
   b.size                              # number of elements 
 
-Other ways of creating arrays
+In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content:
 
 ::
 
@@ -52,13 +51,22 @@ Other ways of creating arrays
    np.arange(10)              # Evenly spaced values in an interval
    np.linspace(0,9,10)        # same as above, see exercise
 
-   np.load('x.npy')           # load an array from a .npy file
-
    c = np.ones((3,3))
    d = np.ones((3, 2), bool)  # 3x2 boolean array
 
-   d.dtype                    # datatype of the array       
+Arrays can also be stored and read from a (.npy) file :
 
+:: 
+
+   np.save('x.npy')           # save an array to a .npy file
+   np.load('x.npy')           # load an array from a .npy file
+
+In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array:
+
+::
+
+   d.dtype                    # datatype of the array       
+   d.astype('int')            # change datatype from boolean to integer
 
 .. challenge::
 
@@ -69,6 +77,18 @@ Other ways of creating arrays
    - **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Reshape the array in any way possible. What is not possible?
 
    - **NumpyI/O** Save above array to .npy file (np.save) and read it in again.
+
+.. solution::
+
+   - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype int64, 
+   while ``np.linspace(0,9,10)`` results in array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.]) with dtype float64. 
+   Both ``np.linspace`` and ``np.arange`` take dtype as an argument and can be adjusted to match each other in that way.
+
+   - **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int.
+
+   - **Reshape** eg ``b = np.random.randint(0,10,(3,2)``. ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible. It is not possible to reshape to shapes using more or less elements than ``b.size = 6``.
+
+   - **NumpyI/O** ``np.save('x.npy')`` and ``np.load('x.npy')`` 
 
 
 Array maths
@@ -90,6 +110,11 @@ Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sq
    - **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? 
    - **Axis** What is the difference between ``np.sum(axis=1)`` vs ``np.sum(axis=0)``? 
 
+
+.. solution::
+
+   - **Matrix multiplication** 
+   - **Axis** 
 
 Indexing and Slicing
 --------------------
@@ -116,18 +141,27 @@ Boolean indexing
 
 .. challenge::
 
-::
+   ::
 
-  a = np.eye(4)
-  b = a[:,0]
-  b[0,0] = 5
+      a = np.eye(4)
+      b = a[:,0]
+      b[0,0] = 5
 
    - **View vs copy** Try out above code. How does a look like before b has changed and after? How could it be avoided?
+
+.. solution::
+
+   - **View vs copy**
 
 
 .. challenge::
 
    - **Numpy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
+
+.. solution::
+
+   - **Numpy functionality**
+
 
 ..keypoints::
 
