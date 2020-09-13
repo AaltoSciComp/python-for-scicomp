@@ -77,12 +77,6 @@ to learn yourself as you need to.
    dependencies
    binder
 
-   organizing-code
-   exercises-1
-   demo-app
-   see-also
-   homework
-
 .. toctree::
    :maxdepth: 1
    :caption: Reference
