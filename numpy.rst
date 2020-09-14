@@ -216,16 +216,6 @@ Boolean indexing on above created array::
    Both variables point to the same memory. Hence, if one is changed, the other one also changes. If you need to keep the original array as is, use ``np.copy(a)``.
 
 
-
-.. challenge:: Exercise: Numpy-4
-
-   - **NumPy functionality** Create two 2D arrays and do matrix multiplication first manually (for loop), then using the ``np.dot`` function. Use ``%%timeit`` to compare execution times. What is happening?
-
-.. solution:: Solution: Numpy-4
-
-   - **Numpy functionality**
-
-
 Types of operations
 -------------------
 
@@ -278,7 +268,7 @@ functions with standardized arguments:
 linear algebra, scientific functions, etc.
 
 
-.. challenge:: Exercises: Numpy-5
+.. challenge:: Exercises: Numpy-4
 
    - **In-place addition**: Create an array, add it to itself using a
      ufunc.
@@ -287,7 +277,7 @@ linear algebra, scientific functions, etc.
      ``dtype='float'``, and an array of ``dtype='int'``.  Try to use the
      int array is the output argument of the first two arrays.
 
-.. solution:: Solution: Numpy-5
+.. solution:: Solution: Numpy-4
 
    - **in-place addition**::
 
@@ -331,7 +321,7 @@ Matrix or not, there are many different functions available:
   <https://docs.python.org/3/extending/>`__.
 
 
-.. challenge:: Exercises: Numpy-6
+.. challenge:: Exercises: Numpy-5
 
    - **Matrixes are always 2D** (advanced) Make a 2x3 array and a 2x3 matrix.
      Extract just the first row of each of them and check the ``.shape``.
@@ -344,7 +334,7 @@ Matrix or not, there are many different functions available:
 
 
 
-Additional Exercises Numpy-7
+Additional Exercises Numpy-6
 ----------------------------
 
 These are advanced and optional, and will not be done in most courses.
@@ -382,6 +372,10 @@ These are advanced and optional, and will not be done in most courses.
     array on top and the ones on the bottom.  Finally, do the same,
     but create a 4x8 array with the zeros on the left and the ones on
     the rigth.
+
+11. NumPy functionality Create two 2D arrays and do matrix multiplication 
+    first manually (for loop), then using the np.dot function. Use %%timeit 
+    to compare execution times. What is happening?
 
 
 .. solution:: Solution Numpy-7
@@ -431,8 +425,10 @@ These are advanced and optional, and will not be done in most courses.
 
    10. One solution is::
 
-       z = np.zeros((4,4))
-       o = np.ones((4,4))
-       np.concatenate((z,o))
-       np.concatenate((z,o),axis=1)
+        z = np.zeros((4,4))
+        o = np.ones((4,4))
+        np.concatenate((z,o))
+        np.concatenate((z,o),axis=1)
+    
+   11. Using numpy without numpy functionality (np.dot) in this case, is still slow.
 
