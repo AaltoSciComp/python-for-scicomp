@@ -3,46 +3,64 @@ Packaging
 
 .. questions::
 
-   - How can you make your python functions most usable by your collaborators?
-   - How to prepare your code to make a python package?
-   - How to publish your python package?
+   - How to organize larger Python projects?
+   - How can you make your Python functions most usable by your collaborators?
+   - How to prepare your code to make a Python package?
+   - How to publish your Python package?
 
 .. objectives::
 
-   - Learn to identify the components of a python package
-   - Learn to create a python package
-   - Learn to publish a python package
+   - Learn to identify the components of a Python package
+   - Learn to create a Python package
+   - Learn to publish a Python package
 
 
+Organizing Python projecs into modules
+--------------------------------------
 
-Python Modules
---------------
+what is ``__init__.py`` and relative imports.
 
-Python Packages
+
+Birds-eye view of PyPI, pip, and Conda
+--------------------------------------
+
+
+Python packages
 ---------------
 
 .. challenge:: Packaging 1
 
-  TODO: take example from previous episode (scripts) and create a package
+  TODO: - Create a very simple Python package and make it pip-installable
+        - Test to install it locally
 
 
-SetupTools
-----------
- 
-.. challenge:: Packaging 2
+Submit your package to PyPI
+---------------------------
 
-  TODO: generate a pip installable package (to install locally).
+TODO:
+- Show what is required. Remind about the importance of documentation, license, etc.
+- Test-PyPI
 
 
-Submit your package to PiPy
-----------------------------
+Tools that simplify sharing via PyPI
+------------------------------------
 
-TODO: Show what is required. Remind about the importance of documentation, license, etc.
+- poetry
+- flit
+
 
 Building a conda package and share it
---------------------------------------
+-------------------------------------
 
 TODO: for information. Here we may link to other training material. We won't really discuss it but mostly mention it.
+
+- public conda channels have own workflows/rules
+
+
+Version pinning
+---------------
+
+When to pin and when not to pin.
 
 
 .. keypoints::
