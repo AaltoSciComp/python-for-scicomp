@@ -111,7 +111,7 @@ compute cluster), you may need to add this line:
    # ... rest of the script
 
 
-.. challenge:: Exercise 4.1
+.. challenge:: Exercises: Visualization-1
 
   - Extend the previous plot by also plotting this set of values but this time
     using a different color (``#56B4E9``)::
@@ -220,7 +220,7 @@ can also be mixed. Although the pyplot interface looks more compact, **we
 recommend to learn and use the object oriented interface.**
 
 
-.. challenge:: Exercise 4.2
+.. challenge:: Exercises: Visualization-2
 
   Imagine we wanted to learn how to create a histogram and web searched
   "matplotlib plot histogram stack overflow" and found https://stackoverflow.com/a/5328669::
@@ -292,7 +292,7 @@ Styling and customizing plots
 - **Do not customize "manually"** using a graphical program (not easily repeatable/reproducible).
 
 
-.. challenge:: Exercise 4.3
+.. challenge:: Exercises: Visualization-3
 
   In this exercise we will learn how to use log scales.
   To demonstrate this we first fetch some data to plot:
@@ -343,7 +343,7 @@ Styling and customizing plots
      ax.set_ylabel("life expectancy (years)")
 
 
-.. challenge:: Exercise 4.4
+.. challenge:: Exercises: Visualization-4
 
   Often we need to create figures for presentation slides and for publications
   but both have different requirements: for presentation slides you have the whole
@@ -417,7 +417,7 @@ Example galleries and demos:
 Let's practice this!
 
 
-.. challenge:: Exercise 4.5
+.. challenge:: Exercises: Visualization-5
 
   - Browse the various example galleries (links above).
   - Take an example that is close to your recent visualization project or simply interests you.
