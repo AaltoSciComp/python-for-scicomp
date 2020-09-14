@@ -3,17 +3,16 @@ Data visualization with Matplotlib
 
 .. questions::
 
-   - Q1
-   - Q2
+   - When to use Matplotlib for data visualization?
+   - When to prefer other libraries?
 
 .. objectives::
 
-   - Know it exists
-   - Make a simple plot
-   - Know about object-oriented vs stateful interface
-   - Headless rendering by setting backend
-   - Know about other tools: seaborn, plotly, altair
+   - Be able to create simple plots and tweak them
+   - Know about object-oriented vs pyplot interfaces of Matplotlib
    - Be able to adapt gallery examples
+   - Know how to look for help
+   - Know that other tools exist
 
 
 Repeatability/reproducibility
@@ -44,7 +43,7 @@ From `Claus O. Wilke: "Fundamentals of Data Visualization" <https://clauswilke.c
   (using grammar of graphics).
 
 
-Why are we learning matplotlib?
+Why are we learning Matplotlib?
 -------------------------------
 
 - Matplotlib is perhaps the most "standard" Python plotting library.
@@ -52,7 +51,7 @@ Why are we learning matplotlib?
 - MATLAB users will feel familiar.
 - Even if you choose to use another library (see above list), chances are high
   that you need to adapt a Matplotlib plot of somebody else.
-- Libraries that built on top of Matplotlib may need knowledge of Matplotlib
+- Libraries that are built on top of Matplotlib may need knowledge of Matplotlib
   for custom adjustments.
 
 
@@ -97,8 +96,8 @@ When plotting using a script, you often want to also save the generated figure:
 
    plt.show()
 
-We also added ``plt.show()`` to show the figure on screen. We did not need this
-in a Jupyter notebook.
+This code snipped also contains ``plt.show()`` to show the figure on screen. We
+did not need this in a Jupyter notebook.
 
 When running a Matplotlib script on a remote server without a "display" (e.g.
 compute cluster), you may need to add this line:
@@ -177,7 +176,7 @@ there are **two approaches** even though the reasons of this dual approach is
 outside the scope of this lesson.
 
 - The more modern option is an **object-oriented interface** (the ``fig`` and ``ax`` objects
-  can be configured and passed around):
+  can be configured separately and passed around to functions):
 
 .. code-block:: python
    :emphasize-lines: 8-14
@@ -280,27 +279,101 @@ recommend to learn and use the object oriented interface.**
 Styling and customizing plots
 -----------------------------
 
-.. instructor-note::
+- Matplotlib allows to customize almost every aspect of a plot.
+- It is useful to study `Matplotlib parts of a figure <https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure>`__
+  so that we know what to search for to customize things.
+- You can also select among pre-defined themes/
+  `style sheets <https://matplotlib.org/3.1.1/gallery/style_sheets/style_sheets_reference.html>`__, for instance:
 
-  Point to some details on how to customize your plots
-  (changing font size, labels, etc.). Too many researchers importing png
-  file in powerpoints and overwritting labels, titles. Not so good for
-  repeatability/reproducibility.
+.. code-block:: python
 
-  It may be useful to show
-  https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure
+   plt.style.use('ggplot')
 
-  Understanding the notion of Figure, axes, etc. is quite useful. the approach in
-  python is different from R and R users may be a bit confused without some basic
-  principles on how to build a figure with matplotlib.
-
-  Also I will show how to use pre-defined themes.
+- **Do not customize "manually"** using a graphical program (not easily repeatable/reproducible).
 
 
-.. instructor-note::
+.. challenge:: Exercise 4.3
 
-  I will provide an example which is not useful on default scale and the
-  exercise will be to change this to log scale.
+  In this exercise we will learn how to use log scales.
+  To demonstrate this we first fetch some data to plot:
+
+  .. code-block:: python
+
+    # we use plotly, a different visualization library (more about this later)
+    # to fetch some data
+    import plotly.express as px
+
+    # we will be interested in the lifeExp and gdpPercap columns
+    data = px.data.gapminder().query("year == 2007")
+    data
+
+  - Try the above snippet in a notebook and it will give you an overview over the data.
+
+  - Then we can plot the data, first using a linear scale:
+
+  .. code-block:: python
+
+     fig, ax = plt.subplots()
+
+     ax.scatter(x=data["gdpPercap"], y=data["lifeExp"], alpha=0.5)
+     ax.set_xlabel("GDP (USD) per capita")
+     ax.set_ylabel("life expectancy (years)")
+
+  This is the result but we realize that a linear scale is not ideal here:
+
+  .. image:: data-visualization/exercise-4.3-linear.png
+
+  - Your task is to switch to a log scale and arrive at this result:
+
+  .. image:: data-visualization/exercise-4.3-log.png
+
+  - What does ``alpha=0.5`` do?
+  - Try adding ``plt.style.use('ggplot')``.
+
+.. solution::
+
+  .. code-block:: python
+     :emphasize-lines: 4
+
+     fig, ax = plt.subplots()
+
+     ax.scatter(x=data["gdpPercap"], y=data["lifeExp"], alpha=0.5)
+     ax.set_xscale("log")
+     ax.set_xlabel("GDP (USD) per capita")
+     ax.set_ylabel("life expectancy (years)")
+
+
+.. challenge:: Exercise 4.4
+
+  Often we need to create figures for presentation slides and for publications
+  but both have different requirements: for presentation slides you have the whole
+  screen but for a figure in a publication you may only have few centimeters/inches.
+
+  For figures that go to print it is good practice to look at them at the size
+  they will be printed in and then often fonts and tickmarks are too small.
+
+  Your task is to make the tickmarks and the axis label font larger, using
+  `Matplotlib parts of a figure <https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure>`__
+  and web search, and to arrive at this:
+
+  .. image:: data-visualization/exercise-4.4.png
+
+
+.. solution::
+
+  .. code-block:: python
+     :emphasize-lines: 5-10
+
+     fig, ax = plt.subplots()
+
+     ax.scatter(x=data["gdpPercap"], y=data["lifeExp"], alpha=0.5)
+     ax.set_xscale("log")
+     ax.set_xlabel("GDP (USD) per capita", fontsize=15)
+     ax.set_ylabel("life expectancy (years)", fontsize=15)
+     ax.tick_params(which="major", length=10)
+     ax.tick_params(which="minor", length=5)
+     ax.tick_params(labelsize=15)
+     ax.tick_params(labelsize=15)
 
 
 How to choose between the many libraries
@@ -309,10 +382,10 @@ How to choose between the many libraries
 `Matplotlib <https://matplotlib.org/>`__ is probably the most standard and most
 widely used library.  However it is a relatively low-level interface for
 drawing (in terms of abstractions, not in terms of quality) and does not
-provide statistical functions.
+provide statistical functions. Some figures require typing and tweaking many lines of code.
 
-Many libraries exist with their own strengths, it is also a matter of personal
-preferences:
+Many other visualization libraries exist with their own strengths, it is also a
+matter of personal preferences:
 
 - `Seaborn <https://seaborn.pydata.org/>`__: high-level interface to
   Matplotlib, statistical functions built in.
@@ -323,7 +396,7 @@ preferences:
 - `ggplot <https://yhat.github.io/ggpy/>`__: R users will be more at home.
 - `PyNGL <https://www.pyngl.ucar.edu/>`__: used in the weather forecast community.
 
-What many people do (including the instructor) is to browse existing example
+What many people do (including the present instructor) is to browse existing example
 galleries for inspiration and to start with an example that is already close to
 what we have in mind and then to replace the example with own data and to
 customize the looks.
@@ -344,14 +417,17 @@ Example galleries and demos:
 Let's practice this!
 
 
-.. challenge:: Exercise 4.4
+.. challenge:: Exercise 4.5
 
   - Browse the various example galleries (links above).
   - Take an example that is close to your recent visualization project or simply interests you.
   - Try to reproduce this example in the Jupyter notebook.
+  - If you have time, try to tweak it.
 
 
 .. keypoints::
 
-   - K1
-   - K2
+   - Avoid manual post-processing, script everything.
+   - Browse a number of example galleries to help you choose the library that fits best your work/style.
+   - Figures for presentation slides and figures for manuscripts have different requirements.
+   - Think about color-vision deficiencies when choosing colors. Use existing solutions for this problem.
