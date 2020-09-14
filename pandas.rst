@@ -29,30 +29,23 @@ material, including:
 - a `cookbook <https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook>`
 
 Let's get a flavor of what we can do with pandas. We will be working with an
-example dataset containing the passenger list from the Titanic, which is often used in Kaggle competitions and data science tutorials.
-
-To download the data either go to [this GitHub repository](https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv) and save it to a file (e.g. by right-clicking and clicking "Save As"), or type inside Jupyter Notebook (if you have wget installed on OSX or Linux):
-
-
-!wget https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv
-
-
-We now 
-- import the pandas package 
-- load the dataset into a **dataframe** 
-- view the dataframe to get an idea of what it contains 
-- print summary statistics of all numerical data in the dataframe
-
-::
+example dataset containing the passenger list from the Titanic, which is often used in Kaggle competitions and data science tutorials. First step is to load the package::
 
     import pandas as pd
 
-    df = pd.read_csv("titanic.csv")
+We can download the data from [this GitHub repository](https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv) 
+by visiting the page and saving it to disk, or by directly reading into 
+a **dataframe**::
+
+    url = "https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/"
+    df = pd.read_csv(url+"titanic.csv")
+
+We can now view the dataframe to get an idea of what it contains and
+print some summary statistics of all numerical data in the dataframe::
+
     # print the first 5 lines of the dataframe
     df.head()  
     
-::
-
     # print summary statistics for each column
     df.describe()  
 
