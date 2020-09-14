@@ -3,21 +3,18 @@ Dependency management
 
 .. questions::
 
-   - Q1
-   - Q2
+   - How can my collaborators get the same results?
+   - How can my collaborators easily install my codes with all the necessary dependencies?
+   - How can make it easy for my colleagues to reproduce my results?
 
 .. objectives::
 
-   - O1
-   - O2
+   - Record dependencies
+   - Simplify usage of my codes
 
-
-
-(lesson here)
 
 
 
 .. keypoints::
 
-   - K1
-   - K2
+   - Conda, pip, Virtualenv, Pipenv, pyenv, Poetry, requirements.txt 
