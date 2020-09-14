@@ -14,7 +14,19 @@ Pandas
 
 
 Pandas is a Python package that provides high-performance and easy to use 
-data structures and data analysis tools.
+data structures and data analysis tools.  
+This page provides a brief overview of pandas, but the open source community 
+developing the pandas package has also created excellent documentation and training 
+material, including: 
+
+- a  `Getting started guide <https://pandas.pydata.org/getting_started.html>`__ 
+  (including tutorials and a 10 minute flash intro)
+- a `"10 minutes to pandas" <https://pandas.pydata.org/docs/user_guide/10min.html#min>`__
+  tutorial
+- thorough `Documentation <https://pandas.pydata.org/docs/>`__ containing a user guide, 
+  API reference and contribution guide
+- a `cheatsheet <https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf>`__ 
+- a `cookbook <https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook>`
 
 Let's get a flavor of what we can do with pandas. We will be working with an
 example dataset containing the passenger list from the Titanic, which is often used in Kaggle competitions and data science tutorials.
@@ -57,7 +69,9 @@ Let's say we're interested in the survival probability of different age groups. 
     df.hist(column='Age', by='Survived', bins=25, figsize=(8,10), layout=(2,1), zorder=2, sharex=True, rwidth=0.9);
     
 
-Clearly, pandas dataframes allows us to do advanced analysis with very few commands! But it takes a while to get used to how dataframes work so let's get back to basics.
+Clearly, pandas dataframes allows us to do advanced analysis with very few commands, but it takes a while to get used to how dataframes work so let's get back to basics.
+
+
 
 What is a dataframe?
 --------------------
@@ -71,13 +85,49 @@ is composed of rows and columns:
 
 Each column of a dataframe is a Series object - a dataframe is thus a collection 
 of series. Let's inspect one column of the Titanic passanger list data 
-(first loading the titanic.csv datafile into a dataframe if needed)::
+(first downloading and reading the titanic.csv datafile into a dataframe if needed, 
+see above)::
 
-    df = pd.read_csv("titanic.csv")
+    df["Age"]
+    type(df["Age"])
 
-    print(df["Age"])
-    
-    print(type(df["Age"]))
+We can inspect the column names through the `columns` attribute::
+
+    df.columns
+
+Series and DataFrames have a lot functionality, for example statistical 
+methods::
+
+    df["Age"].min()
+    df["Age"].max()
+    df["Age"].mean()
+    df["Age"].std()
+
+How can we find out what methods are available? One way is to visit 
+the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
+and searching through the list. 
+Another way is use the autocompletion feature in Jupyter and type e.g. 
+``df["Age"].`` in a notebook and then hit `TAB` twice - this opens up a list menu of available methods and attributes.
+
+
+We saw above how we can read in data into a dataframe using the ``read_csv`` method.
+Pandas also understands multiple other formats, for example using ``read_excel``,  
+``read_hdf``, ``read_json``, etc. 
+But often you would want to create a dataframe from scratch. Also this can be done 
+in multiple ways, for example from a numpy array::
+
+    dates = pd.date_range('20130101', periods=6)
+    df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
+
+or from a dictionary::
+
+    df2 = pd.DataFrame({'A': 1., 'B': pd.Timestamp('20130102'), 
+                        'C': pd.Series(1, index=list(range(4)), dtype='float32'),
+                        'D': np.array([3] * 4, dtype='int32'),
+                        'E': pd.Categorical(["test", "train", "test", "train"]),
+                        'F': 'foo'})
+
+
 
 - loading data and writing data
 - indexing ([] and .at / .iat)
@@ -87,23 +137,28 @@ of series. Let's inspect one column of the Titanic passanger list data
 Working with dataframes
 -----------------------
 
-- join, merge, split
+- join, merge, split, apply
 - sort_values, pivot and pivot_table
+- groupby (one vs two categories, e.g. survival and sex, calc mean/max/min wrt age)
+    - hierarchical indexing
+
+Time series superpowers
+-----------------------
 
 Tidy data
 ---------
 
+- missing values, dropna, dropna(how="all"), fill-forward (ffill) etc
 
 
 
 .. challenge:: Extracting information from a dataframe
 
-Investigate the family size of the passengers, i.e. the "SibSp" column.
+    Investigate the family size of the passengers, i.e. the "SibSp" column.
 
-- What different family sizes exist in the passenger list? Hint: try the `unique` method 
-- What are the names of the people in the largest family group?
-- Create a histogram showing the distribution of family sizes 
-```
+    - What different family sizes exist in the passenger list? Hint: try the `unique` method 
+    - What are the names of the people in the largest family group?
+    - Create a histogram showing the distribution of family sizes 
 
 .. keypoints::
 
