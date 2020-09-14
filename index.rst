@@ -52,11 +52,11 @@ to learn yourself as you need to.
    60 min   ; :doc:`numpy`
    60 min   ; :doc:`data-visualization`
    60 min   ; :doc:`scripts`
+   30 min   ; :doc:`dependencies`
    60 min   ; :doc:`packaging`
    ?? min   ; :doc:`scipy`
    ?? min   ; :doc:`pandas`
    ?? min   ; :doc:`libraries`
-   ?? min   ; :doc:`dependencies`
    ?? min   ; :doc:`binder`
 
 
@@ -70,11 +70,11 @@ to learn yourself as you need to.
    numpy
    data-visualization
    scripts
+   dependencies
    packaging
    scipy
    pandas
    libraries
-   dependencies
    binder
 
 .. toctree::
