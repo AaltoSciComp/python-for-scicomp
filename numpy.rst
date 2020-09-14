@@ -185,12 +185,12 @@ speed of C.
 
 ::
 
-  a = np.arange(16)      # 4x4 identity matrix
-  a[0]               # first row
-  a[:,0]             # first column
-  a[1:3,1:3]         # middle 2x2 array
+  a = np.arange(16).reshape(4, 4)  # 4x4 matrix from 0 to 15
+  a[0]                             # first row
+  a[:,0]                           # first column
+  a[1:3,1:3]                       # middle 2x2 array
 
-  a[(0, 1), (1, 1)]  # second element of first and second row as array
+  a[(0, 1), (1, 1)]                # second element of first and second row as array
 
 Boolean indexing on above created array::
 
