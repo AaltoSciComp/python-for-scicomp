@@ -33,7 +33,7 @@ example dataset containing the passenger list from the Titanic, which is often u
 
     import pandas as pd
 
-We can download the data from [this GitHub repository](https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv) 
+We can download the data from `this GitHub repository <https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv>`__
 by visiting the page and saving it to disk, or by directly reading into 
 a **dataframe**::
 
@@ -41,7 +41,7 @@ a **dataframe**::
     df = pd.read_csv(url+"titanic.csv")
 
 We can now view the dataframe to get an idea of what it contains and
-print some summary statistics of all numerical data in the dataframe::
+print some summary statistics of its numerical data::
 
     # print the first 5 lines of the dataframe
     df.head()  
@@ -66,8 +66,8 @@ Clearly, pandas dataframes allows us to do advanced analysis with very few comma
 
 
 
-What is a dataframe?
---------------------
+What's in a dataframe?
+----------------------
 
 Pandas dataframes are a powerful tool for working with tabular data, 
 e.g. from databases or spreadsheets. A pandas 
@@ -82,26 +82,49 @@ of series. Let's inspect one column of the Titanic passanger list data
 see above)::
 
     df["Age"]
+    df.Age          # same as above
     type(df["Age"])
 
-We can inspect the column names through the `columns` attribute::
+The columns and rows can be inspected through the *columns* and *index* attributes::
 
     df.columns
+    df.index
 
-Series and DataFrames have a lot functionality, for example statistical 
-methods::
+We saw above how to select a single column, but there are other ways of selecting 
+single or multiple rows, columns and values::
 
-    df["Age"].min()
-    df["Age"].max()
-    df["Age"].mean()
-    df["Age"].std()
+    df.at[0,"Age"]            # select single value by row and column *name* (fast)
+    df.iat[0,5]               # select same value by row and column *number* (fast)
+    df.loc[0:2, "Name":"Age"] # slice the dataframe by row and column *names*
+    df.iloc[0:2,3:6]          # same slice as above by row and column *numbers*
 
-How can we find out what methods are available? One way is to visit 
+Finally, dataframes support boolean indexing, just like we saw for ``numpy`` 
+arrays::
+
+    df[df["Age"] > 70]
+    df[df["Name"].str.contains("Margaret")]
+
+Series and DataFrames have a lot functionality, but
+how can we find out what methods are available? One way is to visit 
 the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
 and searching through the list. 
 Another way is use the autocompletion feature in Jupyter and type e.g. 
-``df["Age"].`` in a notebook and then hit `TAB` twice - this opens up a list menu of available methods and attributes.
+``df["Age"].`` in a notebook and then hit `TAB` twice - this should open 
+up a list menu of available methods and attributes.
 
+.. challenge:: Exploring dataframes
+
+    - Have a look at the available methods and attributes using the 
+      `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
+      or the autocomplete feature in Jupyter. 
+    - Try out a few methods and have a look at the docstrings (help pages) 
+      of methods that pique your interest by either running a cell with 
+      question mark after the method name (e.g. ``df.min?``) or by hitting 
+      ``SHIFT`` + ``TAB`` after the method name.
+    - Compute the mean age of the first 10 passengers by slicing and the ``mean`` method
+    - (Advanced) Using boolean indexing, compute the survival rate 
+      (mean of "Survived" values) among passengers over and under the average age.
+    
 
 We saw above how we can read in data into a dataframe using the ``read_csv`` method.
 Pandas also understands multiple other formats, for example using ``read_excel``,  
@@ -119,6 +142,7 @@ or from a dictionary::
                         'D': np.array([3] * 4, dtype='int32'),
                         'E': pd.Categorical(["test", "train", "test", "train"]),
                         'F': 'foo'})
+
 
 
 
