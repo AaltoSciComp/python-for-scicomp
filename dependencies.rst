@@ -79,119 +79,105 @@ Isolated environments solve a couple of problems:
 - If you make some mistake and install something you did not want or need, you
   can remove the environment and create a new one.
 
-.. instructor-note::
 
-   Exercise needs some work ...
-
-
-.. challenge:: Dependencies-2 (15 mn)
+.. challenge:: Dependencies-2 (15 min)
 
   Chloe just joined your team and will be working on her Master Thesis. She is
   quite familiar with Python, still finishing some Python assignments (due in a
-  few weeks) and you give her a python code for analyzing and plotting your
-  favorite data. The thing is that your python code has been developed by
+  few weeks) and you give her a Python code for analyzing and plotting your
+  favorite data. The thing is that your Python code has been developed by
   another Master Student (from last year) and requires a pretty old version of
-  Numpy 1.13.1 and Matplotlib = 2.2.2 (otherwise your code fails). The code
-  could probably work with recent version of Python but has been validated with
-  python 3.6 only. Having no idea what the code does, she decides that the best
-  approach is to create an isolated environment with the same dependencies used
+  Numpy (1.13.1) and Matplotlib (2.2.2) (otherwise the code fails). The code
+  could probably work with a recent version of Python but has been validated with
+  Python 3.6 only. Having no idea what the code does, she decides that the best
+  approach is to **create an isolated environment** with the same dependencies used
   previously. This will give her a baseline for future upgrade and
   developments.
 
   For this first exercise, we will be using conda for creating an isolated environment.
 
-  1. Create a conda environment
+  1. Create a conda environment::
 
-  ::
+     $ conda create --name python36-env python=3.6 numpy=1.13.1 matplotlib=2.2.2
 
-    conda create --name python36-env python=3.6 numpy=1.13.1 matplotlib=2.2.2
-
-  Conda environments can also be managed (create, update, delete) from
+  Conda environments can also be managed (create, update, delete) from the
   **anaconda-navigator**. Check out the corresponding documentation `here
-  <https://docs.anaconda.com/anaconda/navigator/getting-started/#navigator-managing-environments>`_
+  <https://docs.anaconda.com/anaconda/navigator/getting-started/#navigator-managing-environments>`_.
 
-  2. Activate it
+  2. Activate the environment::
 
-  ::
-
-    conda activate python36-env
+     $ conda activate python36-env
 
   .. callout:: conda activate versus source activate
 
     If you do not have a recent version of Anaconda or anaconda has not been
     setup properly, you may encounter an error. With older version of anaconda,
-    youmay try:
+    you can try::
 
-    ::
+       $ source activate python36-env
 
-      source activate python36-env
+  3. Open a Python console and check that you have effectively the right version for each package::
 
-  3. Open a Python console and check that you have effectively the right version for each package:
+      import numpy
+      import matplotlib
 
+      print('Numpy version: ', numpy.__version__)
+      print('Matplotlib version: ', matplotlib.__version__)
 
-  ::
+  4. Deactivate the environment::
 
-    import numpy
-    import matplotlib
+     $ conda deactivate
 
-    print('Numpy version: ', numpy.__version__)
-    print('matplotlib version: ', matplotlib.__version__)
+  5. Check Numpy and Matplotlib versions in the default environment to make
+     sure they are different from **python36-env**.
 
-  4. Deactivate it
-
-  ::
-
-    conda deactivate
-
-  5. Check Numpy and Matplotlib versions in the default environment to make sure they are different from **python36-env**.
-
-
-  There is no need to specify conda environment when using deactivate. It deactivates the current environment.
+  There is no need to specify the conda environment when using deactivate. It
+  deactivates the current environment.
 
   .. callout:: Remark
 
-    - Sometimes the package version you would need does not seem to be available. You may have to select another `conda channel <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`_ for instance `conda-forge <https://conda-forge.org/>`_. Channels can then be indicated when installing a package:
+    - Sometimes the package version you would need does not seem to be
+      available. You may have to select another `conda channel
+      <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`_
+      for instance `conda-forge <https://conda-forge.org/>`_. Channels can then
+      be indicated when installing a package::
 
-    ::
+      $ conda install -c conda-forge matplotlib=2.2.0
 
-      conda install -c conda-forge matplotlib=2.2.0
-
-    - We will see below that rather than specifying the list of dependencies as argument of **conda create**, it is recommended to record dependencies in a file.
-
-
-.. challenge:: Dependencies-3 (15 mn, optional)
-
-  This is the same exercise as before but we use venv rather than conda.
-
-
-  1. Create a venv
-
-  ::
-
-   virtualenv -p python scicomp
-
-  Here **scicomp** is the name of the virtual environment. It creates a new folder called **scicomp**.
-
-   2. Activate it
-
-   To activate your newly created virtual environment locate the script called **activate** and execute it.
-
-       - **Linux/Mac-OSX**: look at **bin** folder in **scicomp** folder.
-       - **Windows**: most likely you can find it in **Scripts** folder.
+    - We will see below that rather than specifying the list of dependencies as
+      argument of ``conda create``, it is recommended to record dependencies in
+      a file.
 
 
-  3. Install Numpy 1.13.1 and Matplotlib 2.2.2
+.. challenge:: Dependencies-3 (15 min, optional)
 
-  ::
+  This is the same exercise as before but we use virtualenv rather than conda.
 
-    pip install numpy=1.13.1
-    pip install matplotlib=2.2.2
 
-  4. Deactivate it
+  1. Create a venv::
 
-  ::
+     $ virtualenv -p python scicomp
 
-    deactivate
+  Here ``scicomp`` is the name of the virtual environment. It creates a new
+  folder called ``scicomp``.
+
+  2. Activate it. To activate your newly created virtual environment locate the
+     script called ``activate`` and execute it.
+
+     - **Linux/Mac-OSX**: look at ``bin`` folder in the ``scicomp`` folder::
+
+        $ source scicomp/bin/activate
+
+     - **Windows**: most likely you can find it in the ``Scripts`` folder.
+
+  3. Install Numpy 1.13.1 and Matplotlib 2.2.2 into the virtual environment::
+
+     $ pip install numpy=1.13.1
+     $ pip install matplotlib=2.2.2
+
+  4. Deactivate it::
+
+     $ deactivate
 
 
 Recording dependencies
