@@ -121,9 +121,9 @@ important things to do for speed.
 
 .. solution:: Solutions: Numpy-1
 
-   - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**, 
-   while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**. 
-   Both ``np.linspace`` and ``np.arange`` take dtype as an argument and can be adjusted to match each other in that way.
+   - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**,
+     while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**.
+     Both ``np.linspace`` and ``np.arange`` take dtype as an argument and can be adjusted to match each other in that way.
 
    - **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int.
 
