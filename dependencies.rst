@@ -3,8 +3,10 @@ Dependency management
 
 .. questions::
 
-   - How can my collaborators get the same results as me?
-   - How can I get the same results as the past me?
+   - Do you expect your code to work in one year?  Five?  What if it
+     uses ``numpy`` or ``tensorflow`` or ``random-github-package`` ?
+   - How can my collaborators get the same results as me? What about
+     future me?
    - How can my collaborators easily install my codes with all the necessary dependencies?
    - How can I make it easy for my colleagues to reproduce my results?
    - How can I work on two (or more) projects with different and conflicting dependencies?
@@ -19,6 +21,9 @@ Dependency management
 
 How do you track dependencies of your project?
 ----------------------------------------------
+
+* **Dependency**: Reliance on a external component.  In this case, a
+  separately installed software package such as ``numpy``.
 
 .. challenge:: Dependencies-1 (15 min)
 
@@ -108,13 +113,13 @@ Isolated environments solve a couple of problems:
 
      $ conda activate python36-env
 
-  .. callout:: conda activate versus source activate
+     .. callout:: conda activate versus source activate
 
-    If you do not have a recent version of Anaconda or anaconda has not been
-    setup properly, you may encounter an error. With older version of anaconda,
-    you can try::
+        If you do not have a recent version of Anaconda or anaconda has not been
+        setup properly, you may encounter an error. With older version of anaconda,
+        you can try::
 
-       $ source activate python36-env
+          $ source activate python36-env
 
   3. Open a Python console and check that you have effectively the right version for each package::
 
@@ -158,8 +163,8 @@ Isolated environments solve a couple of problems:
 
      $ python -m venv scicomp
 
-  Here ``scicomp`` is the name of the virtual environment. It creates a new
-  folder called ``scicomp``.
+     Here ``scicomp`` is the name of the virtual environment. It creates a new
+     folder called ``scicomp``.
 
   2. Activate it. To activate your newly created virtual environment locate the
      script called ``activate`` and execute it.
@@ -271,6 +276,12 @@ Should we pin the versions here or not?
 
 - Therefore **as library creator make the version requirements as wide as possible**.
 
+  - Set minimum version when you know of a reason: ``>=2.1``
+
+  - Sometimes set maximum version to next major version (``<4``) (when
+    you currently use ``3.x.y``) when you expect issues with next
+    major version.
+
 - As the "end consumer" of libraries, define your dependencies as narrowly as possible.
 
 
@@ -285,6 +296,6 @@ Other tools for dependency management
 
 .. keypoints::
 
-   - Install dependencies by first recording them in requirements.txt or
-     environment.yml and install using these files, then you have a trace.
+   - Install dependencies by first recording them in ``requirements.txt`` or
+     ``environment.yml`` and install using these files, then you have a trace.
    - Use isolated environments and avoid installing packages system-wide.
