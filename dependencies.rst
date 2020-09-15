@@ -86,14 +86,14 @@ Isolated environments solve a couple of problems:
   1. Create a venv
 
   ::
-  
+
    virtualenv -p python scicomp
 
   Here **scicomp** is the name of the virtual environment. It creates a new folder called **scicomp**.
 
    2. Activate it
 
-   To activate your newly created virtual environment locate the script called **activate** and execute it. 
+   To activate your newly created virtual environment locate the script called **activate** and execute it.
 
        - **Linux/Mac-OSX**: look at **bin** folder in **scicomp** folder.
        - **Windows**: most likely you can find it in **Scripts** folder.
@@ -103,7 +103,7 @@ Isolated environments solve a couple of problems:
 
 
   4. Deactivate it
-  
+
 
 .. challenge:: Dependencies-3
 
@@ -156,25 +156,41 @@ These dependencies will then be used by either other libraries (who in turn
 write their own ``setup.py`` or ``pyproject.toml`` or ``meta.yaml``) or by
 people directly (filling out ``requirements.txt`` or a ``environment.yml``).
 
-Now as a library creator you have a choice. You can either pin versions very
+Now as a library creator you have a difficult choice. You can either pin versions very
 narrowly like here (example taken from ``setup.py``):
 
-.. instructor-note::
+.. code-block:: python
+   :emphasize-lines: 3-6
 
-   Need to add something here.
+   # ...
+   install_requires=[
+      'numpy==1.19.2',
+      'matplotlib==3.3.2'
+      'pandas==1.1.2'
+      'scipy==1.5.2'
+   ]
+   # ...
 
 or you can define a range or keep them undefined like here (example taken from
 ``setup.py``):
 
-.. instructor-note::
+.. code-block:: python
+   :emphasize-lines: 3-6
 
-   Need to add something here.
+   # ...
+   install_requires=[
+      'numpy',
+      'matplotlib'
+      'pandas'
+      'scipy'
+   ]
+   # ...
 
 Should we pin the versions here or not?
 
-- Pinning versions here is good for reproducibility.
+- Pinning versions here would be good for reproducibility.
 
-- However pinning versions may make it difficult for this library to be used in a project with other
+- However pinning versions may make it difficult for this library to be used in a project alongside other
   libraries with conflicting version dependencies.
 
 - Therefore **as library creator make the version requirements as wide as possible**.
