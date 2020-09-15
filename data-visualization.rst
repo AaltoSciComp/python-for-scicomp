@@ -411,8 +411,11 @@ Example galleries and demos:
 - `Bokeh <https://demo.bokeh.org/>`__
 - `ggplot <https://yhat.github.io/ggpy/>`__
   (not part of default Anaconda installation)
+- `vega <https://vega.github.io/vega/>`__
 - `PyNGL <https://www.pyngl.ucar.edu/Examples/gallery.shtml>`__
   (not part of default Anaconda installation)
+- `K3D <https://k3d-jupyter.org/>`__ 
+  (Jupyter notebook extension for 3D visualization)
 
 Let's practice this!
 
