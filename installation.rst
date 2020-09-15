@@ -39,6 +39,22 @@ would work, but because there are so many different ways to do this,
 we don't support them.
 
 
+Command line
+~~~~~~~~~~~~
+
+There are different ways to start the command line.
+
+* From the Anaconda Navigator:
+
+  .. figure:: img/installation/anaconda-prompt.png
+     :class: with-border
+
+     From the Anaconda Navigator, you can select "environments" on the
+     left, then click on one, then the arrow, then "Open terminal".
+
+* You can try from the Jupyter terminal.
+
+
 
 Verify the installation
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,14 +74,14 @@ line like this:
    $ jupyter lab
    (... Jupyter starts in a web browser)
 
-You also need to be able to run Python from the command line (starting
-on day 2).  For this, you can start the "terminal" application from
-within JupyterLab, and do everything from there.  This is sufficient
-for the course, so we recommend this if you don't normally use the
-command line.:
+To verify command line usage:
 
 .. code-block:: console
 
+   $ python -V
+   Python 3.8.3
+
+   ## Or python3...
    $ python3 -V
    Python 3.8.3
 
@@ -86,14 +102,14 @@ whatever you use now, will work as well.
 
 
 
-Shell
------
+Command line
+------------
 
-If you can run JupyterLab, that is sufficient.  You should be able to
-start the terminal from there.
+See above under "command line".
 
 TODO.  You can see the `CodeRefinery instructions
-<https://coderefinery.github.io/installation/bash/>`__.
+<https://coderefinery.github.io/installation/bash/>`__ for more
+advanced ways of doing things.
 
 
 git
