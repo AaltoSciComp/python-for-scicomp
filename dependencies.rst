@@ -133,11 +133,18 @@ write their own ``setup.py`` or ``pyproject.toml`` or ``meta.yaml``) or by
 people directly (filling out ``requirements.txt`` or a ``environment.yml``).
 
 Now as a library creator you have a choice. You can either pin versions very
-narrowly like here (example taken from ``setup.py``)::
+narrowly like here (example taken from ``setup.py``):
 
+.. instructor-note::
+
+   Need to add something here.
 
 or you can define a range or keep them undefined like here (example taken from
-``setup.py``)::
+``setup.py``):
+
+.. instructor-note::
+
+   Need to add something here.
 
 Should we pin the versions here or not?
 
