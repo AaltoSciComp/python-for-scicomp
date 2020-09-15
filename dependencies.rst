@@ -156,7 +156,7 @@ Isolated environments solve a couple of problems:
 
   1. Create a venv::
 
-     $ virtualenv -p python scicomp
+     $ python -m venv scicomp
 
   Here ``scicomp`` is the name of the virtual environment. It creates a new
   folder called ``scicomp``.
