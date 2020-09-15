@@ -6,7 +6,7 @@ Dependency management
    - How can my collaborators get the same results as me?
    - How can I get the same results as the past me?
    - How can my collaborators easily install my codes with all the necessary dependencies?
-   - How can make it easy for my colleagues to reproduce my results?
+   - How can I make it easy for my colleagues to reproduce my results?
    - How can I work on two (or more) projects with different and conflicting dependencies?
 
 .. objectives::
