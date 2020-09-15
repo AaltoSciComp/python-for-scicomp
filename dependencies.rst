@@ -261,14 +261,10 @@ Should we pin the versions here or not?
 Other tools for dependency management
 -------------------------------------
 
-.. instructor-note::
-
-  For each of these we should add a link and a sentence summarizing when this
-  can be useful.
-
-- poetry
-- pyenv
-- micropipenv
+- `Poetry <https://python-poetry.org/>`__: dependency management and packaging
+- `Pipenv <https://pipenv.pypa.io/>`__: dependency management, alternative to Poetry
+- `pyenv <https://github.com/pyenv/pyenv>`__: if you need different Python versions for different projects
+- `micropipenv <https://github.com/thoth-station/micropipenv>`__: lightweight tool to "rule them all"
 
 
 .. keypoints::
