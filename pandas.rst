@@ -131,9 +131,7 @@ arrays::
       `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
       or the autocomplete feature in Jupyter. 
     - Try out a few methods and have a look at the docstrings (help pages) 
-      of methods that pique your interest by either running a cell with 
-      question mark after the method name (e.g. ``df.min?``) or by hitting 
-      ``SHIFT`` + ``TAB`` after the method name.
+      of methods that pique your interest
     - Compute the mean age of the first 10 passengers by slicing and the ``mean`` method
     - (Advanced) Using boolean indexing, compute the survival rate 
       (mean of "Survived" values) among passengers over and under the average age.
@@ -167,8 +165,6 @@ or from a dictionary::
 
 
 
-
-
 Working with dataframes
 -----------------------
 
@@ -176,6 +172,8 @@ Working with dataframes
 - sort_values, pivot and pivot_table
 - groupby (one vs two categories, e.g. survival and sex, calc mean/max/min wrt age)
     - hierarchical indexing
+    
+- mention that for R users, dataframes and pandas will look familiar (does the idea come from there?)
 
 Time series superpowers
 -----------------------
@@ -193,7 +191,18 @@ Tidy data
 
     - What different family sizes exist in the passenger list? Hint: try the `unique` method 
     - What are the names of the people in the largest family group?
-    - Create a histogram showing the distribution of family sizes 
+    - (Advanced) Create histograms showing the distribution of family sizes for 
+      passengers split by the fare, i.e. one group of high-fare passengers (where 
+      the fare is above average) and one for low-fare passengers 
+      (Hint: you can use the lambda function 
+      ``lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich"``)
+
+.. solution:: Solution
+
+    - Existing family sizes: ``df["SibSp"].unique()``
+    - Names of members of largest family(ies): ``df[df["SibSp"] == 8]["Name"]``
+    - ``df.hist("SibSp", lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich", rwidth=0.9)``
+
 
 .. keypoints::
 
