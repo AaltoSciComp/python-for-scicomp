@@ -62,6 +62,10 @@ Why are there two ecosystems?
 - Many libraries and tools are distributed in both ecosystems.
 
 
+In the packaging episode we will meet PyPI and Anaconda again and practice how
+to share Python packages.
+
+
 Creating isolated environments
 ------------------------------
 
