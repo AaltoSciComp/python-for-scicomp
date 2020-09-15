@@ -26,7 +26,7 @@ How do you track dependencies of your project?
 
   - How do you install Python packages (libraries) that you use in your work?
     From PyPI using pip? From other places using pip? Using conda?
-  - How do track/record the dependencies? Do you write them into a file or README? Into
+  - How do you track/record the dependencies? Do you write them into a file or README? Into
     ``requirements.txt`` or ``environment.yml``? How do you track this?
   - If you track dependencies in a file, why do you do this?
   - Have you ever experienced that a project needed a different version of a Python
@@ -81,14 +81,38 @@ Isolated environments solve a couple of problems:
 
 .. challenge:: Dependencies-2
 
-  - Create a venv
-  - Activate it
-  - Install something into it
-  - Deactivate it
-  - Create a conda environment
-  - Activate it
-  - Install something into it
-  - Deactivate it
+  Chloe just joined your team and will be working on her Master Thesis. She is quite familiar with Python, still finishing some Python assignments (due in a few weeks) and you give her a python code for analyzing your favorite data. The thing is that your python code has been developed by another Master Student (from last year) and requires a pretty old version of Numpy <= 1.13.x (otherwise your code fails). Having no idea what the code does, she decides that the best approach is to create a virtual environment for running it.
+
+  1. Create a venv
+
+  ::
+  
+   virtualenv -p python scicomp
+
+  Here **scicomp** is the name of the virtual environment. It creates a new folder called **scicomp**.
+
+   2. Activate it
+
+   To activate your newly created virtual environment locate the script called **activate** and execute it. 
+
+       - **Linux/Mac-OSX**: look at **bin** folder in **scicomp** folder.
+       - **Windows**: most likely you can find it in **Scripts** folder.
+
+
+  3. Install Numpy 1.13.1
+
+
+  4. Deactivate it
+  
+
+.. challenge:: Dependencies-3
+
+  This is the same exercise as before but we use conda rather than venv.
+
+  1. Create a conda environment
+  2. Activate it
+  3. Install Numpy 1.13.1
+  4. Deactivate it
 
 
 Recording dependencies
