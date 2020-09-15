@@ -20,9 +20,10 @@ Dependency management
 How do you track dependencies of your project?
 ----------------------------------------------
 
-.. challenge:: Dependencies-1
+.. challenge:: Dependencies-1 (15 min)
 
-  Please discuss via collaborative document the following questions:
+  Please discuss **in breakout rooms** and answer via **collaborative document** the
+  following questions:
 
   - How do you install Python packages (libraries) that you use in your work?
     From PyPI using pip? From other places using pip? Using conda?
