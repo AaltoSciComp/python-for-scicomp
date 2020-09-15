@@ -7,14 +7,14 @@ Dependency management
    - How can I get the same results as the past me?
    - How can my collaborators easily install my codes with all the necessary dependencies?
    - How can make it easy for my colleagues to reproduce my results?
-   - How can I work on two (or more projects) with different and conflicting dependencies?
+   - How can I work on two (or more) projects with different and conflicting dependencies?
 
 .. objectives::
 
    - Learn how to record dependencies
    - Be able to communicate the dependencies as part of a report/thesis/publication
    - Learn how to use isolated environments for different projects
-   - Simplify the use and reuse of my codes
+   - Simplify the use and reuse of scripts and projects
 
 
 How do you track dependencies of your project?
@@ -27,7 +27,7 @@ How do you track dependencies of your project?
   - How do you install Python packages (libraries) that you use in your work?
     From PyPI using pip? From other places using pip? Using conda?
   - How do you track/record the dependencies? Do you write them into a file or README? Into
-    ``requirements.txt`` or ``environment.yml``? How do you track this?
+    ``requirements.txt`` or ``environment.yml``?
   - If you track dependencies in a file, why do you do this?
   - Have you ever experienced that a project needed a different version of a Python
     library than the one on your computer? If yes, how did you solve it?
