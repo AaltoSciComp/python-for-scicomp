@@ -140,7 +140,7 @@ For example, we can create a new python file (**inflammation_functions.py**) con
   import numpy as np
 
   def processing(dataset):
-    return dataset / np.linalg.norm(dataset)
+      return dataset / np.linalg.norm(dataset)
 
 and a second file calling this function:
 
@@ -172,50 +172,82 @@ and a second file calling this function:
   2. Update **test_inflammation.py** to call it.
 
 
-Command line arguments with `sys.argv`
---------------------------------------
+Command line arguments with ``sys.argv``
+----------------------------------------
 
-We have better organized our code but it still cannot easily process different input files. For this, rather than copying several time the same code for different input files, we can update the main code to pass it from the command line. 
+We have better organized our code but it still cannot easily process different
+input files. For this, rather than copying several time the same code for
+different input files, we can update the main code to pass it from the command
+line.
 
-**Example**
+**Example**: We create a Python script and pass the input file and the output file
+name as command line arguments:
 
-We create a python script to sum two integers and print the result. The two integers are passed as arguments.
+.. code-block:: python
+   :emphasize-lines: 3-4
 
-::
+   import sys
 
-  import sys
+   input_file_name = sys.argv[1]
+   output_file_name = sys.argv[2]
 
-  print(int(sys.argv[1]) + int(sys.argv[2]))
+   # to keep things simple we only print them out:
+   print(f"input file is {input_file_name}")
+   print(f"output file is {output_file_name}")
 
 
-This approach is not very flexible and does not fully allow to customize your scripts. A better approach is to use **argparse**.
+We can try it out::
 
-Parsing command line arguments with `argparse`
-----------------------------------------------
+   $ python myscript.py myinput myoutput
 
-::
 
-  #!/usr/bin/env python
+.. discussion::
 
-  import argparse
+  - Does it work?
 
-  # help flag provides flag help
+  - Why is this better than modifying the script every time I want it to
+    operate on a different file?
 
-  parser = argparse.ArgumentParser()
-     
-  parser.add_argument('-o', '--output', type=str,  
-                      help="output filename")
-  args = parser.parse_args()
+  - What problems do you expect when using this approach (using ``sys.argv``)?
 
-  if args.output:
-	     print("This is the name of the output file")
+This approach is brittle and more robust solutions exist that allow to fully
+customize your scripts and generate help texts at the same time:
+
+- `argparse <https://docs.python.org/3/library/argparse.html>`__: this is the one that we will show
+- `doctopt <http://docopt.org/>`__: you write the help text and this generates a parser for you
+- `click <https://click.palletsprojects.com//>`__: another nice library for command line interfaces
+
+
+Parsing command line arguments with ``argparse``
+------------------------------------------------
+
+This example not only gives you descriptive command line
+arguments, it also automatically generates a ``--help`` option for you:
+
+.. code-block:: python
+
+   #!/usr/bin/env python
+
+   import argparse
+
+   parser = argparse.ArgumentParser()
+
+   parser.add_argument('-o', '--output', type=str,
+                       help="output filename")
+
+   args = parser.parse_args()
+
+   if args.output:
+       print(f"output file is {args.output}")
+
 
 .. challenge:: Scripts-3
 
   1. Take the python script we have written in the preceding exercise and use
-     `argparse` to be able to read any input file and save the resulting image in an output file (filename is specified via command line argument).
+     ``argparse`` to be able to read any input file and save the resulting image in an output file (filename is specified via command line argument).
 
   2. Execute your script for all the **inflammation** files (there are 12 files numbered from 01 to 12).
+
 
 Synchronize with Jupytext (optional)
 ------------------------------------
