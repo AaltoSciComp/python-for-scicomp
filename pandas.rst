@@ -36,8 +36,8 @@ We can download the data from `this GitHub repository <https://raw.githubusercon
 by visiting the page and saving it to disk, or by directly reading into 
 a **dataframe**::
 
-    url = "https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/"
-    df = pd.read_csv(url+"titanic.csv")
+    url = "https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv"
+    df = pd.read_csv(url)
 
 We can now view the dataframe to get an idea of what it contains and
 print some summary statistics of its numerical data::
@@ -75,7 +75,9 @@ is composed of rows and columns:
 
 .. image:: img/01_table_dataframe.svg
 
-Each column of a dataframe is a Series object - a dataframe is thus a collection 
+Each column of a dataframe is a 
+`series object <https://pandas.pydata.org/docs/user_guide/dsintro.html#series>`__ 
+- a dataframe is thus a collection 
 of series. Let's inspect one column of the Titanic passanger list data 
 (first downloading and reading the titanic.csv datafile into a dataframe if needed, 
 see above)::
@@ -90,9 +92,10 @@ The columns and rows can be inspected through the *columns* and *index* attribut
     df.index
 
 We saw above how to select a single column, but there are other ways of selecting 
-single or multiple rows, columns and values::
+(and setting) single or multiple rows, columns and values::
 
     df.at[0,"Age"]            # select single value by row and column *name* (fast)
+    df.at[0,"Age"] = 42       # set single value by row and column *name* (fast)
     df.iat[0,5]               # select same value by row and column *number* (fast)
     df.loc[0:2, "Name":"Age"] # slice the dataframe by row and column *names*
     df.iloc[0:2,3:6]          # same slice as above by row and column *numbers*
@@ -106,10 +109,20 @@ arrays::
 Series and DataFrames have a lot functionality, but
 how can we find out what methods are available? One way is to visit 
 the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
-and searching through the list. 
+and reading through the list. 
 Another way is use the autocompletion feature in Jupyter and type e.g. 
 ``df["Age"].`` in a notebook and then hit `TAB` twice - this should open 
 up a list menu of available methods and attributes.
+
+.. callout:: Getting help
+
+   Having easy access to documentation is important for efficient coding. Searching 
+   the internet is often the go-to solution, but Jupyter offers quick access to 
+   help pages (docstrings) which can be more efficient. Two ways exist:
+
+    - Write a function name followed by question mark and execute the cell, e.g.
+      write ``df.hist?`` and hit ``SHIFT + ENTER``.
+    - Write the function name and hit ``SHIFT + TAB``.
 
 .. challenge:: Exploring dataframes
 
@@ -124,10 +137,18 @@ up a list menu of available methods and attributes.
     - (Advanced) Using boolean indexing, compute the survival rate 
       (mean of "Survived" values) among passengers over and under the average age.
     
+.. solution:: 
+
+    - Mean age of the first 10 passengers: ``df.iloc[:10,:]["Age"].mean()`` 
+      or ``df.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
+    - Survival rate among passengers over and under average age: 
+      ``df[df["Age"] > df["Age"].mean()]["Survived"].mean()`` and 
+      ``df[df["Age"] < df["Age"].mean()]["Survived"].mean()``.
 
 We saw above how we can read in data into a dataframe using the ``read_csv`` method.
 Pandas also understands multiple other formats, for example using ``read_excel``,  
-``read_hdf``, ``read_json``, etc. 
+``read_hdf``, ``read_json``, etc. (and corresponding methods to write to file: 
+``to_csv``, ``to_excel``, ``to_hdf``, ``to_json``, etc.)  
 But often you would want to create a dataframe from scratch. Also this can be done 
 in multiple ways, for example from a numpy array::
 
@@ -145,9 +166,6 @@ or from a dictionary::
 
 
 
-- loading data and writing data
-- indexing ([] and .at / .iat)
-- new columns, adding existing columns etc
 
 
 Working with dataframes
