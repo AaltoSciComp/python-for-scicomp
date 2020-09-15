@@ -395,6 +395,7 @@ matter of personal preferences:
 - `Bokeh <https://bokeh.org/>`__: also here good for interactivity.
 - `ggplot <https://yhat.github.io/ggpy/>`__: R users will be more at home.
 - `PyNGL <https://www.pyngl.ucar.edu/>`__: used in the weather forecast community.
+- `K3D <https://k3d-jupyter.org/>`__: Jupyter notebook extension for 3D visualization
 
 What many people do (including the present instructor) is to browse existing example
 galleries for inspiration and to start with an example that is already close to
@@ -413,6 +414,7 @@ Example galleries and demos:
   (not part of default Anaconda installation)
 - `PyNGL <https://www.pyngl.ucar.edu/Examples/gallery.shtml>`__
   (not part of default Anaconda installation)
+- `K3D <https://k3d-jupyter.org/showcase/>`__ 
 
 Let's practice this!
 
