@@ -172,8 +172,8 @@ Isolated environments solve a couple of problems:
 
   3. Install Numpy 1.13.1 and Matplotlib 2.2.2 into the virtual environment::
 
-     $ pip install numpy=1.13.1
-     $ pip install matplotlib=2.2.2
+     $ pip install numpy==1.13.1
+     $ pip install matplotlib==2.2.2
 
   4. Deactivate it::
 
@@ -189,13 +189,24 @@ Recording dependencies
   (I think we should perhaps copy/condense some and refer to that link?)
 
 
-.. challenge:: Dependencies-3
+.. challenge:: Dependencies-4 (15 min)
 
-  - Write requirements.txt or environment.yml
-  - Create an environment based on these
-  - Freeze the environment
+  - Create the file ``environment.yml`` or ``requirements.txt``
 
-  Could be nice to have an example that requires a version > Y for a package (such ad matplotlib (3D plotting?).
+  - Create an environment based on these dependencies:
+     - Conda: ``$ conda create --name myenvironment --file requirements.txt``
+     - Virtual environment: First create and activate, then ``$ pip install -r requirements.txt``
+
+  - Freeze the environment:
+     - Conda: ``$ conda list --export > requirements.txt`` or ``$ conda env export > environment.yml``
+     - Virtual environment: ``$ pip freeze > requirements.txt``
+
+  - Have a look at the generated ("frozen") file.
+
+
+Tip: instead of installing packages with ``$ pip install somepackage``, what I do is
+to add ``somepackage`` to ``requirements.txt`` or ``environment.yml`` and install
+from the file, then you have a trace of all installed dependencies.
 
 
 How to communicate the dependencies as part of a report/thesis/publication
