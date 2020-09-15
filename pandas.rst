@@ -3,14 +3,13 @@ Pandas
 
 .. questions::
 
-   - How do we learn a new Python package?
+   - How do I learn a new Python package?
    - How can I use pandas dataframes in my research? 
 
 .. objectives::
 
-   - Get a feeling for what can be done with the pandas package
-   - Learn basic usage of pandas dataframes
-
+   - Learn simple and some more advanced usage of pandas dataframes
+   - Get a feeling for when pandas is useful and know where to find more information
 
 
 Pandas is a Python package that provides high-performance and easy to use 
@@ -179,5 +178,5 @@ Tidy data
 
 .. keypoints::
 
-   - K1
-   - K2
+   - pandas dataframes are a good data structure for tabular data
+   - Dataframes allow both simple and advanced analysis in very compact form 
