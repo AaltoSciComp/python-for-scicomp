@@ -269,4 +269,6 @@ Other tools for dependency management
 
 .. keypoints::
 
-   - Conda, pip, Virtualenv, Pipenv, pyenv, Poetry, requirements.txt
+   - Install dependencies by first recording them in requirements.txt or
+     environment.yml and install using these files, then you have a trace.
+   - Use isolated environments and avoid installing packages system-wide.
