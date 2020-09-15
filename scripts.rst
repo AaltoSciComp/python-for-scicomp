@@ -17,7 +17,7 @@ Scripts
 Why scripts?
 -------------
 
-So far we have been learning python using Jupyter notebook. It is very convenient: it allowed us to experiment and prototype python code so we may think that is more than enough for your day to day work.
+So far we have been learning python using Jupyter notebooks. It is very convenient: it allowed us to experiment and prototype python code so we may think that is more than enough for your day to day work.
 
 But after several weeks of hard work with python, you may end up:
 
@@ -27,7 +27,10 @@ But after several weeks of hard work with python, you may end up:
 Let's imagine you have created 10 notebooks to run for 10 different input parameters and now you are willing to experiment with 1000 sets of input parameters. 
 Suppose you find a bug in the original notebook and need to rerun everything: are you willing to re-create manually your 1000 notebooks?
 
-In this episode, we will learn how to automate your work using python scripts so that you do not need to configure manually your notebooks to be able to run with different parameters.
+In this episode, we will learn how to automate your work using python scripts so that
+
+* you do not need to manually configure your notebooks to be able to run with different parameters
+* can easily run you work via other tools, such as on computing clusters.
 
 
 From jupyter notebooks to python scripts
@@ -40,9 +43,9 @@ Jupyter notebooks can be parameterized for instance using `papermill <https://pa
 
 Within JupyterLab, you can export any jupyter notebook to a python script:
 
-.. image:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png
+.. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png
 
-Select **Export Notebook to Executable Script**.
+   Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
 
 Actually, you could also export your notebook in many other formats. Check `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
 
@@ -51,51 +54,40 @@ Actually, you could also export your notebook in many other formats. Check `Jupy
 
 
   1. Create a fresh jupyter notebook and rename it  **plot_inflammation.ipynb**
-  
-  2. Download the `first dataset <https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv>`_ and load it in python. Below is an example on how you can proceed:
-  
-  ::
 
-    from io import StringIO
+  2. Download the `first dataset <https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv>`_ and load it in python. Below is an example on how you can proceed::
 
-    import numpy as np
-    import requests
-    url='https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv'
-    s=requests.get(url).text
+       from io import StringIO
 
-    data = np.loadtxt(fname=StringIO(s), delimiter=',')
+       import numpy as np
+       import requests
+       url='https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv'
+       s=requests.get(url).text
 
+       data = np.loadtxt(fname=StringIO(s), delimiter=',')
 
+     *Note that later in the course, you will learn how to use* `pandas <https://pandas.pydata.org/>`_ *python package where loading such dataset from an url would become much simpler.*
 
-  *Note that later in the course, you will learn how to use* `pandas <https://pandas.pydata.org/>`_ *python package where loading such dataset from an url would become much simpler.*
+  3. Plot the dataset (you may simply use ``imshow`` from ``matplotlib.pyplot``) and save the resulting plot in a file called **plot.png**::
 
-  3. Plot the dataset (you may simply use `imshow` from `matplotlib.pyplot`) and save the resulting plot in a file called **plot.png**.
+       import matplotlib.pyplot as plt
 
-  ::
+       plt.imshow(data)
 
-    import matplotlib.pyplot as plt
+       plt.savefig('plot.png')
 
-    plt.imshow(data)
-
-    plt.savefig('plot.png')
-
-  *Feel free to customize your plot as learn in the preceding episode*.
+     *Feel free to customize your plot as you learned in the preceding episode*.
 
   4. Export your notebook as a python script and check that you have a new file called **plot_inflammation.py**. Please note that the file may be located in your **Downloads** folder (in that case, make sure you move it to your working directory).
 
-  5. Open a Terminal and navigate to the folder where you have exported your notebook to run it
+  5. Open a Terminal and navigate to the folder where you have exported your notebook to run it::
 
-  ::
-
-    ./plot_inflammation.py
+       ./plot_inflammation.py
 
 Run a python script 
 -------------------
 
-Let's understand why our python script ran out of the box. Open **plot_inflammation.py** with your favorite editor (from JupyerLab, you can double click on the file to open i). You should have, at the very top of your script:
-
-
-::
+Let's understand why our python script ran out of the box. Open **plot_inflammation.py** with your favorite editor (from JupyerLab, you can double click on the file to open it). You should have, at the very top of your script::
 
   #!/usr/bin/env python
 
@@ -103,19 +95,15 @@ Let's understand why our python script ran out of the box. Open **plot_inflammat
 
 In the exercise above, a few things can go wrong:
 
-- if you get an error such as :
+- if you get an error such as::
 
-::
+     can't open file 'test_inflammation.py': [Errno 2] No such file or directory
 
-   can't open file 'test_inflammation.py': [Errno 2] No such file or directory
+  That's probably because you try to run **plot_inflammation.py** from a different folder. The solution is to check **plot_inflammation.py** is in the current folder.
 
-That's probably because you try to run **plot_inflammation.py** from a different folder. The solution is to check **plot_inflammation.py** is in the current folder.
+- or::
 
-- or:
-
-::
-
-  bash: python: command not found
+    bash: python: command not found
 
 This happens if the python command is not in your **PATH**. You may have to specify the full path to the python command.
 
@@ -124,18 +112,14 @@ This happens if the python command is not in your **PATH**. You may have to spec
 Importing other python files
 ----------------------------
 
-We have a very short notebook that loads and plots data but let's imagine we need to process data after loading them. For instance, we can normalize data:
-
-::
+We have a very short notebook that loads and plots data but let's imagine we need to process data after loading them. For instance, we can normalize data::
 
   data = data / np.linalg.norm(data)
 
 
 In that case, it is good practice to separate processing from plotting. The reason is that you usually need to generate your plot several time while processing data once only (especially when data processing is computational intensive).
 
-For example, we can create a new python file (**inflammation_functions.py**) containing a function to normalize our dataset:
-
-::
+For example, we can create a new python file (**inflammation_functions.py**) containing a function to normalize our dataset::
 
   import numpy as np
 
@@ -144,7 +128,8 @@ For example, we can create a new python file (**inflammation_functions.py**) con
 
 and a second file calling this function:
 
-::
+.. code-block::
+    :emphasize-lines: 6,16
 
     from io import StringIO
 
@@ -177,7 +162,7 @@ Command line arguments with ``sys.argv``
 
 We have better organized our code but it still cannot easily process different
 input files. For this, rather than copying several time the same code for
-different input files, we can update the main code to pass it from the command
+different input files, we can update the main code to take the input file from the command
 line.
 
 **Example**: We create a Python script and pass the input file and the output file
@@ -229,12 +214,9 @@ arguments, it also automatically generates a ``--help`` option for you:
    #!/usr/bin/env python
 
    import argparse
-
    parser = argparse.ArgumentParser()
-
    parser.add_argument('-o', '--output', type=str,
                        help="output filename")
-
    args = parser.parse_args()
 
    if args.output:
@@ -254,9 +236,7 @@ Synchronize with Jupytext (optional)
 
 `jupytext <https://jupytext.readthedocs.io/en/latest/>`_ is a python package you can use for automatically synchronizing your notebooks into python scripts.
 
-To install it from the command line (make sure you use JupyterLab 2.x):
-
-:: 
+To install it from the command line (make sure you use JupyterLab 2.x)::
 
   pip install jupytext --upgrade
 
@@ -266,7 +246,7 @@ or
 
   conda install -c conda-forge jupytext
 
-Please note that you may also use `Anaconda navigator <https://docs.anaconda.com/anaconda/navigator/tutorials/manage-packages/>`_ (if installed) to install `jupytext`.
+Please note that you may also use `Anaconda navigator <https://docs.anaconda.com/anaconda/navigator/tutorials/manage-packages/>`_ (if installed) to install ``jupytext``.
 
 Installing Jupytext will trigger a build of the JupyterLab extension the next time you open it. If you prefer, you can trigger the build manually with
 
@@ -275,9 +255,11 @@ Installing Jupytext will trigger a build of the JupyterLab extension the next ti
   jupyter lab build
 
 
-Once installed, you can pair your notebook (select `pair notebook with percent script`).
+Once installed, you can pair your notebook:
 
-.. image:: https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png
+.. figure:: https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png
+
+   Select "Commands" from left toolbar, search "jupytext", then **Pair notebook with percent script** (**NOT** what you see in the image).
 
 
 After few seconds, **test_inflammation.py** will be created and synchronized with **test_inflammation.ipynb**.
@@ -296,6 +278,6 @@ This will make sure you can execute it from the command line.
 
 .. keypoints::
 
-   - synchronize your jupyter notebooks & python scripts with `jupytext`
-   - `import` other python files
+   - synchronize your jupyter notebooks & python scripts with ``jupytext``
+   - ``import`` other python files
    - command line arguments in python scripts
