@@ -212,8 +212,11 @@ Boolean indexing on above created array::
 
 .. solution:: Solution: Numpy-3
 
-   - **View vs copy** The change in ``b`` has also changed the array ``a``! This is because ``b`` is merely a view of a part of array ``a``. 
-   Both variables point to the same memory. Hence, if one is changed, the other one also changes. If you need to keep the original array as is, use ``np.copy(a)``.
+   - **View vs copy** The change in ``b`` has also changed the array ``a``!
+     This is because ``b`` is merely a view of a part of array ``a``.  Both
+     variables point to the same memory. Hence, if one is changed, the other
+     one also changes. If you need to keep the original array as is, use
+     ``np.copy(a)``.
 
 
 Types of operations
