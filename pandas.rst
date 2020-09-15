@@ -106,19 +106,20 @@ arrays::
     df[df["Age"] > 70]
     df[df["Name"].str.contains("Margaret")]
 
-Series and DataFrames have a lot functionality, but
-how can we find out what methods are available? One way is to visit 
-the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
-and reading through the list. 
-Another way is use the autocompletion feature in Jupyter and type e.g. 
-``df["Age"].`` in a notebook and then hit `TAB` twice - this should open 
-up a list menu of available methods and attributes.
+
 
 .. callout:: Getting help
 
-   Having easy access to documentation is important for efficient coding. Searching 
-   the internet is often the go-to solution, but Jupyter offers quick access to 
-   help pages (docstrings) which can be more efficient. Two ways exist:
+    Series and DataFrames have a lot functionality, but
+    how can we find out what methods are available and how they work? One way is to visit 
+    the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
+    and reading through the list. 
+    Another way is to use the autocompletion feature in Jupyter and type e.g. 
+    ``df["Age"].`` in a notebook and then hit ``TAB`` twice - this should open 
+    up a list menu of available methods and attributes.
+
+    Jupyter also offers quick access to help pages (docstrings) which can be 
+    more efficient than searching the internet. Two ways exist:
 
     - Write a function name followed by question mark and execute the cell, e.g.
       write ``df.hist?`` and hit ``SHIFT + ENTER``.
