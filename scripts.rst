@@ -47,7 +47,7 @@ Select **Export Notebook to Executable Script**.
 Actually, you could also export your notebook in many other formats. Check `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
 
 
-.. challenge:: Exercise 1
+.. challenge:: Scripts-1
 
 
   1. Create a fresh jupyter notebook and rename it  **plot_inflammation.ipynb**
@@ -121,51 +121,6 @@ This happens if the python command is not in your **PATH**. You may have to spec
 
 
 
-Synchronize with Jupytext
--------------------------
-
-`jupytext <https://jupytext.readthedocs.io/en/latest/>`_` is a python package you can use for automatically synchronizing your notebooks into python scripts.
-
-To install it from the command line (make sure you use JupyterLab 2.x):
-
-:: 
-
-  pip install jupytext --upgrade
-
-or
-
-::
-
-  conda install -c conda-forge jupytext
-
-Please note that you may also use `Anaconda navigator <https://docs.anaconda.com/anaconda/navigator/tutorials/manage-packages/>`_ (if installed) to install `jupytext`.
-
-Installing Jupytext will trigger a build of the JupyterLab extension the next time you open it. If you prefer, you can trigger the build manually with
-
-::
-
-  jupyter lab build
-
-
-Once installed, you can pair your notebook (select `pair notebook with percent script`).
-
-.. image:: https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png
-
-
-After few seconds, **test_inflammation.py** will be created and synchronized with **test_inflammation.ipynb**.
-
-Double click on the python script to edit it and add (on the top of the script):
-
-::
-
-  #!/usr/bin/env python
-
-
-This will make sure you can execute it from the command line.
-
-*Note that, it can also be added in the jupyter notebook by editing notebook metadata (Property Inspector)*.
-
-
 Importing other python files
 ----------------------------
 
@@ -210,7 +165,7 @@ and a second file calling this function:
 
 
 
-.. challenge:: Exercise 2 (optional)
+.. challenge:: Scripts-2 (optional)
 
   1. Update **inflammation_functions.py** to add a new function for plotting the dataset.
 
@@ -255,12 +210,57 @@ Parsing command line arguments with `argparse`
   if args.output:
 	     print("This is the name of the output file")
 
-.. challenge::
+.. challenge:: Scripts-3
 
   1. Take the python script we have written in the preceding exercise and use
      `argparse` to be able to read any input file and save the resulting image in an output file (filename is specified via command line argument).
 
   2. Execute your script for all the **inflammation** files (there are 12 files numbered from 01 to 12).
+
+Synchronize with Jupytext (optional)
+------------------------------------
+
+`jupytext <https://jupytext.readthedocs.io/en/latest/>`_ is a python package you can use for automatically synchronizing your notebooks into python scripts.
+
+To install it from the command line (make sure you use JupyterLab 2.x):
+
+:: 
+
+  pip install jupytext --upgrade
+
+or
+
+::
+
+  conda install -c conda-forge jupytext
+
+Please note that you may also use `Anaconda navigator <https://docs.anaconda.com/anaconda/navigator/tutorials/manage-packages/>`_ (if installed) to install `jupytext`.
+
+Installing Jupytext will trigger a build of the JupyterLab extension the next time you open it. If you prefer, you can trigger the build manually with
+
+::
+
+  jupyter lab build
+
+
+Once installed, you can pair your notebook (select `pair notebook with percent script`).
+
+.. image:: https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png
+
+
+After few seconds, **test_inflammation.py** will be created and synchronized with **test_inflammation.ipynb**.
+
+Double click on the python script to edit it and add (on the top of the script):
+
+::
+
+  #!/usr/bin/env python
+
+
+This will make sure you can execute it from the command line.
+
+*Note that, it can also be added in the jupyter notebook by editing notebook metadata (Property Inspector)*.
+
 
 .. keypoints::
 
