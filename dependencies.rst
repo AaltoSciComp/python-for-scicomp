@@ -285,13 +285,19 @@ Should we pin the versions here or not?
 - As the "end consumer" of libraries, define your dependencies as narrowly as possible.
 
 
-Other tools for dependency management
--------------------------------------
+See also
+--------
+
+Other tools for dependency management:
 
 - `Poetry <https://python-poetry.org/>`__: dependency management and packaging
 - `Pipenv <https://pipenv.pypa.io/>`__: dependency management, alternative to Poetry
 - `pyenv <https://github.com/pyenv/pyenv>`__: if you need different Python versions for different projects
 - `micropipenv <https://github.com/thoth-station/micropipenv>`__: lightweight tool to "rule them all"
+
+Other resources:
+
+- https://scicomp.aalto.fi/scicomp/packaging-software/
 
 
 .. keypoints::
