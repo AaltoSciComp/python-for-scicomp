@@ -188,10 +188,53 @@ Isolated environments solve a couple of problems:
 Recording dependencies
 ----------------------
 
-.. instructor-note::
+There are two standard ways to record dependencies for Python projects.:
 
-  Discussion based on https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies
-  (I think we should perhaps copy/condense some and refer to that link?)
+Using a ``requirements.txt`` (used by virtual environment) file which looks like this::
+
+   numpy
+   matplotlib
+   pandas
+   scipy
+
+Or using an ``environments.yml`` (for conda) file which looks like this::
+
+   name: my-environment
+
+   dependencies:
+     - numpy
+     - matplotlib
+     - pandas
+     - scipy
+
+But all of these dependencies evolve so before publishing our work
+it can be very useful for future generations and for the future you
+to **pin dependencies** to versions.
+
+Here are the two files again, but this time with versions pinned:
+
+``requirements.txt`` with versions::
+
+   numpy==1.19.2
+   matplotlib==3.3.2
+   pandas==1.1.2
+   scipy==1.5.2
+
+``environments.yml`` with versions::
+
+   name: my-environment
+
+   dependencies:
+     - python=3.6
+     - numpy=1.19.2
+     - matplotlib=3.3.2
+     - pandas=1.1.2
+     - scipy=1.5.2
+
+- Conda can also read and write ``requirements.txt``.
+- ``requirements.txt`` can also refer to packages on Github.
+- ``environments.yml`` can also contain a ``pip`` section.
+- See also: https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies.
 
 
 .. challenge:: Dependencies-4 (15 min)
