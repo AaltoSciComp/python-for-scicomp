@@ -55,6 +55,7 @@ to learn yourself as you need to.
    30 min   ; :doc:`dependencies`
    60 min   ; :doc:`packaging`
    ?? min   ; :doc:`scipy`
+   45 min   ; :doc:`parallel`
    ?? min   ; :doc:`pandas`
    ?? min   ; :doc:`libraries`
    ?? min   ; :doc:`binder`
@@ -74,6 +75,7 @@ to learn yourself as you need to.
    packaging
    scipy
    pandas
+   parallel
    libraries
    binder
 

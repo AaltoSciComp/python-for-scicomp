@@ -33,6 +33,7 @@ github_version = 'master/' # with trailing slash
 extensions = [
     'sphinx_lesson',
     'sphinx_rtd_theme_ext_color_contrast',
+    'sphinx.ext.todo',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
