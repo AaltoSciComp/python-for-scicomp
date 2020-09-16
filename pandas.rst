@@ -144,10 +144,17 @@ arrays::
       ``df[df["Age"] > df["Age"].mean()]["Survived"].mean()`` and 
       ``df[df["Age"] < df["Age"].mean()]["Survived"].mean()``.
 
+
+
+
+Working with dataframes
+-----------------------
+
 We saw above how we can read in data into a dataframe using the ``read_csv`` method.
 Pandas also understands multiple other formats, for example using ``read_excel``,  
 ``read_hdf``, ``read_json``, etc. (and corresponding methods to write to file: 
 ``to_csv``, ``to_excel``, ``to_hdf``, ``to_json``, etc.)  
+
 But often you would want to create a dataframe from scratch. Also this can be done 
 in multiple ways, for example from a numpy array::
 
@@ -156,24 +163,49 @@ in multiple ways, for example from a numpy array::
 
 or from a dictionary::
 
-    df2 = pd.DataFrame({'A': 1., 'B': pd.Timestamp('20130102'), 
-                        'C': pd.Series(1, index=list(range(4)), dtype='float32'),
-                        'D': np.array([3] * 4, dtype='int32'),
-                        'E': pd.Categorical(["test", "train", "test", "train"]),
-                        'F': 'foo'})
+    df = pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar', 'foo', 'bar', 'foo', 'foo'],
+                       'B': ['one', 'one', 'two', 'three', 'two', 'two', 'one', 'three'],
+                       'C': np.array([3] * 8, dtype='int32'),
+                       'D': np.random.randn(8),
+                       'E': np.random.randn(8)})
 
+There are many ways to operate on dataframes. To get a brief glimpse of some  
+underlying concepts we will look at a few examples of joining and splitting 
+dataframes, applying functions and grouping data in dataframes.
 
+We can split and concatenate or append dataframes::
 
+    sub1, sub2, sub3 = df[:2], df[2:4], df[4:]
+    pd.concat([sub1, sub2, sub3]])
+    sub1.append([sub2, sub3])      # same as above
 
-Working with dataframes
------------------------
+SQL style merges::
 
-- join, merge, split, apply
-- sort_values, pivot and pivot_table
-- groupby (one vs two categories, e.g. survival and sex, calc mean/max/min wrt age)
-    - hierarchical indexing
-    
-- mention that for R users, dataframes and pandas will look familiar (does the idea come from there?)
+    m1 = df.loc[:3, "A":"B"]
+    m2 = df.loc[3:6, ["A", "D", "E"]]
+    # merge two dataframes on column "A"
+    pd.merge(m1, m2, on="A")
+
+Much of what can be done in SQL 
+`is also possible with pandas <https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html>`__.
+
+We can apply a function to a whole dataframe or parts of it::
+
+    df.apply(np.cumsum)
+    df.loc[:, "C":"E"].apply(np.cumsum)
+
+Group-by is a powerful set of methods involving 
+
+- splitting the data into groups 
+- applying a function to each group
+- combining the results into a data structure.
+
+We can for example split the our dataframe based on columns ``A`` and/or 
+``B`` and summing remaining columns::
+
+    df.groupby(['A']).sum()
+    df.groupby(['A', 'B']).sum()
+
 
 Time series superpowers
 -----------------------
