@@ -330,12 +330,6 @@ Matrix or not, there are many different functions available:
      Extract just the first row of each of them and check the ``.shape``.
 
 
-.. keypoints::
-
-   - NumPy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
-   - Be aware of some NumPy specific pecularities
-
-
 
 Additional Exercises Numpy-6
 ----------------------------
@@ -435,3 +429,23 @@ These are advanced and optional, and will not be done in most courses.
     
    11. Using numpy without numpy functionality (np.dot) in this case, is still slow.
 
+
+
+See also
+--------
+
+* `NumPy manual <https://numpy.org/doc/stable/reference/>`__
+
+  * `Basic array class reference <https://numpy.org/doc/stable/reference/arrays.html>`__
+  * `Indexing
+    https://numpy.org/doc/stable/reference/arrays.indexing.html>`__
+  * `ufuncs <https://numpy.org/doc/stable/reference/ufuncs.html>`__
+
+* `2020 Nature paper on NumPy's role and basic concepts <https://www.nature.com/articles/s41586-020-2649-2>`__
+
+
+
+.. keypoints::
+
+   - NumPy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
+   - Be aware of some NumPy specific peculiarities
