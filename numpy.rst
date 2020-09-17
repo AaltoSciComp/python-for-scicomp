@@ -301,16 +301,20 @@ linear algebra, scientific functions, etc.
 Linear algebra and other advanced math
 --------------------------------------
 
-In addition to the array type, there is a ``matrix`` type which is
-specialized:
+In general, you use ``arrays`` (n-dimensions), not ``matrixes``
+(specialized 2-dimensional) in NumPy.
 
-- two-dimensional only
-- ``*`` operator is matrix multiplication
-
-Matrix or not, there are many different functions available:
+Internally, NumPy doesn't invent its own math routines: it relies on
+`BLAS
+<https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>`__
+and `LAPACK <https://en.wikipedia.org/wiki/LAPACK>`__ to do this kind
+of math - the same as many other languages.
 
 - `Linear algebra in numpy
   <https://numpy.org/doc/stable/reference/routines.linalg.html>`__
+
+- `Many, many other array functions
+  <https://numpy.org/doc/stable/reference/routines.html>`__
 
 - `Scipy <https://docs.scipy.org/doc/scipy/reference/>`__ has even
   more functions
@@ -323,11 +327,6 @@ Matrix or not, there are many different functions available:
   used to pass data.  This is known as `extending Python
   <https://docs.python.org/3/extending/>`__.
 
-
-.. challenge:: Exercises: Numpy-5
-
-   - **Matrixes are always 2D** (advanced) Make a 2x3 array and a 2x3 matrix.
-     Extract just the first row of each of them and check the ``.shape``.
 
 
 
