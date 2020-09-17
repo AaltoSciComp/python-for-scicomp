@@ -37,16 +37,16 @@ by visiting the page and saving it to disk, or by directly reading into
 a **dataframe**::
 
     url = "https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv"
-    df = pd.read_csv(url)
+    titanic = pd.read_csv(url)
 
 We can now view the dataframe to get an idea of what it contains and
 print some summary statistics of its numerical data::
 
     # print the first 5 lines of the dataframe
-    df.head()  
+    titanic.head()  
     
     # print summary statistics for each column
-    df.describe()  
+    titanic.describe()  
 
 
 Ok, so we have information on passenger names, survival (0 or 1), age, 
@@ -54,11 +54,12 @@ ticket fare, number of siblings/spouses, etc. With the summary statistics we see
 
 Let's say we're interested in the survival probability of different age groups. With two one-liners, we can find the average age of those who survived or didn't survive, and plot corresponding histograms of the age distribution::
 
-    print(df.groupby("Survived")["Age"].mean())
+    print(titanic.groupby("Survived")["Age"].mean())
 
 ::
 
-    df.hist(column='Age', by='Survived', bins=25, figsize=(8,10), layout=(2,1), zorder=2, sharex=True, rwidth=0.9);
+    titanic.hist(column='Age', by='Survived', bins=25, figsize=(8,10), 
+                 layout=(2,1), zorder=2, sharex=True, rwidth=0.9);
     
 
 Clearly, pandas dataframes allows us to do advanced analysis with very few commands, but it takes a while to get used to how dataframes work so let's get back to basics.
@@ -82,29 +83,29 @@ of series. Let's inspect one column of the Titanic passanger list data
 (first downloading and reading the titanic.csv datafile into a dataframe if needed, 
 see above)::
 
-    df["Age"]
-    df.Age          # same as above
-    type(df["Age"])
+    titanic["Age"]
+    titanic.Age          # same as above
+    type(titanic["Age"])
 
 The columns and rows can be inspected through the *columns* and *index* attributes::
 
-    df.columns
-    df.index
+    titanic.columns
+    titanic.index
 
 We saw above how to select a single column, but there are other ways of selecting 
 (and setting) single or multiple rows, columns and values::
 
-    df.at[0,"Age"]            # select single value by row and column *name* (fast)
-    df.at[0,"Age"] = 42       # set single value by row and column *name* (fast)
-    df.iat[0,5]               # select same value by row and column *number* (fast)
-    df.loc[0:2, "Name":"Age"] # slice the dataframe by row and column *names*
-    df.iloc[0:2,3:6]          # same slice as above by row and column *numbers*
+    titanic.at[0,"Age"]            # select single value by row and column *name* (fast)
+    titanic.at[0,"Age"] = 42       # set single value by row and column *name* (fast)
+    titanic.iat[0,5]               # select same value by row and column *number* (fast)
+    titanic.loc[0:2, "Name":"Age"] # slice the dataframe by row and column *names*
+    titanic.iloc[0:2,3:6]          # same slice as above by row and column *numbers*
 
 Finally, dataframes support boolean indexing, just like we saw for ``numpy`` 
 arrays::
 
-    df[df["Age"] > 70]
-    df[df["Name"].str.contains("Margaret")]
+    titanic[titanic["Age"] > 70]
+    titanic[titanic["Name"].str.contains("Margaret")]
 
 
 
@@ -115,14 +116,14 @@ arrays::
     the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
     and reading through the list. 
     Another way is to use the autocompletion feature in Jupyter and type e.g. 
-    ``df["Age"].`` in a notebook and then hit ``TAB`` twice - this should open 
+    ``titanic["Age"].`` in a notebook and then hit ``TAB`` twice - this should open 
     up a list menu of available methods and attributes.
 
     Jupyter also offers quick access to help pages (docstrings) which can be 
     more efficient than searching the internet. Two ways exist:
 
     - Write a function name followed by question mark and execute the cell, e.g.
-      write ``df.hist?`` and hit ``SHIFT + ENTER``.
+      write ``titanic.hist?`` and hit ``SHIFT + ENTER``.
     - Write the function name and hit ``SHIFT + TAB``.
 
 .. challenge:: Exploring dataframes
@@ -130,19 +131,19 @@ arrays::
     - Have a look at the available methods and attributes using the 
       `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
       or the autocomplete feature in Jupyter. 
-    - Try out a few methods and have a look at the docstrings (help pages) 
-      of methods that pique your interest
+    - Try out a few methods using the Titanic dataset and have a look at 
+      the docstrings (help pages) of methods that pique your interest
     - Compute the mean age of the first 10 passengers by slicing and the ``mean`` method
     - (Advanced) Using boolean indexing, compute the survival rate 
       (mean of "Survived" values) among passengers over and under the average age.
     
 .. solution:: 
 
-    - Mean age of the first 10 passengers: ``df.iloc[:10,:]["Age"].mean()`` 
-      or ``df.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
+    - Mean age of the first 10 passengers: ``titanic.iloc[:10,:]["Age"].mean()`` 
+      or ``titanic.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
     - Survival rate among passengers over and under average age: 
-      ``df[df["Age"] > df["Age"].mean()]["Survived"].mean()`` and 
-      ``df[df["Age"] < df["Age"].mean()]["Survived"].mean()``.
+      ``titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()`` and 
+      ``titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()``.
 
 
 
@@ -155,13 +156,13 @@ Pandas also understands multiple other formats, for example using ``read_excel``
 ``read_hdf``, ``read_json``, etc. (and corresponding methods to write to file: 
 ``to_csv``, ``to_excel``, ``to_hdf``, ``to_json``, etc.)  
 
-But often you would want to create a dataframe from scratch. Also this can be done 
-in multiple ways, for example from a numpy array::
+But sometimes you would want to create a dataframe from scratch. Also this can be done 
+in multiple ways, for example starting with a numpy array::
 
     dates = pd.date_range('20130101', periods=6)
     df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
 
-or from a dictionary::
+or a dictionary::
 
     df = pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar', 'foo', 'bar', 'foo', 'foo'],
                        'B': ['one', 'one', 'two', 'three', 'two', 'two', 'one', 'three'],
@@ -169,30 +170,43 @@ or from a dictionary::
                        'D': np.random.randn(8),
                        'E': np.random.randn(8)})
 
-There are many ways to operate on dataframes. To get a brief glimpse of some  
-underlying concepts we will look at a few examples of joining and splitting 
-dataframes, applying functions and grouping data in dataframes.
+Then there are many ways to operate on dataframes. We will look at a 
+few examples of joining and splitting dataframes, applying functions 
+and grouping data in dataframes, in order to get a feeling of what's possible
+and what the use cases can be.
 
-We can split and concatenate or append dataframes::
+We can easily split and concatenate or append dataframes::
 
     sub1, sub2, sub3 = df[:2], df[2:4], df[4:]
     pd.concat([sub1, sub2, sub3]])
     sub1.append([sub2, sub3])      # same as above
 
-SQL style merges::
+Dataframes can also be merged similarly to in SQL::
 
     m1 = df.loc[:3, "A":"B"]
     m2 = df.loc[3:6, ["A", "D", "E"]]
     # merge two dataframes on column "A"
     pd.merge(m1, m2, on="A")
 
-Much of what can be done in SQL 
+In fact, much of what can be done in SQL 
 `is also possible with pandas <https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html>`__.
 
-We can apply a function to a whole dataframe or parts of it::
+Functions can be applied to a whole dataframe or parts of it::
 
     df.apply(np.cumsum)
     df.loc[:, "C":"E"].apply(np.cumsum)
+
+``pivot_table()`` can be used to create spreadsheet-style pivot tables, which 
+we feed with a dataframe, values to aggregate, index (one or more 
+columns to pivot by), columns and an aggregating function. An example is needed 
+to understand this, so let's first round all ages to the nearest decade and create 
+a pivot table showing the mean of fares split by gender and survival::
+
+    titanic["Age"] = titanic["Age"].round(-1)
+    pd.pivot_table(titanic, values="Fare", index=["Sex", "Survived"], 
+                   columns=["Age"], aggfunc=np.mean)
+
+    
 
 Group-by is a powerful set of methods involving 
 
@@ -205,6 +219,10 @@ We can for example split the our dataframe based on columns ``A`` and/or
 
     df.groupby(['A']).sum()
     df.groupby(['A', 'B']).sum()
+
+
+.. challenge:: The group-by method
+
 
 
 Time series superpowers
