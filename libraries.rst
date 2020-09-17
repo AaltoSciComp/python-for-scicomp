@@ -73,7 +73,8 @@ Interactive computing and human interface
 * Interactive computing
 
   * IPython
-    * Jupyter (notebook, lab, hub, ...)
+  * Jupyter (notebook, lab, hub, ...)
+
 * Testing
 
   * pytest
