@@ -73,7 +73,7 @@ A pandas
 `DataFrame object <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame>`__ 
 is composed of rows and columns:
 
-.. image:: img/01_table_dataframe.svg
+.. image:: img/pandas/01_table_dataframe.svg
 
 Each column of a dataframe is a 
 `series object <https://pandas.pydata.org/docs/user_guide/dsintro.html#series>`__ 
@@ -162,7 +162,7 @@ Tidy data
 The above analysis was rather straightforward thanks to the fact 
 that the dataset is *tidy*.
 
-.. image:: img/tidy_data.png
+.. image:: img/pandas/tidy_data.png
 
 In short, columns should be variables and rows should be measurements, 
 and adding measurements (rows) should then not require any changes to code 
