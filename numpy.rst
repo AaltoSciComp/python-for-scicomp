@@ -437,7 +437,7 @@ See also
 
   * `Basic array class reference <https://numpy.org/doc/stable/reference/arrays.html>`__
   * `Indexing
-    https://numpy.org/doc/stable/reference/arrays.indexing.html>`__
+    <https://numpy.org/doc/stable/reference/arrays.indexing.html>`__
   * `ufuncs <https://numpy.org/doc/stable/reference/ufuncs.html>`__
 
 * `2020 Nature paper on NumPy's role and basic concepts <https://www.nature.com/articles/s41586-020-2649-2>`__
