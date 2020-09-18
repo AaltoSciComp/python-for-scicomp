@@ -315,12 +315,6 @@ and finally plot a histogram of lifespans::
     nobel.hist(column='lifespan', bins=25, figsize=(8,10), rwidth=0.9)
 
 
-
-- missing values, dropna, dropna(how="all"), fill-forward (ffill) etc
-
-
-
-
 .. keypoints::
 
    - pandas dataframes are a good data structure for tabular data
