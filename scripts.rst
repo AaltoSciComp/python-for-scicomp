@@ -247,7 +247,6 @@ arguments, it also automatically generates a ``--help`` option for you:
       parser.add_argument("-o", "--output", type=str, help="output plot file")
       args = parser.parse_args()
 
-      url = f"https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/{args.input}"
       url = args.input
       s = requests.get(url).text
 
