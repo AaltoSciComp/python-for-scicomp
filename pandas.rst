@@ -73,7 +73,7 @@ A pandas
 `DataFrame object <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame>`__ 
 is composed of rows and columns:
 
-.. image:: img/01_table_dataframe.svg
+.. image:: img/pandas/01_table_dataframe.svg
 
 Each column of a dataframe is a 
 `series object <https://pandas.pydata.org/docs/user_guide/dsintro.html#series>`__ 
@@ -162,8 +162,11 @@ Tidy data
 The above analysis was rather straightforward thanks to the fact 
 that the dataset is *tidy*.
 
-.. image:: img/tidy_data.png
+.. image:: img/pandas/tidy_data.png
 
+In short, columns should be variables and rows should be measurements, 
+and adding measurements (rows) should then not require any changes to code 
+that reads the data.
 
 What would untidy data look like? Here's an example from 
 some run time statistics from a 1500 m running event::
@@ -239,8 +242,12 @@ In fact, much of what can be done in SQL
 
 Functions can be applied to a whole dataframe or parts of it::
 
-    df.apply(np.cumsum)
+    df.apply(np.cumsum)   # you can also pass your own custom functions
     df.loc[:, "C":"E"].apply(np.cumsum)
+
+Most common statistical functions are in fact already available 
+as dataframe methods, like ``std()``, ``min()``, ``max()``, 
+``cumsum()``, ``median()``, ``skew()``, ``var()`` etc. 
 
 ``pivot_table()`` and ``groupby()`` are two powerful methods which 
 are applied to dataframes to split and aggregate data in groups.
