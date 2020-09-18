@@ -243,11 +243,12 @@ arguments, it also automatically generates a ``--help`` option for you:
       import argparse
 
       parser = argparse.ArgumentParser()
-      parser.add_argument("-i", "--input", type=str, help="input data file")
+      parser.add_argument("-i", "--input", type=str, help="input data file (URL)")
       parser.add_argument("-o", "--output", type=str, help="output plot file")
       args = parser.parse_args()
 
       url = f"https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/{args.input}"
+      url = args.input
       s = requests.get(url).text
 
       data = np.loadtxt(fname=StringIO(s), delimiter=",")
@@ -264,8 +265,8 @@ arguments, it also automatically generates a ``--help`` option for you:
    Now you can do this::
 
       $ python test_inflammation.py --help
-      $ python test_inflammation.py --input inflammation-01.csv --output 01.png
-      $ python test_inflammation.py --input inflammation-02.csv --output 02.png
+      $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv --output 01.png
+      $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-02.csv --output 02.png
 
    - We can now process different input files without changing the script.
    - This way we can also loop over file patterns (using shell loops or similar) or use
