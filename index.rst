@@ -72,11 +72,11 @@ to learn yourself as you need to.
    data-visualization
    scripts
    dependencies
-   packaging
    scipy
    pandas
    parallel
    libraries
+   packaging
    binder
 
 .. toctree::
