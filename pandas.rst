@@ -102,14 +102,22 @@ We saw above how to select a single column, but there are other ways of selectin
     titanic.iloc[0:2,3:6]          # same slice as above by row and column *numbers*
     titanic["foo"] = "bar"         # set a whole column
 
-Finally, dataframes support boolean indexing, just like we saw for ``numpy`` 
+Dataframes also support boolean indexing, just like we saw for ``numpy`` 
 arrays::
 
     titanic[titanic["Age"] > 70]
     # ".str" creates a string object from a column
     titanic[titanic["Name"].str.contains("Margaret")]
 
+What if your dataset has missing data? Pandas uses the value ``np.nan`` 
+to represent missing data, and by default does not include it in any computations.
+We can find missing values, drop them from our dataframe, or replace ``np.nan``
+with any value we like::
 
+    titanic.isna()
+    titanic.dropna()
+    titanic.dropna(how="any")  # or how="all"
+    titanic.dropna(subset=["Cabin"])
 
 .. callout:: Getting help
 
