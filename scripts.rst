@@ -24,7 +24,7 @@ But after several weeks of hard work with python, you may end up:
 - either with 10 different notebooks (so that you can run them concurrently)
 - or with a very long notebook which is becoming hardly readable!
 
-Let's imagine you have created 10 notebooks to run for 10 different input parameters and now you are willing to experiment with 1000 sets of input parameters. 
+Let's imagine you have created 10 notebooks to run for 10 different input parameters and now you are willing to experiment with 1000 sets of input parameters.
 Suppose you find a bug in the original notebook and need to rerun everything: are you willing to re-create manually your 1000 notebooks?
 
 In this episode, we will learn how to automate your work using python scripts so that
@@ -34,7 +34,7 @@ In this episode, we will learn how to automate your work using python scripts so
 
 
 From jupyter notebooks to python scripts
------------------------------------------ 
+-----------------------------------------
 
 Save as python script
 ---------------------
@@ -84,7 +84,7 @@ Actually, you could also export your notebook in many other formats. Check `Jupy
 
        ./plot_inflammation.py
 
-Run a python script 
+Run a python script
 -------------------
 
 Let's understand why our python script ran out of the box. Open **plot_inflammation.py** with your favorite editor (from JupyerLab, you can double click on the file to open it). You should have, at the very top of your script::
@@ -229,6 +229,49 @@ arguments, it also automatically generates a ``--help`` option for you:
      ``argparse`` to be able to read any input file and save the resulting image in an output file (filename is specified via command line argument).
 
   2. Execute your script for all the **inflammation** files (there are 12 files numbered from 01 to 12).
+
+
+.. solution::
+
+   .. code-block::
+      :emphasize-lines: 5,7-10,12,19
+
+      from io import StringIO
+      import numpy as np
+      import requests
+      import matplotlib.pyplot as plt
+      import argparse
+
+      parser = argparse.ArgumentParser()
+      parser.add_argument("-i", "--input", type=str, help="input data file (URL)")
+      parser.add_argument("-o", "--output", type=str, help="output plot file")
+      args = parser.parse_args()
+
+      url = args.input
+      s = requests.get(url).text
+
+      data = np.loadtxt(fname=StringIO(s), delimiter=",")
+
+      plt.imshow(data)
+
+      plt.savefig(args.output)
+
+
+.. discussion::
+
+   **What was the point of doing this?**
+
+   Now you can do this::
+
+      $ python test_inflammation.py --help
+      $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv --output 01.png
+      $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-02.csv --output 02.png
+
+   - We can now process different input files without changing the script.
+   - This way we can also loop over file patterns (using shell loops or similar) or use
+     the script in a workflow management system and process many files in parallel.
+   - By changing from ``sys.argv`` to ``argparse`` we made the script more robust against
+     user input errors and also got a help text (accessible via ``--help``).
 
 
 Synchronize with Jupytext (optional)
