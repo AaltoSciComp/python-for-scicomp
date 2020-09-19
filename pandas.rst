@@ -320,10 +320,14 @@ to one decimal::
 
     nobel["lifespan"] = round((nobel["died"] - nobel["born"]).dt.days / 365, 1)
 
-and finally plot a histogram of lifespans::
+and then plot a histogram of lifespans::
 
     nobel.hist(column='lifespan', bins=25, figsize=(8,10), rwidth=0.9)
+    
+Finally, let's see one more example of an informative plot 
+produced by a single line of code::
 
+    nobel.boxplot(column="lifespan", by="category")
 
 .. keypoints::
 
