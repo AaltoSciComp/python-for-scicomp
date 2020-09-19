@@ -103,7 +103,7 @@ In the requirements above, we specified what is required for the `host <https://
 .. callout:: Remark
 
   For pure python recipes, this is all you need for building a python package with conda.
-  If your package needs to be build (for instance compilation), you would need additional files e.g. `build.sh` (to build on Linux/Mac-OSX) and `bld.bat` (to build on Windows systems). You can also add test scripts for testing your package. See `documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#writing-the-build-script-files-build-sh-and-bld-bat>`__ 
+  If your package needs to be built (for instance compilation), you would need additional files e.g. `build.sh` (to build on Linux/Mac-OSX) and `bld.bat` (to build on Windows systems). You can also add test scripts for testing your package. See `documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#writing-the-build-script-files-build-sh-and-bld-bat>`__ 
   
 
 3. Build your package with conda
@@ -164,7 +164,7 @@ Publishing a python package
 
 - Upload your package to *Anaconda.org*: see instructions `here <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs-skeleton.html#optional-uploading-packages-to-anaconda-org>`__. Please note that you will have to create an account on Anaconda.
 
-- Upload your package to `conda-forge <https://conda-forge.org/>`__: conda-forge is a conda channel: it contains community-led collection of recipes, build infrastructure and distributions for the conda package manager. Anyone can public conda packages to conda-forge according `guidelines <https://conda-forge.org/docs/>`__ are respected. 
+- Upload your package to `conda-forge <https://conda-forge.org/>`__: conda-forge is a conda channel: it contains community-led collection of recipes, build infrastructure and distributions for the conda package manager. Anyone can public conda packages to conda-forge if certain `guidelines <https://conda-forge.org/docs/>`__ are respected.
 
 - Upload your package to `bioconda <https://bioconda.github.io/>`_: bioconda is a very popular channel for the conda package manager specializing in bioinformatics software. As for conda-forge, you need to follow their `guidelines <https://bioconda.github.io/contributor/guidelines.html>`__ when building conda recipes.
 
