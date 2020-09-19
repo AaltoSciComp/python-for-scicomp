@@ -111,13 +111,16 @@ arrays::
 
 What if your dataset has missing data? Pandas uses the value ``np.nan`` 
 to represent missing data, and by default does not include it in any computations.
-We can find missing values, drop them from our dataframe, or replace ``np.nan``
-with any value we like::
+We can find missing values, drop them from our dataframe, replace them
+with any value we like or do forward or backward filling::
 
-    titanic.isna()
-    titanic.dropna()
-    titanic.dropna(how="any")  # or how="all"
-    titanic.dropna(subset=["Cabin"])
+    titanic.isna()                    # returns boolean mask of NaN values
+    titanic.dropna()                  # drop missing values
+    titanic.dropna(how="any")         # or how="all"
+    titanic.dropna(subset=["Cabin"])  # only drop NaNs from one column
+    titanic.fillna(0)                 # replace NaNs with zero
+    titanic.fillna(method='ffill')    # forward-fill NaNs
+
 
 .. callout:: Getting help
 
