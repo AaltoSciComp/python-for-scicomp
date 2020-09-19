@@ -111,13 +111,16 @@ arrays::
 
 What if your dataset has missing data? Pandas uses the value ``np.nan`` 
 to represent missing data, and by default does not include it in any computations.
-We can find missing values, drop them from our dataframe, or replace ``np.nan``
-with any value we like::
+We can find missing values, drop them from our dataframe, replace them
+with any value we like or do forward or backward filling::
 
-    titanic.isna()
-    titanic.dropna()
-    titanic.dropna(how="any")  # or how="all"
-    titanic.dropna(subset=["Cabin"])
+    titanic.isna()                    # returns boolean mask of NaN values
+    titanic.dropna()                  # drop missing values
+    titanic.dropna(how="any")         # or how="all"
+    titanic.dropna(subset=["Cabin"])  # only drop NaNs from one column
+    titanic.fillna(0)                 # replace NaNs with zero
+    titanic.fillna(method='ffill')    # forward-fill NaNs
+
 
 .. callout:: Getting help
 
@@ -191,7 +194,7 @@ and **aggregate** the data, and it's also easier to model relationships
 between variables.
 
 The opposite of melting is to *pivot* data, which can be useful to 
-view data in different ways.
+view data in different ways as we'll see below.
 
 For a detailed exposition of data tidying, have a look at 
 `this article <http://vita.had.co.nz/papers/tidy-data.pdf>`__.
@@ -265,7 +268,7 @@ The same operation with group-by is::
     titanic.groupby(["Sex", "Survived", "Age"])["Fare"].mean()
 
 
-.. challenge:: Extracting information from a dataframe
+.. challenge:: Analyze the Titanic passenger list dataset
 
     In the Titanic passenger list dataset, 
     investigate the family size of the passengers (i.e. the "SibSp" column).
@@ -308,18 +311,70 @@ need to be converted to datetime format::
 
 Pandas knows a lot about dates::
 
-    nobel["born"].dt.day
-    nobel["born"].dt.year
-    nobel["born"].dt.weekday
+    print(nobel["born"].dt.day)
+    print(nobel["born"].dt.year)
+    print(nobel["born"].dt.weekday)
     
 We can add a column containing the (approximate) lifespan in years rounded 
 to one decimal::
 
     nobel["lifespan"] = round((nobel["died"] - nobel["born"]).dt.days / 365, 1)
 
-and finally plot a histogram of lifespans::
+and then plot a histogram of lifespans::
 
     nobel.hist(column='lifespan', bins=25, figsize=(8,10), rwidth=0.9)
+    
+Finally, let's see one more example of an informative plot 
+produced by a single line of code::
+
+    nobel.boxplot(column="lifespan", by="category")
+
+.. challenge:: Analyze the Nobel prize dataset
+
+    - What country has received the largest number of Nobel prizes, and how many?
+      How many countries are represented in the dataset? Hint: use the `describe()` method
+      on the ``bornCountryCode`` column.
+    - Create a histogram of the age when the laureates received their Nobel prizes.
+      Hint: follow the above steps we performed for the lifespan. 
+    - List all the Nobel laureates from your country.
+
+    Now more advanced steps:
+    
+    - First add a column “number” to the nobel dataframe containing 1’s 
+      (to enable the counting below).          
+    - Now define an array of 4 countries of your choice and extract 
+      only laureates from these countries::
+      
+          countries = np.array([COUNTRY1, COUNTRY2, COUNTRY3, COUNTRY4])
+          subset = nobel.loc[nobel['bornCountry'].isin(countries)]
+
+    - Create a pivot table to view a spreadsheet like structure, and view it::
+
+        table = subset.pivot_table(values="number", index="bornCountry", columns="category", aggfunc=np.sum)
+        
+    - (Optional) Install the **seaborn** visualization library if you don't 
+      already have it, and create a heatmap of your table::
+      
+          import seaborn as sns
+          sns.heatmap(table,linewidths=.5);
+
+    - Play around with other nice looking plots::
+    
+        sns.violinplot(y="year", x="bornCountry",inner="stick", data=subset);
+
+      ::
+
+        sns.swarmplot(y="year", x="bornCountry", data=subset, alpha=.5);
+
+      ::
+
+        subset_physchem = nobel.loc[nobel['bornCountry'].isin(countries) & (nobel['category'].isin(['physics']) | nobel['category'].isin(['chemistry']))]
+        sns.catplot(x="bornCountry", y="year", col="category", data=subset_physchem, kind="swarm");
+
+      ::
+      
+        sns.catplot(x="bornCountry", col="category", data=subset_physchem, kind="count");
+
 
 
 .. keypoints::
