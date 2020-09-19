@@ -53,36 +53,78 @@ this course, but the simpler strategies are most often used anyway.
    Parallel programming is a fascinating world to get involved in, but
    make sure you invest enough time to do it well.
 
+   See the entertaining video by Raymond Hettinger (See Also at bottom
+   of page) for an entertaining take on this.
+
 
 
 Multithreading and the GIL
 --------------------------
 
-Python has problems with threading: The `Global interpreter lock
-<https://wiki.python.org/moin/GlobalInterpreterLock>`__ means that
-only one thread in a process can run actual Python code.  This is bad
-for parallelism.  *But it's not all bad!:*
+Python has problems with threading: The **Global interpreter lock
+(GIL)** means that only one thread in a process can run actual Python
+code.  This is bad for parallelism.  *But it's not all bad!:*
 
 * External libraries (NumPy, SciPy, pandas, etc) written in C or other
-  languages can release the lock and run multi-threaded.
+  languages can release the lock and run multi-threaded.  Also, most
+  input/output releases the GIL, and input/output is slow.
 
 * If speed is important enough you need things parallel, you usually
   wouldn't use pure Python.
 
-.. todo::
+We won't cover threading in this course.
 
-   - Richard
-   - quick since not really used, but explain GIL
+.. seealso::
+
+   * `More on the global interpreter lock
+     <https://wiki.python.org/moin/GlobalInterpreterLock>`__
+   * `Threading python module
+     <https://docs.python.org/3/library/threading.html>`__.  This is
+     very low level and you shouldn't use it unless you really know what
+     you are doing.
+   * We recommend you find a UNIX threading tutorial first.
 
 
 
-``multiprocessing``
--------------------
+multiprocessing
+---------------
 
-.. todo::
+As opposed to threading, Python has a reasonable way of doing
+something similar that uses multiple processes: the
+:py:mod:`multiprocessing` module.
 
-   - example
-   - Richard
+* The interface is a lot like threading, but in the background makes
+  new processes to get around the global interpreter lock.
+
+* There are low-level functions which have a lot of the same risks and
+  difficulties as when using threading.
+
+The `split-apply-combine <https://doi.org/10.18637%2Fjss.v040.i01>`__
+or `map-reduce <https://en.wikipedia.org/wiki/MapReduce>`__ paradigm is
+quite useful for many scientific workflows.  Consider you have this::
+
+  def square(x):
+      return x*x
+
+You can apply the function to every element in a list using the
+:py:func:`map` function:
+
+.. code-block:: pycon
+
+  >>> list(map(square, [1, 2, 3, 4, 5, 6]))
+  [1, 4, 9, 16, 25, 36]
+
+The :py:class:`multiprocessing.pool.Pool` class provides an equivalent but
+parallelized (via multiprocessing) way of doing this.  The pool class,
+by default, creates one new process per CPU and does parallel
+calculations on the list:
+
+.. code-block:: pycon
+
+  >>> from multiprocessing import Pool
+  >>> with Pool() as pool:
+  pool.map(square, [1, 2, 3, 4, 5, 6])
+
 
 
 .. challenge:: Parallel-1, multiprocessing
@@ -114,26 +156,30 @@ for parallelism.  *But it's not all bad!:*
       pi = circle / n * 4
       pi
 
-   Using the ``multiprocessing.pool.Pool`` code from the lesson, run
+   Using the :py:class:`multiprocessing.pool.Pool` code from the lesson, run
    the ``sample`` function 10 times, each with ``10**5`` samples
    only.  Combine the results and time the calculation.  What is the
    difference in time taken?
 
    (optional, advanced) Do the same but with
-   ``multiprocessing.pool.ThreadPool`` instead.  This works identically
+   :py:class:`multiprocessing.pool.ThreadPool` instead.  This works identically
    to ``Pool``, but uses threads instead of different processes.
    Compare the time taken.
 
    .. solution::
 
-      See the finished notebook at LINK_TODO
+      See the finished notebook here:
+
+      .. toctree::
+
+	 parallel-pi-multiprocessing
 
       You notice the version with ``ThreadPool`` is no faster, and
       probably takes even longer.  This is because this is a
       pure-Python function which can not run simultaneously in
       multiple threads.
 
-.. exercise:: (advanced) Parallel-2 Running on a cluster
+.. challenge:: (advanced) Parallel-2 Running on a cluster
 
    How does the pool know how many CPUs to take?  What happens if you
    run on a computer cluster and request only part of the CPUs on a
@@ -237,5 +283,6 @@ See also
 
 .. keypoints::
 
-   - K1
-   - K2
+   - Pure Python is not very good for highly parallel code.
+   - Luckily it interfaces to many things which *are* good, and give
+     you the full control you need.

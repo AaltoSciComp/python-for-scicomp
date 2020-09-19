@@ -34,6 +34,7 @@ extensions = [
     'sphinx_lesson',
     'sphinx_rtd_theme_ext_color_contrast',
     'sphinx.ext.todo',
+    'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -67,3 +68,8 @@ html_context = {'display_github': True,
                 'github_repo': github_repo_name or basename(dirname(realpath(__file__))),
                 'github_version': github_version,
                }
+
+
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+    }
