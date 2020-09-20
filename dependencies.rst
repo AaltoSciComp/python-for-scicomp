@@ -1,3 +1,6 @@
+.. _dependency_managenent:
+
+
 Dependency management
 =====================
 
@@ -38,6 +41,8 @@ How do you track dependencies of your project?
   - Have you ever experienced that a project needed a different version of a Python
     library than the one on your computer? If yes, how did you solve it?
 
+
+.. _pypi:
 
 PyPI (The Python Package Index) and (Ana)conda
 ----------------------------------------------
@@ -268,6 +273,8 @@ and distributing this project as Python package (see next section).
 - Even better: put ``requirements.txt`` or a ``environment.yml`` in your Git repository along your code.
 - Even better: also binderize your analysis pipeline (more about that in a later session).
 
+
+.. _version_pinning:
 
 Version pinning for package creators
 ------------------------------------
