@@ -62,9 +62,7 @@ Building a conda package and share it
 
 .. callout:: Prerequisites
   
-  To create a conda package, `conda-build` package is required. You may install it with **Anaconda Navigator** or from the command line:
-
-  ::
+  To create a conda package, `conda-build` package is required. You may install it with **Anaconda Navigator** or from the command line::
 
     conda install conda-build
   
@@ -77,78 +75,64 @@ Building a python package with conda skeleton pypi
 Once build, the conda package can be installed locally. For this example, we will use `runtest <https://pypi.org/project/runtest/>`__. 
 `runtest <https://github.com/bast/runtest>`__ is a numerically tolerant end-to-end test library for research software.
 
-1. Create pypi skeleton
+1. Create pypi skeleton::
 
-::
+      conda skeleton pypi runtest
 
-  conda skeleton pypi runtest
+   The command above will create a new folder called `runtest` containing a file `meta.yaml`, the conda recipe for `runtest`.
 
-The command above will create a new folder called `runtest` containing a file `meta.yaml`, the conda recipe for `runtest`.
+2. Edit `meta.yaml` and update requirements::
 
-2. Edit `meta.yaml` and update requirements
+      requirements:
+        host:
+          - pip
+          - python
+          - flit
+        run:
+          - python
+          - flit
 
-::
+   In the requirements above, we specified what is required for the `host <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#host>`__ and for `running <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#run>`__  the package.
 
-  requirements:
-    host:
-      - pip
-      - python
-      - flit
-    run:
-      - python
-      - flit
+   .. callout:: Remark
 
-In the requirements above, we specified what is required for the `host <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#host>`__ and for `running <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#run>`__  the package.
-
-.. callout:: Remark
-
-  For pure python recipes, this is all you need for building a python package with conda.
-  If your package needs to be built (for instance compilation), you would need additional files e.g. `build.sh` (to build on Linux/Mac-OSX) and `bld.bat` (to build on Windows systems). You can also add test scripts for testing your package. See `documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#writing-the-build-script-files-build-sh-and-bld-bat>`__ 
+      For pure python recipes, this is all you need for building a python package with conda.
+      If your package needs to be built (for instance compilation), you would need additional files e.g. `build.sh` (to build on Linux/Mac-OSX) and `bld.bat` (to build on Windows systems). You can also add test scripts for testing your package. See `documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#writing-the-build-script-files-build-sh-and-bld-bat>`__ 
   
 
 3. Build your package with conda
 
-Your package is now ready to be build with conda:
+   Your package is now ready to be build with conda::
 
-::
-  
-  conda-build runtest
+     conda-build runtest
 
 
-.. callout:: Conda package location
+   .. callout:: Conda package location
 
-  Look at the messages produced while building. The location of the local conda package is given (search for `anaconda upload`):
+      Look at the messages produced while building. The location of the local conda package is given (search for `anaconda upload`)::
 
+	~/anaconda3/conda-bld/win-64/runtest-2.2.1-py38_0.tar.bz2
 
-  ::
-  
-     ~/anaconda3/conda-bld/win-64/runtest-2.2.1-py38_0.tar.bz2
+      The prefix `~/anaconda3/` may be different on your machine and depending on your operating system (Linux, Mac-OSX or Windows) the sub-folder `win-64` differs too (for instance `linux-64` on Linux machines).
 
-  The prefix `~/anaconda3/` may be different on your machine and depending on your operating system (Linux, Mac-OSX or Windows) the sub-folder `win-64` differs too (for instance `linux-64` on Linux machines).
-
-  The conda package we have created is specific to your platform (here `win-64`). It can be converted to other platforms using `conda convert <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#converting-a-package-for-use-on-all-platforms>`__.
-  
+      The conda package we have created is specific to your platform (here `win-64`). It can be converted to other platforms using `conda convert <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#converting-a-package-for-use-on-all-platforms>`__.
 
 4. Check within new environment
 
-It is not necessary to create a new conda environment to install it but as explained in previous episode, it is good practice to have isolated environments.
+   It is not necessary to create a new conda environment to install it but as explained in previous episode, it is good practice to have isolated environments.
 
-::
+   ::
 
-  conda create -n local-runtest --use-local runtest
+      conda create -n local-runtest --use-local runtest
 
-We can then check `runtest` has been successfully installed in `local-runtest` conda environment. Open a new Terminal with `local-runtest` environment (either from the command line:
+   We can then check `runtest` has been successfully installed in `local-runtest` conda environment. Open a new Terminal with `local-runtest` environment (either from the command line::
 
-::
+     conda activate local-runtest
 
-  conda activate local-runtest
+   or via **Anaconda Navigator** (Open Terminal), import runtest and check its version::
 
-or via **Anaconda Navigator** (Open Terminal), import runtest and check its version:
-
-::
-
-  import runtest
-  print(runtest.__version__)
+     import runtest
+     print(runtest.__version__)
 
 
 .. callout:: Building a conda package from scratch
