@@ -4,6 +4,29 @@ name: sphinx
 on: [push, pull_request]
 
 jobs:
+
+  strict-warnings:
+    name: Strict warning check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - uses: ammaraskar/sphinx-problem-matcher@master
+      - name: Build Sphinx docs
+        run: |
+          # -W : warnings into errors
+          # -T : show full tracebacks on exceptions
+          # -q : quiet except warnings
+          # -n : nitpicky, warn about missing references
+          make dirhtml SPHINXOPTS='-q -W --keep-going -T -n'
+
+
   build-and-deploy:
     name: Build and gh-pages
     runs-on: ubuntu-latest
