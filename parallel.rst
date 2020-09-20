@@ -364,6 +364,13 @@ Dask
 scheduler.  By using the new array classes, you can automatically
 distribute operations across multiple CPUs.
 
+Dask is very popular for data analysis and is used by a number of high-level python library:
+- Dask arrays scale Numpy (see also `xarray <http://xarray.pydata.org/en/stable/>`__ 
+- Dask dataframes scale Pandas workflows
+- Dask-ML scales Scikit-Learn
+
+Dask divides arrays into many small pieces (chunks), as small as necessary to fit it into memory. Operations are delayed (lazy computing) e.g. tasks are queue and no computation is performed until you actually ask values to be computed (for instance print mean values). Then data is loaded into memory and computation proceeds in a streaming fashion, block-by-block.
+
 .. discussion:: Example from dask.org
 
    .. code-block::
@@ -376,7 +383,13 @@ distribute operations across multiple CPUs.
       # It runs using multiple threads on your machine.
       # It could also be distributed to multiple machines
 
-Dask supports at least NumPy, Pandas, and scikit-learn.
+.. challenge:: Dask-Examples (optional)
+
+  `Dask examples <https://github.com/dask/dask-examples>`__ illustrate the usage of dask and can be run interactively through `mybinder <https://mybinder.org/>`__. Start an `interactive session on mybinder <https://mybinder.org/v2/gh/dask/dask-examples/master?urlpath=lab>`__ and test/run a few dask examples.
+
+.. warning: dask on HPC
+
+  On HPC, it is important to use `dask-mpi <https://github.com/dask/dask-mpi>`__ that deploys dask using MPI4Py. The setup can be a bit tricky and we recommend the usage of `dask-jobqueue and dask-drmaa <https://docs.dask.org/en/latest/setup/hpc.html#dask-jobqueue-and-dask-drmaa>`__: these packages need to be installed on the target platform (not through conda) to fully benefit from the native underlying MPI libraries.
 
 Task queues
 ~~~~~~~~~~~
