@@ -258,19 +258,46 @@ MPI
 Coupling to other languages
 ---------------------------
 
-.. todo::
+As mentioned further up in "Multithreading and the GIL", Python has the global
+interpreter lock (GIL) which prevents us from using shared-memory
+parallelization strategies like OpenMP "directly".
 
-   - OpenMP
-   - Radovan
+However, an interesting workaround for this can be to couple Python with other
+languages which do not have the GIL.
 
+Two strategies are common:
+
+- Couple Python with compiled languages like C, C++, Fortran, or Rust and let those handle the shared-memory parallelization:
+
+   - C: use the `cffi <https://cffi.readthedocs.io/>`__ package (C foreign function interface)
+   - C++: use `pybind11 <https://pybind11.readthedocs.io/>`__
+   - Fortran: create a C interface using ``iso_c_binding`` and then couple the C layer to Python
+     using `cffi <https://cffi.readthedocs.io/>`__
+   - Rust: use `PyO3 <https://pyo3.rs/>`__
+
+- Let compiled languages do the shared-memory parallelization part (as in above
+  point) and let Python do the MPI work and distribute tasks across nodes using
+  an ``mpi4py`` layer.
+
+Coupling Python with other languages using the above tools is not difficult but
+it goes beyond the scope of this course.
+
+Before you take this route, **profile the application** first to be sure where
+the bottleneck is.
+
+Of course sometimes coupling languages is not about overcoming bottlenecks but
+about combining existing programs which have been written in different
+languages for whatever reason.
 
 
 Dask and task queues
 --------------------
 
+This is another strategy. Text needed here ...
+
 .. todo::
 
-    - Radovan?
+    - Not sure who?
 
 
 
