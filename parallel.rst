@@ -350,14 +350,47 @@ about combining existing programs which have been written in different
 languages for whatever reason.
 
 
+
 Dask and task queues
 --------------------
 
-This is another strategy. Text needed here ...
+There are other strategies that go completely beyond the manual
+parallelization methods above.  We won't go into much detail.
 
-.. todo::
+Dask
+~~~~
 
-    - Not sure who?
+`Dask <https://dask.org/>`__ is a array model extension and task
+scheduler.  By using the new array classes, you can automatically
+distribute operations across multiple CPUs.
+
+.. example:: Example from dask.org
+
+   .. code-block::
+
+      # Arrays implement the Numpy API
+      import dask.array as da
+      x = da.random.random(size=(10000, 10000),
+                           chunks=(1000, 1000))
+      x + x.T - x.mean(axis=0)
+      # It runs using multiple threads on your machine.
+      # It could also be distributed to multiple machines
+
+Dask supports at least NumPy, Pandas, and scikit-learn.
+
+Task queues
+~~~~~~~~~~~
+
+A **task queue** has a scheduler which takes a list of small jobs and
+distributes them to runners for computation.  It serves as a
+synchronization layer and may be useful for *embarrassingly parallel* jobs.
+
+There are different descriptions of `task queues in Python
+<https://www.fullstackpython.com/task-queues.html>`__. Job runners ask
+the queue for the task which needs to be done next.  If you can divide
+your job into many small parts, this may be useful to you.  However,
+if you have a cluster with a job scheduler, this may be a bit
+redundant.
 
 
 
