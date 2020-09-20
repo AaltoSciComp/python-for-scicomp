@@ -64,8 +64,6 @@ Example: Numerical integration
 
 .. solution::
 
-   :class: toggle-shown
-
    .. code-block:: python
 
       from scipy import integrate
