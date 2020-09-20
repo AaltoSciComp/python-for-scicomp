@@ -5,7 +5,6 @@ Parallel programming
 
    - When you need more than one processor, what do you do?
    - How can we use more than one processor/core in Python?
-   - What are the limitations of using basic NumPy?
 
 .. objectives::
 
