@@ -4,20 +4,20 @@ Parallel programming
 .. questions::
 
    - When you need more than one processor, what do you do?
-   - What are the limitations of How to use basic NumPy?
+   - How can we use more than one processor/core in Python?
 
 .. objectives::
 
    - Understand the major strategies of parallelizing code
    - Understand mechanics of the ``multiprocessing`` package
-   - Know when to use more advanced packages
+   - Know when to use more advanced packages or approaches
 
 
 
 Modes of parallelism
 --------------------
 
-You realize you do more computation than you can on one processor?
+You realize you do have more computation to do than you can on one processor?
 What do you do?
 
 1. Profile your code, identify the *actual* slow spots.
@@ -29,19 +29,23 @@ What do you do?
 4. Think about parallelizing.
 
 
-Many times in science, you want to parallelize your code.  **Parallel
-computing** is when many different tasks are carried out
+Many times in science, you want to parallelize your code: either if the computation
+takes too much time on one core or when the code needs to be parallel to even
+be allowed to run on a specific hardware (e.g. supercomputers).
+
+**Parallel computing** is when many different tasks are carried out
 simultaneously.  There are three main models:
 
-* **Embarrassingly parallel:** the code is not parallel, but you run
-  multiple copies of the code separately, and combine the results
+* **Embarrassingly parallel:** the code does not need to synchronize/communicate
+  with other instances, and you can run
+  multiple instances of the code separately, and combine the results
   later.  If you can do this, great!  (array jobs, task queues)
 
-* **Shared memory parallelism:** There is one process that can access
-  the same memory (variables, state, etc).  (OpenMP)
+* **Shared memory parallelism:** Parallel threads need to communicate and do so via
+  the same memory (variables, state, etc). (OpenMP)
 
-* **Message passing:** Different processes communicate, sharing data
-  as needed.  (Message Passing Interface (MPI)).
+* **Message passing:** Different processes manage their own memory segments. They share data
+  by communicating (passing messages) as needed. (Message Passing Interface (MPI)).
 
 Programming shared memory or message passing is beyond the scope of
 this course, but the simpler strategies are most often used anyway.
@@ -53,7 +57,7 @@ this course, but the simpler strategies are most often used anyway.
    Parallel programming is a fascinating world to get involved in, but
    make sure you invest enough time to do it well.
 
-   See the entertaining video by Raymond Hettinger (See Also at bottom
+   See the video by Raymond Hettinger ("See Also" at bottom
    of page) for an entertaining take on this.
 
 
@@ -61,12 +65,15 @@ this course, but the simpler strategies are most often used anyway.
 Multithreading and the GIL
 --------------------------
 
-Python has problems with threading: The **Global interpreter lock
-(GIL)** means that only one thread in a process can run actual Python
-code.  This is bad for parallelism.  *But it's not all bad!:*
+The designers of the Python language made the choice
+that **only one thread in a process can run actual Python code**
+by using the so-called **global interpreter lock (GIL)**.
+This means that approaches that may work in other languages (C, C++, Fortran),
+may not work in Python without being a bit careful.
+At first glance, this is bad for parallelism.  *But it's not all bad!:*
 
-* External libraries (NumPy, SciPy, pandas, etc) written in C or other
-  languages can release the lock and run multi-threaded.  Also, most
+* External libraries (NumPy, SciPy, Pandas, etc), written in C or other
+  languages, can release the lock and run multi-threaded.  Also, most
   input/output releases the GIL, and input/output is slow.
 
 * If speed is important enough you need things parallel, you usually
@@ -82,7 +89,9 @@ We won't cover threading in this course.
      <https://docs.python.org/3/library/threading.html>`__.  This is
      very low level and you shouldn't use it unless you really know what
      you are doing.
-   * We recommend you find a UNIX threading tutorial first.
+   * We recommend you find a UNIX threading tutorial first before embarking
+     on using the `threading
+     <https://docs.python.org/3/library/threading.html>`__ module.
 
 
 
@@ -93,13 +102,14 @@ As opposed to threading, Python has a reasonable way of doing
 something similar that uses multiple processes: the
 :py:mod:`multiprocessing` module.
 
-* The interface is a lot like threading, but in the background makes
+* The interface is a lot like threading, but in the background creates
   new processes to get around the global interpreter lock.
 
 * There are low-level functions which have a lot of the same risks and
-  difficulties as when using threading.
+  difficulties as when using :py:mod:`threading`.
 
-The `split-apply-combine <https://doi.org/10.18637%2Fjss.v040.i01>`__
+To show an example,
+the `split-apply-combine <https://doi.org/10.18637%2Fjss.v040.i01>`__
 or `map-reduce <https://en.wikipedia.org/wiki/MapReduce>`__ paradigm is
 quite useful for many scientific workflows.  Consider you have this::
 
@@ -198,7 +208,7 @@ calculations on the list:
       doesn't know about your cluster's scheduling system.  It's
       possible that you have permission to use 2 CPUs but it is trying
       to use 12.  This is generally a bad situation, and will just
-      slow you down!
+      slow you down (and make other users on the same node upset)!
 
       You either need to be able to specify the number of CPUs to use
       (and pass it the right number), or make it aware of the cluster
