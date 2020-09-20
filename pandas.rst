@@ -64,6 +64,23 @@ Let's say we're interested in the survival probability of different age groups. 
 
 Clearly, pandas dataframes allows us to do advanced analysis with very few commands, but it takes a while to get used to how dataframes work so let's get back to basics.
 
+.. callout:: Getting help
+
+    Series and DataFrames have a lot functionality, but
+    how can we find out what methods are available and how they work? One way is to visit 
+    the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
+    and reading through the list. 
+    Another way is to use the autocompletion feature in Jupyter and type e.g. 
+    ``titanic["Age"].`` in a notebook and then hit ``TAB`` twice - this should open 
+    up a list menu of available methods and attributes.
+
+    Jupyter also offers quick access to help pages (docstrings) which can be 
+    more efficient than searching the internet. Two ways exist:
+
+    - Write a function name followed by question mark and execute the cell, e.g.
+      write ``titanic.hist?`` and hit ``SHIFT + ENTER``.
+    - Write the function name and hit ``SHIFT + TAB``.
+
 
 What's in a dataframe?
 ----------------------
@@ -121,23 +138,6 @@ with any value we like or do forward or backward filling::
     titanic.fillna(0)                 # replace NaNs with zero
     titanic.fillna(method='ffill')    # forward-fill NaNs
 
-
-.. callout:: Getting help
-
-    Series and DataFrames have a lot functionality, but
-    how can we find out what methods are available and how they work? One way is to visit 
-    the `API reference <https://pandas.pydata.org/docs/reference/frame.html>`__ 
-    and reading through the list. 
-    Another way is to use the autocompletion feature in Jupyter and type e.g. 
-    ``titanic["Age"].`` in a notebook and then hit ``TAB`` twice - this should open 
-    up a list menu of available methods and attributes.
-
-    Jupyter also offers quick access to help pages (docstrings) which can be 
-    more efficient than searching the internet. Two ways exist:
-
-    - Write a function name followed by question mark and execute the cell, e.g.
-      write ``titanic.hist?`` and hit ``SHIFT + ENTER``.
-    - Write the function name and hit ``SHIFT + TAB``.
 
 .. challenge:: Exploring dataframes
 
