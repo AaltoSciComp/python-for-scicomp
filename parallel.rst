@@ -263,7 +263,8 @@ interpreter lock (GIL) which prevents us from using shared-memory
 parallelization strategies like OpenMP "directly".
 
 However, an interesting workaround for this can be to couple Python with other
-languages which do not have the GIL.
+languages which do not have the GIL.  This also works just as well when you don't
+need parallelism, but need to make an optimized algorithm for a small part of the code.
 
 Two strategies are common:
 
