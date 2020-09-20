@@ -364,7 +364,7 @@ Dask
 scheduler.  By using the new array classes, you can automatically
 distribute operations across multiple CPUs.
 
-.. example:: Example from dask.org
+.. discussion:: Example from dask.org
 
    .. code-block::
 
