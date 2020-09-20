@@ -213,10 +213,34 @@ calculations on the list:
 MPI
 ---
 
-.. todo::
+The message passing interface (MPI) approach to parallelization
+is that:
 
-   - Radovan
+- Tasks (cores) have a rank and are numbered 0, 1, 2, 3, ...
+- Each task (core) manages its own memory
+- Tasks communicate and share data by sending messages
+- Many higher-level functions exist to distribute information to other tasks
+  and gather information from other tasks
+- All tasks typically run the entire code and we have to be careful to avoid
+  that all tasks do the same thing
 
+Introductory MPI lessons where Python is included:
+
+- https://rantahar.github.io/introduction-to-mpi/
+- https://pdc-support.github.io/introduction-to-mpi/
+
+These blog posts are good for gentle MPI/mpi4py introduction:
+
+- https://www.kth.se/blogs/pdc/2019/08/parallel-programming-in-python-mpi4py-part-1/
+- https://www.kth.se/blogs/pdc/2019/11/parallel-programming-in-python-mpi4py-part-2/
+
+Those who use MPI in C, C++, Fortran, will probably understand the steps in the
+following example. For learners new to MPI, we can explore this example
+together.
+
+Here we reuse the example of approximating pi with a stochastic
+algorithm from above, and we have highlighted the lines which are important
+to get this MPI example to work:
 
 .. code-block:: python
    :emphasize-lines: 3,23-25,29,39,42
@@ -267,6 +291,17 @@ MPI
        print(
            f"\nnumber of darts: {n}, estimate: {pi_estimate}, time spent: {t:.2} seconds"
        )
+
+
+.. challenge:: Parallel-2, MPI
+
+   We can do this as **exercise or as demo**. Note that this example requires ``mpi4py`` and a
+   MPI installation such as for instance `OpenMPI <https://www.open-mpi.org/>`__.
+
+   - Try to run this example on one core: ``$ python example.py``.
+   - Then compare the output with a run on multiple cores (in this case 2): ``$ mpiexec -n 2 python example.py``.
+   - Can you guess what the ``comm.gather`` function does by looking at the print-outs right before and after.
+   - Why do we have the if-statement ``if rank == 0`` at the end?
 
 
 Coupling to other languages
