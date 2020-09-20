@@ -3,38 +3,79 @@ SciPy
 
 .. questions::
 
-   - Q1
-   - Q2
+   - When you need more advanced mathematical functions, where do you look?
 
 .. objectives::
 
-   - O1
-   - O2
+   - Understand that SciPy exists and what kinds of things it has.
+   - Non-objective: know details of everything (or anything) in SciPy.
+
+.. seealso::
+
+   * Main article: `SciPy documentation <https://docs.scipy.org/doc/scipy/reference/>`__
 
 
 
 SciPy is a library that builds on top of NumPy. It contains a lot of
 interfaces to battle-tested numerical routines written in Fortran or
-C, as well as python implementations of many common
-algorithms. Briefly, it contains functionality for
+C, as well as python implementations of many common algorithms.
+
+
+
+What's in SciPy?
+----------------
+
+Briefly, it contains functionality for
 
 - Special functions (Bessel, Gamma, etc.)
 - Numerical integration
 - Optimization
 - Interpolation
 - Fast Fourier Transform (FFT)
+- Signal processing
 - Linear algebra (more complete than in NumPy)
 - Sparse matrices
 - Statistics
 - More I/O routine, e.g. Matrix Market format for sparse matrices,
   MATLAB files (.mat), etc.
 
+Many (most?) of these are not written specifically for SciPy, but use
+the best available open source C or Fortran libraries.  Thus, you get
+the best of Python and the best of compiled languages.
 
-Exercise 3.1
-------------
+Most functions are documented ridiculously well from a scientific
+standpoint: you aren't just using some unknown function, but have a
+full scientific description and citation to the method and
+implementation.
 
-Using scipy, calculate the integral of the function ``sin`` in the
-interval ``[0, pi]``, and compare with the analytical result.
+
+
+Example: Numerical integration
+------------------------------
+
+.. challenge::
+
+   Using scipy, calculate the integral of the function ``sin`` in the
+   interval ``[0, pi]``, and compare with the analytical result.
+
+.. solution::
+
+   :class: toggle-shown
+
+   .. code-block:: pycon
+
+      import scipy.integrate
+      import math
+      scipy.integrate.quad(math.sin, 0, 2*math.pi)
+      (2.221501482512777e-16, 4.3998892617845996e-14)
+
+   `quad
+   <https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html#scipy.integrate.quad>`__
+   uses the Fortran library QUADPACK, which one can assume is pretty
+   good.  You can also see a whole lot of scientific information about
+   the function on the docs page - including the scientific names of
+   the methods used.
+
 
 
 Exercise 3.2
@@ -56,11 +97,19 @@ Can you figure out a quick rule of thumb when it's worth using a
 sparse matrix representation vs. a dense representation?
 
 
-(lesson here)
+
+See also
+--------
+
+* `SciPy general introduction <https://docs.scipy.org/doc/scipy/reference/tutorial/general.html>`__
+* `SciPy documentation
+  <https://docs.scipy.org/doc/scipy/reference/>`__
 
 
 
 .. keypoints::
 
-   - K1
-   - K2
+   - When you need advance math or scientific functions, let's just
+     admit it: you do a web search first.
+   - But when you see something in SciPy come up, you know your
+     solutions are in good hands.
