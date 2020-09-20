@@ -19,7 +19,7 @@ Packaging
 Organizing Python projects
 --------------------------
 
-Python projects often start as a single script a Jupyter notebook but
+Python projects often start as a single script or Jupyter notebook but
 they can grow out of a single file.
 
 In the :ref:`scripts` episode we have also learned how to import functions
