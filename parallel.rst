@@ -270,7 +270,7 @@ Two strategies are common:
 
 - Couple Python with compiled languages like C, C++, Fortran, or Rust and let those handle the shared-memory parallelization:
 
-   - C: use the `cffi <https://cffi.readthedocs.io/>`__ package (C foreign function interface)
+   - C: use the `cffi <https://cffi.readthedocs.io/>`__ package (C foreign function interface).  :py:mod:`ctypes` is a similar but slightly more primitive module that is in the standard library.
    - C++: use `pybind11 <https://pybind11.readthedocs.io/>`__
    - Fortran: create a C interface using ``iso_c_binding`` and then couple the C layer to Python
      using `cffi <https://cffi.readthedocs.io/>`__
