@@ -61,19 +61,24 @@ Building a conda package and share it
 -------------------------------------
 
 .. callout:: Prerequisites
-  
+
   To create a conda package, `conda-build` package is required. You may install it with **Anaconda Navigator** or from the command line::
 
     conda install conda-build
-  
 
-The simplest way for creating a conda package for your python script is to first publish it in `PyPI <https://pypi.org/>`__ following the steps explained above. 
+
+The simplest way for creating a conda package for your python script is to
+first publish it in `PyPI <https://pypi.org/>`__ following the steps explained
+above.
+
 
 Building a python package with conda skeleton pypi
 ***************************************************
 
-Once build, the conda package can be installed locally. For this example, we will use `runtest <https://pypi.org/project/runtest/>`__. 
-`runtest <https://github.com/bast/runtest>`__ is a numerically tolerant end-to-end test library for research software.
+Once build, the conda package can be installed locally. For this example, we
+will use `runtest <https://pypi.org/project/runtest/>`__.  `runtest
+<https://github.com/bast/runtest>`__ is a numerically tolerant end-to-end test
+library for research software.
 
 1. Create pypi skeleton::
 
@@ -97,8 +102,8 @@ Once build, the conda package can be installed locally. For this example, we wil
    .. callout:: Remark
 
       For pure python recipes, this is all you need for building a python package with conda.
-      If your package needs to be built (for instance compilation), you would need additional files e.g. `build.sh` (to build on Linux/Mac-OSX) and `bld.bat` (to build on Windows systems). You can also add test scripts for testing your package. See `documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#writing-the-build-script-files-build-sh-and-bld-bat>`__ 
-  
+      If your package needs to be built (for instance compilation), you would need additional files e.g. `build.sh` (to build on Linux/Mac-OSX) and `bld.bat` (to build on Windows systems). You can also add test scripts for testing your package. See `documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#writing-the-build-script-files-build-sh-and-bld-bat>`__
+
 
 3. Build your package with conda
 
@@ -139,20 +144,33 @@ Once build, the conda package can be installed locally. For this example, we wil
 
   It is possible to build a conda package from scratch without using conda skeleton. We recommend you to check the `conda-build documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html>`__ for more information.
 
-To be able to share and install your local conda package anywhere (on other platforms), you would need to upload it to a `conda channel <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`__ (see below). 
+To be able to share and install your local conda package anywhere (on other platforms), you would need to upload it to a `conda channel <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`__ (see below).
 
 
-  
+
 Publishing a python package
 ****************************
 
-- Upload your package to *Anaconda.org*: see instructions `here <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs-skeleton.html#optional-uploading-packages-to-anaconda-org>`__. Please note that you will have to create an account on Anaconda.
+- Upload your package to *Anaconda.org*: see instructions `here
+  <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs-skeleton.html#optional-uploading-packages-to-anaconda-org>`__.
+  Please note that you will have to create an account on Anaconda.
 
-- Upload your package to `conda-forge <https://conda-forge.org/>`__: conda-forge is a conda channel: it contains community-led collection of recipes, build infrastructure and distributions for the conda package manager. Anyone can public conda packages to conda-forge if certain `guidelines <https://conda-forge.org/docs/>`__ are respected.
+- Upload your package to `conda-forge <https://conda-forge.org/>`__:
+  conda-forge is a conda channel: it contains community-led collection of
+  recipes, build infrastructure and distributions for the conda package
+  manager. Anyone can public conda packages to conda-forge if certain
+  `guidelines <https://conda-forge.org/docs/>`__ are respected.
 
-- Upload your package to `bioconda <https://bioconda.github.io/>`_: bioconda is a very popular channel for the conda package manager specializing in bioinformatics software. As for conda-forge, you need to follow their `guidelines <https://bioconda.github.io/contributor/guidelines.html>`__ when building conda recipes.
+- Upload your package to `bioconda <https://bioconda.github.io/>`_: bioconda is
+  a very popular channel for the conda package manager specializing in
+  bioinformatics software. As for conda-forge, you need to follow their
+  `guidelines <https://bioconda.github.io/contributor/guidelines.html>`__ when
+  building conda recipes.
 
-You can also `create your own conda channel <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/create-custom-channels.html>`__ for publishing your packages.
+You can also `create your own conda channel
+<https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/create-custom-channels.html>`__
+for publishing your packages.
+
 
 Version pinning
 ---------------
