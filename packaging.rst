@@ -145,6 +145,8 @@ We need two more things:
   to pip install that, too.
 - You need an account on `test-PyPI <https://test.pypi.org/>`__.
 
+.. highlight:: console
+
 Let's try it out. First we create the distribution package::
 
   $ python setup.py sdist
