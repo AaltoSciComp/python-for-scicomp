@@ -163,7 +163,7 @@ And use twine to upload the distribution files to test-PyPI::
 
 Once this is done, create yet another virtual environment and try to install from test-PyPI (adapt "myname")::
 
-  $ pip install -i https://test.pypi.org/simple/ calculator-myname==0.1.0
+  $ pip install -i https://test.pypi.org/simple/ calculator-myname
 
 
 Tools that simplify sharing via PyPI
