@@ -123,8 +123,8 @@ calculations on the list:
 
   >>> from multiprocessing import Pool
   >>> with Pool() as pool:
-  pool.map(square, [1, 2, 3, 4, 5, 6])
-
+  ...     pool.map(square, [1, 2, 3, 4, 5, 6])
+  [1, 4, 9, 16, 25, 36]
 
 
 .. challenge:: Parallel-1, multiprocessing
