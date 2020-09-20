@@ -55,19 +55,27 @@ Example: Numerical integration
 
 .. challenge::
 
-   Using scipy, calculate the integral of the function ``sin`` in the
-   interval ``[0, pi]``, and compare with the analytical result.
+   Define a function of one variable and using
+   `scipy.integrate.quad <https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html#scipy.integrate.quad>`__
+   calculate the integral of your function in the
+   interval ``[0.0, 4.0]``. Then vary the interval and also modify the function and check
+   whether scipy can integrate it.
+
 
 .. solution::
 
    :class: toggle-shown
 
-   .. code-block:: pycon
+   .. code-block:: python
 
-      import scipy.integrate
-      import math
-      scipy.integrate.quad(math.sin, 0, 2*math.pi)
-      (2.221501482512777e-16, 4.3998892617845996e-14)
+      from scipy import integrate
+
+      def myfunction(x):
+          # you need to define result
+          return result
+
+      integral = integrate.quad(myfunction, 0.0, 4.0)
+      print(integral)
 
    `quad
    <https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html#scipy.integrate.quad>`__
