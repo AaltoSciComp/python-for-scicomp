@@ -312,6 +312,7 @@ to get this MPI example to work:
    - Then compare the output with a run on multiple cores (in this case 2): ``$ mpiexec -n 2 python example.py``.
    - Can you guess what the ``comm.gather`` function does by looking at the print-outs right before and after.
    - Why do we have the if-statement ``if rank == 0`` at the end?
+   - Why did we use ``_, n_inside_circle = sample(n_task)`` and not ``n, n_inside_circle = sample(n_task)``?
 
 
 Coupling to other languages
