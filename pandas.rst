@@ -230,7 +230,7 @@ and what the use cases can be.
 We can easily split and concatenate or append dataframes::
 
     sub1, sub2, sub3 = df[:2], df[2:4], df[4:]
-    pd.concat([sub1, sub2, sub3]])
+    pd.concat([sub1, sub2, sub3])
     sub1.append([sub2, sub3])      # same as above
 
 Dataframes can also be merged similarly to in SQL::
