@@ -289,7 +289,7 @@ to get this MPI example to work:
        n_task = n
 
    t0 = time.perf_counter()
-   n, n_inside_circle = sample(n_task)
+   _, n_inside_circle = sample(n_task)
    t = time.perf_counter() - t0
 
    print(f"before gather: rank {rank}, n_inside_circle: {n_inside_circle}")
