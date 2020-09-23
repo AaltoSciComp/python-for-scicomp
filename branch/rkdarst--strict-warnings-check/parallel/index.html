@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Parallel programming &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Python multithreading solution" href="../parallel-pi-multiprocessing/" />
+    <link rel="prev" title="Pandas" href="../pandas/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parallel programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modes-of-parallelism">Modes of parallelism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multithreading-and-the-gil">Multithreading and the GIL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiprocessing">multiprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../parallel-pi-multiprocessing/">Python multithreading solution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mpi">MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#coupling-to-other-languages">Coupling to other languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dask-and-task-queues">Dask and task queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Parallel programming</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/parallel.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="parallel-programming">
+<h1>Parallel programming<a class="headerlink" href="#parallel-programming" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-questions questions admonition">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>When you need more than one processor, what do you do?</p></li>
+<li><p>How can we use more than one processor/core in Python?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand the major strategies of parallelizing code</p></li>
+<li><p>Understand mechanics of the <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> package</p></li>
+<li><p>Know when to use more advanced packages or approaches</p></li>
+</ul>
+</div>
+<div class="section" id="modes-of-parallelism">
+<h2>Modes of parallelism<a class="headerlink" href="#modes-of-parallelism" title="Permalink to this headline">¶</a></h2>
+<p>You realize you do have more computation to do than you can on one processor?
+What do you do?</p>
+<ol class="arabic simple">
+<li><p>Profile your code, identify the <em>actual</em> slow spots.</p></li>
+<li><p>Can you improve your code in those areas?  Use an existing library?</p></li>
+<li><p>Are there are any low-effort optimizations that you can make?</p></li>
+<li><p>Think about parallelizing.</p></li>
+</ol>
+<p>Many times in science, you want to parallelize your code: either if the computation
+takes too much time on one core or when the code needs to be parallel to even
+be allowed to run on a specific hardware (e.g. supercomputers).</p>
+<p><strong>Parallel computing</strong> is when many different tasks are carried out
+simultaneously.  There are three main models:</p>
+<ul class="simple">
+<li><p><strong>Embarrassingly parallel:</strong> the code does not need to synchronize/communicate
+with other instances, and you can run
+multiple instances of the code separately, and combine the results
+later.  If you can do this, great!  (array jobs, task queues)</p></li>
+<li><p><strong>Shared memory parallelism:</strong> Parallel threads need to communicate and do so via
+the same memory (variables, state, etc). (OpenMP)</p></li>
+<li><p><strong>Message passing:</strong> Different processes manage their own memory segments. They share data
+by communicating (passing messages) as needed. (Message Passing Interface (MPI)).</p></li>
+</ul>
+<p>Programming shared memory or message passing is beyond the scope of
+this course, but the simpler strategies are most often used anyway.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Parallel programming is not magic, but many things can go wrong and
+you can get unexpected results or difficult to debug problems.
+Parallel programming is a fascinating world to get involved in, but
+make sure you invest enough time to do it well.</p>
+<p>See the video by Raymond Hettinger (“See Also” at bottom
+of page) for an entertaining take on this.</p>
+</div>
+</div>
+<div class="section" id="multithreading-and-the-gil">
+<h2>Multithreading and the GIL<a class="headerlink" href="#multithreading-and-the-gil" title="Permalink to this headline">¶</a></h2>
+<p>The designers of the Python language made the choice
+that <strong>only one thread in a process can run actual Python code</strong>
+by using the so-called <strong>global interpreter lock (GIL)</strong>.
+This means that approaches that may work in other languages (C, C++, Fortran),
+may not work in Python without being a bit careful.
+At first glance, this is bad for parallelism.  <em>But it’s not all bad!:</em></p>
+<ul class="simple">
+<li><p>External libraries (NumPy, SciPy, Pandas, etc), written in C or other
+languages, can release the lock and run multi-threaded.  Also, most
+input/output releases the GIL, and input/output is slow.</p></li>
+<li><p>If speed is important enough you need things parallel, you usually
+wouldn’t use pure Python.</p></li>
+</ul>
+<p>We won’t cover threading in this course.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wiki.python.org/moin/GlobalInterpreterLock">More on the global interpreter lock</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/threading.html">Threading python module</a>.  This is
+very low level and you shouldn’t use it unless you really know what
+you are doing.</p></li>
+<li><p>We recommend you find a UNIX threading tutorial first before embarking
+on using the <a class="reference external" href="https://docs.python.org/3/library/threading.html">threading</a> module.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="multiprocessing">
+<h2>multiprocessing<a class="headerlink" href="#multiprocessing" title="Permalink to this headline">¶</a></h2>
+<p>As opposed to threading, Python has a reasonable way of doing
+something similar that uses multiple processes: the
+<a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> module.</p>
+<ul class="simple">
+<li><p>The interface is a lot like threading, but in the background creates
+new processes to get around the global interpreter lock.</p></li>
+<li><p>There are low-level functions which have a lot of the same risks and
+difficulties as when using <a class="reference external" href="https://docs.python.org/3/library/threading.html#module-threading" title="(in Python v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">threading</span></code></a>.</p></li>
+</ul>
+<p>To show an example,
+the <a class="reference external" href="https://doi.org/10.18637%2Fjss.v040.i01">split-apply-combine</a>
+or <a class="reference external" href="https://en.wikipedia.org/wiki/MapReduce">map-reduce</a> paradigm is
+quite useful for many scientific workflows.  Consider you have this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>You can apply the function to every element in a list using the
+<a class="reference external" href="https://docs.python.org/3/library/functions.html#map" title="(in Python v3.8)"><code class="xref py py-func docutils literal notranslate"><span class="pre">map()</span></code></a> function:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]))</span>
+<span class="go">[1, 4, 9, 16, 25, 36]</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.Pool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">multiprocessing.pool.Pool</span></code></a> class provides an equivalent but
+parallelized (via multiprocessing) way of doing this.  The pool class,
+by default, creates one new process per CPU and does parallel
+calculations on the list:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Pool</span><span class="p">()</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">[1, 4, 9, 16, 25, 36]</span>
+</pre></div>
+</div>
+<div class="admonition-parallel-1-multiprocessing challenge admonition">
+<p class="admonition-title">Parallel-1, multiprocessing</p>
+<p>Here, you find some code which calculates pi by a stochastic
+algorithm.  You don’t really need to worry how the algorithm works,
+but it computes random points in a 1x1 square, and computes the
+number that fall into a circle.  Copy it into a Jupyter notebook
+and use the <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code> cell magic on the computation part (the
+one highlighted line after timeit below):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make n trials of points in the square.  Return (n, number_in_circle)</span>
+
+<span class="sd">    This is our basic function.  By design, it returns everything it\</span>
+<span class="sd">    needs to compute the final answer: both n (even though it is an input</span>
+<span class="sd">    argument) and n_inside_circle.  To compute our final answer, all we</span>
+<span class="sd">    have to do is sum up the n:s and the n_inside_circle:s and do our</span>
+<span class="sd">    computation&quot;&quot;&quot;</span>
+    <span class="n">n_inside_circle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">n_inside_circle</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">,</span> <span class="n">n_inside_circle</span>
+
+<span class="o">%%</span><span class="n">timeit</span>
+<span class="hll"><span class="n">n</span><span class="p">,</span> <span class="n">n_inside_circle</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_inside_circle</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">pi</span>
+</pre></div>
+</div>
+<p>Using the <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.Pool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">multiprocessing.pool.Pool</span></code></a> code from the lesson, run
+the <code class="docutils literal notranslate"><span class="pre">sample</span></code> function 10 times, each with <code class="docutils literal notranslate"><span class="pre">10**5</span></code> samples
+only.  Combine the results and time the calculation.  What is the
+difference in time taken?</p>
+<p>(optional, advanced) Do the same but with
+<code class="xref py py-class docutils literal notranslate"><span class="pre">multiprocessing.pool.ThreadPool</span></code> instead.  This works identically
+to <code class="docutils literal notranslate"><span class="pre">Pool</span></code>, but uses threads instead of different processes.
+Compare the time taken.</p>
+<div class="admonition-solution solution dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>See the finished notebook here:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../parallel-pi-multiprocessing/">Python multithreading solution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../parallel-pi-multiprocessing/#do-it-in-parallel-with-multiprocessing">Do it in parallel with multiprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../parallel-pi-multiprocessing/#do-it-in-parallel-with-threads">Do it in “parallel” with threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../parallel-pi-multiprocessing/#future-ideas">Future ideas</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>You notice the version with <code class="docutils literal notranslate"><span class="pre">ThreadPool</span></code> is no faster, and
+probably takes even longer.  This is because this is a
+pure-Python function which can not run simultaneously in
+multiple threads.</p>
+</div>
+</div>
+<div class="admonition-advanced-parallel-2-running-on-a-cluster challenge admonition">
+<p class="admonition-title">(advanced) Parallel-2 Running on a cluster</p>
+<p>How does the pool know how many CPUs to take?  What happens if you
+run on a computer cluster and request only part of the CPUs on a
+node?</p>
+<div class="admonition-solution solution dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Pool by default uses one process for each CPU on the node - it
+doesn’t know about your cluster’s scheduling system.  It’s
+possible that you have permission to use 2 CPUs but it is trying
+to use 12.  This is generally a bad situation, and will just
+slow you down (and make other users on the same node upset)!</p>
+<p>You either need to be able to specify the number of CPUs to use
+(and pass it the right number), or make it aware of the cluster
+system.  For example, on a Slurm cluster you would check the
+environment variable <code class="docutils literal notranslate"><span class="pre">SLURM_CPUS_PER_TASK</span></code>.</p>
+<p>Whatever you do, document what your code is doing under the
+hood, so that other users know what is going on (we’ve learned
+this from experience…).</p>
+</div>
+</div>
+</div>
+<div class="section" id="mpi">
+<h2>MPI<a class="headerlink" href="#mpi" title="Permalink to this headline">¶</a></h2>
+<p>The message passing interface (MPI) approach to parallelization
+is that:</p>
+<ul class="simple">
+<li><p>Tasks (cores) have a rank and are numbered 0, 1, 2, 3, …</p></li>
+<li><p>Each task (core) manages its own memory</p></li>
+<li><p>Tasks communicate and share data by sending messages</p></li>
+<li><p>Many higher-level functions exist to distribute information to other tasks
+and gather information from other tasks</p></li>
+<li><p>All tasks typically run the entire code and we have to be careful to avoid
+that all tasks do the same thing</p></li>
+</ul>
+<p>Introductory MPI lessons where Python is included:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://rantahar.github.io/introduction-to-mpi/">https://rantahar.github.io/introduction-to-mpi/</a></p></li>
+<li><p><a class="reference external" href="https://pdc-support.github.io/introduction-to-mpi/">https://pdc-support.github.io/introduction-to-mpi/</a></p></li>
+</ul>
+<p>These blog posts are good for gentle MPI/mpi4py introduction:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.kth.se/blogs/pdc/2019/08/parallel-programming-in-python-mpi4py-part-1/">https://www.kth.se/blogs/pdc/2019/08/parallel-programming-in-python-mpi4py-part-1/</a></p></li>
+<li><p><a class="reference external" href="https://www.kth.se/blogs/pdc/2019/11/parallel-programming-in-python-mpi4py-part-2/">https://www.kth.se/blogs/pdc/2019/11/parallel-programming-in-python-mpi4py-part-2/</a></p></li>
+</ul>
+<p>Those who use MPI in C, C++, Fortran, will probably understand the steps in the
+following example. For learners new to MPI, we can explore this example
+together.</p>
+<p>Here we reuse the example of approximating pi with a stochastic
+algorithm from above, and we have highlighted the lines which are important
+to get this MPI example to work:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="hll"><span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+</span>
+
+<span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make n trials of points in the square.  Return (n, number_in_circle)</span>
+
+<span class="sd">    This is our basic function.  By design, it returns everything it\</span>
+<span class="sd">    needs to compute the final answer: both n (even though it is an input</span>
+<span class="sd">    argument) and n_inside_circle.  To compute our final answer, all we</span>
+<span class="sd">    have to do is sum up the n:s and the n_inside_circle:s and do our</span>
+<span class="sd">    computation&quot;&quot;&quot;</span>
+    <span class="n">n_inside_circle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">n_inside_circle</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">,</span> <span class="n">n_inside_circle</span>
+
+
+<span class="hll"><span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+</span><span class="hll"><span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+</span><span class="hll"><span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">7</span>
+
+<span class="hll"><span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span>    <span class="n">n_task</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">/</span> <span class="n">size</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">n_task</span> <span class="o">=</span> <span class="n">n</span>
+
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">n_inside_circle</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="n">n_task</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;before gather: rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">, n_inside_circle: </span><span class="si">{</span><span class="n">n_inside_circle</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="hll"><span class="n">n_inside_circle</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">n_inside_circle</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;after gather: rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">, n_inside_circle: </span><span class="si">{</span><span class="n">n_inside_circle</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="hll"><span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span>    <span class="n">pi_estimate</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">n_inside_circle</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">number of darts: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">, estimate: </span><span class="si">{</span><span class="n">pi_estimate</span><span class="si">}</span><span class="s2">, time spent: </span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.2</span><span class="si">}</span><span class="s2"> seconds&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-parallel-2-mpi challenge admonition">
+<p class="admonition-title">Parallel-2, MPI</p>
+<p>We can do this as <strong>exercise or as demo</strong>. Note that this example requires <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> and a
+MPI installation such as for instance <a class="reference external" href="https://www.open-mpi.org/">OpenMPI</a>.</p>
+<ul class="simple">
+<li><p>Try to run this example on one core: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">example.py</span></code>.</p></li>
+<li><p>Then compare the output with a run on multiple cores (in this case 2): <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">mpiexec</span> <span class="pre">-n</span> <span class="pre">2</span> <span class="pre">python</span> <span class="pre">example.py</span></code>.</p></li>
+<li><p>Can you guess what the <code class="docutils literal notranslate"><span class="pre">comm.gather</span></code> function does by looking at the print-outs right before and after.</p></li>
+<li><p>Why do we have the if-statement <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">rank</span> <span class="pre">==</span> <span class="pre">0</span></code> at the end?</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="coupling-to-other-languages">
+<h2>Coupling to other languages<a class="headerlink" href="#coupling-to-other-languages" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned further up in “Multithreading and the GIL”, Python has the global
+interpreter lock (GIL) which prevents us from using shared-memory
+parallelization strategies like OpenMP “directly”.</p>
+<p>However, an interesting workaround for this can be to couple Python with other
+languages which do not have the GIL.  This also works just as well when you don’t
+need parallelism, but need to make an optimized algorithm for a small part of the code.</p>
+<p>Two strategies are common:</p>
+<ul>
+<li><p>Couple Python with compiled languages like C, C++, Fortran, or Rust and let those handle the shared-memory parallelization:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>C: use the <a class="reference external" href="https://cffi.readthedocs.io/">cffi</a> package (C foreign function interface).  <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.8)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> is a similar but slightly more primitive module that is in the standard library.</p></li>
+<li><p>C++: use <a class="reference external" href="https://pybind11.readthedocs.io/">pybind11</a></p></li>
+<li><p>Fortran: create a C interface using <code class="docutils literal notranslate"><span class="pre">iso_c_binding</span></code> and then couple the C layer to Python
+using <a class="reference external" href="https://cffi.readthedocs.io/">cffi</a></p></li>
+<li><p>Rust: use <a class="reference external" href="https://pyo3.rs/">PyO3</a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Let compiled languages do the shared-memory parallelization part (as in above
+point) and let Python do the MPI work and distribute tasks across nodes using
+an <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> layer.</p></li>
+</ul>
+<p>Coupling Python with other languages using the above tools is not difficult but
+it goes beyond the scope of this course.</p>
+<p>Before you take this route, <strong>profile the application</strong> first to be sure where
+the bottleneck is.</p>
+<p>Of course sometimes coupling languages is not about overcoming bottlenecks but
+about combining existing programs which have been written in different
+languages for whatever reason.</p>
+</div>
+<div class="section" id="dask-and-task-queues">
+<h2>Dask and task queues<a class="headerlink" href="#dask-and-task-queues" title="Permalink to this headline">¶</a></h2>
+<p>This is another strategy. Text needed here …</p>
+</div>
+<div class="section" id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://youtu.be/Bv25Dwe84g0">Thinking about Concurrency, Raymond Hettinger</a>.  Good introduction to simple and
+safe concurrent code.</p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Pure Python is not very good for highly parallel code.</p></li>
+<li><p>Luckily it interfaces to many things which <em>are</em> good, and give
+you the full control you need.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../parallel-pi-multiprocessing/" class="btn btn-neutral float-right" title="Python multithreading solution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../pandas/" class="btn btn-neutral float-left" title="Pandas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

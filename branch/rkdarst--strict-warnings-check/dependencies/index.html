@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dependency management &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="SciPy" href="../scipy/" />
+    <link rel="prev" title="Scripts" href="../scripts/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dependency management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-do-you-track-dependencies-of-your-project">How do you track dependencies of your project?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pypi-the-python-package-index-and-ana-conda">PyPI (The Python Package Index) and (Ana)conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-isolated-environments">Creating isolated environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recording-dependencies">Recording dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-communicate-the-dependencies-as-part-of-a-report-thesis-publication">How to communicate the dependencies as part of a report/thesis/publication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-pinning-for-package-creators">Version pinning for package creators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Dependency management</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/dependencies.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dependency-management">
+<h1>Dependency management<a class="headerlink" href="#dependency-management" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-questions questions admonition">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>Do you expect your code to work in one year?  Five?  What if it
+uses <code class="docutils literal notranslate"><span class="pre">numpy</span></code> or <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code> or <code class="docutils literal notranslate"><span class="pre">random-github-package</span></code> ?</p></li>
+<li><p>How can my collaborators get the same results as me? What about
+future me?</p></li>
+<li><p>How can my collaborators easily install my codes with all the necessary dependencies?</p></li>
+<li><p>How can I make it easy for my colleagues to reproduce my results?</p></li>
+<li><p>How can I work on two (or more) projects with different and conflicting dependencies?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn how to record dependencies</p></li>
+<li><p>Be able to communicate the dependencies as part of a report/thesis/publication</p></li>
+<li><p>Learn how to use isolated environments for different projects</p></li>
+<li><p>Simplify the use and reuse of scripts and projects</p></li>
+</ul>
+</div>
+<div class="section" id="how-do-you-track-dependencies-of-your-project">
+<h2>How do you track dependencies of your project?<a class="headerlink" href="#how-do-you-track-dependencies-of-your-project" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Dependency</strong>: Reliance on a external component.  In this case, a
+separately installed software package such as <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p></li>
+</ul>
+<div class="admonition-dependencies-1-15-min challenge admonition">
+<p class="admonition-title">Dependencies-1 (15 min)</p>
+<p>Please discuss <strong>in breakout rooms</strong> and answer via <strong>collaborative document</strong> the
+following questions:</p>
+<ul class="simple">
+<li><p>How do you install Python packages (libraries) that you use in your work?
+From PyPI using pip? From other places using pip? Using conda?</p></li>
+<li><p>How do you track/record the dependencies? Do you write them into a file or README? Into
+<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>?</p></li>
+<li><p>If you track dependencies in a file, why do you do this?</p></li>
+<li><p>Have you ever experienced that a project needed a different version of a Python
+library than the one on your computer? If yes, how did you solve it?</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="pypi-the-python-package-index-and-ana-conda">
+<h2>PyPI (The Python Package Index) and (Ana)conda<a class="headerlink" href="#pypi-the-python-package-index-and-ana-conda" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>PyPI (The Python Package Index) and Conda are popular packaging/dependency
+management tools.</p></li>
+<li><p>When you run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> you typically install from <a class="reference external" href="https://pypi.org/">PyPI</a> but one can also <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> from a GitHub
+repository and similar.</p></li>
+<li><p>When you run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code> you typically install from <a class="reference external" href="https://anaconda.org/">Anaconda Cloud</a> but there are many community-driven conda channels
+and you can create your own.</p></li>
+</ul>
+<p>Why are there two ecosystems?</p>
+<ul class="simple">
+<li><p>PyPI is traditionally for Python-only packages but it is no problem to also
+distribute packages written in other languages as long as they provide a
+Python interface.</p></li>
+<li><p>Conda is more general and while it contains many Python packages and packages
+with a Python interface, it is often used to also distribute packages which
+do not contain any Python (e.g. C or C++ packages).</p></li>
+<li><p>Many libraries and tools are distributed in both ecosystems.</p></li>
+</ul>
+<p>In the packaging episode we will meet PyPI and Anaconda again and practice how
+to share Python packages.</p>
+</div>
+<div class="section" id="creating-isolated-environments">
+<h2>Creating isolated environments<a class="headerlink" href="#creating-isolated-environments" title="Permalink to this headline">¶</a></h2>
+<p>Isolated environments solve a couple of problems:</p>
+<ul class="simple">
+<li><p>You can install specific, also older, versions into them.</p></li>
+<li><p>You can create one for each project and no problem if the two projects
+require different versions.</p></li>
+<li><p>If you make some mistake and install something you did not want or need, you
+can remove the environment and create a new one.</p></li>
+</ul>
+<div class="admonition-dependencies-2-15-min challenge admonition">
+<p class="admonition-title">Dependencies-2 (15 min)</p>
+<p>Chloe just joined your team and will be working on her Master Thesis. She is
+quite familiar with Python, still finishing some Python assignments (due in a
+few weeks) and you give her a Python code for analyzing and plotting your
+favorite data. The thing is that your Python code has been developed by
+another Master Student (from last year) and requires a pretty old version of
+Numpy (1.13.1) and Matplotlib (2.2.2) (otherwise the code fails). The code
+could probably work with a recent version of Python but has been validated with
+Python 3.6 only. Having no idea what the code does, she decides that the best
+approach is to <strong>create an isolated environment</strong> with the same dependencies used
+previously. This will give her a baseline for future upgrade and
+developments.</p>
+<p>For this first exercise, we will be using conda for creating an isolated environment.</p>
+<ol class="arabic">
+<li><p>Create a conda environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda create --name python36-env python=3.6 numpy=1.13.1 matplotlib=2.2.2
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Conda environments can also be managed (create, update, delete) from the
+<strong>anaconda-navigator</strong>. Check out the corresponding documentation <a class="reference external" href="https://docs.anaconda.com/anaconda/navigator/getting-started/#navigator-managing-environments">here</a>.</p>
+<ol class="arabic" start="2">
+<li><p>Activate the environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda activate python36-env
+</pre></div>
+</div>
+<div class="admonition-conda-activate-versus-source-activate callout admonition">
+<p class="admonition-title">conda activate versus source activate</p>
+<p>If you do not have a recent version of Anaconda or anaconda has not been
+setup properly, you may encounter an error. With older version of anaconda,
+you can try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ source activate python36-env
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Open a Python console and check that you have effectively the right version for each package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Numpy version: &#39;</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Matplotlib version: &#39;</span><span class="p">,</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Deactivate the environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda deactivate
+</pre></div>
+</div>
+</li>
+<li><p>Check Numpy and Matplotlib versions in the default environment to make
+sure they are different from <strong>python36-env</strong>.</p></li>
+</ol>
+<p>There is no need to specify the conda environment when using deactivate. It
+deactivates the current environment.</p>
+<div class="admonition-remark callout admonition">
+<p class="admonition-title">Remark</p>
+<ul>
+<li><p>Sometimes the package version you would need does not seem to be
+available. You may have to select another <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html">conda channel</a>
+for instance <a class="reference external" href="https://conda-forge.org/">conda-forge</a>. Channels can then
+be indicated when installing a package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda install -c conda-forge matplotlib=2.2.0
+</pre></div>
+</div>
+</li>
+<li><p>We will see below that rather than specifying the list of dependencies as
+argument of <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span></code>, it is recommended to record dependencies in
+a file.</p></li>
+</ul>
+</div>
+</div>
+<div class="admonition-dependencies-3-15-min-optional challenge admonition">
+<p class="admonition-title">Dependencies-3 (15 min, optional)</p>
+<p>This is the same exercise as before but we use virtualenv rather than conda.</p>
+<ol class="arabic">
+<li><p>Create a venv:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m venv scicomp
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">scicomp</span></code> is the name of the virtual environment. It creates a new
+folder called <code class="docutils literal notranslate"><span class="pre">scicomp</span></code>.</p>
+</li>
+<li><p>Activate it. To activate your newly created virtual environment locate the
+script called <code class="docutils literal notranslate"><span class="pre">activate</span></code> and execute it.</p>
+<ul>
+<li><p><strong>Linux/Mac-OSX</strong>: look at <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder in the <code class="docutils literal notranslate"><span class="pre">scicomp</span></code> folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ source scicomp/bin/activate
+</pre></div>
+</div>
+</li>
+<li><p><strong>Windows</strong>: most likely you can find it in the <code class="docutils literal notranslate"><span class="pre">Scripts</span></code> folder.</p></li>
+</ul>
+</li>
+<li><p>Install Numpy 1.13.1 and Matplotlib 2.2.2 into the virtual environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install numpy==1.13.1
+$ pip install matplotlib==2.2.2
+</pre></div>
+</div>
+</li>
+<li><p>Deactivate it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ deactivate
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="recording-dependencies">
+<h2>Recording dependencies<a class="headerlink" href="#recording-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There are two standard ways to record dependencies for Python projects.:</p>
+<p>Using a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> (used by virtual environment) file which looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numpy</span>
+<span class="n">matplotlib</span>
+<span class="n">pandas</span>
+<span class="n">scipy</span>
+</pre></div>
+</div>
+<p>Or using an <code class="docutils literal notranslate"><span class="pre">environments.yml</span></code> (for conda) file which looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="n">my</span><span class="o">-</span><span class="n">environment</span>
+
+<span class="n">dependencies</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">numpy</span>
+  <span class="o">-</span> <span class="n">matplotlib</span>
+  <span class="o">-</span> <span class="n">pandas</span>
+  <span class="o">-</span> <span class="n">scipy</span>
+</pre></div>
+</div>
+<p>But all of these dependencies evolve so before publishing our work
+it can be very useful for future generations and for the future you
+to <strong>pin dependencies</strong> to versions.</p>
+<p>Here are the two files again, but this time with versions pinned:</p>
+<p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> with versions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numpy</span><span class="o">==</span><span class="mf">1.19</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">matplotlib</span><span class="o">==</span><span class="mf">3.3</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">pandas</span><span class="o">==</span><span class="mf">1.1</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">scipy</span><span class="o">==</span><span class="mf">1.5</span><span class="o">.</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">environments.yml</span></code> with versions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="n">my</span><span class="o">-</span><span class="n">environment</span>
+
+<span class="n">dependencies</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.6</span>
+  <span class="o">-</span> <span class="n">numpy</span><span class="o">=</span><span class="mf">1.19</span><span class="o">.</span><span class="mi">2</span>
+  <span class="o">-</span> <span class="n">matplotlib</span><span class="o">=</span><span class="mf">3.3</span><span class="o">.</span><span class="mi">2</span>
+  <span class="o">-</span> <span class="n">pandas</span><span class="o">=</span><span class="mf">1.1</span><span class="o">.</span><span class="mi">2</span>
+  <span class="o">-</span> <span class="n">scipy</span><span class="o">=</span><span class="mf">1.5</span><span class="o">.</span><span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Conda can also read and write <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> can also refer to packages on Github.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">environments.yml</span></code> can also contain a <code class="docutils literal notranslate"><span class="pre">pip</span></code> section.</p></li>
+<li><p>See also: <a class="reference external" href="https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies">https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies</a>.</p></li>
+</ul>
+<div class="admonition-dependencies-4-15-min challenge admonition">
+<p class="admonition-title">Dependencies-4 (15 min)</p>
+<ul class="simple">
+<li><p>Create the file <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p></li>
+<li><dl class="simple">
+<dt>Create an environment based on these dependencies:</dt><dd><ul>
+<li><p>Conda: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--name</span> <span class="pre">myenvironment</span> <span class="pre">--file</span> <span class="pre">requirements.txt</span></code></p></li>
+<li><p>Virtual environment: First create and activate, then <code class="docutils literal notranslate"><span class="pre">$ pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Freeze the environment:</dt><dd><ul>
+<li><p>Conda: <code class="docutils literal notranslate"><span class="pre">$ conda</span> <span class="pre">list</span> <span class="pre">--export</span> <span class="pre">&gt;</span> <span class="pre">requirements.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">$ conda</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">&gt;</span> <span class="pre">environment.yml</span></code></p></li>
+<li><p>Virtual environment: <code class="docutils literal notranslate"><span class="pre">$ pip</span> <span class="pre">freeze</span> <span class="pre">&gt;</span> <span class="pre">requirements.txt</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Have a look at the generated (“frozen”) file.</p></li>
+</ul>
+</div>
+<p>Tip: instead of installing packages with <code class="docutils literal notranslate"><span class="pre">$ pip</span> <span class="pre">install</span> <span class="pre">somepackage</span></code>, what I do is
+to add <code class="docutils literal notranslate"><span class="pre">somepackage</span></code> to <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> or <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and install
+from the file, then you have a trace of all installed dependencies.</p>
+</div>
+<div class="section" id="how-to-communicate-the-dependencies-as-part-of-a-report-thesis-publication">
+<h2>How to communicate the dependencies as part of a report/thesis/publication<a class="headerlink" href="#how-to-communicate-the-dependencies-as-part-of-a-report-thesis-publication" title="Permalink to this headline">¶</a></h2>
+<p>Each notebook or script or project which depends on libraries should come with
+either a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> or a <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>, unless you are creating
+and distributing this project as Python package (see next section).</p>
+<ul class="simple">
+<li><p>Attach a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> or a <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> to your thesis.</p></li>
+<li><p>Even better: put <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> or a <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> in your Git repository along your code.</p></li>
+<li><p>Even better: also binderize your analysis pipeline (more about that in a later session).</p></li>
+</ul>
+</div>
+<div class="section" id="version-pinning-for-package-creators">
+<h2>Version pinning for package creators<a class="headerlink" href="#version-pinning-for-package-creators" title="Permalink to this headline">¶</a></h2>
+<p>We will talk about packaging in a different session but when you create a library and package
+projects, you express dependencies either in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> or <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>
+(PyPI) or <code class="docutils literal notranslate"><span class="pre">meta.yaml</span></code> (conda).</p>
+<p>These dependencies will then be used by either other libraries (who in turn
+write their own <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> or <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> or <code class="docutils literal notranslate"><span class="pre">meta.yaml</span></code>) or by
+people directly (filling out <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> or a <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>).</p>
+<p>Now as a library creator you have a difficult choice. You can either pin versions very
+narrowly like here (example taken from <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="n">install_requires</span><span class="o">=</span><span class="p">[</span>
+<span class="hll">   <span class="s1">&#39;numpy==1.19.2&#39;</span><span class="p">,</span>
+</span><span class="hll">   <span class="s1">&#39;matplotlib==3.3.2&#39;</span>
+</span><span class="hll">   <span class="s1">&#39;pandas==1.1.2&#39;</span>
+</span><span class="hll">   <span class="s1">&#39;scipy==1.5.2&#39;</span>
+</span><span class="p">]</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>or you can define a range or keep them undefined like here (example taken from
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="n">install_requires</span><span class="o">=</span><span class="p">[</span>
+<span class="hll">   <span class="s1">&#39;numpy&#39;</span><span class="p">,</span>
+</span><span class="hll">   <span class="s1">&#39;matplotlib&#39;</span>
+</span><span class="hll">   <span class="s1">&#39;pandas&#39;</span>
+</span><span class="hll">   <span class="s1">&#39;scipy&#39;</span>
+</span><span class="p">]</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>Should we pin the versions here or not?</p>
+<ul class="simple">
+<li><p>Pinning versions here would be good for reproducibility.</p></li>
+<li><p>However pinning versions may make it difficult for this library to be used in a project alongside other
+libraries with conflicting version dependencies.</p></li>
+<li><p>Therefore <strong>as library creator make the version requirements as wide as possible</strong>.</p>
+<ul>
+<li><p>Set minimum version when you know of a reason: <code class="docutils literal notranslate"><span class="pre">&gt;=2.1</span></code></p></li>
+<li><p>Sometimes set maximum version to next major version (<code class="docutils literal notranslate"><span class="pre">&lt;4</span></code>) (when
+you currently use <code class="docutils literal notranslate"><span class="pre">3.x.y</span></code>) when you expect issues with next
+major version.</p></li>
+</ul>
+</li>
+<li><p>As the “end consumer” of libraries, define your dependencies as narrowly as possible.</p></li>
+</ul>
+</div>
+<div class="section" id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p>Other tools for dependency management:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://python-poetry.org/">Poetry</a>: dependency management and packaging</p></li>
+<li><p><a class="reference external" href="https://pipenv.pypa.io/">Pipenv</a>: dependency management, alternative to Poetry</p></li>
+<li><p><a class="reference external" href="https://github.com/pyenv/pyenv">pyenv</a>: if you need different Python versions for different projects</p></li>
+<li><p><a class="reference external" href="https://github.com/thoth-station/micropipenv">micropipenv</a>: lightweight tool to “rule them all”</p></li>
+</ul>
+<p>Other resources:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://scicomp.aalto.fi/scicomp/packaging-software/">https://scicomp.aalto.fi/scicomp/packaging-software/</a></p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Install dependencies by first recording them in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> or
+<code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and install using these files, then you have a trace.</p></li>
+<li><p>Use isolated environments and avoid installing packages system-wide.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../scipy/" class="btn btn-neutral float-right" title="SciPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../scripts/" class="btn btn-neutral float-left" title="Scripts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
