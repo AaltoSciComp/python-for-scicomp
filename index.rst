@@ -2,7 +2,7 @@
 Python for Scientific Computing
 ===============================
 
-.. admonition:: Attending the course 14-23.sep?
+.. admonition:: Attending the course 25-28.october.2021?
 
    `See the course page here
    <https://scicomp.aalto.fi/training/scip/python-for-scicomp/>`__,
