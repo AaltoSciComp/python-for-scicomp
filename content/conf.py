@@ -21,8 +21,8 @@ project = 'Python for Scientific Computing'
 copyright = '2020, The contributors'
 author = 'The contributors'
 github_user = 'AaltoSciComp'
-github_repo_name = ''  # auto-detected from dirname if blank
-github_version = 'master/' # with trailing slash
+github_repo_name = 'python-for-scicomp'  # auto-detected from dirname if blank
+github_version = 'master/content/' # with trailing slash
 
 
 # -- General configuration ---------------------------------------------------
