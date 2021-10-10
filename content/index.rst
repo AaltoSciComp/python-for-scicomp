@@ -161,15 +161,19 @@ are certainly things better left to other tools.
 Python 2 vs Python 3
 --------------------
 
-There are two slightly incompatible versions of Python being used
-today, 2 and 3.  Most large projects have supported 3 for a long time
-already, and have announced dropping Python 2 support for future
-versions (or have already done so), so at this point you should use
-version 3 unless you're working on an existing project that for some
-reason hasn't yet been ported to version 3.  Accordingly, in this
-course we will use Python 3. For more info, see `Python 3
-statement <https://python3statement.org/>`_ by many other the major
-projects.
+Python 3.0 came out in September 2008 and was just slightly different
+enough that most code had to be changed, which meant that many
+projects ignored it for many years.  It was about 3-5 years until the
+differences were reduced enough (and better transition plans came out,
+so that it was reasonable to use a single code for both versions) that
+it become more and more adopted in the scientific community.  Python 2
+finally became unsupported in 2020, and by now Python 3 is the defacto
+standard.
+
+At this point, all new projects should use Python 3, and existing
+actively developed projects should be upgraded to use it.  Still, you
+might find some old unmaintained tools that are only compatible with
+Python 2.
 
 
 
