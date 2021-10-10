@@ -4,7 +4,7 @@ Introduction to Python
 .. questions::
 
    - What are the basic blocks of Python language?
-   - How are functions and classes defined in Python? 
+   - How are functions and classes defined in Python?
 
 .. objectives::
 
@@ -29,6 +29,9 @@ Scalar types, that is, single elements of various types:
    s = "Hello!" # String (Unicode)
    q = b'Hello' # bytes (8-bit values)
 
+Read more: :class:`int`, :class:`float`, :class:`complex`,
+:class:`bool`, :class:`str`, :class:`bytes`.
+
 
 Collections
 -----------
@@ -45,12 +48,14 @@ Collections are data structures capable of storing multiple values.
    s = set(("apple", "cherry", "banana", "apple")) # Set of unique values
    s
 
+Read more: :class:`list`, :class:`tuple`, :class:`dict`, :class:`set`.
+
 
 Control structures
 ------------------
 
 Python has the usual control structures, that is conditional
-statements and loops:
+statements and loops.  For example, the :ref:`if` statement:
 
 ::
 
@@ -62,8 +67,7 @@ statements and loops:
    else:
        print('x is something else')
 
-
-While loops loop until some condition is met:
+:ref:`While <while>` loops loop until some condition is met:
 
 ::
 
@@ -72,8 +76,7 @@ While loops loop until some condition is met:
        print('x is ', x)
        x += 0.2
 
-
-For loops loop over some collection of values:
+:ref:`For <for>` loops loop over some collection of values:
 
 ::
 
@@ -83,7 +86,7 @@ For loops loop over some collection of values:
 
 
 Often you want to loop over a sequence of integers, in that case the
-``range`` function is useful:
+:func:`range` function is useful:
 
 ::
 
@@ -91,7 +94,7 @@ Often you want to loop over a sequence of integers, in that case the
        print(x)
 
 Another common need is to iterate over a collection, but at the same
-time also have an index number. For this there is the ``enumerate``
+time also have an index number. For this there is the :func:`enumerate`
 function:
 
 ::
@@ -104,7 +107,7 @@ function:
 Functions and classes
 ---------------------
 
-Python functions are defined by the ``def`` keyword. They take a
+Python functions are defined by the :ref:`def` keyword. They take a
 number of arguments, and return a number of return values.
 
 ::
@@ -113,10 +116,10 @@ number of arguments, and return a number of return values.
        """Say hello to the person given by the argument"""
        print('Hello', name)
        return 'Hello ' + name
-       
+
    hello("Anne")
 
-Classes are defined by the ``class`` keyword:
+Classes are defined by the :ref:`class` keyword:
 
 ::
 
@@ -125,7 +128,7 @@ Classes are defined by the ``class`` keyword:
            self._name = name
        def say(self):
            print('Hello', self._name)
-           
+
    h = Hello("Richard")
    h.say()
 
