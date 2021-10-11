@@ -137,6 +137,10 @@ calculations on the list:
   [1, 4, 9, 16, 25, 36]
 
 
+
+Exercises, multiprocessing
+--------------------------
+
 .. challenge:: Parallel-1, multiprocessing
 
    Here, you find some code which calculates pi by a stochastic
@@ -303,6 +307,10 @@ to get this MPI example to work:
        )
 
 
+
+Exercises, MPI
+--------------
+
 .. challenge:: Parallel-2, MPI
 
    We can do this as **exercise or as demo**. Note that this example requires ``mpi4py`` and a
@@ -384,6 +392,11 @@ Dask divides arrays into many small pieces (chunks), as small as necessary to fi
       # It runs using multiple threads on your machine.
       # It could also be distributed to multiple machines
 
+
+
+Exercises, Dask
+---------------
+
 .. challenge:: Dask-Examples (optional)
 
   `Dask examples <https://github.com/dask/dask-examples>`__ illustrate the usage of dask and can be run interactively through `mybinder <https://mybinder.org/>`__. Start an `interactive session on mybinder <https://mybinder.org/v2/gh/dask/dask-examples/master?urlpath=lab>`__ and test/run a few dask examples.
@@ -420,3 +433,5 @@ See also
    - Pure Python is not very good for highly parallel code.
    - Luckily it interfaces to many things which *are* good, and give
      you the full control you need.
+   - Combining vectorized functions (numpy, scipy, pandas, etc.) with
+     the parallel strategies listed here will get you very far.
