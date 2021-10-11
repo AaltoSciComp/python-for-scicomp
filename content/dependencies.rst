@@ -28,6 +28,11 @@ How do you track dependencies of your project?
 * **Dependency**: Reliance on a external component.  In this case, a
   separately installed software package such as ``numpy``.
 
+
+
+Exercises 1
+-----------
+
 .. challenge:: Dependencies-1 (15 min)
 
   Please discuss **in breakout rooms** and answer via **collaborative document** the
@@ -89,6 +94,10 @@ Isolated environments solve a couple of problems:
 - If you make some mistake and install something you did not want or need, you
   can remove the environment and create a new one.
 
+
+
+Exercises 2
+-----------
 
 .. challenge:: Dependencies-2 (15 min)
 
@@ -158,6 +167,10 @@ Isolated environments solve a couple of problems:
       argument of ``conda create``, it is recommended to record dependencies in
       a file.
 
+
+
+Exercises 3
+-----------
 
 .. challenge:: Dependencies-3 (15 min, optional)
 
@@ -241,6 +254,10 @@ Here are the two files again, but this time with versions pinned:
 - ``environments.yml`` can also contain a ``pip`` section.
 - See also: https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies.
 
+
+
+Dependencies 4
+--------------
 
 .. challenge:: Dependencies-4 (15 min)
 
