@@ -3,11 +3,13 @@ NumPy
 
 .. questions::
 
+   - What is vectorization?
    - Why using NumPy instead of pure python?
    - How to use basic NumPy?
 
 .. objectives::
 
+   - Understand the Numpy array object
    - Be able to use basic NumPy functionality
    - Understand enough of NumPy to seach for answers to the rest of your questions ;)
 
@@ -109,6 +111,10 @@ before.  Understanding and minimizing copies is one of the most
 important things to do for speed.
 
 
+
+Exercises 1
+-----------
+
 .. challenge:: Exercises: Numpy-1
 
    - **Datatypes** Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
@@ -153,6 +159,10 @@ array multiplication.  NumPy values consistency and does not treat
 
 Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``, ...
 
+
+
+Exercises 2
+-----------
 
 .. challenge:: Exercises: Numpy-2
 
@@ -199,6 +209,10 @@ Boolean indexing on above created array::
   
   a[a > 0]           # same as above in one line 
 
+
+
+Exercises 3
+-----------
 
 .. challenge:: Exercise: Numpy-3
 
@@ -271,6 +285,10 @@ functions with standardized arguments:
 linear algebra, scientific functions, etc.
 
 
+
+Exercises 4
+-----------
+
 .. challenge:: Exercises: Numpy-4
 
    - **In-place addition**: Create an array, add it to itself using a
@@ -330,51 +348,53 @@ of math - the same as many other languages.
 
 
 
-Additional Exercises Numpy-6
-----------------------------
+Additional exercises
+--------------------
 
-These are advanced and optional, and will not be done in most courses.
+.. challenge:: Numpy-5
 
-1. Reverse a vector. Given a vector, reverse it such that the last
-   element becomes the first, e.g. ``[1, 2, 3]`` => ``[3, 2, 1]``
+   These are advanced and optional, and will not be done in most courses.
 
-2. Create a 2D array with zeros on the borders and 1 inside.
+   1. Reverse a vector. Given a vector, reverse it such that the last
+      element becomes the first, e.g. ``[1, 2, 3]`` => ``[3, 2, 1]``
 
-3. Create a random array with elements [0, 1), then add 10 to all
-   elements in the range [0.2, 0.7).
+   2. Create a 2D array with zeros on the borders and 1 inside.
 
-4. What is ``np.round(0.5)``? What is ``np.round(1.5)``? Why?
+   3. Create a random array with elements [0, 1), then add 10 to all
+      elements in the range [0.2, 0.7).
 
-5. In addition to ``np.round``, explore ``np.ceil``, ``np.floor``,
-   ``np.trunc``. In particular, take note of how they behave with
-   negative numbers.
+   4. What is ``np.round(0.5)``? What is ``np.round(1.5)``? Why?
 
-6. Recall the identity :math:`\sin^2(x) + \cos^2(x) = 1`. Create a
-   random 4x4 array with values in the range [0, 10). Now test the
-   equality with ``np.equal``. What result do you get with
-   ``np.allclose`` instead of ``np.equal``?
+   5. In addition to ``np.round``, explore ``np.ceil``, ``np.floor``,
+      ``np.trunc``. In particular, take note of how they behave with
+      negative numbers.
 
-7. Create a 1D array with 10 random elements. Sort it.
+   6. Recall the identity :math:`\sin^2(x) + \cos^2(x) = 1`. Create a
+      random 4x4 array with values in the range [0, 10). Now test the
+      equality with ``np.equal``. What result do you get with
+      ``np.allclose`` instead of ``np.equal``?
 
-8. What's the difference between ``np_array.sort()`` and
-   ``np.sort(np_array)``?
+   7. Create a 1D array with 10 random elements. Sort it.
 
-9. For the random array in question 8, instead of sorting it, perform
-   an indirect sort. That is, return the list of indices which would
-   index the array in sorted order.
+   8. What's the difference between ``np_array.sort()`` and
+      ``np.sort(np_array)``?
 
-10. Create a 4x4 array of zeros, and another 4x4 array of ones. Next
-    combine them into a single 8x4 array with the content of the zeros
-    array on top and the ones on the bottom.  Finally, do the same,
-    but create a 4x8 array with the zeros on the left and the ones on
-    the rigth.
+   9. For the random array in question 8, instead of sorting it, perform
+      an indirect sort. That is, return the list of indices which would
+      index the array in sorted order.
 
-11. NumPy functionality Create two 2D arrays and do matrix multiplication 
-    first manually (for loop), then using the np.dot function. Use %%timeit 
-    to compare execution times. What is happening?
+   10. Create a 4x4 array of zeros, and another 4x4 array of ones. Next
+       combine them into a single 8x4 array with the content of the zeros
+       array on top and the ones on the bottom.  Finally, do the same,
+       but create a 4x8 array with the zeros on the left and the ones on
+       the rigth.
+
+   11. NumPy functionality Create two 2D arrays and do matrix multiplication
+       first manually (for loop), then using the np.dot function. Use %%timeit
+       to compare execution times. What is happening?
 
 
-.. solution:: Solution Numpy-7
+.. solution:: Solution Numpy-5
 
    1. One solution is:: 
     
