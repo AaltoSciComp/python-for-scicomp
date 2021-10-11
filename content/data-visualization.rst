@@ -3,6 +3,7 @@ Data visualization with Matplotlib
 
 .. questions::
 
+   - What happens if you can't automatically produce plots?
    - When to use Matplotlib for data visualization?
    - When to prefer other libraries?
 
@@ -110,6 +111,10 @@ compute cluster), you may need to add this line:
 
    # ... rest of the script
 
+
+
+Exercises 1
+-----------
 
 .. challenge:: Exercises: Visualization-1
 
@@ -220,6 +225,10 @@ can also be mixed. Although the pyplot interface looks more compact, **we
 recommend to learn and use the object oriented interface.**
 
 
+
+Exercises 2
+-----------
+
 .. challenge:: Exercises: Visualization-2
 
   Imagine we wanted to learn how to create a histogram and web searched
@@ -292,6 +301,10 @@ Styling and customizing plots
 - **Do not customize "manually"** using a graphical program (not easily repeatable/reproducible).
 
 
+
+Exercises 3
+-----------
+
 .. challenge:: Exercises: Visualization-3
 
   In this exercise we will learn how to use log scales.
@@ -342,6 +355,10 @@ Styling and customizing plots
      ax.set_xlabel("GDP (USD) per capita")
      ax.set_ylabel("life expectancy (years)")
 
+
+
+Exercises 4
+-----------
 
 .. challenge:: Exercises: Visualization-4
 
@@ -418,6 +435,10 @@ Example galleries and demos:
 
 Let's practice this!
 
+
+
+Exercises 5
+-----------
 
 .. challenge:: Exercises: Visualization-5
 
