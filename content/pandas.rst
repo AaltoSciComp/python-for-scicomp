@@ -10,6 +10,7 @@ Pandas
 
    - Learn simple and some more advanced usage of pandas dataframes
    - Get a feeling for when pandas is useful and know where to find more information
+   - Understand enough of pandas to be able to read its documentation.
 
 
 Pandas is a Python package that provides high-performance and easy to use 
@@ -138,6 +139,10 @@ with any value we like or do forward or backward filling::
     titanic.fillna(0)                 # replace NaNs with zero
     titanic.fillna(method='ffill')    # forward-fill NaNs
 
+
+
+Exercises 1
+-----------
 
 .. challenge:: Exploring dataframes
 
@@ -268,6 +273,10 @@ The same operation with group-by is::
     titanic.groupby(["Sex", "Survived", "Age"])["Fare"].mean()
 
 
+
+Exercises 2
+-----------
+
 .. challenge:: Analyze the Titanic passenger list dataset
 
     In the Titanic passenger list dataset, 
@@ -328,6 +337,11 @@ Finally, let's see one more example of an informative plot
 produced by a single line of code::
 
     nobel.boxplot(column="lifespan", by="category")
+
+
+
+Exercises 3
+-----------
 
 .. challenge:: Analyze the Nobel prize dataset
 
