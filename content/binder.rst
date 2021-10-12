@@ -31,6 +31,9 @@ Before we work in group and write our thoughts on why we need more than sharing 
 Depending on how you install this python package, it may be necessary to have `libgdal` and its development headers already installed on your system; with information on the version you have used, etc. 
 
 
+Exercises 1
+~~~~~~~~~~~
+
 .. challenge:: Binder-1 (10 mn)
 
    Lea is a PhD student in computational biology and after 2 years of intensive work, she is finally ready to publish her first paper. The code she has used for analyzing her data is available on github but her supervisor who is an advocate of Open Science told her that sharing code is not sufficient.
@@ -59,6 +62,10 @@ The main objective of this exercise is to learn to fork a repository and add a r
 
 Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://opendreamkit.org/2017/11/02/use-case-publishing-reproducible-notebooks/>`_
 
+
+
+Exercises 2
+~~~~~~~~~~~
 
 .. challenge:: Binder-2 (15 mn)
 
