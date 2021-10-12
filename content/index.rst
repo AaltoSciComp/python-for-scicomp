@@ -51,14 +51,14 @@ to learn yourself as you need to.
    30 min   ; :doc:`jupyter`
    60 min   ; :doc:`numpy`
    60 min   ; :doc:`data-visualization`
-   60 min   ; :doc:`scripts`
-   30 min   ; :doc:`dependencies`
-   15 min   ; :doc:`scipy`
    60 min   ; :doc:`pandas`
-   45 min   ; :doc:`parallel`
+   60 min   ; :doc:`scripts`
+   15 min   ; :doc:`scipy`
    30 min   ; :doc:`libraries`
-   60 min   ; :doc:`packaging`
+   45 min   ; :doc:`parallel`
+   30 min   ; :doc:`dependencies`
    30 min   ; :doc:`binder`
+   60 min   ; :doc:`packaging`
 
 
 .. toctree::
