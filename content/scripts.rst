@@ -5,7 +5,8 @@ Scripts
 
 .. questions::
 
-   - Why moving from Jupyter notebooks to scripts?
+   - Why are command line programs useful, compared to Jupyter
+     notebooks and similar?
    - How to create a python script?
    - How to generalize a python script?
 
@@ -51,6 +52,10 @@ Within JupyterLab, you can export any jupyter notebook to a python script:
 
 Actually, you could also export your notebook in many other formats. Check `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
 
+
+
+Exercises 1
+-----------
 
 .. challenge:: Scripts-1
 
@@ -152,6 +157,9 @@ and a second file calling this function:
 
 
 
+Exercises 2
+-----------
+
 .. challenge:: Scripts-2 (optional)
 
   1. Update **inflammation_functions.py** to add a new function for plotting the dataset.
@@ -224,6 +232,10 @@ arguments, it also automatically generates a ``--help`` option for you:
    if args.output:
        print(f"output file is {args.output}")
 
+
+
+Exercises 3
+-----------
 
 .. challenge:: Scripts-3
 
@@ -323,6 +335,7 @@ This will make sure you can execute it from the command line.
 
 .. keypoints::
 
-   - synchronize your jupyter notebooks & python scripts with ``jupytext``
+   - Synchronize your Jupyter notebooks & python scripts with ``jupytext``
    - ``import`` other python files
-   - command line arguments in python scripts
+   - Command line arguments in python scripts
+   - Real programs allow you to automate calculations and scale up
