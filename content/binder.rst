@@ -3,25 +3,25 @@ Binder
 
 .. questions::
 
-   - Why sharing code is not sufficient?
-   - How to share computational environment?
+   - Why sharing code alone may not be sufficient.
+   - How to share a computational environment?
    - What is Binder?
-   - How to binderize my python repository?
-   - How to publish my python repository?
+   - How to binderize my Python repository?
+   - How to publish my Python repository?
 
 .. objectives::
 
-   - Learn about reproducible computational environments
-   - Learn to create and share custom computing environments with myBinder
-   - Learn to get a DOI from zenodo for a repository.
+   - Learn about reproducible computational environments.
+   - Learn to create and share custom computing environments with Binder.
+   - Learn to get a DOI from Zenodo for a repository.
 
 
-Why isn't enough to share your code?
-------------------------------------
+Why is it sometimes not enough to share your code?
+--------------------------------------------------
 
-Before we work in group and write our thoughts on why we need more than sharing
-our codes for reproducible research, let's take an example from geospatial
-analysis where the first `import` in the code would be (please note that it is
+Before we work in groups,
+let's take an example from geospatial
+analysis where the first ``import`` in the code would be (please note that it is
 not necessary to install any of the packages mentioned below)::
 
    from osgeo import ogr, osr, gdal
@@ -31,22 +31,28 @@ Depending on how you install this python package, it may be necessary to have
 information on the version you have used, etc.
 
 
-Exercises 1
-~~~~~~~~~~~
+Exercise 1
+~~~~~~~~~~
 
 .. challenge:: Binder-1 (10 mn)
 
-   Lea is a PhD student in computational biology and after 2 years of intensive work, she is finally ready to publish her first paper. The code she has used for analyzing her data is available on github but her supervisor who is an advocate of Open Science told her that sharing code is not sufficient.
+   Lea is a PhD student in computational biology and after 2 years of intensive
+   work, she is finally ready to publish her first paper. The code she has used
+   for analyzing her data is available on GitHub but her supervisor who is an
+   advocate of open science told her that sharing code is not sufficient.
 
-   1. Why isn't enough to share your code?
+   **Why is it possibly not enough to share "just" your code?
+   What problems can you anticipate 2-5 years from now?**
 
-   We form small groups (4-5 persons) and discuss in groups. If the workshop is online, each group will join a breakout room.
+   We form small groups (4-5 persons) and discuss in groups. If the workshop is
+   online, each group will join a breakout room.
 
-   Each group write a summary (bullet points) of the discussion in the workshop shared document (the link will be provided by your instructors).
+   Each group write a summary (bullet points) of the discussion in the workshop
+   shared document (the link will be provided by your instructors).
 
 
-Binder
-------
+Sharing a computing environment with Binder
+-------------------------------------------
 
 `Binder <https://mybinder.readthedocs.io/en/latest/>`__ allows you to create
 custom computing environments that can be shared and used by many remote users.
@@ -58,20 +64,16 @@ Repo2docker is a standalone package that you can install locally on your laptop
 but an `online Binder <https://mybinder.org/>`__ service is freely available.
 This is what we will be using in the tutorial.
 
-
-How can I share my computing environment with myBinder?
--------------------------------------------------------
-
 The main objective of this exercise is to learn to fork a repository and add a
-requirement file to share the computational environment with myBinder.
+requirement file to share the computational environment with Binder.
 
 .. image:: https://opendreamkit.org/public/images/use-cases/reproducible_logbook.png
 
 Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://opendreamkit.org/2017/11/02/use-case-publishing-reproducible-notebooks/>`_
 
 
-Exercises 2
-~~~~~~~~~~~
+Exercise 2
+~~~~~~~~~~
 
 .. challenge:: Binder-2 (15 mn)
 
@@ -111,7 +113,7 @@ share.
     - Select a repository you want to archive on Zenodo.
     - Toggle the "on" button next to the repository ou need to archive.
     - Click on the Repo that you want to reserve.
-    - Click on Create release button at the top of the page. Zenodo will redirect you back to GitHub’s repo page to generate a release
+    - Click on Create release button at the top of the page. Zenodo will redirect you back to GitHub’s repo page to generate a release.
 
   3. **Trigger Zenodo to Archive your repository**
 
