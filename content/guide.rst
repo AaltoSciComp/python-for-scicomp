@@ -62,6 +62,12 @@ easily be missed in the typical academic career path.
   the concepts behind Dataframes that one needs to know in order to
   read other documentation.
 
+* **Data formats:** Input/output/storage is a common task, and can
+  easily either be a bottleneck or a huge mess.  This lessons tries to
+  show some best practices with data formats and, as usual, get the
+  idea to not "do it yourself".  Pandas is used as a common framework,
+  but we should point out there are plenty of other options.
+
 * **Visualization:** Matplotlib is getting a bit old, but is still the
   backbone of other plotting packages.  We try to get forth the ideas
   of the matplotlib API that can be seen in other packages and the

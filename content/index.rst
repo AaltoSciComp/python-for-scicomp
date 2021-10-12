@@ -52,6 +52,7 @@ to learn yourself as you need to.
    60 min   ; :doc:`numpy`
    60 min   ; :doc:`data-visualization`
    60 min   ; :doc:`pandas`
+   30 min   ; :doc:`data-formats`
    60 min   ; :doc:`scripts`
    15 min   ; :doc:`scipy`
    30 min   ; :doc:`libraries`
