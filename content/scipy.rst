@@ -8,6 +8,7 @@ SciPy
 .. objectives::
 
    - Understand that SciPy exists and what kinds of things it has.
+   - Understand the purpose of wrapping existing C/Fortran code.
    - Non-objective: know details of everything (or anything) in SciPy.
 
 .. seealso::
@@ -87,20 +88,22 @@ Example: Numerical integration
 Exercise 3.2
 ------------
 
-Use the SciPy sparse matrix functionality to create a random sparse
-matrix with a probability of non-zero elements of 0.05 and size 10000
-x 10000. The use the SciPy sparse linear algebra support to calculate
-the matrix-vector product of the sparse matrix you just created and a
-random vector. Use the %timeit macro to measure how long it
-takes. Does the optional ``format`` argument when you create the
-sparse matrix make a difference?
+.. challenge::
 
-Then, compare to how long it takes if you'd instead first convert the
-sparse matrix to a normal NumPy dense array, and use the NumPy ``dot``
-method to calculate the matrix-vector product.
+   Use the SciPy sparse matrix functionality to create a random sparse
+   matrix with a probability of non-zero elements of 0.05 and size 10000
+   x 10000. The use the SciPy sparse linear algebra support to calculate
+   the matrix-vector product of the sparse matrix you just created and a
+   random vector. Use the %timeit macro to measure how long it
+   takes. Does the optional ``format`` argument when you create the
+   sparse matrix make a difference?
 
-Can you figure out a quick rule of thumb when it's worth using a
-sparse matrix representation vs. a dense representation?
+   Then, compare to how long it takes if you'd instead first convert the
+   sparse matrix to a normal NumPy dense array, and use the NumPy ``dot``
+   method to calculate the matrix-vector product.
+
+   Can you figure out a quick rule of thumb when it's worth using a
+   sparse matrix representation vs. a dense representation?
 
 
 
