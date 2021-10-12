@@ -69,7 +69,7 @@ to learn yourself as you need to.
    python
    jupyter
    numpy
-   data-visualization.md
+   data-visualization
    scripts
    dependencies
    scipy
