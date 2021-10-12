@@ -116,6 +116,11 @@ Now we have all the building blocks to test a local pip install. This is a good
 test before trying to upload a package to PyPI or test-PyPI
 (see :ref:`pypi`)
 
+
+
+Exercises 1
+-----------
+
 .. challenge:: Packaging-1
 
    To test a local pip install:
@@ -186,6 +191,11 @@ There are at least two tools which try to make the packaging and PyPI interactio
 
 Building a conda package and share it
 -------------------------------------
+
+.. demo::
+
+   Most people will watch and observe this, due to speed which we will
+   move.
 
 .. callout:: Prerequisites
 
