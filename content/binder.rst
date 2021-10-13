@@ -74,17 +74,54 @@ requirement file to share the computational environment with Binder.
 Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://opendreamkit.org/2017/11/02/use-case-publishing-reproducible-notebooks/>`_
 
 
-Exercise 2
-~~~~~~~~~~
+Binder exercise/demo
+~~~~~~~~~~~~~~~~~~~~
 
-.. challenge:: Binder-2 (15 mn)
+In an earlier episode (Data visualization with Matplotlib) we have created this notebook:
 
-   1. Fork `the following github repository
-      <https://github.com/coderefinery/binder-exercise>`_. In the top-right corner of the page, click Fork.
+.. code-block:: python
 
-      .. image:: https://docs.github.com/assets/images/help/repository/fork_button.jpg
+   import pandas as pd
+   import matplotlib.pyplot as plt
 
-   2. Follow instruction given `here <https://coderefinery.github.io/jupyter/06-sharing/#exercise-making-your-notebooks-reproducible-by-anyone-via-binder>`__ to share the forked repository via `Binder <https://mybinder.org/>`_.
+   url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
+   data = pd.read_csv(url)
+   data_2007 = data[data["year"] == 2007]
+
+   fig, ax = plt.subplots()
+
+   ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+
+   ax.set_xscale("log")
+
+   ax.set_xlabel("GDP (USD) per capita")
+   ax.set_ylabel("life expectancy (years)")
+
+We will now first share it via `GitHub <https://github.com/>`__ "statically",
+then using `Binder <https://mybinder.org/>`__.
+
+.. challenge:: Exercise/demo: Making your notebooks reproducible by anyone (15 min)
+
+   Instructor demonstrates this:
+
+   - Creates a GitHub repository
+   - Uploads the notebook file
+   - Then we look at the statically rendered version of the notebook on GitHub
+   - Create a ``requirements.txt`` file which contains::
+
+       pandas==1.2.3
+       matplotlib==3.4.2
+
+   - Commit and push also this file to your notebook repository.
+   - Visit https://mybinder.org:
+
+     .. image:: img/binder/binder.jpg
+
+   - Check that your notebook repository now has a "launch binder"
+     badge in your `README.md` file on GitHub.
+   - Try clicking the button and see how your repository is launched
+     on Binder (can take a minute or two). Your notebooks can now be expored and executed in the cloud.
+   - Enjoy being fully reproducible!
 
 
 How can I get a DOI from Zenodo?
