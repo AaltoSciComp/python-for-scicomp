@@ -264,6 +264,7 @@ calls.
 - Matplotlib and also all the other libraries allow to customize almost every aspect of a plot.
 - It is useful to study [Matplotlib parts of a figure](https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure)
   so that we know what to search for to customize things.
+- Matplotlib cheatsheets: <https://github.com/matplotlib/cheatsheets>
 - You can also select among pre-defined themes/
   [style sheets](https://matplotlib.org/3.1.1/gallery/style_sheets/style_sheets_reference.html), for instance:
   ```python
