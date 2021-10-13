@@ -16,18 +16,43 @@ server, as long as you can use the terminal from the Jupyter (you need
 to be able to access the command line sometime).
 
 
-List of software needed during the course
-------------------------------------------
+Generic list of tools required
+------------------------------
 
-* Zoom (not needed for 'non interactive' people following the workshop on Twitch)
-* Pyhton 3 (Anaconda is suggested)
-   * numpy
-   * pandas
-   * scipy
-   * matplotlib
-* Jupyter lab
-* Text editor
+The actual installation instructions are below.
+
+* **Python 3** (Anaconda is suggested, it will include everything)
+
+  * including some major packages which you can find in the miniconda
+    instructions below.  Again, anaconda includes everything.
+
+For certain lessons, the following is useful (if you don't have, they
+can be taken as a demo):
+
+* Text editor (can also be done through Jupyterlab)
+* Command-line shell (can also be done through Jupyterlab)
 * git
+
+
+.. admonition:: Generic instructions with miniconda (advanced)
+   :class: dropdown
+
+   This is the advanced, minimal method.  For most people, we
+   recommend Anaconda (below).  You will actually learn about
+   miniconda during the workshop.
+
+   You can read how to install miniconda from the `CodeRefinery
+   installation instructions
+   <https://coderefinery.github.io/installation/conda/>`__.
+
+   Then `this environment file
+   <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
+   contains all packages needed, and can be installed with:
+
+   .. code:: shell
+
+      conda env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+
 
 
 Python
