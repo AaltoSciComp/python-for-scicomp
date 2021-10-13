@@ -46,6 +46,8 @@ Exercise 1
 
    We form small groups (4-5 persons) and discuss in groups. If the workshop is
    online, each group will join a breakout room.
+   If joining a group is not possible or practical, we use the shared document
+   to discuss this collaboratively.
 
    Each group write a summary (bullet points) of the discussion in the workshop
    shared document (the link will be provided by your instructors).
