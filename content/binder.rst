@@ -127,7 +127,7 @@ share.
     - Click on the repo, Zenodo will redirect you to a page that contains a DOI for your repo will the information that you added to the repo.
     - You can edit the archive on Zenodo and/or publish a new version of your software.
     - It is recommended that you add a description for your repo and fill in other metadata in the edit page. Instead of editing metadata
-      manually, you can also add a ``.zenodo.json`` file to your repo and Zenodo will infer the metadata from this file.
+      manually, you can also add a ``.zenodo.json`` or a ``CITATION.cff`` file to your repo and Zenodo will infer the metadata from this file.
     - Your code is now published on a Github public repository and archived on Zenodo.
     - Update the README file in your repository with the newly created zenodo badge.
 
