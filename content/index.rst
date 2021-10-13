@@ -72,6 +72,7 @@ to learn yourself as you need to.
    numpy
    data-visualization
    pandas
+   data-formats
    scripts
    scipy
    libraries
