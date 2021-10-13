@@ -134,20 +134,22 @@ share.
 Create a Binder link for your Zenodo DOI
 ----------------------------------------
 
-Rather than specifying a github repository when launching binder, you can instead use a Zenodo DOI.
+Rather than specifying a GitHub repository when launching binder, you can instead use a Zenodo DOI.
 
 .. challenge:: Binder-4 (10 mn)
 
   We will be using an existing Zenodo DOI `10.5281/zenodo.3886864 <https://doi.org/10.5281/zenodo.3247652>`_ to start myBinder:
 
-    - Go to `https://mybinder.org <https://mybinder.org>`__ and fill information using Zenodo DOI (as shown on the figure below)
+    - Go to `https://mybinder.org <https://mybinder.org>`__ and fill information using Zenodo DOI (as shown on the animation below):
 
     .. image:: https://miro.medium.com/max/1050/1*xOABVY2hNtVmjV5-LXreFw.gif
 
-    - You can also get Binder badge and update the README file in the repository. It is good practice to add both the zenodo badge and the corresponding binder badge.
+    - You can also get Binder badge and update the README file in the
+      repository. It is good practice to add both the Zenodo badge and the
+      corresponding Binder badge.
 
 .. keypoints::
 
    - Sharing reproducible computational environments
-   - myBinder
+   - Binder
    - Zenodo DOI
