@@ -71,14 +71,14 @@ to learn yourself as you need to.
    jupyter
    numpy
    data-visualization
-   scripts
-   dependencies
-   scipy
    pandas
-   parallel
+   scripts
+   scipy
    libraries
-   packaging
+   parallel
+   dependencies
    binder
+   packaging
 
 .. toctree::
    :maxdepth: 1
