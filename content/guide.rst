@@ -77,6 +77,15 @@ easily be missed in the typical academic career path.
   Jupyter/run buttons of editors.  If you can't make actual programs
   with an actual interface, you can't scale up.
 
+  * This is the first lesson to introduce the command line.  We
+    recommend being as simple as possible: at least demonstrate the
+    JupyterLab terminal and discuss the bigger picture behind what it
+    means and why.
+
+  * This is also the first lesson to use non-Jupyter code editor.  We
+    recommend again being simple: use the JupyterLab code editor to
+    start off, and carefully explain what is going on.
+
 * **Scipy:** We don't cover much here (this is super short), but the
   point is scipy exists and the concept of wrapping existing C/fortran
   libraries and so on.
