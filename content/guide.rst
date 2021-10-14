@@ -58,14 +58,14 @@ easily be missed in the typical academic career path.
   everyone comes out with an appreciation for vectorization and
   broadcasting.
 
+* **Pandas:** A lot of similar goals to the Numpy section, especially
+  the concepts behind Dataframes that one needs to know in order to
+  read other documentation.
+
 * **Visualization:** Matplotlib is getting a bit old, but is still the
   backbone of other plotting packages.  We try to get forth the ideas
   of the matplotlib API that can be seen in other packages and the
   importance of scripted plots.
-
-* **Pandas:** A lot of similar goals to the Numpy section, especially
-  the concepts behind Dataframes that one needs to know in order to
-  read other documentation.
 
 * **Data formats:** Input/output/storage is a common task, and can
   easily either be a bottleneck or a huge mess.  This lessons tries to
