@@ -46,6 +46,8 @@ Exercise 1
 
    We form small groups (4-5 persons) and discuss in groups. If the workshop is
    online, each group will join a breakout room.
+   If joining a group is not possible or practical, we use the shared document
+   to discuss this collaboratively.
 
    Each group write a summary (bullet points) of the discussion in the workshop
    shared document (the link will be provided by your instructors).
@@ -72,17 +74,54 @@ requirement file to share the computational environment with Binder.
 Credit: `Juliette Taka, Logilab and the OpenDreamKit project (2017) <https://opendreamkit.org/2017/11/02/use-case-publishing-reproducible-notebooks/>`_
 
 
-Exercise 2
-~~~~~~~~~~
+Binder exercise/demo
+~~~~~~~~~~~~~~~~~~~~
 
-.. challenge:: Binder-2 (15 mn)
+In an earlier episode (Data visualization with Matplotlib) we have created this notebook:
 
-   1. Fork `the following github repository
-      <https://github.com/coderefinery/binder-exercise>`_. In the top-right corner of the page, click Fork.
+.. code-block:: python
 
-      .. image:: https://docs.github.com/assets/images/help/repository/fork_button.jpg
+   import pandas as pd
+   import matplotlib.pyplot as plt
 
-   2. Follow instruction given `here <https://coderefinery.github.io/jupyter/06-sharing/#exercise-making-your-notebooks-reproducible-by-anyone-via-binder>`__ to share the forked repository via `Binder <https://mybinder.org/>`_.
+   url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
+   data = pd.read_csv(url)
+   data_2007 = data[data["year"] == 2007]
+
+   fig, ax = plt.subplots()
+
+   ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+
+   ax.set_xscale("log")
+
+   ax.set_xlabel("GDP (USD) per capita")
+   ax.set_ylabel("life expectancy (years)")
+
+We will now first share it via `GitHub <https://github.com/>`__ "statically",
+then using `Binder <https://mybinder.org/>`__.
+
+.. challenge:: Exercise/demo: Making your notebooks reproducible by anyone (15 min)
+
+   Instructor demonstrates this:
+
+   - Creates a GitHub repository
+   - Uploads the notebook file
+   - Then we look at the statically rendered version of the notebook on GitHub
+   - Create a ``requirements.txt`` file which contains::
+
+       pandas==1.2.3
+       matplotlib==3.4.2
+
+   - Commit and push also this file to your notebook repository.
+   - Visit https://mybinder.org:
+
+     .. image:: img/binder/binder.jpg
+
+   - Check that your notebook repository now has a "launch binder"
+     badge in your `README.md` file on GitHub.
+   - Try clicking the button and see how your repository is launched
+     on Binder (can take a minute or two). Your notebooks can now be expored and executed in the cloud.
+   - Enjoy being fully reproducible!
 
 
 How can I get a DOI from Zenodo?
@@ -96,17 +135,19 @@ share.
 
 .. challenge:: Binder-3 (optional)
 
-  **Everything you deposit on Zenodo is meant to be kept (long-term archive) so
-  we recommend to use a repository you really wish to archive for this
-  exercise.**
+  **Everything you deposit on Zenodo is meant to be kept (long-term archive).
+  Therefore we recommend to practice with the Zenodo "sandbox" (practice/test area)
+  instead: https://sandbox.zenodo.org**
 
   1. **Link GitHub with Zenodo**:
 
-    - Go to `https://zenodo.org <https://zenodo.org>`_
-    - Log in to Zenodo with your GitHub account. Be aware that you may need to authorize Zenodo application (Zenodo will redirect you back to GitHub for Authorization)
-    - Choose the repository webhooks options
+    - Go to https://sandbox.zenodo.org (or to https://zenodo.org for the real upload later, after practicing).
+    - Log in to Zenodo with your GitHub account. Be aware that you may need to
+      authorize Zenodo application (Zenodo will redirect you back to GitHub for
+      Authorization).
+    - Choose the repository webhooks options.
     - From the drop-down menu next to your email address at the top of the page, select GitHub.
-    - You will be presented with a list of all your Github repositories
+    - You will be presented with a list of all your Github repositories.
 
   2. **Archiving a repo**:
 
@@ -118,15 +159,21 @@ share.
   3. **Trigger Zenodo to Archive your repository**
 
     - Go to GitHub and create a release. Zenodo will automatically download a .zip-ball of each new release and register a DOI.
-    - If this is the first release of your code then you should give it a version number of v1.0.0. Add description for your release then click the Publish release button.
-    - Zenodo takes an archive of your GitHub repository each time you create a new Release
+    - If this is the first release of your code then you should give it a
+      version number of v1.0.0. Add description for your release then click the
+      Publish release button.
+    - Zenodo takes an archive of your GitHub repository each time you create a new Release.
 
   4.  **To ensure that everything is working**:
 
-    - Go to https://zenodo.org/account/settings/github/,  or the Upload page (https://zenodo.org/deposit), you will find your repo is listed
+    - Go to https://zenodo.org/account/settings/github/ (or the corresponding
+      sandbox at https://sandbox.zenodo.org/account/settings/github/), or the
+      Upload page (https://zenodo.org/deposit), you will find your repo is
+      listed.
     - Click on the repo, Zenodo will redirect you to a page that contains a DOI for your repo will the information that you added to the repo.
     - You can edit the archive on Zenodo and/or publish a new version of your software.
-    - It is recommended that you add a description for your repo and fill in other metadata in the edit page.
+    - It is recommended that you add a description for your repo and fill in other metadata in the edit page. Instead of editing metadata
+      manually, you can also add a ``.zenodo.json`` or a ``CITATION.cff`` file to your repo and Zenodo will infer the metadata from this file.
     - Your code is now published on a Github public repository and archived on Zenodo.
     - Update the README file in your repository with the newly created zenodo badge.
 
@@ -134,20 +181,22 @@ share.
 Create a Binder link for your Zenodo DOI
 ----------------------------------------
 
-Rather than specifying a github repository when launching binder, you can instead use a Zenodo DOI.
+Rather than specifying a GitHub repository when launching binder, you can instead use a Zenodo DOI.
 
 .. challenge:: Binder-4 (10 mn)
 
   We will be using an existing Zenodo DOI `10.5281/zenodo.3886864 <https://doi.org/10.5281/zenodo.3247652>`_ to start myBinder:
 
-    - Go to `https://mybinder.org <https://mybinder.org>`__ and fill information using Zenodo DOI (as shown on the figure below)
+    - Go to `https://mybinder.org <https://mybinder.org>`__ and fill information using Zenodo DOI (as shown on the animation below):
 
     .. image:: https://miro.medium.com/max/1050/1*xOABVY2hNtVmjV5-LXreFw.gif
 
-    - You can also get Binder badge and update the README file in the repository. It is good practice to add both the zenodo badge and the corresponding binder badge.
+    - You can also get Binder badge and update the README file in the
+      repository. It is good practice to add both the Zenodo badge and the
+      corresponding Binder badge.
 
 .. keypoints::
 
    - Sharing reproducible computational environments
-   - myBinder
+   - Binder
    - Zenodo DOI
