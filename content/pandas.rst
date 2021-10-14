@@ -185,6 +185,11 @@ some run time statistics from a 1500 m running event::
             {'Runner': 'Runner 3', 400: 96, 800: 192, 1200: 288, 1500: 360},
              ])
 
+What makes this data untidy is that the column names `400, 800, 1200, 1500`
+indicate the distance ran. In a tidy dataset, this distance would be a variable
+on its own, making each runner-distance pair a separate observation and hence a
+separate row.
+
 To make untidy data tidy, a common operation is to "melt" it, 
 which is to convert it from wide form to a long form::
 
