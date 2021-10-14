@@ -58,6 +58,11 @@ easily be missed in the typical academic career path.
   everyone comes out with an appreciation for vectorization and
   broadcasting.
 
+* **Visualization:** Matplotlib is getting a bit old, but is still the
+  backbone of other plotting packages.  We try to get forth the ideas
+  of the matplotlib API that can be seen in other packages and the
+  importance of scripted plots.
+
 * **Pandas:** A lot of similar goals to the Numpy section, especially
   the concepts behind Dataframes that one needs to know in order to
   read other documentation.
@@ -68,17 +73,18 @@ easily be missed in the typical academic career path.
   idea to not "do it yourself".  Pandas is used as a common framework,
   but we should point out there are plenty of other options.
 
-* **Visualization:** Matplotlib is getting a bit old, but is still the
-  backbone of other plotting packages.  We try to get forth the ideas
-  of the matplotlib API that can be seen in other packages and the
-  importance of scripted plots.
-
 * **Scripts:** The most important lesson here is to break out of
   Jupyter/run buttons of editors.  If you can't make actual programs
   with an actual interface, you can't scale up.
 
-* **Dependencies:** The main point here is environments, another thing
-  you often don't learn in courses.
+  * This is the first lesson to introduce the command line.  We
+    recommend being as simple as possible: at least demonstrate the
+    JupyterLab terminal and discuss the bigger picture behind what it
+    means and why.
+
+  * This is also the first lesson to use non-Jupyter code editor.  We
+    recommend again being simple: use the JupyterLab code editor to
+    start off, and carefully explain what is going on.
 
 * **Scipy:** We don't cover much here (this is super short), but the
   point is scipy exists and the concept of wrapping existing C/fortran
@@ -94,10 +100,14 @@ easily be missed in the typical academic career path.
 
 * **Parallel programming:**
 
+* **Dependencies:** The main point here is environments, another thing
+  you often don't learn in courses.
+
+* **Binder:** Binder exists and can help make code
+  reproducible/reusable by others.
+
 * **Packaging:** How to make your code reusable by others.  By the
   time we get here, people are tired and the topics get involved.  We
   more explicitly say "you might want to watch and take this as a
   demo".
 
-* **Binder:** Binder exists and can help make code
-  reproducible/reusable by others.
