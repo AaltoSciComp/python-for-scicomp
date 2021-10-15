@@ -192,14 +192,6 @@ course.
 
 
 
-git
----
-
-One lesson uses the ``git`` version control system.  However, it is
-primarily done as a demo, so no installation is needed.
-
-
-
 Zoom
 ----
 
