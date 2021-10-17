@@ -1,11 +1,6 @@
 Software installation
 =====================
 
-.. warning::
-
-   This is being updated for the 2021 version of this course.  Don't
-   follow these steps yet.
-
 This page contains instructions for installing the required software
 on your computer.
 Please make sure before the course that you have all the required software
