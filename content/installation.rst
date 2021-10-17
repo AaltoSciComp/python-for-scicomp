@@ -27,9 +27,11 @@ Note: The actual installation instructions are below.
 .. admonition:: Generic instructions with miniconda and an environment file (advanced)
    :class: dropdown
 
-   This is the advanced, minimal method.  For most people, we
-   recommend Anaconda (below).  You will actually learn about
-   miniconda during the workshop.
+   This is the advanced, minimal method of installing the Python
+   packages.  For most people, we recommend Anaconda (below).  You
+   will actually learn about miniconda during the workshop.  This
+   doesn't provide the graphical Anaconda navigator, so you'll need to
+   activate the miniconda environment using the command line.
 
    You can read how to install miniconda from the `CodeRefinery
    installation instructions
@@ -42,6 +44,10 @@ Note: The actual installation instructions are below.
    .. code:: shell
 
       conda env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+
+   Each time you start a new shell, you need to activate miniconda (if
+   you don't do run ``conda init``), and then you need to activate the
+   proper environment with ``conda activate python-for-scicomp``.
 
    We might have missed some packages, though, which can be later
    installed with ``conda install``.
@@ -202,3 +208,16 @@ Need help?
 If you have access, come to one of the installation help sessions.
 Or, ask your colleagues: these are standard tools and you can
 definitely find someone can help you get set up!
+
+
+
+See also
+--------
+
+* `Research Software Hour on conda
+  <https://www.youtube.com/watch?v=ddCde5Nu2qo&list=PLpLblYHCzJAB6blBBa0O2BEYadVZV3JYf>`__
+* `Conda manual <https://docs.conda.io/en/latest/>`__ (technical)
+* `Anaconda individual edition home
+  <https://www.anaconda.com/products/individual>`__
+* `Anaconda getting started
+  <https://docs.anaconda.com/anaconda/user-guide/getting-started/>`__
