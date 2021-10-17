@@ -22,7 +22,7 @@ Note: The actual installation instructions are below.
     instructions below.  Again, anaconda includes everything.
 * Text editor (several lessons, can also be done through Jupyterlab)
 * Command-line shell (several lessons, can also be done through Jupyterlab)
-* git (optional, lesson is usually done as a demo)
+* git (not needed, this lesson is usually done as a demo)
 
 .. admonition:: Generic instructions with miniconda and an environment file (advanced)
    :class: dropdown
@@ -184,14 +184,6 @@ Python version:
 
 Any version of Python 3 through a recent Anaconda should work for the
 course.
-
-
-
-git
----
-
-One lesson uses the ``git`` version control system.  However, it is
-primarily done as a demo, so no installation is needed.
 
 
 
