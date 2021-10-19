@@ -103,6 +103,18 @@ easily be missed in the typical academic career path.
 * **Dependencies:** The main point here is environments, another thing
   you often don't learn in courses.
 
+  * There is a lot of material here.  Consider what you will demo,
+    what will be done as exercises, and what is advanced/optional.
+    However, it is the fourth-day lesson that is most interactive, so
+    it is OK if it take a while to go through everything.
+
+  * If someone else installs Anaconda for a user (e.g. admin-managed
+    laptop), the conda environment creations (with ``--name``,
+    possibly with ``--prefix`` too?) may not work.  Be prepared for
+    this and mention it.  You don't need to solve the problem but
+    acknowledge that the lesson becomes a demo.  The virtualenv part
+    should hopefully work for them.
+
 * **Binder:** Binder exists and can help make code
   reproducible/reusable by others.
 
