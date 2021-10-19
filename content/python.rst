@@ -11,8 +11,18 @@ Introduction to Python
    - Get a *very* short introduction to Python types and syntax
    - Be able to follow the rest of the examples in the course, even if you don't understand everything perfectly.
 
-If you are not familiar with Python, a *very* short introduction;
-first, the builtin scalar and collection types:
+If you are not familiar with Python, here is a *very* short
+introduction.  It will not be enough to do everything in this course,
+but you will be able to follow along a bit more than you would otherwise.
+
+.. seealso::
+
+   This page contains an overview of the basics of Python.  You can
+   also refer to `This Python overview from a different lesson
+   <https://coderefinery.github.io/data-visualization-python/python-basics/>`__
+   which is slightly more engaging.
+
+
 
 Scalars
 -------
