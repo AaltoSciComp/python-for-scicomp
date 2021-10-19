@@ -60,134 +60,85 @@ Exercises 1
 .. challenge:: Scripts-1
 
 
-  1. Create a fresh jupyter notebook and rename it  **plot_inflammation.ipynb**
+  1. Download the **weather_observations.ipynb** and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
+  	
+  2. Open a terminal in jupyter (File -> New -> Terminal). 
 
-  2. Download the `first dataset <https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv>`_ and load it in python. Below is an example on how you can proceed::
+  3. Convert the jupyter script to a python script by calling ``jupyter nbconvert --to script weather_observations.ipynb``
 
-       from io import StringIO
-
-       import numpy as np
-       import requests
-       url='https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv'
-       s=requests.get(url).text
-
-       data = np.loadtxt(fname=StringIO(s), delimiter=',')
-
-     *Note that later in the course, you will learn how to use* `pandas <https://pandas.pydata.org/>`_ *python package where loading such dataset from an url would become much simpler.*
-
-  3. Plot the dataset (you may simply use ``imshow`` from ``matplotlib.pyplot``) and save the resulting plot in a file called **plot.png**::
-
-       import matplotlib.pyplot as plt
-
-       plt.imshow(data)
-
-       plt.savefig('plot.png')
-
-     *Feel free to customize your plot as you learned in the preceding episode*.
-
-  4. Export your notebook as a python script and check that you have a new file called **plot_inflammation.py**. Please note that the file may be located in your **Downloads** folder (in that case, make sure you move it to your working directory).
-
-  5. Open a Terminal and navigate to the folder where you have exported your notebook to run it::
-
-       ./plot_inflammation.py
-
-Run a python script
--------------------
-
-Let's understand why our python script ran out of the box. Open **plot_inflammation.py** with your favorite editor (from JupyerLab, you can double click on the file to open it). You should have, at the very top of your script::
-
-  #!/usr/bin/env python
-
-*Note: you may have* **python3** *rather than python*.
-
-In the exercise above, a few things can go wrong:
-
-- if you get an error such as::
-
-     can't open file 'test_inflammation.py': [Errno 2] No such file or directory
-
-  That's probably because you try to run **plot_inflammation.py** from a different folder. The solution is to check **plot_inflammation.py** is in the current folder.
-
-- or::
-
-    bash: python: command not found
-
-This happens if the python command is not in your **PATH**. You may have to specify the full path to the python command.
-
-
-
+  4. Run the script: ``python  weather_observations.py`` 
+     *Note: you may have* **python3** *rather than python*.
+     
 Importing other python files
 ----------------------------
 
-We have a very short notebook that loads and plots data but let's imagine we need to process data after loading them. For instance, we can normalize data::
+We have a very short notebook that loads and plots data. but even in this script, we have to do a bit of processing (changing the format of the dates). We also extract a subset of our data for a 
+given date range. 
 
-  data = data / np.linalg.norm(data)
+In general, it is good practice to separate processing from plotting. The reason is that you often need to generate multiple plots using the data while pre-processing data once only. 
+When data preprocessing is expensive this is even more important.
 
+For example, we can create a new python file (**weather_functions.py**) containing a function to adjust the dates in our dataset::
 
-In that case, it is good practice to separate processing from plotting. The reason is that you usually need to generate your plot several time while processing data once only (especially when data processing is computational intensive).
+  import pandas as pd
 
-For example, we can create a new python file (**inflammation_functions.py**) containing a function to normalize our dataset::
+  def preprocessing(dataset, start_date, end_date):
+    dataset['Local time in Espoo / Tapiola'] = pd.to_datetime(dataset['Local time in Espoo / Tapiola'],dayfirst=True)
+    dataset = dataset[dataset['Local time in Espoo / Tapiola'].between(start_date,end_date)]
+    return dataset
 
-  import numpy as np
+and modify the ``weather_observations.py`` file to
 
-  def processing(dataset):
-      return dataset / np.linalg.norm(dataset)
-
-and a second file calling this function:
-
-.. code-block::
+.. code-block:: python
     :emphasize-lines: 6,16
 
-    from io import StringIO
-
-    import numpy as np
-    import requests
-
-    import inflammation_functions
-
-    url='https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv'
-    s=requests.get(url).text
-
-    data = np.loadtxt(fname=StringIO(s), delimiter=',')
-
-
-    # call processing function from inflammation_functions
-
-    data = inflammation_functions.processing(data)
-
-
+    import pandas as pd
+    import weather_functions
+    
+    url = "../python-for-scicomp/data/weather_tapiola.csv"
+    # read the data skipping comment lines
+    weather = pd.read_csv(url,comment='#')
+    # set start and end time
+    start_date=pd.to_datetime('01/06/2021',dayfirst=True)
+    end_date=pd.to_datetime('01/10/2021',dayfirst=True)
+    # preprocess the data
+    weather = weather_functions.preprocess(weather, start_date, end_date)
+    ...
+    
 
 Exercises 2
 -----------
 
 .. challenge:: Scripts-2 (optional)
 
-  1. Update **inflammation_functions.py** to add a new function for plotting the dataset.
+  1. Update **weather_functions.py** to add a new function for plotting the dataset.
 
-  2. Update **test_inflammation.py** to call it.
+  2. Update **weather_observations.py** to call it.
 
 
 Command line arguments with ``sys.argv``
 ----------------------------------------
 
-We have better organized our code but it still cannot easily process different
-input files. For this, rather than copying several time the same code for
-different input files, we can update the main code to take the input file from the command
-line.
+We have better organized our code but it still cannot easily process time ranges or a 
+specified output file name. For this, rather than copying several time the same code for
+different time ranges or output file names, we can update the main code to take the 
+start/end time and output file name from the command line
 
-**Example**: We create a Python script and pass the input file and the output file
-name as command line arguments:
+**Example**: We create a Python script and pass both the start and end time and the output
+file name as command line arguments. Create a file named myscript.py with the following content:
 
 .. code-block:: python
    :emphasize-lines: 3-4
 
-   import sys
 
-   input_file_name = sys.argv[1]
-   output_file_name = sys.argv[2]
+   import sys
+   start_date = sys.argv[1]
+   end_date = sys.argv[2]
+   output_file_name = sys.argv[3]
 
    # to keep things simple we only print them out:
-   print(f"input file is {input_file_name}")
+   print(f"Start date is {start_date}")
+   print(f"End date is {end_date}")
    print(f"output file is {output_file_name}")
 
 
@@ -225,7 +176,7 @@ arguments, it also automatically generates a ``--help`` option for you:
 
    import argparse
    parser = argparse.ArgumentParser()
-   parser.add_argument('-o', '--output', type=str,
+   parser.add_argument('-o', '--output', type=str, default="Out.png"
                        help="output filename")
    args = parser.parse_args()
 
@@ -240,34 +191,46 @@ Exercises 3
 .. challenge:: Scripts-3
 
   1. Take the python script we have written in the preceding exercise and use
-     ``argparse`` to be able to read any input file and save the resulting image in an output file (filename is specified via command line argument).
+     ``argparse`` to read the start and end dates and save the resulting image in an output file (filename is specified via command line argument).
 
-  2. Execute your script for all the **inflammation** files (there are 12 files numbered from 01 to 12).
+  2. Execute your script for a few different time intervals (e.g. form January 2019 to June 2020, or from Mai 2020 to October 2020).
 
 
 .. solution::
 
    .. code-block::
-      :emphasize-lines: 5,7-10,12,19
+      :emphasize-lines: 3,5-9,12,19
 
-      from io import StringIO
-      import numpy as np
-      import requests
+      import pandas as pd
       import matplotlib.pyplot as plt
       import argparse
-
+      
       parser = argparse.ArgumentParser()
-      parser.add_argument("-i", "--input", type=str, help="input data file (URL)")
+      parser.add_argument("-s", "--start", type=str, help="Start date in DD/MM/YYYY format")
+      parser.add_argument("-e", "--end", type=str, help="End date in DD/MM/YYYY format")      
       parser.add_argument("-o", "--output", type=str, help="output plot file")
       args = parser.parse_args()
 
-      url = args.input
-      s = requests.get(url).text
-
-      data = np.loadtxt(fname=StringIO(s), delimiter=",")
-
-      plt.imshow(data)
-
+      # define the start and end time for the plot 
+      start_date=pd.to_datetime(args.start,dayfirst=True)
+      end_date=pd.to_datetime(args.end,dayfirst=True)
+      
+      # load the data      
+      url = "weather_tapiola.csv"
+      weather = pd.read_csv(url,comment='#')
+      # The date format in the file is in a day-first format, which matplotlib does nto understand.
+      # so we need to convert it.
+      weather['Local time in Espoo / Tapiola'] = pd.to_datetime(weather['Local time in Espoo / Tapiola'],dayfirst=True)
+      # select the data
+      weather = weather[weather['Local time in Espoo / Tapiola'].between(start_date,end_date)]      
+      # start the figure.
+      fig, ax = plt.subplots()
+      ax.plot(useddata['Local time in Espoo / Tapiola'], useddata['T'])
+      # label the axes
+      plt.xlabel("Date of observation")
+      plt.ylabel("Temperature in Celsius")
+      plt.title("Temperature in Tapiola, Espoo, Finnland")
+      # save the figure
       plt.savefig(args.output)
 
 
@@ -286,6 +249,58 @@ Exercises 3
      the script in a workflow management system and process many files in parallel.
    - By changing from ``sys.argv`` to ``argparse`` we made the script more robust against
      user input errors and also got a help text (accessible via ``--help``).
+
+
+Load larger option lists using config files
+-------------------------------------------
+
+In the above example we only allowed the input data file and the output data file to be selected by command line arguments. 
+Now imagine, that we also want to allow the user to select more specific information from the dataset, define specific X and Y labels,
+write their own title etc. Now imagine to put all this into the command line::
+
+
+   $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv --output 01.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Edinburgh" --dataset rain
+   
+   
+This is a huge line, needs scrolling and becomes quite inconvenient to modify.
+Instead of putting all of this into the command line, you could think about storing and modifying the arguments in a config file.
+There are several ways, how config files can be stored. You can use a simple ``Parameter = Value``
+format, and parse it yourself, or you can use e.g. the ``JSON`` or ``YAML`` formats.
+For the latter, parsers exist, that can save you some work, and both formats also allow you to use
+more complex input data, like lists, or dictionaries. We won't go into the details of the formats, and will only give
+a short example using yaml here.
+
+In the yaml format, names and values are separated by ``:``. Our above example would therefore translate to the following yaml file::
+
+	input:	https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv
+	output: 01.png
+	xlabel: Days in June
+	ylabel: Rainfall in mm
+	title:	Rainfall in Edinburgh
+
+Note, that you don't need ``""`` around the strings in yaml files. 
+If you have long Strings, yaml offers two ways to use line breaks::
+
+	1. Value1: |
+	           This is some
+	           Text with a line break.
+	2. Value2: >
+	           This is some text
+	           without line breaks, that
+	           will just end up in one line.	
+
+
+For dictionaries and Lists you can use::
+
+	DictParam: 
+	    Entry1: This is the first entry
+	    Entry2: This is the value for Entry2
+	
+	ListParam:
+	    - This is the First List entry
+	    - This is the second List entry
+
+There are much more complex settings that can be handled with yaml. If you want to know about them, `here <https://yaml.org/>`_ are the docs.
 
 
 Synchronize with Jupytext (optional)
@@ -316,7 +331,7 @@ Once installed, you can pair your notebook:
 
 .. figure:: https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png
 
-   Select "Commands" from left toolbar, search "jupytext", then **Pair notebook with percent script** (**NOT** what you see in the image).
+ Press ``Ctrl + Shift + C`` to start the command palette, search "jupytext", then **Pair notebook with percent script** (**NOT** what you see in the image).
 
 
 After few seconds, **test_inflammation.py** will be created and synchronized with **test_inflammation.ipynb**.
