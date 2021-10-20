@@ -11,6 +11,10 @@ Introduction to Python
    - Get a *very* short introduction to Python types and syntax
    - Be able to follow the rest of the examples in the course, even if you don't understand everything perfectly.
 
+   We expect everyone to be able to know the following basic material
+   to follow the course (though it is not *everything* you need to
+   know about Python).
+
 If you are not familiar with Python, here is a *very* short
 introduction.  It will not be enough to do everything in this course,
 but you will be able to follow along a bit more than you would otherwise.
