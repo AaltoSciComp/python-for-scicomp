@@ -113,7 +113,7 @@ then using `Binder <https://mybinder.org/>`__.
        matplotlib==3.4.2
 
    - Commit and push also this file to your notebook repository.
-   - Visit https://mybinder.org:
+   - Visit https://mybinder.org and copy paste the code under "Copy the text below ..." into your `README.md`:
 
      .. image:: img/binder/binder.jpg
 
