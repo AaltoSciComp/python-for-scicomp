@@ -398,7 +398,7 @@ Additional exercises
        combine them into a single 8x4 array with the content of the zeros
        array on top and the ones on the bottom.  Finally, do the same,
        but create a 4x8 array with the zeros on the left and the ones on
-       the rigth.
+       the right.
 
    11. NumPy functionality Create two 2D arrays and do matrix multiplication
        first manually (for loop), then using the np.dot function. Use %%timeit
