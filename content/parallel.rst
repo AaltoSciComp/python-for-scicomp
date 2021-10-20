@@ -374,6 +374,7 @@ scheduler.  By using the new array classes, you can automatically
 distribute operations across multiple CPUs.
 
 Dask is very popular for data analysis and is used by a number of high-level python library:
+
 - Dask arrays scale Numpy (see also `xarray <http://xarray.pydata.org/en/stable/>`__ 
 - Dask dataframes scale Pandas workflows
 - Dask-ML scales Scikit-Learn
