@@ -134,6 +134,7 @@ It is important to note, that if you're using a previously existing framework or
 Using different file formats
 ----------------------------
 
+
 CSV (text)
 **********
 
@@ -156,6 +157,7 @@ Numpy has `routines <https://numpy.org/doc/stable/reference/routines.io.html#tex
 
     data_array_csv = np.loadtxt('data_array.csv')
 
+
 Feather (binary)
 ****************
 
@@ -168,6 +170,7 @@ Again, we can work with Feather files with `to_feather- and read_feather-functio
 
 Using Feather requires `pyarrow-package <https://arrow.apache.org/docs/python>`__ to be installed.
 
+
 Parquet (binary)
 ****************
 
@@ -179,6 +182,7 @@ Again, we can work with Parquet files with `to_parquet-and read_parquet-function
     dataset_parquet = pd.read_parquet('dataset.parquet')
 
 Like Feather, using Parquet requires `pyarrow-package <https://arrow.apache.org/docs/python/>`__ to be installed.
+
 
 HDF5 (binary)
 *************
@@ -195,6 +199,7 @@ You can create a HDF5 file with `to_hdf- and `read_parquet-functions <https://pa
 PyTables comes installed with the default Anaconda installation.
 
 For writing data that is not a table, you can use the excellent `h5py-package <https://docs.h5py.org/en/stable/>`__. It comes with Anaconda as well. 
+
 
 NetCDF4 (binary)
 ****************
@@ -213,6 +218,7 @@ You can use `NetCDF-Python-package <https://unidata.github.io/netcdf4-python>`__
     import xarray as xr
     dataset_xarray_read = xr.open_dataset('dataset.nc')
     dataset_xarray = dataset_xarray_read.to_pandas()
+
 
 npy (binary)
 ************
@@ -244,8 +250,10 @@ Binary files come with various benefits compared to text files.
 3. Data loading from binary files is usually much faster than loading from text files.
    This is because memory can be allocated for the data before data is loaded as the type of data in columns is known.
 4. You can often store multiple datasets and metadata to the same file.
+5. Many binary formats allow for partial loading of the data.
+   This makes it possible to work with datasets that are larger than your computer's memory.
 
-For the ``dataset`` we had, we can test the performance of the different file formats:
+For the tidy ``dataset`` we had, we can test the performance of the different file formats:
 
 **Performance when writing tidy dataset:**
 
@@ -279,6 +287,7 @@ For writing the floating point array `data_array`, the performance is be much be
 +-------------+----------------+-----------------+----------------+----------------------+
 
 For this kind of a data, HDF5 formats are much better.
+
 
 Things to remember
 ------------------
@@ -341,6 +350,7 @@ Exercise 2
       my_array_npy = np.load('my_array.npy')
       np.all(my_array == my_array_npy)
 
+
 Other file formats
 ------------------
 
@@ -365,6 +375,7 @@ It is best suited for debugging your code by saving the Python variables for lat
     with open('data_array.pickle', 'rb') as f:
         data_array_pickle = pickle.load(f)
 
+
 JSON (text)
 ***********
 
@@ -380,30 +391,28 @@ Similarly to other popular files, Pandas can write and read json files with `to_
 However, JSON is often used to represent hierarchical data with multiple layers or multiple connections. 
 For such data you might need to do a lot more processing.
 
+
 Excel (binary)
 **************
+
+Excel is very popular in social sciences and economics.
+However, it is `not a good format <https://www.bbc.com/news/technology-54423988>`__ for data science.
 
 See Pandas' documentation on `working with Excel files <https://pandas.pydata.org/docs/user_guide/io.html#excel-files>`_.
 
 Using Excel files with Pandas requires `openpyxl-package <https://openpyxl.readthedocs.io/en/stable/>`_ to be installed.
 
 
-Section
--------
-
-
-
 See also
 --------
 
-...
-
+- `Pandas' IO tools <https://pandas.pydata.org/docs/user_guide/io.html>`__ .
+- `Tidy data comparison notebook <https://github.com/AaltoSciComp/python-for-scicomp/tree/master/extras/data-formats-comparison-tidy.ipynb>`__
+- `Array data comparison notebook <https://github.com/AaltoSciComp/python-for-scicomp/tree/master/extras/data-formats-comparison-array.ipynb>`__
 
 
 .. keypoints::
 
    - Pandas can read and write a variety of data formats.
-   - There are many good, standard formats, and you don't need to
-     create your own.
-   - There are plenty of other libraries dedicated to various
-     formats.
+   - There are many good, standard formats, and you don't need to create your own.
+   - There are plenty of other libraries dedicated to various formats.
