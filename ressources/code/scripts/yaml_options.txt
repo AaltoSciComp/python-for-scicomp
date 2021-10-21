@@ -1,0 +1,28 @@
+
+
+
+
+The yaml file format can be simple or very complex allowing a large variety of data structures to be stored.
+One benefit of yaml is that there is already a python module (``yaml``) available for parsing it and it
+directly parses numbers as numbers and text as strings, making conversions unnecessary.
+
+The python module `optionsparser.py <optionsparser.py>`` provides a simple parser for yaml styled options files.
+Similar to argparse, it takes a list of required options, along with an optional list of optional options :)
+For the latter default values are needed. Further, all options are checked for their types, which means that
+the required options parameter needs to be a dict mapping the option name to its expected type and the defaults 
+parameter needs to be a dictionary of option names mapping to tuples of default type and default value.
+
+In our example above, we could for example add optional parameters that allow the selection of other weather data
+from the dataset (precipitation ...), set the labels and titles explicitly etc.
+
+Below is an example of a modified function that allows taking all these arguments from an options file, along 
+with default values for them.
+The respective yaml file would look as follows::
+
+  xlabel: Date of the observation
+  ylabel: Temperature in Celsius
+  title: Temperature in Tapiola, Espoo, Finnland
+  startdate: 01/02/2019
+  enddate: 30/06/2019
+  datacolumn: T
+

@@ -83,8 +83,8 @@ For example, we can create a new python file (**weather_functions.py**) containi
   import pandas as pd
 
   def preprocess(dataset, start_date, end_date):
-    dataset['Local time in Espoo / Tapiola'] = pd.to_datetime(dataset['Local time in Espoo / Tapiola'],dayfirst=True)
-    dataset = dataset[dataset['Local time in Espoo / Tapiola'].between(start_date,end_date)]
+    dataset['Local time'] = pd.to_datetime(dataset['Local time'],dayfirst=True)
+    dataset = dataset[dataset['Local time'].between(start_date,end_date)]
     return dataset
 
 and modify the ``weather_observations.py`` file to
@@ -191,47 +191,19 @@ Exercises 3
 .. challenge:: Scripts-3
 
   1. Take the python script we have written in the preceding exercise and use
-     ``argparse`` to read the start and end dates and save the resulting image in an output file (filename is specified via command line argument).
+     ``argparse`` to specify the input and output files and allow the start and end dates to be set.
 
   2. Execute your script for a few different time intervals (e.g. form January 2019 to June 2020, or from Mai 2020 to October 2020).
+     Also use data for cairo (https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv)
 
 
 .. solution::
 
-   .. code-block::
-      :emphasize-lines: 3,5-9,12,19
+   .. literalinclude:: ../ressources/code/scripts/weather_observations_argparse.py
+     :language: python
+     :emphasize-lines: 3,5-9,12,19,24,33
 
-      import pandas as pd
-      import matplotlib.pyplot as plt
-      import argparse
-      
-      parser = argparse.ArgumentParser()
-      parser.add_argument("-s", "--start", type=str, help="Start date in DD/MM/YYYY format")
-      parser.add_argument("-e", "--end", type=str, help="End date in DD/MM/YYYY format")      
-      parser.add_argument("-o", "--output", type=str, help="output plot file")
-      args = parser.parse_args()
-
-      # define the start and end time for the plot 
-      start_date=pd.to_datetime(args.start,dayfirst=True)
-      end_date=pd.to_datetime(args.end,dayfirst=True)
-      
-      # load the data      
-      url = "weather_tapiola.csv"
-      weather = pd.read_csv(url,comment='#')
-      # The date format in the file is in a day-first format, which matplotlib does nto understand.
-      # so we need to convert it.
-      weather['Local time in Espoo / Tapiola'] = pd.to_datetime(weather['Local time in Espoo / Tapiola'],dayfirst=True)
-      # select the data
-      weather = weather[weather['Local time in Espoo / Tapiola'].between(start_date,end_date)]      
-      # start the figure.
-      fig, ax = plt.subplots()
-      ax.plot(useddata['Local time in Espoo / Tapiola'], useddata['T'])
-      # label the axes
-      plt.xlabel("Date of observation")
-      plt.ylabel("Temperature in Celsius")
-      plt.title("Temperature in Tapiola, Espoo, Finnland")
-      # save the figure
-      plt.savefig(args.output)
+   
 
 
 .. discussion::
@@ -240,11 +212,14 @@ Exercises 3
 
    Now you can do this::
 
-      $ python test_inflammation.py --help
-      $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv --output 01.png
-      $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-02.csv --output 02.png
+      $ python weather_observations.py --help
+      $ python weather_observations.py https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv temperature_tapiola.png 
+      $ python weather_observations.py -s 1/12/2020 -e 31/12/2020 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv temperature_tapiola_dec.png
+      $ python weather_observations.py -s 1/2/2021 -e 28/2/2021 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv temperature_tapiola_feb.png
+      $ python weather_observations.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv --output temperature_cairo.png
 
    - We can now process different input files without changing the script.
+   - We can select multiple time ranges without modifying the script.
    - This way we can also loop over file patterns (using shell loops or similar) or use
      the script in a workflow management system and process many files in parallel.
    - By changing from ``sys.argv`` to ``argparse`` we made the script more robust against
