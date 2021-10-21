@@ -82,7 +82,7 @@ For example, we can create a new python file (**weather_functions.py**) containi
 
   import pandas as pd
 
-  def preprocessing(dataset, start_date, end_date):
+  def preprocess(dataset, start_date, end_date):
     dataset['Local time in Espoo / Tapiola'] = pd.to_datetime(dataset['Local time in Espoo / Tapiola'],dayfirst=True)
     dataset = dataset[dataset['Local time in Espoo / Tapiola'].between(start_date,end_date)]
     return dataset
@@ -266,9 +266,33 @@ This is a huge line, needs scrolling and becomes quite inconvenient to modify.
 Instead of putting all of this into the command line, you could think about storing and modifying the arguments in a config file.
 There are several ways, how config files can be stored. You can use a simple ``Parameter = Value``
 format, and parse it yourself, or you can use e.g. the ``JSON`` or ``YAML`` formats.
-For the latter, parsers exist, that can save you some work, and both formats also allow you to use
+For both parsers exist that can save you some work, and both formats also allow you to use
 more complex input data, like lists, or dictionaries. We won't go into the details of the formats, and will only give
 a short example using yaml here.
+
+The yaml file format can be simple or very complex allowing a large variety of data structures to be stored.
+One benefit of yaml is that there is already a python module (``yaml``) available for parsing it and it
+directly parses numbers as numbers and text as strings, making conversions unnecessary.
+
+The python module `optionsparser.py <optionsparser.py>``_ provides a simple parser for yaml styled options files.
+Similar to argparse, it takes a list of required options, along with an optional list of optional options :)
+For the latter default values are needed. Further, all options are checked for their types, which means that
+the required options parameter needs to be a dict mapping the option name to its expected type and the defaults 
+parameter needs to be a dictionary of option names mapping to tuples of default type and default value.
+
+In our example above, we could for example add optional parameters that allow the selection of other weather data
+from the dataset (precipitation ...), set the labels and titles explicitly etc.
+
+Below is an example of a modified function that allows taking all these arguments from an options file, along 
+with default values for them.
+The respective yaml file would look as follows::
+
+  xlabel: Date of the observation
+  ylabel: Temperature in Celsius
+  title: Temperature in Tapiola, Espoo, Finnland
+  startdate: 01/02/2019
+  enddate: 30/06/2019
+  datacolumn: T
 
 In the yaml format, names and values are separated by ``:``. Our above example would therefore translate to the following yaml file::
 
