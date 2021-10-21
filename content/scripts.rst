@@ -66,7 +66,7 @@ Exercises 1
 .. challenge:: Scripts-1
 
 
-  1. Download the `weather_observations.ipynb <https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/code/scripts/weather_observations.ipynb>`_ and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
+  1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
   	
   2. Open a terminal in jupyter (File -> New -> Terminal). 
 
@@ -272,7 +272,7 @@ The yaml file format can be simple or very complex allowing a large variety of d
 One benefit of yaml is that there is already a python module (``yaml``) available for parsing it and it
 directly parses numbers as numbers and text as strings, making conversions unnecessary.
 
-The python module `optionsparser.py <https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/code/scripts/optionsparser.py>`_ provides a simple parser for yaml styled options files.
+The python module :download:`optionsparser.py <../resources/code/scripts/optionsparser.py>` provides a simple parser for yaml styled options files.
 Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
 Required arguments need to specify a type. Optional argument types are derived from their default values.
 
@@ -297,7 +297,9 @@ Exercises 4 (opional)
 
 .. challenge:: Scripts-4
 
-  1. Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line 
+  1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/code/scripts/optionsparser.py>` 
+     function and load it into your working folder in jupyterlab.
+     Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line 
      (using e.g. argparse or sys.argv) still needs to be read from the command line. 
      
 
