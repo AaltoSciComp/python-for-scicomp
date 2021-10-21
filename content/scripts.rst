@@ -106,7 +106,7 @@ and modify the ``weather_observations.py`` file to
     import pandas as pd
     import weather_functions
     
-    url = "https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv"
+    url = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv"
     # read the data skipping comment lines
     weather = pd.read_csv(url,comment='#')
     # set start and end time
@@ -217,7 +217,7 @@ Exercises 3
      ``argparse`` to specify the input and output files and allow the start and end dates to be set.
 
   2. Execute your script for a few different time intervals (e.g. form January 2019 to June 2020, or from Mai 2020 to October 2020).
-     Also use data for cairo (``https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv``)
+     Also use data for cairo (``https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv``)
 
 
 .. solution::
@@ -236,10 +236,10 @@ Exercises 3
    Now you can do this::
 
       $ python weather_observations.py --help
-      $ python weather_observations.py https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv temperature_tapiola.png 
-      $ python weather_observations.py -s 1/12/2020 -e 31/12/2020 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv temperature_tapiola_dec.png
-      $ python weather_observations.py -s 1/2/2021 -e 28/2/2021 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv temperature_tapiola_feb.png
-      $ python weather_observations.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv --output temperature_cairo.png
+      $ python weather_observations.py https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola.png 
+      $ python weather_observations.py -s 1/12/2020 -e 31/12/2020 https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola_dec.png
+      $ python weather_observations.py -s 1/2/2021 -e 28/2/2021 https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola_feb.png
+      $ python weather_observations.py --input https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv --output temperature_cairo.png
 
    - We can now process different input files without changing the script.
    - We can select multiple time ranges without modifying the script.
@@ -257,7 +257,7 @@ This already leads to a quite large command line call. Now imagine, that we also
 from the dataset, define specific X and Y labels, write their own title etc. Now imagine to put all this into the command line::
 
 
-   $ python weather_observations.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Cairo" --data_column RRR --start 01/06/2021 --end 30/06/2021
+   $ python weather_observations.py --input https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Cairo" --data_column RRR --start 01/06/2021 --end 30/06/2021
    
    
 This is an even larger line, needs scrolling and becomes quite inconvenient to modify.
@@ -283,7 +283,7 @@ In the yaml format, names and values are separated by ``:``. Our above example w
 
 .. code-block:: yaml
 
-    input:        https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv
+    input:        https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv
     output:       rain_in_cairo.png
     xlabel:       Days in June
     ylabel:       Rainfall in mm
@@ -297,7 +297,7 @@ Exercises 4 (opional)
 
 .. challenge:: Scripts-4
 
-  1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/code/scripts/optionsparser.py>` 
+  1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py>` 
      function and load it into your working folder in jupyterlab.
      Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line 
      (using e.g. argparse or sys.argv) still needs to be read from the command line. 
