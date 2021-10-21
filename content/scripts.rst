@@ -66,7 +66,7 @@ Exercises 1
 .. challenge:: Scripts-1
 
 
-  1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
+  1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from `rp5.kz <https://rp5.kz>`_ and was slightly adjusted for this lecture.
   	
   2. Open a terminal in jupyter (File -> New -> Terminal). 
 
