@@ -66,14 +66,18 @@ Exercises 1
 .. challenge:: Scripts-1
 
 
-  1. Download the `weather_observations.ipynb <../resources/and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
+  1. Download the `weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>`_ and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
   	
   2. Open a terminal in jupyter (File -> New -> Terminal). 
 
   3. Convert the jupyter script to a python script by calling:  
+  
      ``jupyter nbconvert --to script weather_observations.ipynb``
 
-  4. Run the script: ``python  weather_observations.py`` 
+  4. Run the script: 
+  
+     ``python  weather_observations.py`` 
+     
      *Note: you may have* **python3** *rather than python*.
      
 Importing other python files
@@ -118,7 +122,7 @@ Exercises 2
 
 .. challenge:: Scripts-2 (optional)
 
-  1. Update **weather_functions.py** to add a new function for plotting the dataset.
+  1. Create **weather_functions.py** with the above function and add an additional function for plotting the dataset.
 
   2. Update **weather_observations.py** to call it.
 
@@ -316,8 +320,9 @@ Exercises 4 (opional)
 
   
     
-    
-    
+Some information on YAML (optional)
+-----------------------------------
+
 Note, that you don't need ``""`` around the strings in yaml files. 
 If you have long Strings, yaml offers two ways to use line breaks::
 
