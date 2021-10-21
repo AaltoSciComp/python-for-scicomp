@@ -49,9 +49,15 @@ Within JupyterLab, you can export any jupyter notebook to a python script:
 .. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png
 
    Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
+   
 
-Actually, you could also export your notebook in many other formats. Check `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
 
+Actually, you could also export your notebook in many other formats. 
+Check `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
+If you keep working in the jupyterlab folder, you can also convert files in the terminal (File -> New -> Terminal) by running::
+
+
+  jupyter nbconvert --to script your_notebook_name.ipynb
 
 
 Exercises 1
@@ -60,7 +66,7 @@ Exercises 1
 .. challenge:: Scripts-1
 
 
-  1. Download the **weather_observations.ipynb** and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
+  1. Download the `weather_observations.ipynb <../resources/and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo for the time range from 
   	
   2. Open a terminal in jupyter (File -> New -> Terminal). 
 
@@ -96,7 +102,7 @@ and modify the ``weather_observations.py`` file to
     import pandas as pd
     import weather_functions
     
-    url = "https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv"
+    url = "https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv"
     # read the data skipping comment lines
     weather = pd.read_csv(url,comment='#')
     # set start and end time
@@ -116,6 +122,20 @@ Exercises 2
 
   2. Update **weather_observations.py** to call it.
 
+.. solution::
+
+   **weather_observations.py**:
+   
+   .. literalinclude:: ../resources/code/scripts/weather_observations.py
+     :language: python
+     :emphasize-lines: 5,13,16
+     
+   **weather_functions.py**:
+   
+   .. literalinclude:: ../resources/code/scripts/weather_functions.py
+     :language: python
+     :emphasize-lines: 2, 12-21
+
 
 Command line arguments with ``sys.argv``
 ----------------------------------------
@@ -129,9 +149,7 @@ start/end time and output file name from the command line
 file name as command line arguments. Create a file named myscript.py with the following content:
 
 .. code-block:: python
-   :emphasize-lines: 3-4
-
-
+   
    import sys
    start_date = sys.argv[1]
    end_date = sys.argv[2]
@@ -145,7 +163,7 @@ file name as command line arguments. Create a file named myscript.py with the fo
 
 We can try it out::
 
-   $ python myscript.py myinput myoutput
+   $ python myscript.py start end output
 
 
 .. discussion::
@@ -195,14 +213,14 @@ Exercises 3
      ``argparse`` to specify the input and output files and allow the start and end dates to be set.
 
   2. Execute your script for a few different time intervals (e.g. form January 2019 to June 2020, or from Mai 2020 to October 2020).
-     Also use data for cairo (``https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv``)
+     Also use data for cairo (``https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv``)
 
 
 .. solution::
 
-   .. literalinclude:: ../ressources/code/scripts/weather_observations_argparse.py
+   .. literalinclude:: ../resources/code/scripts/weather_observations_argparse.py
      :language: python
-     :emphasize-lines: 3,5-9,12,15-16,19,24,33
+     :emphasize-lines: 2,5-9,11,14,17-18,27
 
    
 
@@ -214,10 +232,10 @@ Exercises 3
    Now you can do this::
 
       $ python weather_observations.py --help
-      $ python weather_observations.py https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv temperature_tapiola.png 
-      $ python weather_observations.py -s 1/12/2020 -e 31/12/2020 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv temperature_tapiola_dec.png
-      $ python weather_observations.py -s 1/2/2021 -e 28/2/2021 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv temperature_tapiola_feb.png
-      $ python weather_observations.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv --output temperature_cairo.png
+      $ python weather_observations.py https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv temperature_tapiola.png 
+      $ python weather_observations.py -s 1/12/2020 -e 31/12/2020 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv temperature_tapiola_dec.png
+      $ python weather_observations.py -s 1/2/2021 -e 28/2/2021 https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv temperature_tapiola_feb.png
+      $ python weather_observations.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv --output temperature_cairo.png
 
    - We can now process different input files without changing the script.
    - We can select multiple time ranges without modifying the script.
@@ -235,7 +253,7 @@ This already leads to a quite large command line call. Now imagine, that we also
 from the dataset, define specific X and Y labels, write their own title etc. Now imagine to put all this into the command line::
 
 
-   $ python test_inflammation.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Cairo" --data_column RRR --start 01/06/2021 --end 30/06/2021
+   $ python weather_observations.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Cairo" --data_column RRR --start 01/06/2021 --end 30/06/2021
    
    
 This is an even larger line, needs scrolling and becomes quite inconvenient to modify.
@@ -250,7 +268,7 @@ The yaml file format can be simple or very complex allowing a large variety of d
 One benefit of yaml is that there is already a python module (``yaml``) available for parsing it and it
 directly parses numbers as numbers and text as strings, making conversions unnecessary.
 
-The python module `optionsparser.py <../ressources/code/scripts/optionsparser.py>`_ provides a simple parser for yaml styled options files.
+The python module `optionsparser.py <../resources/code/scripts/optionsparser.py>`_ provides a simple parser for yaml styled options files.
 Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
 Required arguments need to specify a type. Optional argument types are derived from their default values.
 
@@ -261,7 +279,7 @@ In the yaml format, names and values are separated by ``:``. Our above example w
 
 .. code-block:: yaml
 
-    input:        https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv
+    input:        https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv
     output:       rain_in_cairo.png
     xlabel:       Days in June
     ylabel:       Rainfall in mm
@@ -284,10 +302,17 @@ Exercises 4 (opional)
 
 .. solution::
 
-   .. literalinclude:: ../ressources/code/scripts/weather_observations_config.py
+   The modified **weather_observations.py** script:
+   
+   .. literalinclude:: ../resources/code/scripts/weather_observations_config.py
      :language: python
-     :emphasize-lines: 5,16-27,30,44-45,48,50-52
-
+     :emphasize-lines: 5,16-27,31,34,44,47
+     
+   The modified **weather_functions.py** script:
+   
+   .. literalinclude:: ../resources/code/scripts/weather_functions_config.py
+     :language: python
+     :emphasize-lines: 12,16-18
 
   
     
