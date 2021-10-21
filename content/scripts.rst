@@ -272,7 +272,7 @@ The yaml file format can be simple or very complex allowing a large variety of d
 One benefit of yaml is that there is already a python module (``yaml``) available for parsing it and it
 directly parses numbers as numbers and text as strings, making conversions unnecessary.
 
-The python module `optionsparser.py <../resources/code/scripts/optionsparser.py>`_ provides a simple parser for yaml styled options files.
+The python module `optionsparser.py <https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/code/scripts/optionsparser.py>`_ provides a simple parser for yaml styled options files.
 Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
 Required arguments need to specify a type. Optional argument types are derived from their default values.
 
