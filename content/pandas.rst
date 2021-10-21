@@ -49,7 +49,6 @@ print some summary statistics of its numerical data::
     # print summary statistics for each column
     titanic.describe()  
 
-
 Ok, so we have information on passenger names, survival (0 or 1), age, 
 ticket fare, number of siblings/spouses, etc. With the summary statistics we see that the average age is 29.7 years, maximum ticket price is 512 USD, 38\% of passengers survived, etc.
 
@@ -95,30 +94,45 @@ is composed of rows and columns:
 
 Each column of a dataframe is a 
 `series object <https://pandas.pydata.org/docs/user_guide/dsintro.html#series>`__ 
-- a dataframe is thus a collection of series. Let's inspect one column of 
-the Titanic passanger list data (first downloading and reading the 
-titanic.csv datafile into a dataframe if needed, see above)::
+- a dataframe is thus a collection of series::
+
+    # print some information about the columns
+    titanic.info()
+
+Unlike a NumPy array, a dataframe can combine multiple data types, such as
+numbers and text, but the data in each column is of the same type. So we say a
+column is of type ``int64`` or of type ``object``.
+
+Let's inspect one column of the Titanic passanger list data (first downloading
+and reading the titanic.csv datafile into a dataframe if needed, see above)::
 
     titanic["Age"]
     titanic.Age          # same as above
     type(titanic["Age"])
 
-The columns, rows and dtypes can be listed through corresponding
-attributes::
+The columns have names. Here's how to get them::
 
     titanic.columns
+
+However, the rows also have names! This is what Pandas calls the **index**::
+
     titanic.index
-    titanic.dtypes
 
-We saw above how to select a single column, but there are other ways of selecting 
-(and setting) single or multiple rows, columns and values::
+Right now, the index of this dataframe assigns a number to each row, but we
+could just as easily use the passenger name as index::
 
-    titanic.at[0,"Age"]            # select single value by row and column *name* (fast)
-    titanic.at[0,"Age"] = 42       # set single value by row and column *name* (fast)
-    titanic.iat[0,5]               # select same value by row and column *number* (fast)
-    titanic.loc[0:2, "Name":"Age"] # slice the dataframe by row and column *names*
-    titanic.iloc[0:2,3:6]          # same slice as above by row and column *numbers*
-    titanic["foo"] = "bar"         # set a whole column
+    titanic = titanic.set_index("Name")
+
+We saw above how to select a single column, but there are many ways of
+selecting (and setting) single or multiple rows, columns and values. We can
+refer to columns and rows either by number or by their name::
+
+    titanic.at['Lam, Mr. Ali',"Age"]           # select single value by row and column *name* (fast)
+    titanic.at['Lam, Mr. Ali',"Age"] = 42      # set single value by row and column *name* (fast)
+    titanic.iat[0,5]                           # select same value by row and column *number* (fast)
+    titanic.loc[:'Lam, Mr. Ali',"Name":"Age"]  # slice the dataframe by row and column *names*
+    titanic.iloc[0:2,3:6]                      # same slice as above by row and column *numbers*
+    titanic["foo"] = "bar"                     # set a whole column
 
 Dataframes also support boolean indexing, just like we saw for ``numpy`` 
 arrays::
