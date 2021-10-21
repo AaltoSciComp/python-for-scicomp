@@ -64,7 +64,8 @@ Exercises 1
   	
   2. Open a terminal in jupyter (File -> New -> Terminal). 
 
-  3. Convert the jupyter script to a python script by calling ``jupyter nbconvert --to script weather_observations.ipynb``
+  3. Convert the jupyter script to a python script by calling:  
+     ``jupyter nbconvert --to script weather_observations.ipynb``
 
   4. Run the script: ``python  weather_observations.py`` 
      *Note: you may have* **python3** *rather than python*.
@@ -90,12 +91,12 @@ For example, we can create a new python file (**weather_functions.py**) containi
 and modify the ``weather_observations.py`` file to
 
 .. code-block:: python
-    :emphasize-lines: 6,16
+    :emphasize-lines: 2,11
 
     import pandas as pd
     import weather_functions
     
-    url = "../python-for-scicomp/data/weather_tapiola.csv"
+    url = "https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_tapiola.csv"
     # read the data skipping comment lines
     weather = pd.read_csv(url,comment='#')
     # set start and end time
@@ -194,14 +195,14 @@ Exercises 3
      ``argparse`` to specify the input and output files and allow the start and end dates to be set.
 
   2. Execute your script for a few different time intervals (e.g. form January 2019 to June 2020, or from Mai 2020 to October 2020).
-     Also use data for cairo (https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv)
+     Also use data for cairo (``https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv``)
 
 
 .. solution::
 
    .. literalinclude:: ../ressources/code/scripts/weather_observations_argparse.py
      :language: python
-     :emphasize-lines: 3,5-9,12,19,24,33
+     :emphasize-lines: 3,5-9,12,15-16,19,24,33
 
    
 
@@ -229,15 +230,15 @@ Exercises 3
 Load larger option lists using config files
 -------------------------------------------
 
-In the above example we only allowed the input data file and the output data file to be selected by command line arguments. 
-Now imagine, that we also want to allow the user to select more specific information from the dataset, define specific X and Y labels,
-write their own title etc. Now imagine to put all this into the command line::
+In the above example we only allowed the input and output files along with start and end dates to be selected by command line arguments. 
+This already leads to a quite large command line call. Now imagine, that we also want to allow the user to select more specific information 
+from the dataset, define specific X and Y labels, write their own title etc. Now imagine to put all this into the command line::
 
 
-   $ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv --output 01.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Edinburgh" --dataset rain
+   $ python test_inflammation.py --input https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Cairo" --data_column RRR --start 01/06/2021 --end 30/06/2021
    
    
-This is a huge line, needs scrolling and becomes quite inconvenient to modify.
+This is an even larger line, needs scrolling and becomes quite inconvenient to modify.
 Instead of putting all of this into the command line, you could think about storing and modifying the arguments in a config file.
 There are several ways, how config files can be stored. You can use a simple ``Parameter = Value``
 format, and parse it yourself, or you can use e.g. the ``JSON`` or ``YAML`` formats.
@@ -249,34 +250,49 @@ The yaml file format can be simple or very complex allowing a large variety of d
 One benefit of yaml is that there is already a python module (``yaml``) available for parsing it and it
 directly parses numbers as numbers and text as strings, making conversions unnecessary.
 
-The python module `optionsparser.py <optionsparser.py>``_ provides a simple parser for yaml styled options files.
-Similar to argparse, it takes a list of required options, along with an optional list of optional options :)
-For the latter default values are needed. Further, all options are checked for their types, which means that
-the required options parameter needs to be a dict mapping the option name to its expected type and the defaults 
-parameter needs to be a dictionary of option names mapping to tuples of default type and default value.
+The python module `optionsparser.py <../ressources/code/scripts/optionsparser.py>`_ provides a simple parser for yaml styled options files.
+Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
+Required arguments need to specify a type. Optional argument types are derived from their default values.
 
 In our example above, we could for example add optional parameters that allow the selection of other weather data
 from the dataset (precipitation ...), set the labels and titles explicitly etc.
 
-Below is an example of a modified function that allows taking all these arguments from an options file, along 
-with default values for them.
-The respective yaml file would look as follows::
+In the yaml format, names and values are separated by ``:``. Our above example would therefore translate to the following yaml file:
 
-  xlabel: Date of the observation
-  ylabel: Temperature in Celsius
-  title: Temperature in Tapiola, Espoo, Finnland
-  startdate: 01/02/2019
-  enddate: 30/06/2019
-  datacolumn: T
+.. code-block:: yaml
 
-In the yaml format, names and values are separated by ``:``. Our above example would therefore translate to the following yaml file::
+    input:        https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/ressources/data/scripts/weather_cairo.csv
+    output:       rain_in_cairo.png
+    xlabel:       Days in June
+    ylabel:       Rainfall in mm
+    title:        Rainfall in Cairo
+    data_column:  RRR
+    start:        01/06/2021
+    end:          30/06/2021
 
-	input:	https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv
-	output: 01.png
-	xlabel: Days in June
-	ylabel: Rainfall in mm
-	title:	Rainfall in Edinburgh
+Exercises 4 (opional)
+---------------------
 
+.. challenge:: Scripts-4
+
+  1. Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line 
+     (using e.g. argparse or sys.argv) still needs to be read from the command line. 
+     
+
+  2. Run your script with different config files.
+
+
+.. solution::
+
+   .. literalinclude:: ../ressources/code/scripts/weather_observations_config.py
+     :language: python
+     :emphasize-lines: 5,16-27,30,44-45,48,50-52
+
+
+  
+    
+    
+    
 Note, that you don't need ``""`` around the strings in yaml files. 
 If you have long Strings, yaml offers two ways to use line breaks::
 

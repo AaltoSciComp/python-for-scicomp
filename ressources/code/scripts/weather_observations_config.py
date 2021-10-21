@@ -16,8 +16,8 @@ args = parser.parse_args()
 defaults = {
            "xlabel" : "Date of observation",
            "title"  : "Observations in Tapiola",
-           "start_date" : "01/06/2021",
-           "end_date" : "01/10/2021",
+           "start" : "01/06/2021",
+           "end" : "01/10/2021",
            "output_file" : "weather.png",
            }
 
