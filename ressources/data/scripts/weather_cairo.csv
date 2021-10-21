@@ -1,10 +1,10 @@
-# Weather station Cairo (airport), Egypt, WMO_ID=62366,selection from 06.01.2019 till 15.10.2021, all days,,,,,,,,,,,,,,,,,,,,,,,,
-# Encoding: ANSI,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-"# The data is provided by the website ""Reliable Prognosis""", rp5.kz,,,,,,,,,,,,,,,,,,,,,,,,,,,
-# If you use the data, please indicate the name of the website.,,,,,,,,,,,,,,,,,,,,,,,,,,,
-# For meteorological parameters see the address http://rp5.kz/archive.php?wmo_id=62366&lang=en,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-#,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Local time in Cairo (airport),T,Po,P,Pa,U,DD,Ff,ff10,ff3,N,WW,W1,W2,Tn,Tx,Cl,Nh,H,Cm,Ch,VV,Td,RRR,tR,E,Tg,E',sss
+# Weather station Cairo (airport), Egypt, WMO_ID=62366,selection from 06.01.2019 till 15.10.2021, all days
+# Encoding: ANSI
+# The data is provided by the website Reliable Prognosis, rp5.kz
+# If you use the data, please indicate the name of the website.
+# For meteorological parameters see the address http://rp5.kz/archive.php?wmo_id=62366&lang=en
+#
+Local time,T,Po,P,Pa,U,DD,Ff,ff10,ff3,N,WW,W1,W2,Tn,Tx,Cl,Nh,H,Cm,Ch,VV,Td,RRR,tR,E,Tg,E',sss
 15.10.2021 23:00,24.9,756.1,761.7,0,56,Wind blowing from the east-northeast,3,,,no clouds, ,,,,,,,,,,10,15.5,,,,,,
 15.10.2021 20:00,27.3,756.1,761.6,1.1,37,Wind blowing from the north-east,4,,,no clouds, ,,,,32.4,,,,,,10,11.3,,,,,,
 15.10.2021 17:00,31.9,755,760.4,0.4,22,Wind blowing from the north-east,4,,,no clouds, ,,,,,,,,,,10,7.5,,,,,,
