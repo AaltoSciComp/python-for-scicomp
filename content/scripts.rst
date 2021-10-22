@@ -53,7 +53,7 @@ Within JupyterLab, you can export any jupyter notebook to a python script:
 
 
 Actually, you could also export your notebook in many other formats. 
-Check `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
+Check the `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
 If you keep working in the jupyterlab folder, you can also convert files in the terminal (File -> New -> Terminal) by running::
 
 
