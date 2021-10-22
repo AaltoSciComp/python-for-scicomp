@@ -213,9 +213,9 @@ arguments, it also automatically generates a ``--help`` option for you:
    
    # set start and end time   
    parser.add_argument('-o', '--output', type=str, default="Out.png"
-                    help="output filename")
+                    help="end time")
    parser.add_argument('-s', '--start', type=str, default="1/1/2019"
-                    help="output filename")
+                    help="start time")
    parser.add_argument('-e', '--end', type=str, default="1/1/2021"
                     help="output filename")
    
