@@ -5,6 +5,7 @@ dependencies:
   - jupyterlab
   - notebook
   - ipywidgets
+  - websocket-client
   - requests
   - numpy
   - scipy
