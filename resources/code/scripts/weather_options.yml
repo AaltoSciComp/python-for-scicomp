@@ -1,4 +1,4 @@
-input:        https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_cairo.csv
+input:        https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv
 output:       rain_in_cairo.png
 xlabel:       Days in June
 ylabel:       Rainfall in mm

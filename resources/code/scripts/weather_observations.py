@@ -4,7 +4,7 @@
 import pandas as pd
 import weather_functions
 
-url = "https://raw.githubusercontent.com/tpfau/python-for-scicomp/ScriptUpdate/resources/data/scripts/weather_tapiola.csv"
+url = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv"
 weather = pd.read_csv(url,comment='#')
 
 # define the start and end time for the plot 
