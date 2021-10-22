@@ -344,3 +344,4 @@ Exercises 4 (optional)
   
   - Linking Jupyterlab notebooks to python scripts (making linking ``.py``- and ``.ipynb``-files easier) using `jupytext <https://jupytext.readthedocs.io/en/latest/paired-notebooks.html>`_
   - The `wikipedia page about YAML <https://en.wikipedia.org/wiki/YAML>`_ contains a lot of additional information on the YAML syntax.
+  - `The Coderefinery Lesson about reproducible research <https://coderefinery.github.io/reproducible-research/>`_ can give additional information about good coding practices and workflow automation.
