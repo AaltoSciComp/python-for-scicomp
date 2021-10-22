@@ -13,10 +13,10 @@ def plot_data(dates, values, labels):
     fig, ax = plt.subplots()
     ax.plot(dates, values)
     # label the axes
-    plt.xlabel(labels.xlabel)
-    plt.ylabel(labels.ylabel)
-    plt.title(labels.title)
+    ax.set_xlabel(labels.xlabel)
+    ax.set_ylabel(labels.ylabel)
+    ax.set_title(labels.title)
     # adjust tick labels
     fig.autofmt_xdate()
-    return plt,fig
+    return ax,fig
 

@@ -21,7 +21,7 @@ end_date=pd.to_datetime(args.end,dayfirst=True)
 weather = weather_functions.preprocessing(weather,start_date,end_date)
 
 # plot the data
-plt,fig = weather_functions.plot_data(weather['Local time'], weather['T'])
+ax,fig = weather_functions.plot_data(weather['Local time'], weather['T'])
 
 # save the figure
-plt.savefig(args.output)
+fig.savefig(args.output)

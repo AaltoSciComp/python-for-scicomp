@@ -34,14 +34,14 @@ parameters = get_parameters(args.input, required, defaults)
 weather = pd.read_csv(parameters.input,comment='#')
 
 # obtain start and end date
-start_date=pd.to_datetime(parameters.start_date,dayfirst=True)
-end_date=pd.to_datetime(parameters.end_date,dayfirst=True)
+start_date=pd.to_datetime(parameters.start,dayfirst=True)
+end_date=pd.to_datetime(parameters.end,dayfirst=True)
 
 # Data preprocessing
 weather = weather_functions.preprocessing(weather,start_date,end_date)
 
 # Data plotting
-plt,fig = weather_functions.plot_data(weather['Local time'], weather[parameters.data_column], parameters)
+ax,fig = weather_functions.plot_data(weather['Local time'], weather[parameters.data_column], parameters)
 
 # save the figure
-plt.savefig(parameters.output_file)
+fig.savefig(parameters.output)
