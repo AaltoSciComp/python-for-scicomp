@@ -281,16 +281,8 @@ from the dataset (precipitation ...), set the labels and titles explicitly etc.
 
 In the yaml format, names and values are separated by ``:``. Our above example would therefore translate to the following yaml file:
 
-.. code-block:: yaml
-
-    input:        https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv
-    output:       rain_in_cairo.png
-    xlabel:       Days in June
-    ylabel:       Rainfall in mm
-    title:        Rainfall in Cairo
-    data_column:  RRR
-    start:        01/06/2021
-    end:          30/06/2021
+.. literalinclude:: ../resources/code/scripts/weather_options.yml
+   :language: yaml
 
 Exercises 4 (opional)
 ---------------------
@@ -321,83 +313,7 @@ Exercises 4 (opional)
      :emphasize-lines: 12,16-18
 
   
-    
-Some information on YAML (optional)
------------------------------------
-
-Note, that you don't need ``""`` around the strings in yaml files. 
-If you have long Strings, yaml offers two ways to use line breaks::
-
-	1. Value1: |
-	           This is some
-	           Text with a line break.
-	2. Value2: >
-	           This is some text
-	           without line breaks, that
-	           will just end up in one line.	
-
-
-For dictionaries and Lists you can use::
-
-	DictParam: 
-	    Entry1: This is the first entry
-	    Entry2: This is the value for Entry2
-	
-	ListParam:
-	    - This is the First List entry
-	    - This is the second List entry
-
-There are much more complex settings that can be handled with yaml. If you want to know about them, `here <https://yaml.org/>`_ are the docs.
-
-
-Synchronize with Jupytext (optional)
-------------------------------------
-
-`jupytext <https://jupytext.readthedocs.io/en/latest/>`_ is a python package you can use for automatically synchronizing your notebooks into python scripts.
-
-To install it from the command line (make sure you use JupyterLab 2.x)::
-
-  pip install jupytext --upgrade
-
-or
-
-::
-
-  conda install -c conda-forge jupytext
-
-Please note that you may also use `Anaconda navigator <https://docs.anaconda.com/anaconda/navigator/tutorials/manage-packages/>`_ (if installed) to install ``jupytext``.
-
-Installing Jupytext will trigger a build of the JupyterLab extension the next time you open it. If you prefer, you can trigger the build manually with
-
-::
-
-  jupyter lab build
-
-
-Once installed, you can pair your notebook:
-
-.. figure:: https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png
-
- Press ``Ctrl + Shift + C`` to start the command palette, search "jupytext", then **Pair notebook with percent script** (**NOT** what you see in the image).
-
-
-After few seconds, **test_inflammation.py** will be created and synchronized with **test_inflammation.ipynb**.
-
-Double click on the python script to edit it and add (on the top of the script):
-
-::
-
-  #!/usr/bin/env python
-
-
-This will make sure you can execute it from the command line.
-
-*Note that, it can also be added in the jupyter notebook by editing notebook metadata (Property Inspector)*.
-
-
-.. keypoints::
-
-   - Synchronize your Jupyter notebooks & python scripts with ``jupytext``
-   - ``import`` other python files
-   - Command line arguments in python scripts
-   - Real programs allow you to automate calculations and scale up
+.. admonition:: Further reading 
+  
+  - Linking Jupyterlab notebooks to python scripts (making linking ``.py``- and ``.ipynb``-files easier) using `jupytext <https://jupytext.readthedocs.io/en/latest/paired-notebooks.html>`_
+  - The `wikipedia page about YAML <https://en.wikipedia.org/wiki/YAML>`_ contains a lot of additional information on the YAML syntax.
