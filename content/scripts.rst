@@ -155,21 +155,30 @@ start/end time and output file name from the command line
 file name as command line arguments. Create a file named myscript.py with the following content:
 
 .. code-block:: python
+   :emphasize-lines: 1,6-7,9
    
    import sys
-   start_date = sys.argv[1]
-   end_date = sys.argv[2]
+   import pandas as pd
+   import weather_functions
+
+   # set start and end time   
+   start_date = pd.to_datetime(sys.argv[1],dayfirst=True)
+   end_date = pd.to_datetime(sys.argv[2],dayfirst=True)
+   
    output_file_name = sys.argv[3]
 
-   # to keep things simple we only print them out:
-   print(f"Start date is {start_date}")
-   print(f"End date is {end_date}")
-   print(f"output file is {output_file_name}")
-
+   ...
+   
+   # preprocess the data
+   weather = weather_functions.preprocess(weather, start_date, end_date)
+   
+   ...
+   
+   fig.savefig(output_file_name)
 
 We can try it out::
 
-   $ python myscript.py start end output
+   $ python weather_observations.py 01/03/2021 31/05/2021 spring_in_tapiola.png
 
 
 .. discussion::
@@ -196,17 +205,33 @@ This example not only gives you descriptive command line
 arguments, it also automatically generates a ``--help`` option for you:
 
 .. code-block:: python
-
-   #!/usr/bin/env python
-
+   :emphasize-lines: 1,6-13
+   
    import argparse
-   parser = argparse.ArgumentParser()
+   import pandas as pd
+   import weather_functions
+   
+   # set start and end time   
    parser.add_argument('-o', '--output', type=str, default="Out.png"
-                       help="output filename")
-   args = parser.parse_args()
+                    help="output filename")
+   parser.add_argument('-s', '--start', type=str, default="1/1/2019"
+                    help="output filename")
+   parser.add_argument('-e', '--end', type=str, default="1/1/2021"
+                    help="output filename")
+   
+   parser.parse_args()
+                    
+   start_date = pd.to_datetime(parser.start,dayfirst=True)
+   end_date = pd.to_datetime(parser.end,dayfirst=True)
 
-   if args.output:
-       print(f"output file is {args.output}")
+   ...
+   	  
+   # preprocess the data
+   weather = weather_functions.preprocess(weather, start_date, end_date)
+   
+   ...
+   
+   fig.savefig(parser.output)
 
 
 
@@ -286,8 +311,8 @@ In the yaml format, names and values are separated by ``:``. Our above example w
 .. literalinclude:: ../resources/code/scripts/weather_options.yml
    :language: yaml
 
-Exercises 4 (opional)
----------------------
+Exercises 4 (optional)
+----------------------
 
 .. challenge:: Scripts-4
 
