@@ -67,6 +67,8 @@ Exercises 1
 
 
   1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from `rp5.kz <https://rp5.kz>`_ and was slightly adjusted for this lecture.
+     
+     **Note:** If you haven't downloaded the file directly to your jupyterlab folder, it will be located in your **Downloads** folder or the folder you selected. In jupyterlab click on the 'upload file' button, navigate to the folder containing the file and select it to load it into your jupyterlab folder.
   	
   2. Open a terminal in jupyter (File -> New -> Terminal). 
 
