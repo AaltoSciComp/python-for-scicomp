@@ -361,7 +361,7 @@ and web search, and to arrive at this:
 ````{solution}
 ```{code-block} python
 ---
-emphasize-lines: 7-12
+emphasize-lines: 7-11
 ---
 fig, ax = plt.subplots()
 
@@ -374,7 +374,6 @@ ax.set_ylabel("life expectancy (years)", fontsize=15)
 ax.tick_params(which="major", length=10)
 ax.tick_params(which="minor", length=5)
 ax.tick_params(labelsize=15)
-ax.tick_params(labelsize=15)
 ```
 ````
 
@@ -383,7 +382,7 @@ ax.tick_params(labelsize=15)
 
 - Your task is to select one visualization library (some need to be installed first - in
   doubt choose Matplotlib or Seaborn since they are part of Anaconda installation):
-  - [Matplotlib](https://matplotlib.org/gallery.html):
+  - [Matplotlib](https://matplotlib.org/stable/gallery/index.html):
     probably the most standard and most widely used
   - [Seaborn](https://seaborn.pydata.org/examples/index.html):
     high-level interface to Matplotlib, statistical functions built in
