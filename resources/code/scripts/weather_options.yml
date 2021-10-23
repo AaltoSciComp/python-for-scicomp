@@ -1,0 +1,8 @@
+input:        https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv
+output:       rain_in_cairo.png
+xlabel:       Days in June
+ylabel:       Rainfall in mm
+title:        Rainfall in Cairo
+data_column:  RRR
+start:        01/06/2021
+end:          30/06/2021
