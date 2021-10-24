@@ -13,6 +13,11 @@ NumPy
    - Be able to use basic NumPy functionality
    - Understand enough of NumPy to seach for answers to the rest of your questions ;)
 
+   We expect most people to be able to do all the basic exercises
+   here.  It is probably quite easy for many people; we have advanced
+   exercises at the end in that case.
+
+
 
 So, we already know about python lists, and that we can put all kinds of things in there.
 But in scientific usage, lists are often not enough. They are slow and
