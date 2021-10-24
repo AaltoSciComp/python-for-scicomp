@@ -30,7 +30,7 @@ and objects from other Python files (modules). Now we will take it a step furthe
 - Collect related functions into modules (files).
 - Collect related modules into packages (we will show how).
 - Add a ``LICENSE`` file to your code
-  see `Software Licensing and Open source explained with cakes <https://cicero.xyz/v3/remark/0.14.0/github.com/coderefinery/social-coding/master/licensing-and-cakes.md/#1>`__)
+  see `Software Licensing and Open source explained with cakes <https://github.com/coderefinery/social-coding/blob/main/licensing-and-cakes.md>`__)
 - Write a ``README.md`` file describing what the code does and how to use it.
 - It is also recommended to `document your package <https://coderefinery.github.io/documentation/>`__.
 - When the project grows, you might need `automated testing <https://coderefinery.github.io/testing/>`__.

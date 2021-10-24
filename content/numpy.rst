@@ -13,6 +13,11 @@ NumPy
    - Be able to use basic NumPy functionality
    - Understand enough of NumPy to seach for answers to the rest of your questions ;)
 
+   We expect most people to be able to do all the basic exercises
+   here.  It is probably quite easy for many people; we have advanced
+   exercises at the end in that case.
+
+
 
 So, we already know about python lists, and that we can put all kinds of things in there.
 But in scientific usage, lists are often not enough. They are slow and
@@ -35,10 +40,10 @@ An array is a 'grid' of values, with all the same types. It is indexed by tuples
 non negative indices and provides the framework for multiple
 dimensions.  An array has:
 
-* ``dtype`` - data type.  Arrays always contain one type
-* ``shape`` - shape of the data, for example ``3×2`` or ``3×2×500`` or even
+* :ref:`dtype <arrays.dtypes>` - data type.  Arrays always contain one type
+* :term:`shape` - shape of the data, for example ``3×2`` or ``3×2×500`` or even
   ``500`` (one dimensional) or ``[]`` (zero dimensional).
-* ``data`` - raw data storage in memory.  This can be passed to C or
+* :attr:`data <numpy.ndarray.data>` - raw data storage in memory.  This can be passed to C or
   Fortran code for efficient calculations.
 
 
@@ -74,7 +79,7 @@ We see that compared to working with numpy arrays, working with traditional pyth
 Creating arrays
 ---------------
 
-There are different ways of creating arrays::
+There are different ways of creating arrays (:func:`numpy.array`, :attr:`numpy.ndarray.shape`, :attr:`numpy.ndarray.size`)::
 
   a = np.array([1,2,3])               # 1-dimensional array (rank 1)
   b = np.array([[1,2,3],[4,5,6]])     # 2-dimensional array (rank 2)
@@ -82,7 +87,7 @@ There are different ways of creating arrays::
   b.shape                             # the shape (rows,columns)
   b.size                              # number of elements 
 
-In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content::
+In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content (:func:`numpy.zeros`, :func:`numpy.ones`, :func:`numpy.full`, :func:`numpy.eye`, :func:`numpy.arange`, :func:`numpy.linspace`)::
 
    np.zeros((2, 3))           # 2x3 array with all elements 0
    np.ones((1,2))             # 1x2 array with all elements 1
@@ -95,12 +100,12 @@ In addition to above ways of creating arrays, there are many other ways of creat
    c = np.ones((3,3))
    d = np.ones((3, 2), bool)  # 3x2 boolean array
 
-Arrays can also be stored and read from a (.npy) file:: 
+Arrays can also be stored and read from a (.npy) file (:func:`numpy.save`, :func:`numpy.load`):: 
 
    np.save('x.npy', a)           # save the array a to a .npy file
    x = np.load('x.npy')          # load an array from a .npy file and store it in variable x
 
-In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array::
+In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array (:attr:`numpy.ndarray.dtype`, :meth:`numpy.ndarray.astype`)::
 
    d.dtype                    # datatype of the array
    d.astype('int')            # change datatype from boolean to integer
@@ -117,25 +122,32 @@ Exercises 1
 
 .. challenge:: Exercises: Numpy-1
 
-   - **Datatypes** Try out ``np.arange(10)`` and ``np.linspace(0,9,10)``, what is the difference? Can you adjust one to do the same as the other?
+   1. **Datatypes** Try out :func:`np.arange(10) <numpy.arange>` and :func:`np.linspace(0,9,10) <numpy.linspace>`, what is the difference? Can you adjust one to do the same as the other?
 
-   - **Datatypes** Create a 3x2 array of random float numbers (check ``np.random``) between 0 and 1. Now change the arrays datatype to int (``array.astype``). How does the array look like? 
+   2. **Datatypes** Create a 3x2 array of random float numbers (check :func:`numpy.random.random`) between 0 and 1. Now change the arrays datatype to int (:meth:`array.astype <numpy.ndarray.astype>`). How does the array look like? 
 
-   - **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Reshape the array in any way possible. What is not possible?
+   3. **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Reshape the array in any way possible. What is not possible?
 
-   - **NumPyI/O** Save above array to .npy file (``np.save``) and read it in again.
+   4. **NumPyI/O** Save above array to .npy file (:func:`numpy.save`) and read it in again.
 
 .. solution:: Solutions: Numpy-1
 
-   - **Datatypes** ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**,
-     while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**.
+   1. **Datatypes**
+
+     - ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**,
+     - while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**.
+
      Both ``np.linspace`` and ``np.arange`` take dtype as an argument and can be adjusted to match each other in that way.
 
-   - **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int.
+   2. **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int (all numbers [0, 1) are cast to 0).
 
-   - **Reshape** eg ``b = np.random.randint(0,10,(3,2))``. ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible. It is not possible to reshape to shapes using more or less elements than ``b.size = 6``.
+   3. **Reshape** eg ``b = np.random.randint(0,10,(3,2))``.
 
-   - **NumPyI/O** ``np.save('x.npy', b)`` and ``x = np.load('x.npy')`` 
+     ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible.
+
+     It is not possible to reshape to shapes using more or less elements than ``b.size = 6``, so for example ``b.reshape((12,1))`` gives an error.
+
+   4. **NumPyI/O** ``np.save('x.npy', b)`` and ``x = np.load('x.npy')`` 
 
 
 
@@ -149,7 +161,7 @@ high-level languages such as R, Matlab, etc do.
 By default, in NumPy all math is element-by-element.  This is unlike
 Matlab, where most things are element-by-element, but ``*`` becomes
 array multiplication.  NumPy values consistency and does not treat
-2-dimensional arrays specially::
+2-dimensional arrays specially (:data:`numpy.add`)::
 
   a = np.array([[1,2],[3,4]])
   b = np.array([[5,6],[7,8]])
@@ -157,7 +169,7 @@ array multiplication.  NumPy values consistency and does not treat
   c = a + b
   d = np.add(a,b)
 
-Also: - (``np.subtract()``), * (``np.multiply()``), / (``np.divide()``), ``np.sqrt()``, ``np.sum()``, ``np.mean()``, ...
+Also: ``-`` (:data:`numpy.subtract`), ``*`` (:data:`numpy.multiply`), ``/`` (:data:`numpy.divide`), :data:`numpy.sqrt`, :func:`numpy.sum`, :func:`numpy.mean`, ...
 
 
 
@@ -166,9 +178,9 @@ Exercises 2
 
 .. challenge:: Exercises: Numpy-2
 
-   - **Matrix multiplication** What is the difference between ``np.multiply`` and ``np.dot`` ? Try it.
-   - **Axis** What is the difference between ``np.sum(axis=1)`` vs
-     ``np.sum(axis=0)`` on a two-dimensional array? What if you leave out the axis parameter?
+   - **Matrix multiplication** What is the difference between :data:`numpy.multiply` and :func:`numpy.dot` ? Try it.
+   - **Axis** What is the difference between :func:`np.sum(axis=1) <numpy.sum>` vs
+     :func:`np.sum(axis=0) <numpy.sum>` on a two-dimensional array? What if you leave out the axis parameter?
 
 
 .. solution:: Solutions: Numpy-2
@@ -180,6 +192,10 @@ Exercises 2
 
 Indexing and Slicing
 --------------------
+
+.. seealso::
+
+   :ref:`Numpy basic indexing docs <basics.indexing>`
 
 NumPy has many ways to extract values out of arrays:
 
@@ -238,18 +254,18 @@ Types of operations
 
 There are different types of standard operations in NumPy:
 
-**ufuncs**, "universal functions": These are element-by-element
+**ufuncs**, ":ref:`universal functions <ufuncs>`": These are element-by-element
 functions with standardized arguments:
 
 - One, two, or three input arguments
-- For example, ``a + b`` is similar to ``np.add(a, b)`` but the ufunc
+- For example, ``a + b`` is similar to :data:`np.add(a, b) <numpy.add>` but the ufunc
   has more control.
 - ``out=`` output argument, store output in this array (rather than
   make a new array) - saves copying data!
 - See the `full reference
   <https://numpy.org/doc/stable/reference/ufuncs.html>`__
 
-- They also do **broadcasting**.  Can you add a 1-dimensional array of shape `(3)`
+- They also do **broadcasting** (:ref:`ref <basics.broadcasting>`).  Can you add a 1-dimensional array of shape `(3)`
   to an 2-dimensional array of shape `(3, 2)`?   With broadcasting you
   can!
 
@@ -319,7 +335,7 @@ Exercises 4
 Linear algebra and other advanced math
 --------------------------------------
 
-In general, you use ``arrays`` (n-dimensions), not ``matrixes``
+In general, you use :class:`arrays <numpy.ndarray>` (n-dimensions), not :class:`matrixes <numpy.matrix>`
 (specialized 2-dimensional) in NumPy.
 
 Internally, NumPy doesn't invent its own math routines: it relies on
@@ -353,7 +369,8 @@ Additional exercises
 
 .. challenge:: Numpy-5
 
-   These are advanced and optional, and will not be done in most courses.
+   If you have extra time, try these out.  These are advanced and
+   optional, and will not be done in most courses.
 
    1. Reverse a vector. Given a vector, reverse it such that the last
       element becomes the first, e.g. ``[1, 2, 3]`` => ``[3, 2, 1]``
@@ -363,21 +380,21 @@ Additional exercises
    3. Create a random array with elements [0, 1), then add 10 to all
       elements in the range [0.2, 0.7).
 
-   4. What is ``np.round(0.5)``? What is ``np.round(1.5)``? Why?
+   4. What is :func:`np.round(0.5) <numpy.round_>`? What is ``np.round(1.5)``? Why?
 
-   5. In addition to ``np.round``, explore ``np.ceil``, ``np.floor``,
-      ``np.trunc``. In particular, take note of how they behave with
+   5. In addition to ``np.round``, explore :data:`numpy.ceil`, :data:`numpy.floor`,
+      :data:`numpy.trunc`. In particular, take note of how they behave with
       negative numbers.
 
    6. Recall the identity :math:`\sin^2(x) + \cos^2(x) = 1`. Create a
       random 4x4 array with values in the range [0, 10). Now test the
-      equality with ``np.equal``. What result do you get with
-      ``np.allclose`` instead of ``np.equal``?
+      equality with :data:`numpy.equal`. What result do you get with
+      :func:`numpy.allclose` instead of ``np.equal``?
 
    7. Create a 1D array with 10 random elements. Sort it.
 
-   8. What's the difference between ``np_array.sort()`` and
-      ``np.sort(np_array)``?
+   8. What's the difference between :meth:`np_array.sort() <numpy.ndarray.sort>` and
+      :func:`np.sort(np_array) <numpy.sort>`?
 
    9. For the random array in question 8, instead of sorting it, perform
       an indirect sort. That is, return the list of indices which would
@@ -387,7 +404,7 @@ Additional exercises
        combine them into a single 8x4 array with the content of the zeros
        array on top and the ones on the bottom.  Finally, do the same,
        but create a 4x8 array with the zeros on the left and the ones on
-       the rigth.
+       the right.
 
    11. NumPy functionality Create two 2D arrays and do matrix multiplication
        first manually (for loop), then using the np.dot function. Use %%timeit

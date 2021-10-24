@@ -34,7 +34,7 @@ information on the version you have used, etc.
 Exercise 1
 ~~~~~~~~~~
 
-.. challenge:: Binder-1 (10 mn)
+.. challenge:: Binder-1 (10 min)
 
    Lea is a PhD student in computational biology and after 2 years of intensive
    work, she is finally ready to publish her first paper. The code she has used
@@ -113,7 +113,7 @@ then using `Binder <https://mybinder.org/>`__.
        matplotlib==3.4.2
 
    - Commit and push also this file to your notebook repository.
-   - Visit https://mybinder.org:
+   - Visit https://mybinder.org and copy paste the code under "Copy the text below ..." into your `README.md`:
 
      .. image:: img/binder/binder.jpg
 
@@ -183,15 +183,15 @@ Create a Binder link for your Zenodo DOI
 
 Rather than specifying a GitHub repository when launching binder, you can instead use a Zenodo DOI.
 
-.. challenge:: Binder-4 (10 mn)
+.. challenge:: Binder-4 (10 min)
 
-  We will be using an existing Zenodo DOI `10.5281/zenodo.3886864 <https://doi.org/10.5281/zenodo.3247652>`_ to start myBinder:
+  We will be using an existing Zenodo DOI `10.5281/zenodo.3886864 <https://doi.org/10.5281/zenodo.3247652>`_ to start Binder:
 
     - Go to `https://mybinder.org <https://mybinder.org>`__ and fill information using Zenodo DOI (as shown on the animation below):
 
     .. image:: https://miro.medium.com/max/1050/1*xOABVY2hNtVmjV5-LXreFw.gif
 
-    - You can also get Binder badge and update the README file in the
+    - You can also get a Binder badge and update the README file in the
       repository. It is good practice to add both the Zenodo badge and the
       corresponding Binder badge.
 
