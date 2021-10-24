@@ -34,7 +34,7 @@ information on the version you have used, etc.
 Exercise 1
 ~~~~~~~~~~
 
-.. challenge:: Binder-1 (10 mn)
+.. challenge:: Binder-1 (10 min)
 
    Lea is a PhD student in computational biology and after 2 years of intensive
    work, she is finally ready to publish her first paper. The code she has used
@@ -183,7 +183,7 @@ Create a Binder link for your Zenodo DOI
 
 Rather than specifying a GitHub repository when launching binder, you can instead use a Zenodo DOI.
 
-.. challenge:: Binder-4 (10 mn)
+.. challenge:: Binder-4 (10 min)
 
   We will be using an existing Zenodo DOI `10.5281/zenodo.3886864 <https://doi.org/10.5281/zenodo.3247652>`_ to start Binder:
 
