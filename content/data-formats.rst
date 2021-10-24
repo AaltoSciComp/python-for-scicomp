@@ -106,7 +106,7 @@ CSV (comma-separated values)
        - Ease of use: Great
    - Array data:
        - Speed: Bad
-       - Ease of use: Good
+       - Ease of use: Ok for one or two dimensional data. Bad for anything higher.
    - **Best use cases:** Sharing data. Small data. Data that needs to be human-readable. 
 
 CSV is by far the most popular file format, as it is human-readable and easily shareable.
@@ -186,8 +186,8 @@ Feather
        - Speed: Great
        - Ease of use: Good
    - Array data:
-       - Speed: Bad
-       - Ease of use: Bad
+       - Speed: -
+       - Ease of use: -
    - **Best use cases:** Temporary storage of tidy data. 
 
 `Feather <https://arrow.apache.org/docs/python/feather.html>`__ is a file format for storing data frames quickly.
@@ -224,7 +224,7 @@ Parquet
    - **Good for sharing/archival:** Yes
    - Tidy data:
        - Speed: Good
-       - Ease of use: Good
+       - Ease of use: Great
    - Array data:
        - Speed: Good
        - Ease of use: It's complicated
@@ -251,8 +251,8 @@ HDF5 (Hierarchical Data Format version 5)
    - **Space efficiency:** Good for numeric data.
    - **Good for sharing/archival:** Yes, if datasets are named well.
    - Tidy data:
-       - Speed: Good
-       - Ease of use: Ok
+       - Speed: Ok
+       - Ease of use: Good
    - Array data:
        - Speed: Great
        - Ease of use: Good
@@ -299,7 +299,7 @@ NetCDF4 (Network Common Data Form version 4)
 
 .. important::
 
-    Using NetCDF4 requires `netCDF4- <https://unidata.github.io/netcdf4-python>`__ or `h5netcdf <https://github.com/h5netcdf/h5netcdf>`__-package to be installed.
+    Using NetCDF4 requires `netCDF4 <https://unidata.github.io/netcdf4-python>`__- or `h5netcdf <https://github.com/h5netcdf/h5netcdf>`__-package to be installed.
     h5netcdf is often mentioned as being faster to the official netCDF4-package, so we'll be using it in the example.
     
     A great NetCDF4 interface is provided by a `xarray-package <https://xarray.pydata.org/en/stable/getting-started-guide/quick-overview.html#read-write-netcdf-files>`__.
@@ -319,10 +319,10 @@ NetCDF4 (Network Common Data Form version 4)
    - **Space efficiency:** Good for numeric data.
    - **Good for sharing/archival:** Yes.
    - Tidy data:
-       - Speed: Good
-       - Ease of use: Ok
+       - Speed: Ok
+       - Ease of use: Good
    - Array data:
-       - Speed: Great
+       - Speed: Good
        - Ease of use: Great
    - **Best use cases:** Working with big datasets in array data format. Especially useful if the dataset contains spatial or temporal dimensions. Archiving or sharing those datasets.
 
@@ -363,14 +363,14 @@ npy (numpy array format)
    - **Space efficiency:** Good.
    - **Good for sharing/archival:** No.
    - Tidy data:
-       - Speed: Good
-       - Ease of use: Ok
+       - Speed: -
+       - Ease of use: -
    - Array data:
        - Speed: Great
-       - Ease of use: Great
+       - Ease of use: Good
    - **Best use cases:** Saving numpy arrays temporarily.
 
-If you want to temporarily store numpy arrays, you can use the `numpy.save <https://numpy.org/doc/stable/reference/generated/numpy.save.html>`-__ and `numpy.load <https://numpy.org/doc/stable/reference/generated/numpy.load.html>`__-functions::
+If you want to temporarily store numpy arrays, you can use the `numpy.save <https://numpy.org/doc/stable/reference/generated/numpy.save.html>`__- and `numpy.load <https://numpy.org/doc/stable/reference/generated/numpy.load.html>`__-functions::
 
     np.save('data_array.npy', data_array)
     data_array_npy = np.load('data_array.npy')
@@ -415,19 +415,43 @@ Exercise 1
     
         %timeit dataset_csv = pd.read_csv('dataset.csv')
 
+Exercise 2
+----------
+
 .. challenge::
       
-    - Do the as in exercise 1 for a binary format of your choice.
-    - Check the file sizes with:
+    - Save the dataset ``dataset`` using a binary format of your choice.
+    - Use the ``%timeit``-magic to calculate how long it takes to save / load the dataset.
+    - Did you notice any difference in speed?
+
+.. solution::
+
+    .. code-block:: python
     
-      .. code-block:: python
-      
-          import os
-          
-          os.getsize('dataset.csv')
-    - Did you notice any difference in speed or in file size?
-    
-    
+
+        %timeit dataset.to_hdf('dataset.h5', key='dataset', mode='w')
+
+        %timeit dataset_hdf5 = pd.read_hdf('dataset.h5')
+
+Exercise 3
+----------
+
+.. challenge::
+
+    - Create a numpy array. Store it as a npy.
+    - Read the dataframe back in and compare it to the original one. Does the data match?
+
+.. solution::
+
+   .. code-block:: python
+
+      import numpy as np
+
+      my_array = np.array(10)
+
+      np.save('my_array.npy', my_array)
+      my_array_npy = np.load('my_array.npy')
+      np.all(my_array == my_array_npy)
 
 Benefits of binary file formats
 -------------------------------
@@ -487,42 +511,35 @@ For this kind of a data, HDF5-based formats perform much better.
 Things to remember
 ------------------
 
-1. Usually, your research question determines which libraries you want to use to solve it.
+1. **There is no file format that is good for every use case.**
+2. Usually, your research question determines which libraries you want to use to solve it.
    Similarly, the data format you have determines file format you want to use.
-2. However, if you're using a previously existing framework or tools or you work in a specific field, you should prioritize using the formats that are used in said framework/tools/field.
-3. When you're starting your project, it's a good idea to take your initial data, clean it, and store the results in a good binary format that works as a starting point for your future analysis.
+3. However, if you're using a previously existing framework or tools or you work in a specific field, you should prioritize using the formats that are used in said framework/tools/field.
+4. When you're starting your project, it's a good idea to take your initial data, clean it, and store the results in a good binary format that works as a starting point for your future analysis.
    If you've written the cleaning procedure as a script, you can always reproduce it.
-4. Throughout your work, you should use code to turn important data to human-readable format (e.g. plots, averages, ``DataFrame.head()``), not to keep your full data in a human-readable format.
-5. Once you've finished, you should store the data in a format that can be easily shared to other people.
-
-
-
-Exercise 2
-----------
-
-.. challenge::
-
-    - Create a numpy array. Store it as a npy.
-    - Read the dataframe back in and compare it to the original one. Does the data match?
-
-.. solution::
-
-   .. code-block:: python
-
-      import numpy as np
-
-      my_array = np.array(10)
-
-      np.save('my_array.npy', my_array)
-      my_array_npy = np.load('my_array.npy')
-      np.all(my_array == my_array_npy)
+5. Throughout your work, you should use code to turn important data to human-readable format (e.g. plots, averages, ``DataFrame.head()``), not to keep your full data in a human-readable format.
+6. Once you've finished, you should store the data in a format that can be easily shared to other people.
 
 
 Other file formats
 ------------------
 
-Pickle (binary)
-***************
+Pickle
+******
+
+.. admonition:: Key features
+
+   - **Type**: Binary format
+   - **Packages needed:** None (`pickle <https://docs.python.org/3/library/pickle.html>`__-module is included with Python).
+   - **Space efficiency:** Ok.
+   - **Good for sharing/archival:** No! See warning below.
+   - Tidy data:
+       - Speed: Ok
+       - Ease of use: Ok
+   - Array data:
+       - Speed: Ok
+       - Ease of use: Ok
+   - **Best use cases:** Saving Python objects for debugging.
 
 .. warning::
 
@@ -530,8 +547,7 @@ Pickle (binary)
     risky as they can contain arbitrary executable code.
 
 `Pickle <https://docs.python.org/3/library/pickle.html>`__ is Python's own serialization library.
-It allows you to store Python objects into a binary file.
-It is not a format you will want to use in the long term.
+It allows you to store Python objects into a binary file, but it is not a format you will want to use for long term storage or data sharing.
 It is best suited for debugging your code by saving the Python variables for later inspection::
 
     import pickle
@@ -543,8 +559,22 @@ It is best suited for debugging your code by saving the Python variables for lat
         data_array_pickle = pickle.load(f)
 
 
-JSON (text)
-***********
+JSON (JavaScript Object Notation)
+*********************************
+
+.. admonition:: Key features
+
+   - **Type**: Text format
+   - **Packages needed:** None (`json <https://docs.python.org/3/library/json.html#module-json>`__-module is included with Python).
+   - **Space efficiency:** Ok.
+   - **Good for sharing/archival:** No! See warning below.
+   - Tidy data:
+       - Speed: Ok
+       - Ease of use: Ok
+   - Array data:
+       - Speed: Ok
+       - Ease of use: Ok
+   - **Best use cases:** Saving Python objects for debugging.
 
 JSON is another popular human-readable data format.
 It is especially common when dealing with web applications (REST-APIs etc.).
@@ -562,12 +592,26 @@ For such data you might need to do a lot more processing.
 Excel (binary)
 **************
 
+.. admonition:: Key features
+
+   - **Type**: Text format
+   - **Packages needed:** `openpyxl <https://openpyxl.readthedocs.io/en/stable/>`__ 
+   - **Space efficiency:** Bad.
+   - **Good for sharing/archival:** Maybe.
+   - Tidy data:
+       - Speed: Bad
+       - Ease of use: Good
+   - Array data:
+       - Speed: Bad
+       - Ease of use: Ok
+   - **Best use cases:** Sharing data in many fields. Quick data analysis.
+
 Excel is very popular in social sciences and economics.
 However, it is `not a good format <https://www.bbc.com/news/technology-54423988>`__ for data science.
 
 See Pandas' documentation on `working with Excel files <https://pandas.pydata.org/docs/user_guide/io.html#excel-files>`_.
 
-Using Excel files with Pandas requires `openpyxl-package <https://openpyxl.readthedocs.io/en/stable/>`_ to be installed.
+Using Excel files with Pandas requires `openpyxl <https://openpyxl.readthedocs.io/en/stable/>`__-package to be installed.
 
 
 See also
