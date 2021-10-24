@@ -364,7 +364,8 @@ Additional exercises
 
 .. challenge:: Numpy-5
 
-   These are advanced and optional, and will not be done in most courses.
+   If you have extra time, try these out.  These are advanced and
+   optional, and will not be done in most courses.
 
    1. Reverse a vector. Given a vector, reverse it such that the last
       element becomes the first, e.g. ``[1, 2, 3]`` => ``[3, 2, 1]``
