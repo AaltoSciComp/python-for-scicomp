@@ -480,7 +480,8 @@ Example "solution" for such an exploration below.
   sns.violinplot(data=[l1, l2], palette="light:g", inner="points", orient="h")
   ```
 - And now we can focus the rest of our work to read our real data.
-- Finally we can customize the plot.
+- Finally we can customize the plot, e.g. web search for "seaborn violin plot axis labels"
+  and add `ax.set_yticklabels(['dataset 1', 'dataset 2'])`.
 ````
 
 ---
