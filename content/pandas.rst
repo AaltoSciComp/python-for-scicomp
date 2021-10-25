@@ -193,11 +193,11 @@ that reads the data.
 What would untidy data look like? Here's an example from 
 some run time statistics from a 1500 m running event::
 
-    df = pd.DataFrame([
-            {'Runner': 'Runner 1', 400: 64, 800: 128, 1200: 192, 1500: 240},
-            {'Runner': 'Runner 2', 400: 80, 800: 160, 1200: 240, 1500: 300},
-            {'Runner': 'Runner 3', 400: 96, 800: 192, 1200: 288, 1500: 360},
-             ])
+    runners = pd.DataFrame([
+                  {'Runner': 'Alex', 400: 64, 800: 128, 1200: 192, 1500: 240},
+                  {'Runner': 'Bob', 400: 80, 800: 160, 1200: 240, 1500: 300},
+                  {'Runner': 'Chris', 400: 96, 800: 192, 1200: 288, 1500: 360},
+              ])
 
 What makes this data untidy is that the column names `400, 800, 1200, 1500`
 indicate the distance ran. In a tidy dataset, this distance would be a variable
@@ -207,11 +207,11 @@ separate row.
 To make untidy data tidy, a common operation is to "melt" it, 
 which is to convert it from wide form to a long form::
 
-    df = pd.melt(df, id_vars="Runner", 
-                 value_vars=[400, 800, 1200, 1500], 
-                 var_name="distance", 
-                 value_name="time"
-                )
+    runners = pd.melt(df, id_vars="Runner", 
+                  value_vars=[400, 800, 1200, 1500], 
+                  var_name="distance", 
+                  value_name="time"
+              )
 
 In this form it's easier to **filter**, **group**, **join** 
 and **aggregate** the data, and it's also easier to model relationships 
@@ -257,12 +257,24 @@ We can easily split and concatenate or append dataframes::
     pd.concat([sub1, sub2, sub3])
     sub1.append([sub2, sub3])      # same as above
 
-Dataframes can also be merged similarly to in SQL::
+When pulling data from multiple dataframes, a powerful ``merge()`` method is
+available that acts similarly to merging in SQL. Say we have a dataframe containing the age of some athletes::
 
-    m1 = df.loc[:3, "A":"B"]
-    m2 = df.loc[3:6, ["A", "D", "E"]]
-    # merge two dataframes on column "A"
-    pd.merge(m1, m2, on="A")
+    age = pd.DataFrame([
+        {"Runner": "Chris", "Age": 18},
+        {"Runner": "Alex", "Age": 21},
+        {"Runner": "Bob", "Age": 23},
+        {"Runner": "Dave", "Age": 19},
+    ])
+
+We now want to use this table to annotate the original ``runners`` table from
+before with their age. Note that the ``runners`` and ``age`` dataframes have a
+different ordering to it, and ``age`` has an entry for ``Dave`` which is not
+present in the ``runners`` table. We can let Pandas deal with all of it using
+the ``.merge()`` method::
+
+    # Add the age for each runner
+    runners.merge(age, on="Runner")
 
 In fact, much of what can be done in SQL 
 `is also possible with pandas <https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html>`__.
