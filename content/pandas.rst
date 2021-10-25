@@ -38,7 +38,7 @@ by visiting the page and saving it to disk, or by directly reading into
 a **dataframe**::
 
     url = "https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv"
-    titanic = pd.read_csv(url)
+    titanic = pd.read_csv(url, index_col='Name')
 
 We can now view the dataframe to get an idea of what it contains and
 print some summary statistics of its numerical data::
@@ -118,20 +118,19 @@ However, the rows also have names! This is what Pandas calls the **index**::
 
     titanic.index
 
-Right now, the index of this dataframe assigns a number to each row, but we
-could just as easily use the passenger name as index::
-
-    titanic = titanic.set_index("Name")
-
 We saw above how to select a single column, but there are many ways of
 selecting (and setting) single or multiple rows, columns and values. We can
 refer to columns and rows either by number or by their name::
 
+    titanic.loc['Lam, Mr. Ali',"Age"]          # select single value by row and column
+    titanic.loc[:'Lam, Mr. Ali',"Name":"Age"]  # slice the dataframe by row and column *names*
+    titanic.iloc[0:2,3:6]                      # same slice as above by row and column *numbers*
+
+    titanic.at['Lam, Mr. Ali',"Age"] = 42      # set single value by row and column *name* (fast)
     titanic.at['Lam, Mr. Ali',"Age"]           # select single value by row and column *name* (fast)
     titanic.at['Lam, Mr. Ali',"Age"] = 42      # set single value by row and column *name* (fast)
     titanic.iat[0,5]                           # select same value by row and column *number* (fast)
-    titanic.loc[:'Lam, Mr. Ali',"Name":"Age"]  # slice the dataframe by row and column *names*
-    titanic.iloc[0:2,3:6]                      # same slice as above by row and column *numbers*
+
     titanic["foo"] = "bar"                     # set a whole column
 
 Dataframes also support boolean indexing, just like we saw for ``numpy`` 
