@@ -314,6 +314,10 @@ Exercises 4
      ``dtype='float'``, and an array of ``dtype='int'``.  Try to use the
      int array is the output argument of the first two arrays.
 
+   - **Output arguments and timing** Repeat the initial ``b = a **
+     2`` example using the output arguments and time it.  Can you make
+     it even faster using the output argument?
+
 .. solution:: Solution: Numpy-4
 
    - **in-place addition**::
@@ -330,6 +334,20 @@ Exercises 4
      output array (same as ``out=``), *and* the function returns that
      same array.
 
+
+   - **Output arguments and timing** In this case, on my computer, it was
+     actually slower (this is due to it being such a small array!)::
+
+        a = np.arange(10000)
+	b = np.zeros(10000)
+
+     ::
+
+	%%timeit
+	numpy.square(a, out=b)
+
+     This is a good example of why you always need to time things
+     before deciding what is best.
 
 
 Linear algebra and other advanced math
