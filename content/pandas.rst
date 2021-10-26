@@ -278,29 +278,23 @@ the ``.merge()`` method::
 In fact, much of what can be done in SQL 
 `is also possible with pandas <https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html>`__.
 
-Functions can be applied to a whole dataframe or parts of it::
+``groupby()`` is a powerful method which splits a dataframe and aggregates data
+in groups. To see what's possible, let's return to the Titanic dataset. Let's
+test the old saying "Women and children first". We start by creating a new
+column ``Child`` to indicate whether a passenger was a child or not, based on
+the existing ``Age`` column. For this example, let's assume that you are a
+child when you are younger than 12 years::
 
-    df.apply(np.cumsum)   # you can also pass your own custom functions
-    df.loc[:, "C":"E"].apply(np.cumsum)
+    titanic["Child"] = titanic["Age"] < 12
 
-Most common statistical functions are in fact already available 
-as dataframe methods, like ``std()``, ``min()``, ``max()``, 
-``cumsum()``, ``median()``, ``skew()``, ``var()`` etc. 
+Now we can test the saying by grouping the data on ``Sex`` and then creating further sub-groups based on ``Child``::
 
-``pivot_table()`` and ``groupby()`` are two powerful methods which 
-are applied to dataframes to split and aggregate data in groups.
-They work similarly but differ in the shape of the result.
-To see what's possible, let's return to the Titanic dataset.
-We start by rounding all ages to the nearest decade and then create 
-a pivot table showing the mean of fares split by gender and survival::
+    titanic.groupby(["Sex", "Child"])["Survival"].mean()
 
-    titanic["Age"] = titanic["Age"].round(-1)
-    pd.pivot_table(titanic, values="Fare", index=["Sex", "Survived"], 
-                   columns=["Age"], aggfunc=np.mean)
-
-The same operation with group-by is::
-
-    titanic.groupby(["Sex", "Survived", "Age"])["Fare"].mean()
+Here we chose to summarize the data by its mean, but many other common
+statistical functions are available as dataframe methods, like
+``std()``, ``min()``, ``max()``, ``cumsum()``, ``median()``, ``skew()``,
+``var()`` etc. 
 
 
 
@@ -317,8 +311,9 @@ Exercises 2
     - (Advanced) Create histograms showing the distribution of family sizes for 
       passengers split by the fare, i.e. one group of high-fare passengers (where 
       the fare is above average) and one for low-fare passengers 
-      (Hint: you can use the lambda function 
-      ``lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich"``)
+      (Hint: instead of an existing column name, you can give a lambda function
+      as a parameter to ``hist`` to compute a value on the fly. For example
+      ``lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich"``).
 
 .. solution:: Solution
 
@@ -384,17 +379,26 @@ Exercises 3
 
     Now more advanced steps:
     
-    - First add a column “number” to the nobel dataframe containing 1’s 
-      (to enable the counting below).          
     - Now define an array of 4 countries of your choice and extract 
       only laureates from these countries::
       
           countries = np.array([COUNTRY1, COUNTRY2, COUNTRY3, COUNTRY4])
           subset = nobel.loc[nobel['bornCountry'].isin(countries)]
 
-    - Create a pivot table to view a spreadsheet like structure, and view it::
+    - Use ``groupby`` to compute how many nobel prizes each country received in
+      each category. The ``size()`` method tells us how many rows, hence nobel
+      prizes, are in each group::
 
-        table = subset.pivot_table(values="number", index="bornCountry", columns="category", aggfunc=np.sum)
+          nobel.groupby(['bornCountry', 'category']).size()
+
+    - (Optional) Create a pivot table to view a spreadsheet like structure, and view it
+
+        - First add a column “number” to the nobel dataframe containing 1’s 
+          (to enable the counting below).          
+
+        - Then create the pivot table::
+
+            table = subset.pivot_table(values="number", index="bornCountry", columns="category", aggfunc=np.sum)
         
     - (Optional) Install the **seaborn** visualization library if you don't 
       already have it, and create a heatmap of your table::
@@ -419,6 +423,30 @@ Exercises 3
       
         sns.catplot(x="bornCountry", col="category", data=subset_physchem, kind="count");
 
+
+Beyond the basics
+-----------------
+
+There is much more to Pandas than what we covered in this lesson. Whatever your
+needs are, chances are good there is a function somewhere in its `API
+<https://pandas.pydata.org/docs/>`__. And when there is not, you can always
+apply your own functions to the data using `.apply`::
+
+    from functools import lru_cache
+
+    @lru_cache
+    def fib(x):
+        """Compute Fibonacci numbers. The @lru_cache remembers values we
+        computed before, which speeds up this function a lot."""
+        if x < 0:
+            raise NotImplementedError('Not defined for negative values')
+        elif x < 2:
+            return x
+        else:
+            return fib(x - 2) + fib(x - 1)
+
+    df = pd.DataFrame({'Generation': np.arange(100)})
+    df['Number of Rabbits'] = df['Generation'].apply(fib)
 
 
 .. keypoints::
