@@ -33,6 +33,7 @@ this into two types:
 We'll start with the first then go to the second.
 
 
+
 Glossary
 --------
 
@@ -56,6 +57,18 @@ This section is nothing more than a tour of what exists in Python.
 You aren't expected to particularly remember any of these right now,
 but searching for these repositories is a starting point of a lot of
 future work.
+
+The "core" packages `could be considered
+<https://www.scipy.org/about.html>`__.  Many other packages build on
+these, and others that try to do similar things often try to conform
+to their interfaces (especially numpy):
+
+* Python
+* Numpy - arrays, everything builds on this
+* Scipy - scientific functions (not necessarily a lot builds on this)
+* matplotlib - plotting, many other plotting tools build on this
+* pandas - data structures
+* IPython / Jupyter: interactive work
 
 
 
@@ -204,8 +217,8 @@ These days, one rarely directly extends the Python interpreter, but uses
 
 
 
-Reusing small-scale Python packages
------------------------------------
+Evaluating Python packages for reuse
+------------------------------------
 
 Above, we talked about well-maintained mainstream packages.  **Do you
 trust random code you find online (for example included in a paper)?**
@@ -241,6 +254,28 @@ Below are some things to consider:
   dealt with in a timely manner?  Can you search past bug reports?
 
 * Is the software citeable?
+
+
+
+Is your work reuseable?
+-----------------------
+
+Every small project you do contributes a little bit to the Python and
+SciPy ecosystem.  This course has sort of started you on that path,
+and a `CodeRefinery workshop <https://coderefinery.org>`__ will make
+sure you have the tools to produce high-quality, reusable code.
+
+
+
+What's next?
+------------
+
+* The `CodeRefinery workshop <https://coderefinery.org>`__ mentioned
+  above will prepare you for others to reuse your code and for you to
+  contribute to other code.
+* The upcoming :doc:`dependencies` lesson will teach you how to
+  record and manage dependencies so that anyone can seamlessly reuse
+  your code.
 
 
 
@@ -297,28 +332,6 @@ Exercises
    one of the authors of this lesson.  It goes to show that everyone
    starts somewhere and improves over time - don't feel bad if your
    work isn't perfect, as long as you keep trying to get better!
-
-
-
-Your stuff
-----------
-
-Every small project you do contributes a little bit to the Python and
-SciPy ecosystem.  This course has sort of started you on that path,
-and a `CodeRefinery workshop <https://coderefinery.org>`__ will make
-sure you have the tools to produce high-quality, reusable code.
-
-
-
-What's next?
-------------
-
-* The `CodeRefinery workshop <https://coderefinery.org>`__ mentioned
-  above will prepare you for others to reuse your code and for you to
-  contribute to other code.
-* The upcoming :doc:`dependencies` lesson will teach you how to
-  record and manage dependencies so that anyone can seamlessly reuse
-  your code.
 
 
 
