@@ -413,6 +413,30 @@ Exercises 3
         sns.catplot(x="bornCountry", col="category", data=subset_physchem, kind="count");
 
 
+Beyond the basics
+-----------------
+
+There is much more to Pandas than what we covered in this lesson. Whatever your
+needs are, chances are good there is a function somewhere in its `API
+<https://pandas.pydata.org/docs/>`__. And when there is not, you can always
+apply your own functions to the data using `.apply`::
+
+    from functools import lru_cache
+
+    @lru_cache
+    def fib(x):
+        """Compute Fibonacci numbers. The @lru_cache remembers values we
+        computed before, which speeds up this function a lot."""
+        if x < 0:
+            raise NotImplementedError('Not defined for negative values')
+        elif x < 2:
+            return x
+        else:
+            return fib(x - 2) + fib(x - 1)
+
+    df = pd.DataFrame({'Generation': np.arange(100)})
+    df['Number of Rabbits'] = df['Generation'].apply(fib)
+
 
 .. keypoints::
 
