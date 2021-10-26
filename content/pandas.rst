@@ -193,9 +193,9 @@ What would untidy data look like? Here's an example from
 some run time statistics from a 1500 m running event::
 
     runners = pd.DataFrame([
-                  {'Runner': 'Alex', 400: 64, 800: 128, 1200: 192, 1500: 240},
-                  {'Runner': 'Bob', 400: 80, 800: 160, 1200: 240, 1500: 300},
-                  {'Runner': 'Chris', 400: 96, 800: 192, 1200: 288, 1500: 360},
+                  {'Runner': 'Runner 1', 400: 64, 800: 128, 1200: 192, 1500: 240},
+                  {'Runner': 'Runner 2', 400: 80, 800: 160, 1200: 240, 1500: 300},
+                  {'Runner': 'Runner 3', 400: 96, 800: 192, 1200: 288, 1500: 360},
               ])
 
 What makes this data untidy is that the column names `400, 800, 1200, 1500`
@@ -260,10 +260,10 @@ When pulling data from multiple dataframes, a powerful ``merge()`` method is
 available that acts similarly to merging in SQL. Say we have a dataframe containing the age of some athletes::
 
     age = pd.DataFrame([
-        {"Runner": "Chris", "Age": 18},
-        {"Runner": "Alex", "Age": 21},
-        {"Runner": "Bob", "Age": 23},
-        {"Runner": "Dave", "Age": 19},
+        {"Runner": "Runner 4", "Age": 18},
+        {"Runner": "Runner 2", "Age": 21},
+        {"Runner": "Runner 1", "Age": 23},
+        {"Runner": "Runner 3", "Age": 19},
     ])
 
 We now want to use this table to annotate the original ``runners`` table from
