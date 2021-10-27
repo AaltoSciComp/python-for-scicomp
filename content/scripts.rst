@@ -151,8 +151,8 @@ specified output file name. For this, rather than copying several time the same 
 different time ranges or output file names, we can update the main code to take the 
 start/end time and output file name from the command line
 
-**Example**: We create a Python script and pass both the start and end time and the output
-file name as command line arguments. Create a file named myscript.py with the following content:
+**Example**: We modify the **weather_observations.py** script to allow passing both start
+and end data as well as the output argument to the function:
 
 .. code-block:: python
    :emphasize-lines: 1,6-7,9
@@ -205,7 +205,7 @@ This example not only gives you descriptive command line
 arguments, it also automatically generates a ``--help`` option for you:
 
 .. code-block:: python
-   :emphasize-lines: 1,6-13
+   :emphasize-lines: 1,5-14
    
    import argparse
    import pandas as pd
@@ -220,10 +220,10 @@ arguments, it also automatically generates a ``--help`` option for you:
    parser.add_argument('-e', '--end', type=str, default="1/1/2021"
                     help="output filename")
    
-   parser.parse_args()
+   args = parser.parse_args()
                     
-   start_date = pd.to_datetime(parser.start,dayfirst=True)
-   end_date = pd.to_datetime(parser.end,dayfirst=True)
+   start_date = pd.to_datetime(args.start,dayfirst=True)
+   end_date = pd.to_datetime(args.end,dayfirst=True)
 
    ...
    	  
@@ -232,7 +232,7 @@ arguments, it also automatically generates a ``--help`` option for you:
    
    ...
    
-   fig.savefig(parser.output)
+   fig.savefig(args.output)
 
 
 
