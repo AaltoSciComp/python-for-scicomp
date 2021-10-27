@@ -3,11 +3,14 @@ SciPy
 
 .. questions::
 
-   - When you need more advanced mathematical functions, where do you look?
+   - When you need more advanced mathematical functions, where do you
+     look?
 
 .. objectives::
 
    - Understand that SciPy exists and what kinds of things it has.
+   - Understand the importance of using external libraries and how to
+     use them.
    - Understand the purpose of wrapping existing C/Fortran code.
    - Non-objective: know details of everything (or anything) in SciPy.
 
@@ -51,10 +54,21 @@ implementation.
 
 
 
-Example: Numerical integration
-------------------------------
+Exercises: use SciPy
+--------------------
+
+These exercises do not exist because *you* might need *these*
+functions someday.  They are because *you* will need to *read
+documentation and understand documentation of an an external library*
+eventually.
+
+1: Numerical integration
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. challenge::
+
+   Do the following exercise **or** read the documentation and
+   understand the relevant functions of SciPy:
 
    Define a function of one variable and using
    `scipy.integrate.quad <https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html#scipy.integrate.quad>`__
@@ -85,10 +99,13 @@ Example: Numerical integration
 
 
 
-Exercise 3.2
-------------
+2: Sparse matrices
+~~~~~~~~~~~~~~~~~~
 
 .. challenge::
+
+   Do the following exercise **or** read the documentation and
+   understand the relevant functions of SciPy:
 
    Use the SciPy sparse matrix functionality to create a random sparse
    matrix with a probability of non-zero elements of 0.05 and size 10000
@@ -104,6 +121,48 @@ Exercise 3.2
 
    Can you figure out a quick rule of thumb when it's worth using a
    sparse matrix representation vs. a dense representation?
+
+.. solution::
+
+   The basic code to do the test is:
+
+   .. code-block::
+
+      import numpy
+      import scipy.sparse
+
+      vector = numpy.random.random(10000)
+      matrix = scipy.sparse.rand(10000, 10000, density=.05, format='csc')
+
+      # We time this line
+      matrix.dot(vector)
+
+   From the top of the `spare matrix module documentation
+   <https://docs.scipy.org/doc/scipy/reference/sparse.html>`__, we can
+   see there are a variety of different available sparse matrix types:
+   ``bsr``, ``coo``, ``csr``, ``csc``, etc.  These each represent a
+   different way of storing the matrices.
+
+   It seems that ``csr`` and ``csc`` are fairly fast.  ``lil`` and
+   ``dok`` are slow but it says that these are good for creating
+   matrices with random insertions.
+
+   For example, ``csr`` takes 7ms, ``lil`` 42ms, ``dok`` 1600ms, and
+   converting to a non-sparse array ``matrix.toarray()`` and
+   multiplying takes 64ms on one particular computer.
+
+   This code allows us to time the performance at different
+   densities.  It seems that with the ``csr`` format, sparse is better
+   below densities of around .4 to .5:
+
+   ..code-block::
+
+      for density in [.01, .05, .1, .2, .3, .4, .5]:
+          matrix = scipy.sparse.rand(10000, 10000, density=density, format='csr')
+	  time_sparse = timeit.timeit('matrix.dot(vector)', number=10, globals=globals())
+	  matrix2 = matrix.toarray()
+	  time_full = timeit.timeit('matrix2.dot(vector)', number=10, globals=globals())
+	  print(f"{density} {time_sparse:.3f} {time_full:.3f}")
 
 
 

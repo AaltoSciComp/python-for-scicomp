@@ -85,7 +85,7 @@ Exercises 1
 Importing other python files
 ----------------------------
 
-We have a very short notebook that loads and plots data. but even in this script, we have to do a bit of processing (changing the format of the dates). We also extract a subset of our data for a 
+We have a very short notebook that loads and plots data. But even in this script, we have to do a bit of processing (changing the format of the dates). We also extract a subset of our data for a 
 given date range. 
 
 In general, it is good practice to separate processing from plotting. The reason is that you often need to generate multiple plots using the data while pre-processing data once only. 
@@ -186,7 +186,7 @@ We can try it out::
   - Does it work?
 
   - Why is this better than modifying the script every time I want it to
-    operate on a different file?
+    plot data for a different period?
 
   - What problems do you expect when using this approach (using ``sys.argv``)?
 
