@@ -3,11 +3,14 @@ SciPy
 
 .. questions::
 
-   - When you need more advanced mathematical functions, where do you look?
+   - When you need more advanced mathematical functions, where do you
+     look?
 
 .. objectives::
 
    - Understand that SciPy exists and what kinds of things it has.
+   - Understand the importance of using external libraries and how to
+     use them.
    - Understand the purpose of wrapping existing C/Fortran code.
    - Non-objective: know details of everything (or anything) in SciPy.
 
@@ -51,10 +54,21 @@ implementation.
 
 
 
-Example: Numerical integration
-------------------------------
+Exercises: use SciPy
+--------------------
+
+These exercises do not exist because *you* might need *these*
+functions someday.  They are because *you* will need to *read
+documentation and understand documentation of an an external library*
+eventually.
+
+1: Numerical integration
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. challenge::
+
+   Do the following exercise **or** read the documentation and
+   understand the relevant functions of SciPy:
 
    Define a function of one variable and using
    `scipy.integrate.quad <https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html#scipy.integrate.quad>`__
@@ -85,10 +99,13 @@ Example: Numerical integration
 
 
 
-Exercise 3.2
-------------
+2: Sparse matrices
+~~~~~~~~~~~~~~~~~~
 
 .. challenge::
+
+   Do the following exercise **or** read the documentation and
+   understand the relevant functions of SciPy:
 
    Use the SciPy sparse matrix functionality to create a random sparse
    matrix with a probability of non-zero elements of 0.05 and size 10000
