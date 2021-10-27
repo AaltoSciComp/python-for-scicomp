@@ -146,7 +146,7 @@ Exercises 2
      Or use the one-liner if you have access to a terminal like bash
 
      python -c "import numpy; print(numpy.__version__)"
-     python -c "import matplotlib;print(matplotlib.__file__)"
+     python -c "import matplotlib;print(matplotlib.__version__)"
 
   4. Deactivate the environment::
 
