@@ -33,6 +33,7 @@ this into two types:
 We'll start with the first then go to the second.
 
 
+
 Glossary
 --------
 
@@ -56,6 +57,18 @@ This section is nothing more than a tour of what exists in Python.
 You aren't expected to particularly remember any of these right now,
 but searching for these repositories is a starting point of a lot of
 future work.
+
+The "core" packages `could be considered
+<https://www.scipy.org/about.html>`__.  Many other packages build on
+these, and others that try to do similar things often try to conform
+to their interfaces (especially numpy):
+
+* Python
+* Numpy - arrays, everything builds on this
+* Scipy - scientific functions (not necessarily a lot builds on this)
+* matplotlib - plotting, many other plotting tools build on this
+* pandas - data structures
+* IPython / Jupyter: interactive work
 
 
 
@@ -204,8 +217,8 @@ These days, one rarely directly extends the Python interpreter, but uses
 
 
 
-Reusing small-scale Python packages
------------------------------------
+Evaluating Python packages for reuse
+------------------------------------
 
 Above, we talked about well-maintained mainstream packages.  **Do you
 trust random code you find online (for example included in a paper)?**
@@ -244,40 +257,8 @@ Below are some things to consider:
 
 
 
-Exercises
----------
-
-.. exercise:: Libraries 1.1: Libraries in your work
-
-   TODO: What libraries do you use in your work?
-
-.. solution:: Libraries 1.1
-
-   TODO: some example of one person's work
-
-
-.. exercise:: Libraries 1.2: Evaluating packages
-
-   Below are some links to some packages, both public and made by the
-   authors of this lesson.  Evaluate them, considering "would I use
-   this in my project?"
-
-   a) TODO: mainstream package
-   b) TODO: code on webpage
-   c) TODO: github code but no supporting info at all
-   d) TODO: smaller community project
-   e) TODO: something that looks good but without community
-
-.. solution:: Libraries 1.2
-
-   Discussion of the packages.
-
-   Comments on slow improvement of one's skills over time.
-
-
-
-Your stuff
-----------
+Is your work reuseable?
+-----------------------
 
 Every small project you do contributes a little bit to the Python and
 SciPy ecosystem.  This course has sort of started you on that path,
@@ -295,6 +276,62 @@ What's next?
 * The upcoming :doc:`dependencies` lesson will teach you how to
   record and manage dependencies so that anyone can seamlessly reuse
   your code.
+
+
+
+Exercises
+---------
+
+.. exercise:: Libraries 1.1: Libraries in your work
+
+   What libraries do you use in your work?  What have you made, which
+   you could have reused from some other source.  What have you used
+   from some other source that you wished you had re-created?
+
+.. solution:: Libraries 1.1
+
+   ... no solution is provided yet.
+
+
+.. exercise:: Libraries 1.2: Evaluating packages
+
+   Below are some links to some packages, both public and made by the
+   authors of this lesson.  Evaluate them, considering "would I use
+   this in my project?"
+
+   a) https://github.com/networkx/networkx/
+   b) some code on webpage in a paper's footnote
+   c) https://github.com/rkdarst/pcd
+   d) https://github.com/dftlibs/numgrid
+   e) https://github.com/rkdarst/dynbench
+   f) https://vpython.org/
+
+.. solution:: Libraries 1.2
+
+   a) networkx: This seems to be a relatively large, active project
+      using best practices.  Probably usable.
+   b) I would probably use it if I had to, but would prefer not to.
+   c) This (written by one of the authors of this lesson) has no
+      documenting, no community, no best practices, and is very old.
+      Probably not a good idea to try to use it
+   d) This project uses best practices, but doesn't seem to have a big
+      community.  It's probably fine to use, but who knows if it will
+      be maintained 10 years from now.  It does have automated tests
+      via Github Actions (``.github/workflows`` and the green checks),
+      so the authors have put some work into making it correct.
+   e) This (also written by one of the authors) looks like it was made
+      for a paper of some sort.  It has some minimal documentation,
+      but still is missing many best practices and is clearly not
+      maintained anymore (look at the ancient pull request).  Probably
+      not a good idea to use unless you have to.
+   f) This project has a pretty website, and some information.  But
+      seems to not be using best practices of an open repository, and
+      custom locations which could disappear at any time.
+
+   You notice that several of the older projects here were written by
+   one of the authors of this lesson.  It goes to show that everyone
+   starts somewhere and improves over time - don't feel bad if your
+   work isn't perfect, as long as you keep trying to get better!
 
 
 
