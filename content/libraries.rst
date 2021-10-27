@@ -288,9 +288,11 @@ Exercises
    you could have reused from some other source.  What have you used
    from some other source that you wished you had re-created?
 
+   Discuss in your groups or HackMD.
+
 .. solution:: Libraries 1.1
 
-   ... no solution is provided yet.
+   ... is there anything to say here?
 
 
 .. exercise:: Libraries 1.2: Evaluating packages
