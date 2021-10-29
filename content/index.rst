@@ -42,6 +42,11 @@ to learn yourself as you need to.
    - Knowing how to make scripts or use Jupyter
 
 
+.. admonition:: Videos
+
+   Videos from the 2021 instance of this course can be found in
+   `this YouTube playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOS7bHNmbcDoyTnMYaz_TJW>`__.
+
 
 .. csv-table::
    :widths: auto
