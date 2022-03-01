@@ -191,7 +191,7 @@ This course was originally designed by Janne Blomqvist.
 
 In 2020 it was completely redesigned by a team of the following:
 
-* Authors: Radovan Bast, Richard Darst, Anne Fouilloux, ...
+* Authors: Radovan Bast, Richard Darst, Anne Fouilloux, Thor Wikfeldt, ...
 * Editor:
 * Testers and advisors: Enrico Glerean
 
