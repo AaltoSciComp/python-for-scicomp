@@ -138,7 +138,7 @@ arrays::
 
     titanic[titanic["Age"] > 70]
     # ".str" creates a string object from a column
-    titanic[titanic["Name"].str.contains("Margaret")]
+    titanic[titanic.index.str.contains("Margaret")]
 
 What if your dataset has missing data? Pandas uses the value ``np.nan`` 
 to represent missing data, and by default does not include it in any computations.
@@ -206,7 +206,7 @@ separate row.
 To make untidy data tidy, a common operation is to "melt" it, 
 which is to convert it from wide form to a long form::
 
-    runners = pd.melt(df, id_vars="Runner", 
+    runners = pd.melt(runners, id_vars="Runner", 
                   value_vars=[400, 800, 1200, 1500], 
                   var_name="distance", 
                   value_name="time"
@@ -289,7 +289,7 @@ child when you are younger than 12 years::
 
 Now we can test the saying by grouping the data on ``Sex`` and then creating further sub-groups based on ``Child``::
 
-    titanic.groupby(["Sex", "Child"])["Survival"].mean()
+    titanic.groupby(["Sex", "Child"])["Survived"].mean()
 
 Here we chose to summarize the data by its mean, but many other common
 statistical functions are available as dataframe methods, like
