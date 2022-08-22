@@ -197,3 +197,11 @@ In 2020 it was completely redesigned by a team of the following:
 
 We follow The Carpentries Code of Conduct: https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
 
+
+See also
+========
+
+* `High Performance Data Analytics in Python
+  <https://enccs.github.io/HPDA-Python/>` is a logical follow-up to
+  this lesson that goes more in-depth to tools of high-performance
+  and large-scale Python.
