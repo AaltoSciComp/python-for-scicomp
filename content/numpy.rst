@@ -3,9 +3,9 @@ NumPy
 
 .. questions::
 
-   - What is vectorization?
    - Why using NumPy instead of pure python?
    - How to use basic NumPy?
+   - What is vectorization?
 
 .. objectives::
 
@@ -89,16 +89,16 @@ There are different ways of creating arrays (:func:`numpy.array`, :attr:`numpy.n
 
 In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content (:func:`numpy.zeros`, :func:`numpy.ones`, :func:`numpy.full`, :func:`numpy.eye`, :func:`numpy.arange`, :func:`numpy.linspace`)::
 
-   np.zeros((2, 3))           # 2x3 array with all elements 0
-   np.ones((1,2))             # 1x2 array with all elements 1
-   np.full((2,2),7)           # 2x2 array with all elements 7
-   np.eye(2)                  # 2x2 identity matrix
+   np.zeros((2, 3))             # 2x3 array with all elements 0
+   np.ones((1,2))               # 1x2 array with all elements 1
+   np.full((2,2),7)             # 2x2 array with all elements 7
+   np.eye(2)                    # 2x2 identity matrix
 
-   np.arange(10)              # Evenly spaced values in an interval
-   np.linspace(0,9,10)        # same as above, see exercise
+   np.arange(10)                # Evenly spaced values in an interval
+   np.linspace(0,9,10)          # same as above, see exercise
 
    c = np.ones((3,3))
-   d = np.ones((3, 2), bool)  # 3x2 boolean array
+   d = np.ones((3, 2), 'bool')  # 3x2 boolean array
 
 Arrays can also be stored and read from a (.npy) file (:func:`numpy.save`, :func:`numpy.load`):: 
 
@@ -126,7 +126,7 @@ Exercises 1
 
    2. **Datatypes** Create a 3x2 array of random float numbers (check :func:`numpy.random.random`) between 0 and 1. Now change the arrays datatype to int (:meth:`array.astype <numpy.ndarray.astype>`). How does the array look like? 
 
-   3. **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Reshape the array in any way possible. What is not possible?
+   3. **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Change the shape of the array (check :meth:`array.reshape <numpy.ndarray.reshape>`) in any way possible. What is not possible?
 
    4. **NumPyI/O** Save above array to .npy file (:func:`numpy.save`) and read it in again.
 
@@ -151,25 +151,36 @@ Exercises 1
 
 
 
-Array maths
-------------
+Array maths and vectorization
+-----------------------------
 
-Clearly, you can do math on arrays.  Math in NumPy, is very fast
-because it is implemented in C or Fortran - just like most other
-high-level languages such as R, Matlab, etc do.
+Clearly, you can do math on arrays.  Math in NumPy is very fast because it is
+implemented in C or Fortran - just like most other high-level languages such as
+R, Matlab, etc do.
 
-By default, in NumPy all math is element-by-element.  This is unlike
-Matlab, where most things are element-by-element, but ``*`` becomes
-array multiplication.  NumPy values consistency and does not treat
-2-dimensional arrays specially (:data:`numpy.add`)::
+By default, basic arithmetic (``+``, ``-``, ``*``, ``/``) in NumPy is
+element-by-element.  That is, the operation is performed for each element in the
+array without you having to write a loop.  We say an operation is "vectorized"
+when the looping over elements is carried out by NumPy internally, which uses
+specialized CPU instructions for this that greatly outperform a regular Python
+loop.
+
+Note that unlike Matlab, where ``*`` means matrix multiplication, NumPy uses
+``*`` to perform element-by-element multiplication and uses the ``@`` symbol to
+perform matrix multiplication::
 
   a = np.array([[1,2],[3,4]])
   b = np.array([[5,6],[7,8]])
 
+  # Addition
   c = a + b
   d = np.add(a,b)
 
-Also: ``-`` (:data:`numpy.subtract`), ``*`` (:data:`numpy.multiply`), ``/`` (:data:`numpy.divide`), :data:`numpy.sqrt`, :func:`numpy.sum`, :func:`numpy.mean`, ...
+  # Matrix multiplication
+  e = a @ b
+  f = np.dot(a, b)
+
+Other common mathematical operations include: ``-`` (:data:`numpy.subtract`), ``*`` (:data:`numpy.multiply`), ``/`` (:data:`numpy.divide`), ``.T`` (:func:`numpy.transpose`), :data:`numpy.sqrt`, :func:`numpy.sum`, :func:`numpy.mean`, ...
 
 
 
