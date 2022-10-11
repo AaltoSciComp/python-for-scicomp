@@ -92,6 +92,7 @@ to learn yourself as you need to.
 
    installation
    quick-reference
+   exercises
    guide
 
 
