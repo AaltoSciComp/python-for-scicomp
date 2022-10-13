@@ -141,7 +141,7 @@ of "strides"::
   np.zeros((4, 8)).strides           # (64, 8)
   np.zeros((4, 5, 6, 7, 8)).strides  # (13440, 2688, 448, 64, 8)
 
-The ``.strides`` attribute contains for each dimension, the number of bytes we
+The ``.strides`` attribute contains for each dimension, the number of *bytes* (not array indexes) we
 have to skip over to get to the next element along that dimension. For example,
 the result above tells us that to get to the next row in a 4 ✕ 8 matrix, we
 have to skip ahead 64 bytes. 64? Yes! We have created a matrix consisting of
