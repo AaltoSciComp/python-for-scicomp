@@ -166,7 +166,7 @@ Let's time the :func:`numpy.transpose` function::
   b = a.transpose()
 
 It takes mere nanoseconds to transpose 1600 MB of data! NumPy avoided copying
-any data by modifying the ``.strides``::
+any data by *only* modifying the ``.strides`` of the existing array in-place::
 
   print(a.strides)  # (160000, 8)
   print(b.strides)  # (8, 160000)
