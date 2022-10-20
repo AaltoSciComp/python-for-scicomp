@@ -29,6 +29,9 @@ jobs:
           echo "github.event_name:" ${{github.event_name}}
           echo "github.head_ref:" ${{github.head_ref}}
           echo "github.base_ref:" ${{github.base_ref}}
+          echo "GITHUB_REPOSITORY" "$GITHUB_REPOSITORY"
+          echo "GITHUB_ACTION" "$GITHUB_ACTION"
+          echo "GITHUB_REF" "$GITHUB_REF"
           git rev-parse --abbrev-ref HEAD
           git branch
           git branch -a

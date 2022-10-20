@@ -36,6 +36,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.intersphinx',
     'sphinx_aaltoscicomp_branding',
+    'sphinx_plausible',
 ]
 
 import os
