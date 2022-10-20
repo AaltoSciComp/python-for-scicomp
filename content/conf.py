@@ -38,6 +38,15 @@ extensions = [
     'sphinx_aaltoscicomp_branding',
 ]
 
+import os
+plausible_domain = 'aaltoscicomp.github.io/python-for-scicomp'
+plausible_enabled = (
+    'GITHUB_ACTION' in os.environ
+    and os.environ.get('GITHUB_REPOSITORY', '').lower() == 'aaltoscicomp/python-for-scicomp'
+    and os.environ.get('GITHUB_REF') == 'refs/heads/master'
+      )
+
+
 # Add any paths that contain templates here, relative to this directory.
 #templates_path = ['_templates']
 
