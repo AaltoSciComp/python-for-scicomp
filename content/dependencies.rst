@@ -125,7 +125,7 @@ Exercises 2
 
   2. Activate the environment::
 
-     $ conda activate python36-env
+     $ conda activate python36-env
 
      .. callout:: conda activate versus source activate
 
@@ -184,7 +184,7 @@ Exercises 3
 
   1. Create a venv::
 
-     $ python -m venv scicomp
+     $ python -m venv scicomp
 
      Here ``scicomp`` is the name of the virtual environment. It creates a new
      folder called ``scicomp``.
@@ -194,7 +194,7 @@ Exercises 3
 
      - **Linux/Mac-OSX**: look at ``bin`` folder in the ``scicomp`` folder::
 
-        $ source scicomp/bin/activate
+	$ source scicomp/bin/activate
 
      - **Windows**: most likely you can find it in the ``Scripts`` folder.
 
@@ -205,7 +205,7 @@ Exercises 3
 
   4. Deactivate it::
 
-     $ deactivate
+     $ deactivate
 
 
 Recording dependencies
@@ -270,16 +270,16 @@ Dependencies 4
 
   - Create an environment based on these dependencies:
      - Conda: ``$ conda create --name myenvironment --file requirements.txt``
-     - Virtual environment: First create and activate, then ``$ pip install -r requirements.txt``
+     - Virtual environment: First create and activate, then ``$ pip install -r requirements.txt``
 
   - Freeze the environment:
-     - Conda: ``$ conda list --export > requirements.txt`` or ``$ conda env export > environment.yml``
-     - Virtual environment: ``$ pip freeze > requirements.txt``
+     - Conda: ``$ conda list --export > requirements.txt`` or ``$ conda env export > environment.yml``
+     - Virtual environment: ``$ pip freeze > requirements.txt``
 
   - Have a look at the generated ("frozen") file.
 
 
-Tip: instead of installing packages with ``$ pip install somepackage``, what I do is
+Tip: instead of installing packages with ``$ pip install somepackage``, what I do is
 to add ``somepackage`` to ``requirements.txt`` or ``environment.yml`` and install
 from the file, then you have a trace of all installed dependencies.
 
