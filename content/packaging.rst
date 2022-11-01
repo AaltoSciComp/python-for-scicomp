@@ -68,10 +68,10 @@ This is how we will arrange the files in the project folder/repository:
 
    project-folder
    ├── calculator
-   │   ├── adding.py
-   │   ├── __init__.py
-   │   ├── integrating.py
-   │   └── subtracting.py
+   │   ├── adding.py
+   │   ├── __init__.py
+   │   ├── integrating.py
+   │   └── subtracting.py
    ├── LICENSE
    └── README.md
 
@@ -95,10 +95,10 @@ To make our example package pip-installable we need to add one more file:
 
    project-folder
    ├── calculator
-   │   ├── adding.py
-   │   ├── __init__.py
-   │   ├── integrating.py
-   │   └── subtracting.py
+   │   ├── adding.py
+   │   ├── __init__.py
+   │   ├── integrating.py
+   │   └── subtracting.py
    ├── LICENSE
    ├── README.md
    └── setup.py
@@ -154,11 +154,11 @@ We need two more things:
 
 Let's try it out. First we create the distribution package::
 
-  $ python setup.py sdist
+  $ python setup.py sdist
 
 We need twine::
 
-  $ pip install twine
+  $ pip install twine
 
 And use twine to upload the distribution files to test-PyPI::
 
