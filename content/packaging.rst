@@ -63,7 +63,7 @@ Note how it imports functions from the various modules using *relative imports*
 
 This is how we will arrange the files in the project folder/repository:
 
-.. code-block::
+.. code-block:: none
    :emphasize-lines: 3-6
 
    project-folder
@@ -90,7 +90,7 @@ Testing a local pip install
 
 To make our example package pip-installable we need to add one more file:
 
-.. code-block::
+.. code-block:: none
    :emphasize-lines: 9
 
    project-folder
@@ -201,7 +201,7 @@ Building a conda package and share it
 
   To create a conda package, `conda-build` package is required. You may install it with **Anaconda Navigator** or from the command line::
 
-    conda install conda-build
+    $ conda install conda-build
 
 
 The simplest way for creating a conda package for your python script is to
@@ -219,11 +219,13 @@ library for research software.
 
 1. Create pypi skeleton::
 
-      conda skeleton pypi runtest
+      $ conda skeleton pypi runtest
 
    The command above will create a new folder called `runtest` containing a file `meta.yaml`, the conda recipe for `runtest`.
 
-2. Edit `meta.yaml` and update requirements::
+2. Edit `meta.yaml` and update requirements:
+
+   .. code-block:: yaml
 
       requirements:
         host:
@@ -246,7 +248,7 @@ library for research software.
 
    Your package is now ready to be build with conda::
 
-     conda-build runtest
+     $ conda-build runtest
 
 
    .. callout:: Conda package location
@@ -265,13 +267,16 @@ library for research software.
 
    ::
 
-      conda create -n local-runtest --use-local runtest
+      $ conda create -n local-runtest --use-local runtest
 
    We can then check `runtest` has been successfully installed in `local-runtest` conda environment. Open a new Terminal with `local-runtest` environment (either from the command line::
 
-     conda activate local-runtest
+     $ conda activate local-runtest
 
-   or via **Anaconda Navigator** (Open Terminal), import runtest and check its version::
+   or via **Anaconda Navigator** (Open Terminal), import runtest and
+   check its version:
+
+   .. code-block:: python
 
      import runtest
      print(runtest.__version__)

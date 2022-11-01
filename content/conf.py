@@ -27,6 +27,8 @@ github_version = 'master/content/' # with trailing slash
 
 # -- General configuration ---------------------------------------------------
 
+highlight_language = 'python3'
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.

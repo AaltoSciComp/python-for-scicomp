@@ -16,7 +16,6 @@ Scripts
    - Learn how to import other python files
    - Learn to parse command line arguments in python
 
-
 Why scripts?
 -------------
 
@@ -51,19 +50,22 @@ Within JupyterLab, you can export any jupyter notebook to a python script:
    Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
 
 
+.. highlight:: console
 
 Actually, you could also export your notebook in many other formats.
 Check the `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
 If you keep working in the jupyterlab folder, you can also convert files in the terminal (File -> New -> Terminal) by running::
 
 
-  jupyter nbconvert --to script your_notebook_name.ipynb
+  $ jupyter nbconvert --to script your_notebook_name.ipynb
 
 
 Exercises 1
 -----------
 
 .. challenge:: Scripts-1
+
+  .. highlight:: console
 
 
   1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from `rp5.kz <https://rp5.kz>`_ and was slightly adjusted for this lecture.
@@ -72,15 +74,13 @@ Exercises 1
 
   2. Open a terminal in jupyter (File -> New -> Terminal).
 
-  3. Convert the jupyter script to a python script by calling:
+  3. Convert the jupyter script to a python script by calling::
 
-     ``jupyter nbconvert --to script weather_observations.ipynb``
+     $ jupyter nbconvert --to script weather_observations.ipynb
 
-  4. Run the script:
+  4. Run the script (note: you may have ``python3`` rather than ``python``)::
 
-     ``python  weather_observations.py``
-
-     *Note: you may have* **python3** *rather than python*.
+     $ python weather_observations.py
 
 Importing other python files
 ----------------------------
@@ -90,6 +90,8 @@ given date range.
 
 In general, it is good practice to separate processing from plotting. The reason is that you often need to generate multiple plots using the data while pre-processing data once only.
 When data preprocessing is expensive this is even more important.
+
+.. highlight:: python
 
 For example, we can create a new python file (**weather_functions.py**) containing a function to adjust the dates in our dataset::
 
@@ -176,7 +178,9 @@ and end data as well as the output argument to the function:
 
    fig.savefig(output_file_name)
 
-We can try it out::
+We can try it out:
+
+.. code-block:: console
 
    $ python weather_observations.py 01/03/2021 31/05/2021 spring_in_tapiola.png
 
@@ -261,7 +265,9 @@ Exercises 3
 
    **What was the point of doing this?**
 
-   Now you can do this::
+   Now you can do this:
+
+   .. code-block:: console
 
       $ python weather_observations.py --help
       $ python weather_observations.py https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola.png
@@ -282,7 +288,10 @@ Load larger option lists using config files
 
 In the above example we only allowed the input and output files along with start and end dates to be selected by command line arguments.
 This already leads to a quite large command line call. Now imagine, that we also want to allow the user to select more specific information
-from the dataset, define specific X and Y labels, write their own title etc. Now imagine to put all this into the command line::
+from the dataset, define specific X and Y labels, write their own
+title etc. Now imagine to put all this into the command line:
+
+.. code-block:: console
 
 
    $ python weather_observations.py --input https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Cairo" --data_column RRR --start 01/06/2021 --end 30/06/2021

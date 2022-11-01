@@ -1,6 +1,5 @@
 .. _dependency_management:
 
-
 Dependency management
 =====================
 
@@ -100,6 +99,8 @@ Exercises 2
 -----------
 
 .. challenge:: Dependencies-2 (15 min)
+
+   .. highlight:: console
 
   Chloe just joined your team and will be working on her Master Thesis. She is
   quite familiar with Python, still finishing some Python assignments (due in a
@@ -213,14 +214,17 @@ Recording dependencies
 
 There are two standard ways to record dependencies for Python projects.:
 
-Using a ``requirements.txt`` (used by virtual environment) file which looks like this::
+Using a ``requirements.txt`` (used by virtual environment) file which
+looks like this::
 
    numpy
    matplotlib
    pandas
    scipy
 
-Or using an ``environments.yml`` (for conda) file which looks like this::
+Or using an ``environments.yml`` (for conda) file which looks like this:
+
+.. code-block:: yaml
 
    name: my-environment
 
@@ -243,7 +247,9 @@ Here are the two files again, but this time with versions pinned:
    pandas==1.1.2
    scipy==1.5.2
 
-``environments.yml`` with versions::
+``environments.yml`` with versions:
+
+.. code-block:: yaml
 
    name: my-environment
 
