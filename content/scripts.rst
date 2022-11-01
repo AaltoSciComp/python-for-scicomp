@@ -49,10 +49,10 @@ Within JupyterLab, you can export any jupyter notebook to a python script:
 .. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png
 
    Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
-   
 
 
-Actually, you could also export your notebook in many other formats. 
+
+Actually, you could also export your notebook in many other formats.
 Check the `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
 If you keep working in the jupyterlab folder, you can also convert files in the terminal (File -> New -> Terminal) by running::
 
@@ -67,28 +67,28 @@ Exercises 1
 
 
   1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from `rp5.kz <https://rp5.kz>`_ and was slightly adjusted for this lecture.
-     
-     **Note:** If you haven't downloaded the file directly to your jupyterlab folder, it will be located in your **Downloads** folder or the folder you selected. In jupyterlab click on the 'upload file' button, navigate to the folder containing the file and select it to load it into your jupyterlab folder.
-  	
-  2. Open a terminal in jupyter (File -> New -> Terminal). 
 
-  3. Convert the jupyter script to a python script by calling:  
-  
+     **Note:** If you haven't downloaded the file directly to your jupyterlab folder, it will be located in your **Downloads** folder or the folder you selected. In jupyterlab click on the 'upload file' button, navigate to the folder containing the file and select it to load it into your jupyterlab folder.
+
+  2. Open a terminal in jupyter (File -> New -> Terminal).
+
+  3. Convert the jupyter script to a python script by calling:
+
      ``jupyter nbconvert --to script weather_observations.ipynb``
 
-  4. Run the script: 
-  
-     ``python  weather_observations.py`` 
-     
+  4. Run the script:
+
+     ``python  weather_observations.py``
+
      *Note: you may have* **python3** *rather than python*.
-     
+
 Importing other python files
 ----------------------------
 
-We have a very short notebook that loads and plots data. But even in this script, we have to do a bit of processing (changing the format of the dates). We also extract a subset of our data for a 
-given date range. 
+We have a very short notebook that loads and plots data. But even in this script, we have to do a bit of processing (changing the format of the dates). We also extract a subset of our data for a
+given date range.
 
-In general, it is good practice to separate processing from plotting. The reason is that you often need to generate multiple plots using the data while pre-processing data once only. 
+In general, it is good practice to separate processing from plotting. The reason is that you often need to generate multiple plots using the data while pre-processing data once only.
 When data preprocessing is expensive this is even more important.
 
 For example, we can create a new python file (**weather_functions.py**) containing a function to adjust the dates in our dataset::
@@ -107,7 +107,7 @@ and modify the ``weather_observations.py`` file to
 
     import pandas as pd
     import weather_functions
-    
+
     url = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv"
     # read the data skipping comment lines
     weather = pd.read_csv(url,comment='#')
@@ -117,7 +117,7 @@ and modify the ``weather_observations.py`` file to
     # preprocess the data
     weather = weather_functions.preprocess(weather, start_date, end_date)
     ...
-    
+
 
 Exercises 2
 -----------
@@ -131,13 +131,13 @@ Exercises 2
 .. solution::
 
    **weather_observations.py**:
-   
+
    .. literalinclude:: ../resources/code/scripts/weather_observations.py
      :language: python
      :emphasize-lines: 5,13,16
-     
+
    **weather_functions.py**:
-   
+
    .. literalinclude:: ../resources/code/scripts/weather_functions.py
      :language: python
      :emphasize-lines: 2, 12-21
@@ -146,9 +146,9 @@ Exercises 2
 Command line arguments with ``sys.argv``
 ----------------------------------------
 
-We have better organized our code but it still cannot easily process time ranges or a 
+We have better organized our code but it still cannot easily process time ranges or a
 specified output file name. For this, rather than copying several time the same code for
-different time ranges or output file names, we can update the main code to take the 
+different time ranges or output file names, we can update the main code to take the
 start/end time and output file name from the command line
 
 **Example**: We modify the **weather_observations.py** script to allow passing both start
@@ -156,24 +156,24 @@ and end data as well as the output argument to the function:
 
 .. code-block:: python
    :emphasize-lines: 1,6-7,9
-   
+
    import sys
    import pandas as pd
    import weather_functions
 
-   # set start and end time   
+   # set start and end time
    start_date = pd.to_datetime(sys.argv[1],dayfirst=True)
    end_date = pd.to_datetime(sys.argv[2],dayfirst=True)
-   
+
    output_file_name = sys.argv[3]
 
    ...
-   
+
    # preprocess the data
    weather = weather_functions.preprocess(weather, start_date, end_date)
-   
+
    ...
-   
+
    fig.savefig(output_file_name)
 
 We can try it out::
@@ -206,32 +206,32 @@ arguments, it also automatically generates a ``--help`` option for you:
 
 .. code-block:: python
    :emphasize-lines: 1,5-14
-   
+
    import argparse
    import pandas as pd
    import weather_functions
-   
+
    parser = argparse.ArgumentParser()
-   # set start and end time   
+   # set start and end time
    parser.add_argument('-o', '--output', type=str, default="Out.png"
-                    help="end time")
+		    help="end time")
    parser.add_argument('-s', '--start', type=str, default="1/1/2019"
-                    help="start time")
+		    help="start time")
    parser.add_argument('-e', '--end', type=str, default="1/1/2021"
-                    help="output filename")
-   
+		    help="output filename")
+
    args = parser.parse_args()
-                    
+
    start_date = pd.to_datetime(args.start,dayfirst=True)
    end_date = pd.to_datetime(args.end,dayfirst=True)
 
    ...
-   	  
+
    # preprocess the data
    weather = weather_functions.preprocess(weather, start_date, end_date)
-   
+
    ...
-   
+
    fig.savefig(args.output)
 
 
@@ -254,7 +254,7 @@ Exercises 3
      :language: python
      :emphasize-lines: 2,5-9,11,14,17-18,27
 
-   
+
 
 
 .. discussion::
@@ -264,7 +264,7 @@ Exercises 3
    Now you can do this::
 
       $ python weather_observations.py --help
-      $ python weather_observations.py https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola.png 
+      $ python weather_observations.py https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola.png
       $ python weather_observations.py -s 1/12/2020 -e 31/12/2020 https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola_dec.png
       $ python weather_observations.py -s 1/2/2021 -e 28/2/2021 https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola_feb.png
       $ python weather_observations.py https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv --output temperature_cairo.png
@@ -280,14 +280,14 @@ Exercises 3
 Load larger option lists using config files
 -------------------------------------------
 
-In the above example we only allowed the input and output files along with start and end dates to be selected by command line arguments. 
-This already leads to a quite large command line call. Now imagine, that we also want to allow the user to select more specific information 
+In the above example we only allowed the input and output files along with start and end dates to be selected by command line arguments.
+This already leads to a quite large command line call. Now imagine, that we also want to allow the user to select more specific information
 from the dataset, define specific X and Y labels, write their own title etc. Now imagine to put all this into the command line::
 
 
    $ python weather_observations.py --input https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel "Days in June" --ylabel "Rainfall in mm" --title "Rainfall in Cairo" --data_column RRR --start 01/06/2021 --end 30/06/2021
-   
-   
+
+
 This is an even larger line, needs scrolling and becomes quite inconvenient to modify.
 Instead of putting all of this into the command line, you could think about storing and modifying the arguments in a config file.
 There are several ways, how config files can be stored. You can use a simple ``Parameter = Value``
@@ -317,11 +317,11 @@ Exercises 4 (optional)
 
 .. challenge:: Scripts-4
 
-  1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py>` 
+  1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py>`
      function and load it into your working folder in jupyterlab.
-     Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line 
-     (using e.g. argparse or sys.argv) still needs to be read from the command line. 
-     
+     Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line
+     (using e.g. argparse or sys.argv) still needs to be read from the command line.
+
 
   2. Run your script with different config files.
 
@@ -329,20 +329,20 @@ Exercises 4 (optional)
 .. solution::
 
    The modified **weather_observations.py** script:
-   
+
    .. literalinclude:: ../resources/code/scripts/weather_observations_config.py
      :language: python
      :emphasize-lines: 5,16-27,31,34,44,47
-     
+
    The modified **weather_functions.py** script:
-   
+
    .. literalinclude:: ../resources/code/scripts/weather_functions_config.py
      :language: python
      :emphasize-lines: 12,16-18
 
-  
-.. admonition:: Further reading 
-  
+
+.. admonition:: Further reading
+
   - Linking Jupyterlab notebooks to python scripts (making linking ``.py``- and ``.ipynb``-files easier) using `jupytext <https://jupytext.readthedocs.io/en/latest/paired-notebooks.html>`_
   - The `wikipedia page about YAML <https://en.wikipedia.org/wiki/YAML>`_ contains a lot of additional information on the YAML syntax.
   - `The Coderefinery Lesson about reproducible research <https://coderefinery.github.io/reproducible-research/>`_ can give additional information about good coding practices and workflow automation.
