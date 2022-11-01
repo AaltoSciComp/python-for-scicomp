@@ -126,7 +126,7 @@ Exercises 1
    To test a local pip install:
 
    - Create a new folder outside of our example project
-   - Create a new virtual environment (:ref:`dependency_managenent`)
+   - Create a new virtual environment (:ref:`dependency_management`)
    - Install the example package from the project folder
      into the new environment: ``$ pip install /path/to/project-folder/``
    - Test the local installation:

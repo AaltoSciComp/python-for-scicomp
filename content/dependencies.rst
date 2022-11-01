@@ -1,4 +1,4 @@
-.. _dependency_managenent:
+.. _dependency_management:
 
 
 Dependency management
