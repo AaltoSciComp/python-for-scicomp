@@ -1,7 +1,7 @@
 Sphinx
 sphinx_rtd_theme
 myst_nb
-https://github.com/coderefinery/sphinx-lesson/archive/master.zip
+sphinx-lesson
 https://github.com/aaltoscicomp/sphinx-aaltoscicomp-branding/archive/master.zip
 sphinx_rtd_theme_ext_color_contrast
 sphinx-plausible
