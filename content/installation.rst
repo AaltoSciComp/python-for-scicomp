@@ -4,22 +4,26 @@ Software installation
 This page contains instructions for installing the required software
 on your computer.
 Please make sure before the course that you have all the required software
-installed or in any other way access to it.
-
-For example, the workshop could be done with a remote Jupyter
+installed or some other way access to it.  For example, the workshop could be done with a remote Jupyter
 server, as long as you can use the terminal from the Jupyter (you need
 to be able to access the command line for some lessons).
+
+**If you need installation help, show this page to someone around you
+and they can probably do all you need**
 
 
 Generic list of tools required
 ------------------------------
 
-Note: The actual installation instructions are below.
+Note: The actual installation instructions are below.  This is a
+generic description which will help those who already understand all
+of the tools.
 
 * **Python 3** (Anaconda is recommended, it will include everything)
 
-  * including some major packages which you can find in the miniconda
-    instructions below.  Again, anaconda includes everything.
+  * With some extra packages installed.  They are all included in
+    Aanconda, and are listed in the ``environment.yml`` file you can
+    find under miniconda below.
 * Text editor (several lessons, can also be done through Jupyterlab)
 * Command-line shell (several lessons, can also be done through Jupyterlab)
 * git (not needed, this lesson is usually done as a demo)
@@ -67,8 +71,9 @@ provides a convenient way to access the software.
    :class: toggle
 
    We recommend Anaconda, Anaconda Navigator, and JupyterLab in these
-   instructions because it is simple and can be used by everyone.  We
-   recommend that you eventually explore other options as well, but
+   instructions because it is simple and can be used by everyone.  As
+   you advance in your career, we
+   recommend that you explore other options as well, but
    that can come later.
 
    Any other Python distribution which you can install libraries into
@@ -133,6 +138,10 @@ needed.**
 
 .. admonition:: Other editors
    :class: toggle
+
+   Because we need to be simple in our teaching, we only teach the
+   most basic editors.  We encourage you to try out more advanced ones
+   yourself.
 
    For other editors, see the `CodeRefinery instructions
    <https://coderefinery.github.io/installation/editors/>`__.  You don't
