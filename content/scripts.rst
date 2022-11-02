@@ -148,13 +148,13 @@ Exercises 2
 Command line arguments with ``sys.argv``
 ----------------------------------------
 
-We have better organized our code but it still cannot easily process time ranges or a
-specified output file name. For this, rather than copying several time the same code for
+We now have a better organized code but it still cannot easily process time ranges or a
+specified output file name. To achieve this, rather than copying the same code several times for
 different time ranges or output file names, we can update the main code to take the
 start/end time and output file name from the command line
 
-**Example**: We modify the **weather_observations.py** script to allow passing both start
-and end data as well as the output argument to the function:
+**Example**: We modify the **weather_observations.py** script such that we allow start
+and end times as well as the output file to be passed in as arguments to the function:
 
 .. code-block:: python
    :emphasize-lines: 1,6-7,9
@@ -248,7 +248,7 @@ Exercises 3
   1. Take the python script we have written in the preceding exercise and use
      ``argparse`` to specify the input and output files and allow the start and end dates to be set.
 
-  2. Execute your script for a few different time intervals (e.g. form January 2019 to June 2020, or from Mai 2020 to October 2020).
+  2. Execute your script for a few different time intervals (e.g. from January 2019 to June 2020, or from Mai 2020 to October 2020).
      Also use data for cairo (``https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv``)
 
 
@@ -303,20 +303,21 @@ There are several ways, how config files can be stored. You can use a simple ``P
 format, and parse it yourself, or you can use e.g. the ``JSON`` or ``YAML`` formats.
 For both parsers exist that can save you some work, and both formats also allow you to use
 more complex input data, like lists, or dictionaries. We won't go into the details of the formats, and will only give
-a short example using yaml here.
+a short example using YAML here.
 
-The yaml file format can be simple or very complex allowing a large variety of data structures to be stored.
-One benefit of yaml is that there is already a python module (``yaml``) available for parsing it and it
-directly parses numbers as numbers and text as strings, making conversions unnecessary.
+The YAML file format can be simple or very complex allowing a large variety of data structures to be stored.
+One benefit of YAML is that there is already a python module (``yaml``) available for parsing it and it
+directly parses numbers as numbers and text as strings, making conversions unnecessary (the same is true for JSON 
+with the ``json``package).
 
-The python module :download:`optionsparser.py <../resources/code/scripts/optionsparser.py>` provides a simple parser for yaml styled options files.
+The python module :download:`optionsparser.py <../resources/code/scripts/optionsparser.py>` provides a simple parser for YAML styled options files.
 Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
 Required arguments need to specify a type. Optional argument types are derived from their default values.
 
 In our example above, we could for example add optional parameters that allow the selection of other weather data
 from the dataset (precipitation ...), set the labels and titles explicitly etc.
 
-In the yaml format, names and values are separated by ``:``. Our above example would therefore translate to the following yaml file:
+In the YAML format, names and values are separated by ``:``. Our above example would therefore translate to the following YAML file:
 
 .. literalinclude:: ../resources/code/scripts/weather_options.yml
    :language: yaml
