@@ -102,10 +102,10 @@ long 1D array ``[11]``.
 The implications of this are many, so take let's take some time to understand
 it properly by writing our own ``ravel()`` function.
 
-Exercise 2
+Exercise 1
 ----------
 
-.. challenge:: Exercises: Numpy-Advanced-2
+.. challenge:: Exercises: Numpy-Advanced-1
 
    Write a function called ``ravel()`` that takes as input:
 
@@ -123,7 +123,7 @@ Exercise 2
      - ``ravel(3, 3, n_rows=4, n_cols=4)`` → ``15``
      - ``ravel(3_465, 18_923, n_rows=10_000, n_cols=20_000)`` → ``69_318_923``
 
-.. solution:: Solutions: Numpy-1
+.. solution:: Solutions: Numpy-Advanced-1
 
    The function can be implemented like this::
 
@@ -184,10 +184,10 @@ accomplished without any copying of data by modifying the ``.strides``::
   print(f'{c.strides=}')  # (80000, 16, 8)
 
 
-Exercises 3
+Exercises 2
 -----------
 
-.. challenge:: Exercises: Numpy-Advanced-3
+.. challenge:: Exercises: Numpy-Advanced-2
 
     A little known feature of NumPy is the :data:`numpy.stride_tricks` module
     that allows you to modify the ``.strides`` attribute directly. Playing
@@ -211,7 +211,7 @@ Exercises 3
                 [5., 5., 5., ..., 5., 5., 5.]])
 
 
-.. solution:: Solutions: Numpy-Advanced-3
+.. solution:: Solutions: Numpy-Advanced-2
 
    1. The ``transpose()`` function can be implemented like this::
 
@@ -286,6 +286,22 @@ its ``.base`` attribute::
 .. warning::
    When you create a large array and select only a portion of it, the large
    array will stay in memory if a view was created!
+
+The new array ``b`` object has a pointer to the same memory buffer as the array
+it has been derived from::
+
+  print(a.__array_interface__['data'])
+  print(b.__array_interface__['data'])
+
+Views are created by virtue of modifying the value of the `.shape` attribute
+and, if necessary, apply an offset to the pointer into the memory buffer so it
+no longer points to the start of the buffer, but somewhere in the middle::
+
+  b = a[1:3, 1:3]   # This view does not start at the beginning
+  offset = b.__array_interface__['data'][0] - a.__array_interface__['data'][0]
+  print('Offset:' offset, 'bytes')  # Offset: 48 bytes
+
+.. image:: img/numpy-advanced/02_views.svg
 
 Since the base array and its derived view share the same memory, any changes to
 the data in a view also affects the data in the base array::
