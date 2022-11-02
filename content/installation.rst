@@ -41,9 +41,9 @@ Note: The actual installation instructions are below.
    <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
    contains all packages needed, and can be installed with:
 
-   .. code:: shell
+   .. code:: console
 
-      conda env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+      $ conda env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
 
    Each time you start a new shell, you need to activate miniconda (if
    you don't do run ``conda init``), and then you need to activate the
