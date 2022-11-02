@@ -2,11 +2,11 @@
 Python for Scientific Computing
 ===============================
 
-.. admonition:: Attending the course 25-28.october.2021?
+.. admonition:: Attending the course 22-25.november.2022?
 
    `See the course page here
-   <https://scicomp.aalto.fi/training/scip/python-for-scicomp/>`__,
-   below is the course material.
+   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2022/>`__.
+   Whether you are or aren't, the course material is below.
 
 Python is a modern, object-oriented programming language, which has
 become popular in several areas of software development. This course
