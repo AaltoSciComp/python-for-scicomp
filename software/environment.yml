@@ -2,6 +2,7 @@ name: python-for-scicomp
 channels:
   - defaults
 dependencies:
+  - jsonlines
   - jupyterlab
   - notebook
   - ipywidgets
