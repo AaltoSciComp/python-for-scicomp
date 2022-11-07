@@ -307,8 +307,8 @@ a short example using YAML here.
 
 The YAML file format can be simple or very complex allowing a large variety of data structures to be stored.
 One benefit of YAML is that there is already a python module (``yaml``) available for parsing it and it
-directly parses numbers as numbers and text as strings, making conversions unnecessary (the same is true for JSON 
-with the ``json``package).
+directly parses numbers as numbers and text as strings, making conversions unnecessary (the same is true for JSON
+with the ``json`` package).
 
 The python module :download:`optionsparser.py <../resources/code/scripts/optionsparser.py>` provides a simple parser for YAML styled options files.
 Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
