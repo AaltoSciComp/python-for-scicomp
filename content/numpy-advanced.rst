@@ -28,6 +28,58 @@ introduction to reading the definitive work on this topic:
 Travis E. Oliphant, its initial creator.
 
 
+
+NumPy can be really fast
+------------------------
+
+Python, being an interpreted programming language, is quite slow. Manipulating
+large amounts of numbers using Python's build-in lists would be impractically
+slow for any serious data analysis. Yet, the numpy package can be really fast.
+
+.. highlight:: c
+
+How fast can NumPy be? Let's race NumPy against C. The contest will be to sum
+together 100 000 000 random numbers. We will give the C version below, you get
+to write the NumPy version::
+
+  #include <stdlib.h>
+  #include <stdio.h>
+  #define N_ELEMENTS 100000000
+  int main(int argc, char** argv) {
+      double* a = (double*) malloc(sizeof(double) * N_ELEMENTS);
+      int i;
+      for(i=0; i<N_ELEMENTS; ++i) {
+          a[i] = (double) rand() / RAND_MAX;
+      }
+      double sum = 0;
+      for(i=0; i<N_ELEMENTS; ++i) {
+          sum += a[i];
+      }
+      printf("%f", sum);
+      return 0;
+  }
+
+
+Exercise 1
+----------
+
+.. challenge:: Exercises: Numpy-Advanced-1
+
+   Write a Python script that uses NumPy to generate 100 million (100000000)
+   random numbers and add them all together. Time how long it takes to execute.
+   Can you beat the C version?
+
+   If you are having trouble with this, we recommend completing the
+   :ref:`basic NumPy lession <numpy>` before continuing with this advanced lesson.
+
+.. solution:: Solutions: Numpy-Advanced-2
+
+   The script can be implemented like this::
+
+     import numpy as np
+     print(np.random(100_000_000).sum())
+
+
 .. highlight:: python
 
 The library behind the curtain: BLAS
@@ -102,10 +154,10 @@ long 1D array ``[11]``.
 The implications of this are many, so take let's take some time to understand
 it properly by writing our own ``ravel()`` function.
 
-Exercise 1
+Exercise 2
 ----------
 
-.. challenge:: Exercises: Numpy-Advanced-1
+.. challenge:: Exercises: Numpy-Advanced-2
 
    Write a function called ``ravel()`` that takes as input:
 
@@ -123,7 +175,7 @@ Exercise 1
      - ``ravel(3, 3, n_rows=4, n_cols=4)`` → ``15``
      - ``ravel(3_465, 18_923, n_rows=10_000, n_cols=20_000)`` → ``69_318_923``
 
-.. solution:: Solutions: Numpy-Advanced-1
+.. solution:: Solutions: Numpy-Advanced-2
 
    The function can be implemented like this::
 
@@ -184,10 +236,10 @@ accomplished without any copying of data by modifying the ``.strides``::
   print(f'{c.strides=}')  # (80000, 16, 8)
 
 
-Exercises 2
+Exercises 3
 -----------
 
-.. challenge:: Exercises: Numpy-Advanced-2
+.. challenge:: Exercises: Numpy-Advanced-3
 
     A little known feature of NumPy is the :data:`numpy.stride_tricks` module
     that allows you to modify the ``.strides`` attribute directly. Playing
@@ -211,7 +263,7 @@ Exercises 2
                 [5., 5., 5., ..., 5., 5., 5.]])
 
 
-.. solution:: Solutions: Numpy-Advanced-2
+.. solution:: Solutions: Numpy-Advanced-3
 
    1. The ``transpose()`` function can be implemented like this::
 
@@ -328,6 +380,7 @@ See also
   * `Indexing
     <https://numpy.org/doc/stable/reference/arrays.indexing.html>`__
   * `ufuncs <https://numpy.org/doc/stable/reference/ufuncs.html>`__
+  * `Advanced NumPy: Master stride tricks with 25 illustrated exercises <https://towardsdatascience.com/advanced-numpy-master-stride-tricks-with-25-illustrated-exercises-923a9393ab20>`__
 
 
 
