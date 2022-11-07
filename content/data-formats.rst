@@ -193,7 +193,7 @@ Feather
 `Feather <https://arrow.apache.org/docs/python/feather.html>`__ is a file format for storing data frames quickly.
 There are libraries for Python, R and Julia.
 
-We can work with Feather files with `to_feather- and read_feather-functions <https://pandas.pydata.org/docs/user_guide/io.html#io-feather>`__::
+We can work with Feather files with :external+pandas:ref:`to_feather- and read_feather-functions <io.feather>`::
 
     dataset.to_feather('dataset.feather')
     dataset_feather = pd.read_feather('dataset.feather')
@@ -233,7 +233,7 @@ Parquet
 `Parquet <https://arrow.apache.org/docs/python/parquet.html>`__ is a standardized open-source columnar storage format that is commonly used for storing big data in machine learning.
 Parquet is usable from many different languages (C, Java, Python, MATLAB, Julia, etc.).
 
-We can work with Parquet files with `to_parquet- and read_parquet-functions <https://pandas.pydata.org/docs/user_guide/io.html#io-parquet>`__::
+We can work with Parquet files with :external+pandas:ref:`to_parquet- and read_parquet-functions <io.parquet>`::
 
     dataset.to_parquet('dataset.parquet')
     dataset_parquet = pd.read_parquet('dataset.parquet')
@@ -262,7 +262,7 @@ HDF5 is a high performance storage format for storing large amounts of data in m
 It is especially popular in fields where you need to store big multidimensional arrays such as physical sciences.
 
 Pandas allows you to store tables as HDF5 with `PyTables <https://www.pytables.org/>`_, which uses HDF5 to write the files.
-You can create a HDF5 file with `to_hdf- and `read_parquet-functions <https://pandas.pydata.org/docs/user_guide/io.html#io-hdf5>`__::
+You can create a HDF5 file with :external+pandas:ref:`to_hdf- and read_parquet-functions <io.hdf5>`::
 
     dataset.to_hdf('dataset.h5', key='dataset', mode='w')
     dataset_hdf5 = pd.read_hdf('dataset.h5')
@@ -370,12 +370,12 @@ npy (numpy array format)
        - Ease of use: Good
    - **Best use cases:** Saving numpy arrays temporarily.
 
-If you want to temporarily store numpy arrays, you can use the `numpy.save <https://numpy.org/doc/stable/reference/generated/numpy.save.html>`__- and `numpy.load <https://numpy.org/doc/stable/reference/generated/numpy.load.html>`__-functions::
+If you want to temporarily store numpy arrays, you can use the :func:`numpy.save`- and :func:`numpy.load`-functions::
 
     np.save('data_array.npy', data_array)
     data_array_npy = np.load('data_array.npy')
 
-There also exists `numpy.savez <https://numpy.org/doc/stable/reference/generated/numpy.savez.html>`__-function for storing multiple datasets in a single file::
+There also exists :func:`numpy.savez`-function for storing multiple datasets in a single file::
 
     np.savez('data_arrays.npz', data_array0=data_array, data_array1=data_array)
     data_arrays = np.load('data_arrays.npz')
@@ -517,7 +517,7 @@ Things to remember
 3. However, if you're using a previously existing framework or tools or you work in a specific field, you should prioritize using the formats that are used in said framework/tools/field.
 4. When you're starting your project, it's a good idea to take your initial data, clean it, and store the results in a good binary format that works as a starting point for your future analysis.
    If you've written the cleaning procedure as a script, you can always reproduce it.
-5. Throughout your work, you should use code to turn important data to human-readable format (e.g. plots, averages, ``DataFrame.head()``), not to keep your full data in a human-readable format.
+5. Throughout your work, you should use code to turn important data to human-readable format (e.g. plots, averages, :meth:`pandas.DataFrame.head`), not to keep your full data in a human-readable format.
 6. Once you've finished, you should store the data in a format that can be easily shared to other people.
 
 
@@ -530,7 +530,7 @@ Pickle
 .. admonition:: Key features
 
    - **Type**: Binary format
-   - **Packages needed:** None (`pickle <https://docs.python.org/3/library/pickle.html>`__-module is included with Python).
+   - **Packages needed:** None (:mod:`pickle`-module is included with Python).
    - **Space efficiency:** Ok.
    - **Good for sharing/archival:** No! See warning below.
    - Tidy data:
@@ -546,7 +546,7 @@ Pickle
     Loading pickles that have been provided from untrusted sources is
     risky as they can contain arbitrary executable code.
 
-`Pickle <https://docs.python.org/3/library/pickle.html>`__ is Python's own serialization library.
+:mod:`Pickle <pickle>` is Python's own serialization library.
 It allows you to store Python objects into a binary file, but it is not a format you will want to use for long term storage or data sharing.
 It is best suited for debugging your code by saving the Python variables for later inspection::
 
@@ -565,7 +565,7 @@ JSON (JavaScript Object Notation)
 .. admonition:: Key features
 
    - **Type**: Text format
-   - **Packages needed:** None (`json <https://docs.python.org/3/library/json.html#module-json>`__-module is included with Python).
+   - **Packages needed:** None (:mod:`json`-module is included with Python).
    - **Space efficiency:** Ok.
    - **Good for sharing/archival:** No! See warning below.
    - Tidy data:
@@ -580,7 +580,7 @@ JSON is another popular human-readable data format.
 It is especially common when dealing with web applications (REST-APIs etc.).
 However, when you're working with big data, you rarely want to keep your data in this format.
 
-Similarly to other popular files, Pandas can write and read json files with `to_json- <https://pandas.pydata.org/docs/user_guide/io.html#io-json-writer>`_ and `read_json <https://pandas.pydata.org/docs/user_guide/io.html#io-json-reader>`_-functions::
+Similarly to other popular files, Pandas can write and read json files with :meth:`~pandas.DataFrame.to_json`- and :func:`~pandas.read_json`-functions::
 
     dataset.to_json('dataset.json')
     dataset_json = pd.read_csv('dataset.json')
@@ -609,7 +609,7 @@ Excel (binary)
 Excel is very popular in social sciences and economics.
 However, it is `not a good format <https://www.bbc.com/news/technology-54423988>`__ for data science.
 
-See Pandas' documentation on `working with Excel files <https://pandas.pydata.org/docs/user_guide/io.html#excel-files>`_.
+See Pandas' documentation on :external+pandas:ref:`working with Excel files <io.excel>`.
 
 Using Excel files with Pandas requires `openpyxl <https://openpyxl.readthedocs.io/en/stable/>`__-package to be installed.
 
@@ -617,7 +617,7 @@ Using Excel files with Pandas requires `openpyxl <https://openpyxl.readthedocs.i
 See also
 --------
 
-- `Pandas' IO tools <https://pandas.pydata.org/docs/user_guide/io.html>`__ .
+- `Pandas' IO tools <https://pandas.pydata.org/docs/user_guide/io.html>`__
 - `Tidy data comparison notebook <https://github.com/AaltoSciComp/python-for-scicomp/tree/master/extras/data-formats-comparison-tidy.ipynb>`__
 - `Array data comparison notebook <https://github.com/AaltoSciComp/python-for-scicomp/tree/master/extras/data-formats-comparison-array.ipynb>`__
 
