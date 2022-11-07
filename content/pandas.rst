@@ -12,6 +12,8 @@ Pandas
    - Get a feeling for when pandas is useful and know where to find more information
    - Understand enough of pandas to be able to read its documentation.
 
+.. default-domain:: py
+
 
 Pandas is a Python package that provides high-performance and easy to use
 data structures and data analysis tools.
@@ -140,7 +142,7 @@ arrays::
     # ".str" creates a string object from a column
     titanic[titanic.index.str.contains("Margaret")]
 
-What if your dataset has missing data? Pandas uses the value ``np.nan``
+What if your dataset has missing data? Pandas uses the value :py:data:`numpy.nan`
 to represent missing data, and by default does not include it in any computations.
 We can find missing values, drop them from our dataframe, replace them
 with any value we like or do forward or backward filling::
@@ -164,7 +166,7 @@ Exercises 1
       or the autocomplete feature in Jupyter.
     - Try out a few methods using the Titanic dataset and have a look at
       the docstrings (help pages) of methods that pique your interest
-    - Compute the mean age of the first 10 passengers by slicing and the ``mean`` method
+    - Compute the mean age of the first 10 passengers by slicing and the :py:meth:`pandas.DataFrame.mean` method
     - (Advanced) Using boolean indexing, compute the survival rate
       (mean of "Survived" values) among passengers over and under the average age.
 
@@ -227,10 +229,10 @@ For a detailed exposition of data tidying, have a look at
 Working with dataframes
 -----------------------
 
-We saw above how we can read in data into a dataframe using the ``read_csv`` method.
-Pandas also understands multiple other formats, for example using ``read_excel``,
-``read_hdf``, ``read_json``, etc. (and corresponding methods to write to file:
-``to_csv``, ``to_excel``, ``to_hdf``, ``to_json``, etc.)
+We saw above how we can read in data into a dataframe using the :obj:`~pandas.read_csv` method.
+Pandas also understands multiple other formats, for example using :obj:`~pandas.read_excel`,
+:obj:`~pandas.read_hdf`, :obj:`~pandas.read_json`, etc. (and corresponding methods to write to file:
+:obj:`~pandas.DataFrame.to_csv`, :obj:`~pandas.DataFrame.to_excel`, :obj:`~pandas.DataFrame.to_hdf`, :obj:`~pandas.DataFrame.to_json`, etc.)
 
 But sometimes you would want to create a dataframe from scratch. Also this can be done
 in multiple ways, for example starting with a numpy array::
@@ -256,7 +258,7 @@ We can easily split and concatenate or append dataframes::
     pd.concat([sub1, sub2, sub3])
     sub1.append([sub2, sub3])      # same as above
 
-When pulling data from multiple dataframes, a powerful ``merge()`` method is
+When pulling data from multiple dataframes, a powerful :obj:`pandas.DataFrame.merge` method is
 available that acts similarly to merging in SQL. Say we have a dataframe containing the age of some athletes::
 
     age = pd.DataFrame([
@@ -270,7 +272,7 @@ We now want to use this table to annotate the original ``runners`` table from
 before with their age. Note that the ``runners`` and ``age`` dataframes have a
 different ordering to it, and ``age`` has an entry for ``Dave`` which is not
 present in the ``runners`` table. We can let Pandas deal with all of it using
-the ``.merge()`` method::
+the :obj:`~pandas.DataFrame.merge` method::
 
     # Add the age for each runner
     runners.merge(age, on="Runner")
@@ -278,7 +280,7 @@ the ``.merge()`` method::
 In fact, much of what can be done in SQL
 `is also possible with pandas <https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html>`__.
 
-``groupby()`` is a powerful method which splits a dataframe and aggregates data
+:obj:`~pandas.DataFrame.groupby` is a powerful method which splits a dataframe and aggregates data
 in groups. To see what's possible, let's return to the Titanic dataset. Let's
 test the old saying "Women and children first". We start by creating a new
 column ``Child`` to indicate whether a passenger was a child or not, based on
@@ -293,8 +295,10 @@ Now we can test the saying by grouping the data on ``Sex`` and then creating fur
 
 Here we chose to summarize the data by its mean, but many other common
 statistical functions are available as dataframe methods, like
-``std()``, ``min()``, ``max()``, ``cumsum()``, ``median()``, ``skew()``,
-``var()`` etc.
+:obj:`~pandas.DataFrame.std`, :obj:`~pandas.DataFrame.min`,
+:obj:`~pandas.DataFrame.max`, :obj:`~pandas.DataFrame.cumsum`,
+:obj:`~pandas.DataFrame.median`, :obj:`~pandas.DataFrame.skew`,
+:obj:`~pandas.DataFrame.var` etc.
 
 
 
@@ -306,7 +310,7 @@ Exercises 2
     In the Titanic passenger list dataset,
     investigate the family size of the passengers (i.e. the "SibSp" column).
 
-    - What different family sizes exist in the passenger list? Hint: try the `unique` method
+    - What different family sizes exist in the passenger list? Hint: try the :obj:`~pandas.Series.unique` method
     - What are the names of the people in the largest family group?
     - (Advanced) Create histograms showing the distribution of family sizes for
       passengers split by the fare, i.e. one group of high-fare passengers (where
@@ -371,7 +375,7 @@ Exercises 3
 .. challenge:: Analyze the Nobel prize dataset
 
     - What country has received the largest number of Nobel prizes, and how many?
-      How many countries are represented in the dataset? Hint: use the `describe()` method
+      How many countries are represented in the dataset? Hint: use the :obj:`~pandas.Series.describe` method
       on the ``bornCountryCode`` column.
     - Create a histogram of the age when the laureates received their Nobel prizes.
       Hint: follow the above steps we performed for the lifespan.
@@ -430,7 +434,7 @@ Beyond the basics
 There is much more to Pandas than what we covered in this lesson. Whatever your
 needs are, chances are good there is a function somewhere in its `API
 <https://pandas.pydata.org/docs/>`__. And when there is not, you can always
-apply your own functions to the data using `.apply`::
+apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
 
     from functools import lru_cache
 
