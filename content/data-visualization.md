@@ -29,7 +29,7 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
   after the person who created them left the group.
 - There is not the one perfect language and **not the one perfect library** for everything.
 - Within Python, many libraries exist:
-  - [Matplotlib](https://matplotlib.org/gallery.html):
+  - [Matplotlib](https://matplotlib.org/gallery/index.html):
     probably the most standard and most widely used
   - [Seaborn](https://seaborn.pydata.org/examples/index.html):
     high-level interface to Matplotlib, statistical functions built in
@@ -76,7 +76,10 @@ We can start in a Jupyter notebook since notebooks are typically a good fit
 for data visualizations. But if you prefer to run this as a script, this is
 also OK.
 
-Let us create our first plot:
+Let us create our first plot using
+{func}`~matplotlib.pyplot.subplots`,
+{obj}`~matplotlib.axes.Axes.scatter`, and some other methods on the
+{obj}`~matplotlib.axes.Axes` object:
 
 ```{code-block} python
 # this line tells Jupyter to display matplotlib figures in the notebook
@@ -108,7 +111,8 @@ This is the result of our first plot.
 ```
 
 When running a Matplotlib script on a remote server without a
-"display" (e.g. compute cluster), you may need to add this line:
+"display" (e.g. compute cluster), you may need to add the
+{obj}`matplotlib.use` call:
 
 ```python
 import matplotlib.pyplot as plt
@@ -134,7 +138,7 @@ matplotlib.use("Agg")
   data2_y_scaled = [y*2.0 for y in data2_y]
   ```
 
-- Try to add a legend to the plot with `ax.legend()` and searching the web for clues on
+- Try to add a legend to the plot with {meth}`matplotlib.axes.Axes.legend` and searching the web for clues on
   how to add labels to each dataset.
 
 - At the end it should look like this one:
@@ -195,7 +199,8 @@ When plotting with Matplotlib, it is useful to know and understand that
 there are **two approaches** even though the reasons of this dual approach is
 outside the scope of this lesson.
 
-- The more modern option is an **object-oriented interface** (the ``fig`` and ``ax`` objects
+- The more modern option is an **object-oriented interface** (the
+  {class}`fig <matplotlib.figure.Figure>` and {class}`ax <matplotlib.axes.Axes>` objects
   can be configured separately and passed around to functions):
    ```{code-block} python
    ---
@@ -217,7 +222,8 @@ outside the scope of this lesson.
    ax.set_title("some title")
    ```
 
-- The more traditional option mimics MATLAB plotting and uses the **pyplot interface** (``plt`` carries
+- The more traditional option mimics MATLAB plotting and uses the
+  **pyplot interface** (:mod:`plt <matplotlib.pyplot>` carries
   the global settings):
    ```{code-block} python
    ---
@@ -243,12 +249,12 @@ recommend to learn and use the object oriented interface.**
 
 ```{discussion} Why do we emphasize this?
 One day you may want to write functions which wrap
-around Matplotlib function calls and then you can send `fig` and `ax`
+around Matplotlib function calls and then you can send {class}`~matplotlib.figure.Figure` and {class}`~matplotlib.axes.Axes`
 into these functions and there is less risk that adjusting figures changes
 settings also for unrelated figures created in other functions.
 
 When using the pyplot interface, settings are modified for the entire
-`plt` package. The latter is acceptable for linear scripts but may yield
+{mod}`matplotlib.pyplot` package. The latter is acceptable for linear scripts but may yield
 surprising results when introducing functions to enhance/abstract Matplotlib
 calls.
 ```
@@ -266,7 +272,9 @@ calls.
   so that we know what to search for to customize things.
 - Matplotlib cheatsheets: <https://github.com/matplotlib/cheatsheets>
 - You can also select among pre-defined themes/
-  [style sheets](https://matplotlib.org/3.1.1/gallery/style_sheets/style_sheets_reference.html), for instance:
+  [style
+  sheets](https://matplotlib.org/3.1.1/gallery/style_sheets/style_sheets_reference.html)
+  with {obj}`~matplotlib.style.use`, for instance:
   ```python
   plt.style.use('ggplot')
   ```
@@ -298,9 +306,9 @@ In this exercise we will learn how to use log scales.
 
   data_2007
   ```
-  - Try the above snippet in a notebook and it will give you an overview over the data.
+- Try the above snippet in a notebook and it will give you an overview over the data.
 
-  - Then we can plot the data, first using a linear scale:
+- Then we can plot the data, first using a linear scale:
   ```python
   import matplotlib.pyplot as plt
 
@@ -317,12 +325,12 @@ In this exercise we will learn how to use log scales.
   :alt: Gapminder data plotted using a linear scale
   ```
 
-  - Your task is to switch to a log scale and arrive at this result:
+- Your task is to switch to a log scale and arrive at this result:
   ```{figure} data-visualization/customizing/gapminder-log.png
   :alt: Gapminder data plotted using log scale
   ```
 
-  - What does ``alpha=0.5`` do?
+- What does ``alpha=0.5`` do?
 ````
 
 ````{solution}
@@ -339,6 +347,8 @@ ax.set_xscale("log")
 ax.set_xlabel("GDP (USD) per capita")
 ax.set_ylabel("life expectancy (years)")
 ```
+* {obj}`alpha <matplotlib.artist.Artist.set_alpha>` sets transparency
+  of points.
 ````
 
 ````{challenge} Exercise Customization-2: preparing a plot for publication (15 min)
