@@ -40,7 +40,9 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx_aaltoscicomp_branding',
     'sphinx_plausible',
+    'sphinxext.opengraph',
 ]
+#ogp_site_url = 'https://aaltoscicomp.github.io/python-for-scicomp/'
 
 import os
 plausible_domain = 'aaltoscicomp.github.io/python-for-scicomp'
