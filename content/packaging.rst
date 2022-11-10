@@ -35,7 +35,7 @@ and objects from other Python files (modules). Now we will take it a step furthe
 - It is also recommended to `document your package <https://coderefinery.github.io/documentation/>`__.
 - When the project grows, you might need `automated testing <https://coderefinery.github.io/testing/>`__.
 
-To have a concrete example but still simple example, we will create a project
+To have a concrete but still simple example, we will create a project
 consisting of 3 functions, each in its own file. We can then imagine that each
 file would contain many more functions. To make it more interesting,
 one of these functions will depend on an external library: ``scipy``.
