@@ -54,7 +54,7 @@ to learn yourself as you need to.
 
    (prereq) ; :doc:`python`
    30 min   ; :doc:`jupyter`
-   60 min   ; :doc:`numpy`
+   60 min   ; :doc:`numpy` or :doc:`numpy-advanced`
    60 min   ; :doc:`pandas`
    60 min   ; :doc:`data-visualization`
    30 min   ; :doc:`data-formats`
@@ -75,6 +75,7 @@ to learn yourself as you need to.
    python
    jupyter
    numpy
+   numpy-advanced
    pandas
    data-visualization
    data-formats
