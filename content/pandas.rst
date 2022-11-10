@@ -133,7 +133,7 @@ refer to columns and rows either by number or by their name::
     titanic.at['Lam, Mr. Ali',"Age"] = 42      # set single value by row and column *name* (fast)
     titanic.iat[0,5]                           # select same value by row and column *number* (fast)
 
-    titanic["foo"] = "bar"                     # set a whole column
+    titanic["is_passenger"] = True             # set a whole column
 
 Dataframes also support boolean indexing, just like we saw for ``numpy``
 arrays::
@@ -242,7 +242,7 @@ in multiple ways, for example starting with a numpy array::
 
 or a dictionary::
 
-    df = pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar', 'foo', 'bar', 'foo', 'foo'],
+    df = pd.DataFrame({'A': ['dog', 'cat', 'dog', 'cat', 'dog', 'cat', 'dog', 'dog'],
 		       'B': ['one', 'one', 'two', 'three', 'two', 'two', 'one', 'three'],
 		       'C': np.array([3] * 8, dtype='int32'),
 		       'D': np.random.randn(8),
