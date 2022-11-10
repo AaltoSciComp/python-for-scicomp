@@ -77,7 +77,7 @@ Exercise 1
    The script can be implemented like this::
 
      import numpy as np
-     print(np.random(100_000_000).sum())
+     print(np.random.rand(100_000_000).sum())
 
 
 .. highlight:: python
