@@ -28,7 +28,8 @@ to learn yourself as you need to.
 
    - Knowing basic Python syntax.  We assume that you can do some
      Python programming, but not much more that that.  We don't cover
-     standard Python programming.
+     standard Python programming. `Here a short course on basic Python 
+     syntax, with further references <https://coderefinery.github.io/data-visualization-python/python-basics/>`__.
    - Watch or read the `command line crash course
      <https://scicomp.aalto.fi/scicomp/shell/>`__, if you aren't
      familiar.
