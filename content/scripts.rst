@@ -197,9 +197,11 @@ We can try it out:
 This approach is brittle and more robust solutions exist that allow to fully
 customize your scripts and generate help texts at the same time:
 
-- `argparse <https://docs.python.org/3/library/argparse.html>`__: this is the one that we will show
-- `doctopt <http://docopt.org/>`__: you write the help text and this generates a parser for you
-- `click <https://click.palletsprojects.com//>`__: another nice library for command line interfaces
+- `argparse <https://docs.python.org/3/library/argparse.html>`__:
+  built-in to Python, this is the one that we will show below.
+- `doctopt <http://docopt.org/>`__: you write the help text and this generates a parser for you.
+- `click <https://click.palletsprojects.com//>`__: another nice
+  library for command line interfaces - very easy to use.
 
 
 Parsing command line arguments with ``argparse``
