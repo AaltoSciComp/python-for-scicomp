@@ -223,7 +223,7 @@ outside the scope of this lesson.
    ```
 
 - The more traditional option mimics MATLAB plotting and uses the
-  **pyplot interface** (:mod:`plt <matplotlib.pyplot>` carries
+  **pyplot interface** (:py:mod:`plt <matplotlib.pyplot>` carries
   the global settings):
    ```{code-block} python
    ---
