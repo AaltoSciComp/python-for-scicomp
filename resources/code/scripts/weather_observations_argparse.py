@@ -1,6 +1,5 @@
 import pandas as pd
 import argparse
-import weather_functions
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input", type=str, help="Input data file")
@@ -18,10 +17,21 @@ start_date=pd.to_datetime(args.start,dayfirst=True)
 end_date=pd.to_datetime(args.end,dayfirst=True)
 
 # preprocess the data
-weather = weather_functions.preprocessing(weather,start_date,end_date)
+weather['Local time'] = pd.to_datetime(weather['Local time'],dayfirst=True)
+# select the data
+weather = weather[weather['Local time'].between(start_date,end_date)]
 
 # plot the data
-ax,fig = weather_functions.plot_data(weather['Local time'], weather['T'])
+import matplotlib.pyplot as plt
+# start the figure.
+fig, ax = plt.subplots()
+ax.plot(weather['Local time'], weather['T'])
+# label the axes
+ax.set_xlabel("Date of observation")
+ax.set_ylabel("Temperature in Celsius")
+ax.set_title("Temperature Observations")
+# adjust the date labels, so that they look nicer
+fig.autofmt_xdate()
 
 # save the figure
 fig.savefig(args.output)

@@ -3,7 +3,6 @@
 
 import pandas as pd
 from optionsparser import get_parameters
-import weather_functions
 import argparse 
 
 # Lets start reading our confg file. we'll use argparse to get the config file.
@@ -38,10 +37,22 @@ start_date=pd.to_datetime(parameters.start,dayfirst=True)
 end_date=pd.to_datetime(parameters.end,dayfirst=True)
 
 # Data preprocessing
-weather = weather_functions.preprocessing(weather,start_date,end_date)
+weather['Local time'] = pd.to_datetime(weather['Local time'],dayfirst=True)
+# select the data
+weather = weather[weather['Local time'].between(start_date,end_date)]
 
 # Data plotting
-ax,fig = weather_functions.plot_data(weather['Local time'], weather[parameters.data_column], parameters)
+import matplotlib.pyplot as plt
+# start the figure.
+fig, ax = plt.subplots()
+ax.plot(weather['Local time'], weather['T'])
+# label the axes
+ax.set_xlabel("Date of observation")
+ax.set_ylabel("Temperature in Celsius")
+ax.set_title("Temperature Observations")
+# adjust the date labels, so that they look nicer
+fig.autofmt_xdate()
+
 
 # save the figure
 fig.savefig(parameters.output)
