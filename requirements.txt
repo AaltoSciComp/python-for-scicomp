@@ -1,7 +1,7 @@
 Sphinx
 sphinx_rtd_theme
 myst_nb
-git+https://github.com/rkdarst/sphinx-copybutton.git@exclude-unselectable-3
+sphinx-copybutton
 sphinx-lesson
 https://github.com/aaltoscicomp/sphinx-aaltoscicomp-branding/archive/master.zip
 sphinx_rtd_theme_ext_color_contrast
