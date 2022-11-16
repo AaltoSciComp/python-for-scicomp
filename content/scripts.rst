@@ -41,7 +41,7 @@ From jupyter notebooks to python scripts
 Save as python script
 ---------------------
 
-Jupyter notebooks can be parameterized for instance using `papermill <https://papermill.readthedocs.io/en/latest/>`_. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate python scripts. This will also force you to modularize your code.
+Jupyter notebooks can be parameterized for instance using `papermill <https://papermill.readthedocs.io/en/latest/>`_. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate python scripts. This will also force you to modularize your code.  See `CodeRefinery's lesson on Modular code development <https://coderefinery.github.io/modular-type-along/>`__.
 
 Within JupyterLab, you can export any jupyter notebook to a python script:
 
@@ -358,3 +358,5 @@ Exercises 4 (optional)
   - Linking Jupyterlab notebooks to python scripts (making linking ``.py``- and ``.ipynb``-files easier) using `jupytext <https://jupytext.readthedocs.io/en/latest/paired-notebooks.html>`_
   - The `wikipedia page about YAML <https://en.wikipedia.org/wiki/YAML>`_ contains a lot of additional information on the YAML syntax.
   - `The Coderefinery Lesson about reproducible research <https://coderefinery.github.io/reproducible-research/>`_ can give additional information about good coding practices and workflow automation.
+
+  - `CodeRefinery's lesson on Modular code development <https://coderefinery.github.io/modular-type-along/>`__
