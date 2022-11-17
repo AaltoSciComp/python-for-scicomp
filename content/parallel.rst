@@ -82,6 +82,29 @@ At first glance, this is bad for parallelism.  *But it's not all bad!:*
   Python processes* and this circumvents the GIL.
 
 
+Consider the following code which does a symmetrical matrix inversion
+of a fairly large matrix:
+
+.. code-block:: python
+
+   import numpy as np
+   import time
+
+   A = np.random.random((4000,4000))
+   A = A * A.T
+   time_start = time.time()
+   np.linalg.inv(A)
+   time_end = time.time()
+   print("time spent for inverting A is", round(time_end - time_start,2), 's')		
+
+If we run this in a Jupyter notebook or through a Python script, **it
+will automatically use multithreading** through either OpenMP or MKL,
+depending on how numpy was installed on your system. We can force
+numpy to use only one thread by setting an environment variable
+(either ``export OMP_NUM_THREADS=1`` or ``export MKL_NUM_THREADS=1``),
+and this will normally result in significantly longer runtime.
+
+   
 .. seealso::
 
    * `More on the global interpreter lock
