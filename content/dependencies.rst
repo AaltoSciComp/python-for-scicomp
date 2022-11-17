@@ -123,14 +123,16 @@ Creating isolated environments
 
 Isolated environments solve a couple of problems:
 
-- You can install specific, also older, versions into them.
+- You can install specific, also older, versions of packages into them.
 
-- You can create one for each project and no problem if the two projects
-  require different versions.
+- You can create one environment for each project and you won't encounter any
+  problems if the two projects require different versions of packages.
 
 - If you make some mistake and install something you did not want or need, you
   can remove the environment and create a new one.
 
+- You can export a list of packages in an environment and share it with your
+  code. This makes replicating your results easier.
 
 
 Exercises 2
