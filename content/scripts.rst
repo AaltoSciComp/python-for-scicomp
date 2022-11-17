@@ -82,86 +82,26 @@ Exercises 1
 
      $ python weather_observations.py
 
-Importing other python files
-----------------------------
-
-We have a very short notebook that loads and plots data. But even in this script, we have to do a bit of processing (changing the format of the dates). We also extract a subset of our data for a
-given date range.
-
-In general, it is good practice to separate processing from plotting. The reason is that you often need to generate multiple plots using the data while pre-processing data once only.
-When data preprocessing is expensive this is even more important.
-
-.. highlight:: python
-
-For example, we can create a new python file (**weather_functions.py**) containing a function to adjust the dates in our dataset::
-
-  import pandas as pd
-
-  def preprocess(dataset, start_date, end_date):
-    dataset['Local time'] = pd.to_datetime(dataset['Local time'],dayfirst=True)
-    dataset = dataset[dataset['Local time'].between(start_date,end_date)]
-    return dataset
-
-and modify the ``weather_observations.py`` file to
-
-.. code-block:: python
-    :emphasize-lines: 2,11
-
-    import pandas as pd
-    import weather_functions
-
-    url = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv"
-    # read the data skipping comment lines
-    weather = pd.read_csv(url,comment='#')
-    # set start and end time
-    start_date=pd.to_datetime('01/06/2021',dayfirst=True)
-    end_date=pd.to_datetime('01/10/2021',dayfirst=True)
-    # preprocess the data
-    weather = weather_functions.preprocess(weather, start_date, end_date)
-    ...
-
-
-Exercises 2
------------
-
-.. challenge:: Scripts-2 (optional)
-
-  1. Create **weather_functions.py** with the above function and add an additional function for plotting the dataset.
-
-  2. Update **weather_observations.py** to call it.
-
-.. solution::
-
-   **weather_observations.py**:
-
-   .. literalinclude:: ../resources/code/scripts/weather_observations.py
-     :language: python
-     :emphasize-lines: 5,13,16
-
-   **weather_functions.py**:
-
-   .. literalinclude:: ../resources/code/scripts/weather_functions.py
-     :language: python
-     :emphasize-lines: 2, 12-21
-
-
 Command line arguments with ``sys.argv``
 ----------------------------------------
 
-We now have a better organized code but it still cannot easily process time ranges or a
-specified output file name. To achieve this, rather than copying the same code several times for
-different time ranges or output file names, we can update the main code to take the
-start/end time and output file name from the command line
+We now have a python script that is callable from the command line (e.g. for use on an HPC system).
+However, this code is still not adjustable, as we still need to have a copy for each single
+time range we want to plot, or need to modify our file whenever we want to just change parameters.
+What we need is to allow arguments to be put in from the command line in order to have the same code 
+plot information for different time ranges without odifying the code itself. This can be achieved by
+using pythons :py:mod:`sys` package, which provides access to arguments given to the python interpreter at 
+startup in the :py:data:`sys.argv` list. The first (i.e. ``sys.argv[0]`` entry of this array is the called script,
+and any further argument (separated by space) is appended to this list. Lets see how it works:
 
-**Example**: We modify the **weather_observations.py** script such that we allow start
+We modify the **weather_observations.py** script such that we allow start
 and end times as well as the output file to be passed in as arguments to the function:
 
 .. code-block:: python
-   :emphasize-lines: 1,6-7,9
+   :emphasize-lines: 1,5-6,8,16
 
    import sys
    import pandas as pd
-   import weather_functions
 
    # set start and end time
    start_date = pd.to_datetime(sys.argv[1],dayfirst=True)
@@ -171,9 +111,8 @@ and end times as well as the output file to be passed in as arguments to the fun
 
    ...
 
-   # preprocess the data
-   weather = weather_functions.preprocess(weather, start_date, end_date)
-
+   # select the data
+   weather = weather[weather['Local time'].between(start_date,end_date)]
    ...
 
    fig.savefig(output_file_name)
@@ -194,7 +133,7 @@ We can try it out:
 
   - What problems do you expect when using this approach (using ``sys.argv``)?
 
-This approach is brittle and more robust solutions exist that allow to fully
+This approach is brittle and more robust solutions exist that allow you to fully
 customize your scripts and generate help texts at the same time:
 
 - `argparse <https://docs.python.org/3/library/argparse.html>`__:
@@ -207,48 +146,57 @@ customize your scripts and generate help texts at the same time:
 Parsing command line arguments with ``argparse``
 ------------------------------------------------
 
-This example not only gives you descriptive command line
-arguments, it also automatically generates a ``--help`` option for you:
+:py:mod:`Argparse <argparse>` not only gives you descriptive command line arguments, it also automatically
+generates a ``--help`` option for you. To use ``argparse`` you first set up a parser 
+by calling ``parser = argparse.ArgumentParser()`` and then you add arguments using 
+:py:meth:`parser.add_argument(args) <argparse.ArgumentParser.add_argument>`. There are two different types of arguments:
+
+- Positional arguments
+- Optional arguments
+
+Positional arguments are fixed in their position, while optional arguments need to be
+given with their respective flags ( like ``--name`` or ``-n``). 
+The following example would parse a positional argument ``Name`` of type ``string``
+and an optional argument ``date`` of type ``string`` which defaults to ``01/01/2000``.
 
 .. code-block:: python
-   :emphasize-lines: 1,5-14
 
    import argparse
-   import pandas as pd
-   import weather_functions
 
    parser = argparse.ArgumentParser()
    # set start and end time
-   parser.add_argument('-o', '--output', type=str, default="Out.png"
-		    help="end time")
-   parser.add_argument('-s', '--start', type=str, default="1/1/2019"
-		    help="start time")
-   parser.add_argument('-e', '--end', type=str, default="1/1/2021"
-		    help="output filename")
+   parser.add_argument('Name', type=str, metavar="N", \
+		    help="The name of the subject")
+   parser.add_argument('-d', '--date', type=string, default="01/01/2000", \
+		    help="Birth date of the subject")
 
    args = parser.parse_args()
 
-   start_date = pd.to_datetime(args.start,dayfirst=True)
-   end_date = pd.to_datetime(args.end,dayfirst=True)
+   print(args.Name + " was born on " + args.date)
 
-   ...
+If this code was in ``birthday.py`` and we would call ``python birthday.py --help`` it 
+would show the following message:
 
-   # preprocess the data
-   weather = weather_functions.preprocess(weather, start_date, end_date)
+.. code-block:: console
 
-   ...
+   usage: birthday.py [-h] [-d DATE] N
 
-   fig.savefig(args.output)
+   positional arguments:
+     N                     The name of the subject
+
+   optional arguments:
+     -h, --help            show this help message and exit
+     -d DATE, --date DATE  Birth date of the subject
 
 
-
-Exercises 3
+Exercises 2
 -----------
 
-.. challenge:: Scripts-3
+.. challenge:: Scripts-2
 
   1. Take the python script we have written in the preceding exercise and use
-     ``argparse`` to specify the input and output files and allow the start and end dates to be set.
+     :py:mod:`argparse` to specify the input and output files and allow the start and end dates to be set. 
+     The start and end dates should be optional parameters with the defaults as they are in the current script.
 
   2. Execute your script for a few different time intervals (e.g. from January 2019 to June 2020, or from Mai 2020 to October 2020).
      Also use data for cairo (``https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv``)
@@ -258,7 +206,7 @@ Exercises 3
 
    .. literalinclude:: ../resources/code/scripts/weather_observations_argparse.py
      :language: python
-     :emphasize-lines: 2,5-9,11,14,17-18,27
+     :emphasize-lines: 2,4-8,10,13,16-17,37
 
 
 
@@ -324,10 +272,10 @@ In the YAML format, names and values are separated by ``:``. Our above example w
 .. literalinclude:: ../resources/code/scripts/weather_options.yml
    :language: yaml
 
-Exercises 4 (optional)
+Exercises 3 (optional)
 ----------------------
 
-.. challenge:: Scripts-4
+.. challenge:: Scripts-3
 
   1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py>`
      function and load it into your working folder in jupyterlab.
@@ -344,13 +292,7 @@ Exercises 4 (optional)
 
    .. literalinclude:: ../resources/code/scripts/weather_observations_config.py
      :language: python
-     :emphasize-lines: 5,16-27,31,34,44,47
-
-   The modified **weather_functions.py** script:
-
-   .. literalinclude:: ../resources/code/scripts/weather_functions_config.py
-     :language: python
-     :emphasize-lines: 12,16-18
+     :emphasize-lines: 5,9-12,15-27,30,33,36-37,58
 
 
 .. admonition:: Further reading
