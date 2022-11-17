@@ -65,16 +65,54 @@ PyPI (The Python Package Index) and (Ana)conda
 
 Why are there two ecosystems?
 
-- PyPI is traditionally for Python-only packages but it is no problem to also
-  distribute packages written in other languages as long as they provide a
-  Python interface.
 
-- Conda is more general and while it contains many Python packages and packages
-  with a Python interface, it is often used to also distribute packages which
-  do not contain any Python (e.g. C or C++ packages).
+.. admonition:: PyPI
 
-- Many libraries and tools are distributed in both ecosystems.
+   - **Installation tool:** ``pip``
+   - **Summary:** PyPI is traditionally used for Python-only packages or
+     for Python interfaces to external libraries. There are also packages
+     with bundled external libraries (such as numpy).
+   - **Amount of packages:** Huge number. Old versions are supported for
+     a long time.
+   - **How libraries are handled:** If your code depends on external
+     libraries or tools, these things need to be either included in the
+     pip-package or provided via some other installation system (like
+     operating system installer or manual installation).
+   - **Pros:**
+       - Easy to use
+       - Package creation is easy
+   - **Cons:**
+       - Installing packages that need external libraries can be complicated
 
+.. admonition:: Conda
+
+   - **Installation tool:** ``conda`` or ``mamba``
+   - **Summary:** Conda aims to be a more general package distribution tool
+     and it tries to provide not only the Python packages, but also libraries
+     and tools needed by the Python packages. Most scientific software written
+     in Python uses external libraries to speed up calculations and installing
+     these libraries can often become complicated without conda.
+   - **Amount of packages:** Most popular packages are provided. Other packages
+     can be installed via pip.
+   - **How libraries are handled:** Required libraries are installed as separate
+     conda packages.
+   - **Pros:**
+       - Quite easy to use
+       - Easier to manage packages that need external libraries
+   - **Cons:**
+       - Package creation is harder
+
+.. solution:: Anaconda vs. conda vs. miniconda vs. Anaconda Cloud vs. conda-forge
+
+  - `Anaconda <https://www.anaconda.com/>`__ - a distribution of conda packages
+    made by Anaconda Inc.. It is free for academic and non-commercial use.
+  - `conda <https://conda.io/>`__ - a package and environment management system
+    used by Anaconda. It is an open source project maintained by Anaconda Inc..
+  - `Miniconda <https://conda.io/miniconda.html>`__ - a minimal installer for conda.
+  - `Anaconda Cloud <https://anaconda.org/>`__ - a package cloud maintained by
+    Anaconda Inc. It is a free repository that houses conda package channels.
+  - `Conda-forge <https://conda-forge.org/>`__ - the largest open source
+    community channel.
 
 In the packaging episode we will meet PyPI and Anaconda again and practice how
 to share Python packages.
