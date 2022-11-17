@@ -170,13 +170,13 @@ Exercises 1
     - (Advanced) Using boolean indexing, compute the survival rate
       (mean of "Survived" values) among passengers over and under the average age.
 
-.. solution::
+   .. solution::
 
-    - Mean age of the first 10 passengers: ``titanic.iloc[:10,:]["Age"].mean()``
-      or ``titanic.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
-    - Survival rate among passengers over and under average age:
-      ``titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()`` and
-      ``titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()``.
+       - Mean age of the first 10 passengers: ``titanic.iloc[:10,:]["Age"].mean()``
+         or ``titanic.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
+       - Survival rate among passengers over and under average age:
+         ``titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()`` and
+         ``titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()``.
 
 
 Tidy data
@@ -319,11 +319,11 @@ Exercises 2
       as a parameter to ``hist`` to compute a value on the fly. For example
       ``lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich"``).
 
-.. solution:: Solution
-
-    - Existing family sizes: ``df["SibSp"].unique()``
-    - Names of members of largest family(ies): ``df[df["SibSp"] == 8]["Name"]``
-    - ``df.hist("SibSp", lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich", rwidth=0.9)``
+   .. solution:: 
+   
+       - Existing family sizes: ``df["SibSp"].unique()``
+       - Names of members of largest family(ies): ``df[df["SibSp"] == 8]["Name"]``
+       - ``df.hist("SibSp", lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich", rwidth=0.9)``
 
 
 
