@@ -22,11 +22,14 @@ What do you do?
 
 1. Profile your code, identify the *actual* slow spots.
 
-2. Can you improve your code in those areas?  Use an existing library?
+2. Can you improve your code in those areas? Use an existing library?
 
 3. Are there are any low-effort optimizations that you can make?
 
-4. Think about parallelizing.
+4. Consider using `numba <https://numba.pydata.org/>`__ or
+   `cython <https://cython.org/>`__ to accelerate key functions.
+
+5. Think about parallelizing.
 
 
 Many times in science, you want to parallelize your code: either if the computation
@@ -428,7 +431,9 @@ See also
 * `Thinking about Concurrency, Raymond Hettinger
   <https://youtu.be/Bv25Dwe84g0>`__.  Good introduction to simple and
   safe concurrent code.
-
+* `Introduction to numba and cython <https://enccs.github.io/HPDA-Python/performance-boosting/>`__.
+* `More detailed exposition of parallel computing in Python <https://enccs.github.io/HPDA-Python/parallel-computing/>`__  
+  
 .. keypoints::
 
    - Pure Python is not very good for highly parallel code.
