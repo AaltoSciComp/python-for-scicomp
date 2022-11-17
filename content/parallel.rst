@@ -71,17 +71,16 @@ The designers of the Python language made the choice
 that **only one thread in a process can run actual Python code**
 by using the so-called **global interpreter lock (GIL)**.
 This means that approaches that may work in other languages (C, C++, Fortran),
-may not work in Python without being a bit careful.
+may not work in Python.
 At first glance, this is bad for parallelism.  *But it's not all bad!:*
 
 * External libraries (NumPy, SciPy, Pandas, etc), written in C or other
   languages, can release the lock and run multi-threaded.  Also, most
   input/output releases the GIL, and input/output is slow.
 
-* If speed is important enough you need things parallel, you usually
-  wouldn't use pure Python.
+* Python libraries like ``multiprocessing`` and ``mpi4py`` run *multiple
+  Python processes* and this circumvents the GIL.
 
-We won't cover threading in this course.
 
 .. seealso::
 
