@@ -39,19 +39,18 @@ be allowed to run on a specific hardware (e.g. supercomputers).
 **Parallel computing** is when many different tasks are carried out
 simultaneously.  There are three main models:
 
-* **Embarrassingly parallel:** the code does not need to synchronize/communicate
-  with other instances, and you can run
+* **Embarrassingly parallel:** the code does not need to
+  synchronize/communicate with other instances, and you can run
   multiple instances of the code separately, and combine the results
-  later.  If you can do this, great!  (array jobs, task queues)
+  later.  If you can do this, great!  (array jobs, task queues,
+  workflow management tools)
 
-* **Shared memory parallelism:** Parallel threads need to communicate and do so via
-  the same memory (variables, state, etc). (OpenMP)
+* **Multithreading:** Parallel threads need to communicate and do so via
+  the same memory (variables, state, etc). (OpenMP, ``threading``)
 
-* **Message passing:** Different processes manage their own memory segments. They share data
-  by communicating (passing messages) as needed. (Message Passing Interface (MPI)).
-
-Programming shared memory or message passing is beyond the scope of
-this course, but the simpler strategies are most often used anyway.
+* **Multiprocessing, message passing:** Different processes manage
+  their own memory segments. They share data by communicating (passing
+  messages) as needed. (``multiprocessing``, MPI).
 
 .. warning::
 
