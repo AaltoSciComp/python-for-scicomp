@@ -439,17 +439,15 @@ Larger DataFrame operations might be faster using :obj:`~pandas.eval()` with str
 	rng = np.random.RandomState(42)
 	df1, df2, df3, df4 = (pd.DataFrame(rng.rand(nrows, ncols))
 			      for i in range(4))
-	
+Adding dataframes the pythonic way yields::
+
 	%timeit df1 + df2 + df3 + df4
 	# 80ms
 	
-        # using eval()
+And by using :obj:`~pandas.eval()`::
+
         %timeit pd.eval('df1 + df2 + df3 + df4')
 	# 40ms
-
-
-
-
 
     
 We can assign function return lists as dataframe columns::
@@ -471,10 +469,12 @@ We can assign function return lists as dataframe columns::
 	df = pd.DataFrame({'Generation': np.arange(100)})
 	df['Number of Rabbits'] = fibo(99)
 	
+	
 There is much more to Pandas than what we covered in this lesson. Whatever your
 needs are, chances are good there is a function somewhere in its `API
 <https://pandas.pydata.org/docs/>`__. And when there is not, you can always
 apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
+
 
     from functools import lru_cache
 
@@ -491,6 +491,7 @@ apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
 
     df = pd.DataFrame({'Generation': np.arange(100)})
     df['Number of Rabbits'] = df['Generation'].apply(fib)
+	
 	
 Note that the numpy precisision for integers caps at int64 while python ints are unbounded -- 
 limited by memory size. Thus, the result from fibonacci(99) would be erroneous when 
