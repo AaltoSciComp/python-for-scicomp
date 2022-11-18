@@ -146,19 +146,19 @@ Exercises 2
   quite familiar with Python, still finishing some Python assignments (due in a
   few weeks) and you give her a Python code for analyzing and plotting your
   favorite data. The thing is that your Python code has been developed by
-  another Master Student (from last year) and requires a pretty old version of
-  Numpy (1.13.1) and Matplotlib (2.2.2) (otherwise the code fails). The code
+  another Master Student (from last year) and requires a older version of
+  Numpy (1.18.1) and Matplotlib (3.1.3) (otherwise the code fails). The code
   could probably work with a recent version of Python but has been validated with
-  Python 3.6 only. Having no idea what the code does, she decides that the best
-  approach is to **create an isolated environment** with the same dependencies used
-  previously. This will give her a baseline for future upgrade and
+  Python 3.7 only. Having no idea what the code does, she decides that the best
+  approach is to **create an isolated environment** with the same dependencies
+  that were used previously. This will give her a baseline for future upgrade and
   developments.
 
   For this first exercise, we will be using conda for creating an isolated environment.
 
   1. Create a conda environment::
 
-     $ conda create --name python36-env python=3.6 numpy=1.13.1 matplotlib=2.2.2
+     $ conda create --name python37-env python=3.7 numpy=1.18.1 matplotlib=3.1.3
 
   Conda environments can also be managed (create, update, delete) from the
   **anaconda-navigator**. Check out the corresponding documentation `here
@@ -166,7 +166,7 @@ Exercises 2
 
   2. Activate the environment::
 
-     $ conda activate python36-env
+     $ conda activate python37-env
 
      .. callout:: conda activate versus source activate
 
@@ -174,7 +174,7 @@ Exercises 2
         setup properly, you may encounter an error. With older version of anaconda,
         you can try::
 
-          $ source activate python36-env
+          $ source activate python37-env
 
   3. Open a Python console and check that you have effectively the right version for each package::
 
@@ -194,7 +194,7 @@ Exercises 2
      $ conda deactivate
 
   5. Check Numpy and Matplotlib versions in the default environment to make
-     sure they are different from **python36-env**.
+     sure they are different from **python37-env**.
 
   There is no need to specify the conda environment when using deactivate. It
   deactivates the current environment.
@@ -207,7 +207,7 @@ Exercises 2
       for instance `conda-forge <https://conda-forge.org/>`_. Channels can then
       be indicated when installing a package::
 
-      $ conda install -c conda-forge matplotlib=2.2.0
+      $ conda install -c conda-forge matplotlib=3.1.3
 
     - We will see below that rather than specifying the list of dependencies as
       argument of ``conda create``, it is recommended to record dependencies in
@@ -225,7 +225,7 @@ Exercises 3
 
   1. Create a venv::
 
-     $ python -m venv scicomp
+     $ python3 -m venv scicomp
 
      Here ``scicomp`` is the name of the virtual environment. It creates a new
      folder called ``scicomp``.
@@ -267,7 +267,6 @@ Or using an ``environments.yml`` (for conda) file which looks like this:
 .. code-block:: yaml
 
    name: my-environment
-
    dependencies:
      - numpy
      - matplotlib
@@ -282,23 +281,22 @@ Here are the two files again, but this time with versions pinned:
 
 ``requirements.txt`` with versions::
 
-   numpy==1.19.2
-   matplotlib==3.3.2
-   pandas==1.1.2
-   scipy==1.5.2
+    numpy==1.18.1
+    matplotlib==3.1.3
+    pandas==1.1.2
+    scipy==1.6.2
 
 ``environments.yml`` with versions:
 
 .. code-block:: yaml
 
-   name: my-environment
-
-   dependencies:
-     - python=3.6
-     - numpy=1.19.2
-     - matplotlib=3.3.2
-     - pandas=1.1.2
-     - scipy=1.5.2
+    name: my-environment
+    dependencies:
+      - python=3.7
+      - numpy=1.18.1
+      - matplotlib=3.1.3
+      - pandas=1.1.2
+      - scipy=1.6.2
 
 - Conda can also read and write ``requirements.txt``.
 - ``requirements.txt`` can also refer to packages on Github.
