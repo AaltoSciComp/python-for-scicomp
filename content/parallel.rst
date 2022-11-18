@@ -101,9 +101,9 @@ of a fairly large matrix:
 
 If we run this in a Jupyter notebook or through a Python script, **it
 will automatically use multithreading** through OpenMP. We can force
-numpy to use only one thread by setting an environment variable
+NumPy to use only one thread by setting an environment variable
 (either ``export OMP_NUM_THREADS=1`` or ``export MKL_NUM_THREADS=1``,
-depending on how numpy is compiled on your machine),
+depending on how NumPy is compiled on your machine),
 and this will normally result in significantly longer runtime.
 
    
@@ -447,9 +447,9 @@ Dask
 scheduler.  By using the new array classes, you can automatically
 distribute operations across multiple CPUs.
 
-Dask is very popular for data analysis and is used by a number of high-level python library:
+Dask is very popular for data analysis and is used by a number of high-level Python libraries:
 
-- Dask arrays scale Numpy (see also `xarray <http://xarray.pydata.org/en/stable/>`__ 
+- Dask arrays scale NumPy (see also `xarray <http://xarray.pydata.org/en/stable/>`__ 
 - Dask dataframes scale Pandas workflows
 - Dask-ML scales Scikit-Learn
 
@@ -502,13 +502,14 @@ See also
 * `Thinking about Concurrency, Raymond Hettinger
   <https://youtu.be/Bv25Dwe84g0>`__.  Good introduction to simple and
   safe concurrent code.
-* `Introduction to numba and cython <https://enccs.github.io/HPDA-Python/performance-boosting/>`__.
-* `More detailed exposition of parallel computing in Python <https://enccs.github.io/HPDA-Python/parallel-computing/>`__  
-  
+* `Introduction to Numba and Cython <https://enccs.github.io/HPDA-Python/performance-boosting/>`__.
+* `More detailed exposition of parallel computing in Python <https://enccs.github.io/HPDA-Python/parallel-computing/>`__.
+* `Introduction to Dask for scalable analytics <https://enccs.github.io/HPDA-Python/dask/>`__.
+
 .. keypoints::
 
    - Pure Python is not very good for highly parallel code.
    - Luckily it interfaces to many things which *are* good, and give
      you the full control you need.
-   - Combining vectorized functions (numpy, scipy, pandas, etc.) with
+   - Combining vectorized functions (NumPy, Scipy, pandas, etc.) with
      the parallel strategies listed here will get you very far.
