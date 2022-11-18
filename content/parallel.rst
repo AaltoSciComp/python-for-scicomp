@@ -116,8 +116,7 @@ and this will normally result in significantly longer runtime.
      very low level and you shouldn't use it unless you really know what
      you are doing.
    * We recommend you find a UNIX threading tutorial first before embarking
-     on using the `threading
-     <https://docs.python.org/3/library/threading.html>`__ module.
+     on using the :py:mod:`threading` module.
      
 
 
