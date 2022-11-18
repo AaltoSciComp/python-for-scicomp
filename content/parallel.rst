@@ -118,7 +118,7 @@ and this will normally result in significantly longer runtime.
    * We recommend you find a UNIX threading tutorial first before embarking
      on using the `threading
      <https://docs.python.org/3/library/threading.html>`__ module.
-
+     
 
 
 multiprocessing
@@ -158,7 +158,19 @@ calculations on the list:
   ...     pool.map(square, [1, 2, 3, 4, 5, 6])
   [1, 4, 9, 16, 25, 36]
 
+.. warning::
 
+   Running the above example **interactively** in a Jupyter notebook
+   or through an Python/IPython terminal may or may not work on your
+   computer! This is a feature and not a bug, as covered in the
+   `documentation <https://docs.python.org/3/library/multiprocessing.html>`__.
+
+   Fortunately, there is a fork of multiprocesssing called
+   `multiprocess <https://pypi.org/project/multiprocess/>`__ which does
+   work in interactive environments. All we have to do is install it
+   by ``pip install multiprocess`` and change the import statement:
+   ``from multiprocess import Pool``.
+   
 
 Exercises, multiprocessing
 --------------------------
