@@ -431,7 +431,7 @@ Exercises 3
 Beyond the basics
 -----------------
 
-Larger DataFrame operations might be faster using pandas.eval() with string expressions, `see
+Larger DataFrame operations might be faster using :obj:`~pandas.eval()` with string expressions, `see
 <https://jakevdp.github.io/PythonDataScienceHandbook/03.12-performance-eval-and-query.html>`__::
 
 	import pandas as pd
