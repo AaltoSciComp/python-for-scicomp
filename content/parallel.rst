@@ -75,8 +75,10 @@ may not work in Python.
 At first glance, this is bad for parallelism.  *But it's not all bad!:*
 
 * External libraries (NumPy, SciPy, Pandas, etc), written in C or other
-  languages, can release the lock and run multi-threaded.  Also, most
-  input/output releases the GIL, and input/output is slow.
+  languages, can release the lock and run multi-threaded.
+
+* Most input/output releases the GIL, and input/output is slow. The
+  ``threading`` library can be used to multithread I/O.
 
 * Python libraries like ``multiprocessing`` and ``mpi4py`` run *multiple
   Python processes* and this circumvents the GIL.
