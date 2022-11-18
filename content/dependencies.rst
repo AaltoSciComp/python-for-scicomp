@@ -248,34 +248,69 @@ Exercises 3
 
      $ deactivate
 
+Problems that might happen with manual installation
+---------------------------------------------------
+
+Running the install commands manually can result in unexpected behaviour
+such as:
+
+- The installer might remove an already installed packages or update them.
+- The installer might not find a package that works with already installed packages.
+
+The reason for this is that the installer does not know what commands
+you ran in the past. It only knows the state of your environment and what
+you're currently telling it to install.
+
+For example, check what version of ``scipy`` you'll get if you run
+
+.. code-block:: shell
+
+  $ pip install scipy
+
+or
+
+.. code-block:: shell
+
+  $ conda install scipy
+
+Depending on your environment you can get ``scipy`` with versions from
+``1.6.2`` with no numpy upgrade to ``1.9.3`` with automatic numpy upgrade.
+
+These kinds of problems can be mitigated by recording dependencies in an
+``environment.yml`` or ``requirements.txt``.
 
 Recording dependencies
 ----------------------
 
-There are two standard ways to record dependencies for Python projects.:
+There are two standard ways to record dependencies for Python projects:
+``requirements.txt`` and ``environment.yml``.
 
-Using a ``requirements.txt`` (used by virtual environment) file which
-looks like this::
+``requirements.txt`` (used by virtual environment) is a simple
+text file which looks like this::
 
    numpy
    matplotlib
    pandas
    scipy
 
-Or using an ``environments.yml`` (for conda) file which looks like this:
+``environments.yml`` (for conda) is a yaml-file which looks like this:
 
 .. code-block:: yaml
 
    name: my-environment
+   channels:
+     - defaults
    dependencies:
      - numpy
      - matplotlib
      - pandas
      - scipy
 
-But all of these dependencies evolve so before publishing our work
-it can be very useful for future generations and for the future you
-to **pin dependencies** to versions.
+If you need to recreate the exact same environment later on, it can be very
+useful to **pin dependencies** to certain versions. For example, there
+is usually a delay between doing research and that research being published.
+During this time the dependencies might update and reviewers or interested
+researchers might not be able to replicate your results or run your code.
 
 Here are the two files again, but this time with versions pinned:
 
@@ -291,6 +326,8 @@ Here are the two files again, but this time with versions pinned:
 .. code-block:: yaml
 
     name: my-environment
+    channels:
+      - defaults
     dependencies:
       - python=3.7
       - numpy=1.18.1
@@ -303,7 +340,15 @@ Here are the two files again, but this time with versions pinned:
 - ``environments.yml`` can also contain a ``pip`` section.
 - See also: https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies.
 
+.. admonition:: Putting too strict requirements can be counter-productive
 
+  Putting exact version numbers can be good for single-use applications,
+  like replicating a research paper, but it is usually bad for long-term
+  maintenance because the program won't update at the same time as it's
+  requirements do.
+
+  If you're creating a library, adding strict dependencies can also create
+  a situation where the library cannot coexist with another library.
 
 Dependencies 4
 --------------
@@ -313,19 +358,23 @@ Dependencies 4
   - Create the file ``environment.yml`` or ``requirements.txt``
 
   - Create an environment based on these dependencies:
-     - Conda: ``$ conda create --name myenvironment --file requirements.txt``
+     - Conda: ``$ conda env create --file environment.yml``
      - Virtual environment: First create and activate, then ``$ pip install -r requirements.txt``
 
   - Freeze the environment:
-     - Conda: ``$ conda list --export > requirements.txt`` or ``$ conda env export > environment.yml``
+     - Conda: ``$ conda env export > environment.yml``
      - Virtual environment: ``$ pip freeze > requirements.txt``
 
   - Have a look at the generated ("frozen") file.
 
+.. admonition:: Hint: Updating packages from dependency files
 
-Tip: instead of installing packages with ``$ pip install somepackage``, what I do is
-to add ``somepackage`` to ``requirements.txt`` or ``environment.yml`` and install
-from the file, then you have a trace of all installed dependencies.
+  Instead of installing packages with ``$ pip install somepackage``,
+  you can add ``somepackage`` to ``requirements.txt`` and re-run
+  ``$ pip install -r requirements.txt``.
+
+  With conda, you can add the package to ``environment.yml`` and
+  run ``$ conda env update --file environment.yml``
 
 
 How to communicate the dependencies as part of a report/thesis/publication
