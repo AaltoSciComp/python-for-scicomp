@@ -431,6 +431,46 @@ Exercises 3
 Beyond the basics
 -----------------
 
+Larger DataFrame operations might be faster using pandas.eval() with string expressions, `see
+<https://jakevdp.github.io/PythonDataScienceHandbook/03.12-performance-eval-and-query.html>`__::
+
+	import pandas as pd
+	nrows, ncols = 100000, 100
+	rng = np.random.RandomState(42)
+	df1, df2, df3, df4 = (pd.DataFrame(rng.rand(nrows, ncols))
+			      for i in range(4))
+	
+	%timeit df1 + df2 + df3 + df4
+	# 80ms
+	
+        # using eval()
+        %timeit pd.eval('df1 + df2 + df3 + df4')
+	# 40ms
+
+
+
+
+
+    
+We can assign function return lists as dataframe columns::
+
+	def fibo(n):
+	    """Compute Fibonacci numbers. Here we skip the overhead from the 
+	    recursive function calls by using a list. """
+	    if n < 0:
+		raise NotImplementedError('Not defined for negative values')
+	    elif n < 2:
+		return n
+	    memo = [0]*(n+1)
+	    memo[0] = 0
+	    memo[1] = 1
+	    for i in range(2, n+1):
+		memo[i] = memo[i-1] + memo[i-2]
+	    return memo
+
+	df = pd.DataFrame({'Generation': np.arange(100)})
+	df['Number of Rabbits'] = fibo(99)
+	
 There is much more to Pandas than what we covered in this lesson. Whatever your
 needs are, chances are good there is a function somewhere in its `API
 <https://pandas.pydata.org/docs/>`__. And when there is not, you can always
@@ -451,6 +491,11 @@ apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
 
     df = pd.DataFrame({'Generation': np.arange(100)})
     df['Number of Rabbits'] = df['Generation'].apply(fib)
+	
+Note that the numpy precisision for integers caps at int64 while python ints are unbounded -- 
+limited by memory size. Thus, the result from fibonacci(99) would be erroneous when 
+using numpy ints. The type of df['Number of Rabbits'][99] given by both functions above
+is in fact <class 'int'>.
 
 
 .. keypoints::
