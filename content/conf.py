@@ -44,6 +44,7 @@ extensions = [
 
 import os
 plausible_domain = 'aaltoscicomp.github.io/python-for-scicomp'
+plausible_script = 'https://plausible.cs.aalto.fi/js/plausible.js'
 plausible_enabled = (
     'GITHUB_ACTION' in os.environ
     and os.environ.get('GITHUB_REPOSITORY', '').lower() == 'aaltoscicomp/python-for-scicomp'
