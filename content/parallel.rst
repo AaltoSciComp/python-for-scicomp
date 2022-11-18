@@ -22,11 +22,14 @@ What do you do?
 
 1. Profile your code, identify the *actual* slow spots.
 
-2. Can you improve your code in those areas?  Use an existing library?
+2. Can you improve your code in those areas? Use an existing library?
 
 3. Are there are any low-effort optimizations that you can make?
 
-4. Think about parallelizing.
+4. Consider using `numba <https://numba.pydata.org/>`__ or
+   `cython <https://cython.org/>`__ to accelerate key functions.
+
+5. Think about parallelizing.
 
 
 Many times in science, you want to parallelize your code: either if the computation
@@ -36,19 +39,18 @@ be allowed to run on a specific hardware (e.g. supercomputers).
 **Parallel computing** is when many different tasks are carried out
 simultaneously.  There are three main models:
 
-* **Embarrassingly parallel:** the code does not need to synchronize/communicate
-  with other instances, and you can run
+* **Embarrassingly parallel:** the code does not need to
+  synchronize/communicate with other instances, and you can run
   multiple instances of the code separately, and combine the results
-  later.  If you can do this, great!  (array jobs, task queues)
+  later.  If you can do this, great!  (array jobs, task queues,
+  workflow management tools)
 
-* **Shared memory parallelism:** Parallel threads need to communicate and do so via
-  the same memory (variables, state, etc). (OpenMP)
+* **Multithreading:** Parallel threads need to communicate and do so via
+  the same memory (variables, state, etc). (OpenMP, ``threading``)
 
-* **Message passing:** Different processes manage their own memory segments. They share data
-  by communicating (passing messages) as needed. (Message Passing Interface (MPI)).
-
-Programming shared memory or message passing is beyond the scope of
-this course, but the simpler strategies are most often used anyway.
+* **Multiprocessing, message passing:** Different processes manage
+  their own memory segments. They share data by communicating (passing
+  messages) as needed. (``multiprocessing``, MPI).
 
 .. warning::
 
@@ -69,18 +71,42 @@ The designers of the Python language made the choice
 that **only one thread in a process can run actual Python code**
 by using the so-called **global interpreter lock (GIL)**.
 This means that approaches that may work in other languages (C, C++, Fortran),
-may not work in Python without being a bit careful.
+may not work in Python.
 At first glance, this is bad for parallelism.  *But it's not all bad!:*
 
 * External libraries (NumPy, SciPy, Pandas, etc), written in C or other
-  languages, can release the lock and run multi-threaded.  Also, most
-  input/output releases the GIL, and input/output is slow.
+  languages, can release the lock and run multi-threaded.
 
-* If speed is important enough you need things parallel, you usually
-  wouldn't use pure Python.
+* Most input/output releases the GIL, and input/output is slow. The
+  ``threading`` library can be used to multithread I/O.
 
-We won't cover threading in this course.
+* Python libraries like ``multiprocessing`` and ``mpi4py`` run *multiple
+  Python processes* and this circumvents the GIL.
 
+
+Consider the following code which does a symmetrical matrix inversion
+of a fairly large matrix:
+
+.. code-block:: python
+
+   import numpy as np
+   import time
+
+   A = np.random.random((4000,4000))
+   A = A * A.T
+   time_start = time.time()
+   np.linalg.inv(A)
+   time_end = time.time()
+   print("time spent for inverting A is", round(time_end - time_start,2), 's')		
+
+If we run this in a Jupyter notebook or through a Python script, **it
+will automatically use multithreading** through OpenMP. We can force
+NumPy to use only one thread by setting an environment variable
+(either ``export OMP_NUM_THREADS=1`` or ``export MKL_NUM_THREADS=1``,
+depending on how NumPy is compiled on your machine),
+and this will normally result in significantly longer runtime.
+
+   
 .. seealso::
 
    * `More on the global interpreter lock
@@ -90,9 +116,8 @@ We won't cover threading in this course.
      very low level and you shouldn't use it unless you really know what
      you are doing.
    * We recommend you find a UNIX threading tutorial first before embarking
-     on using the `threading
-     <https://docs.python.org/3/library/threading.html>`__ module.
-
+     on using the :py:mod:`threading` module.
+     
 
 
 multiprocessing
@@ -101,12 +126,8 @@ multiprocessing
 As opposed to threading, Python has a reasonable way of doing
 something similar that uses multiple processes: the
 :py:mod:`multiprocessing` module.
-
-* The interface is a lot like threading, but in the background creates
-  new processes to get around the global interpreter lock.
-
-* There are low-level functions which have a lot of the same risks and
-  difficulties as when using :py:mod:`threading`.
+The interface is a lot like threading, but in the background creates
+new processes to get around the global interpreter lock.
 
 To show an example,
 the `split-apply-combine <https://doi.org/10.18637%2Fjss.v040.i01>`__
@@ -136,7 +157,19 @@ calculations on the list:
   ...     pool.map(square, [1, 2, 3, 4, 5, 6])
   [1, 4, 9, 16, 25, 36]
 
+.. warning::
 
+   Running the above example **interactively** in a Jupyter notebook
+   or through an Python/IPython terminal may or may not work on your
+   computer! This is a feature and not a bug, as covered in the
+   `documentation <https://docs.python.org/3/library/multiprocessing.html>`__.
+
+   Fortunately, there is a fork of multiprocesssing called
+   `multiprocess <https://pypi.org/project/multiprocess/>`__ which does
+   work in interactive environments. All we have to do is install it
+   by ``pip install multiprocess`` and change the import statement:
+   ``from multiprocess import Pool``.
+   
 
 Exercises, multiprocessing
 --------------------------
@@ -182,6 +215,10 @@ Exercises, multiprocessing
    only.  Combine the results and time the calculation.  What is the
    difference in time taken?
 
+   NOTE: If you're working in an interactive environment and this
+   doesn't work with the ``multiprocessing`` module, install and use
+   the ``multiprocess`` module instead!
+   
    (optional, advanced) Do the same but with
    :py:class:`multiprocessing.pool.ThreadPool` instead.  This works identically
    to ``Pool``, but uses threads instead of different processes.
@@ -323,6 +360,43 @@ Exercises, MPI
    - Why did we use ``_, n_inside_circle = sample(n_task)`` and not ``n, n_inside_circle = sample(n_task)``?
 
 
+   .. solution::
+
+      We first run the example normally, and get:
+
+      .. code-block:: console
+
+	 $ python example.py
+	 before gather: rank 0, n_inside_circle: 7854305
+	 after gather: rank 0, n_inside_circle: [7854305]
+
+	 number of darts: 10000000, estimate: 3.141722, time spent: 2.5 seconds
+
+      Next we take advantage of the MPI parallelisation and run on 2 cores:
+
+      .. code-block:: console
+
+	 $ mpirun -n 2 python mpi_test.py
+	 before gather: rank 0, n_inside_circle: 3926634
+	 before gather: rank 1, n_inside_circle: 3925910
+	 after gather: rank 1, n_inside_circle: None
+	 after gather: rank 0, n_inside_circle: [3926634, 3925910]
+
+	 number of darts: 10000000, estimate: 3.1410176, time spent: 1.3 seconds		      
+
+      Note that two MPI processes are now printing output. Also, the parallel
+      version runs twice as fast!
+
+      The ``comm.gather`` function collects (gathers) values of a
+      given variable from all MPI ranks onto one `root` rank, which is
+      conventionally rank 0.
+
+      A conditional ``if rank == 0`` is typically used to print output
+      (or write data to file, etc) from only one rank.
+
+      An underscore ``_`` is often used as a variable name in cases
+      where the data is unimportant and will not be reused.
+      
 Coupling to other languages
 ---------------------------
 
@@ -373,9 +447,9 @@ Dask
 scheduler.  By using the new array classes, you can automatically
 distribute operations across multiple CPUs.
 
-Dask is very popular for data analysis and is used by a number of high-level python library:
+Dask is very popular for data analysis and is used by a number of high-level Python libraries:
 
-- Dask arrays scale Numpy (see also `xarray <http://xarray.pydata.org/en/stable/>`__ 
+- Dask arrays scale NumPy (see also `xarray <http://xarray.pydata.org/en/stable/>`__ 
 - Dask dataframes scale Pandas workflows
 - Dask-ML scales Scikit-Learn
 
@@ -428,11 +502,14 @@ See also
 * `Thinking about Concurrency, Raymond Hettinger
   <https://youtu.be/Bv25Dwe84g0>`__.  Good introduction to simple and
   safe concurrent code.
+* `Introduction to Numba and Cython <https://enccs.github.io/HPDA-Python/performance-boosting/>`__.
+* `More detailed exposition of parallel computing in Python <https://enccs.github.io/HPDA-Python/parallel-computing/>`__.
+* `Introduction to Dask for scalable analytics <https://enccs.github.io/HPDA-Python/dask/>`__.
 
 .. keypoints::
 
    - Pure Python is not very good for highly parallel code.
    - Luckily it interfaces to many things which *are* good, and give
      you the full control you need.
-   - Combining vectorized functions (numpy, scipy, pandas, etc.) with
+   - Combining vectorized functions (NumPy, Scipy, pandas, etc.) with
      the parallel strategies listed here will get you very far.

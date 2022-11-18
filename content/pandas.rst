@@ -133,7 +133,7 @@ refer to columns and rows either by number or by their name::
     titanic.at['Lam, Mr. Ali',"Age"] = 42      # set single value by row and column *name* (fast)
     titanic.iat[0,5]                           # select same value by row and column *number* (fast)
 
-    titanic["foo"] = "bar"                     # set a whole column
+    titanic["is_passenger"] = True             # set a whole column
 
 Dataframes also support boolean indexing, just like we saw for ``numpy``
 arrays::
@@ -170,13 +170,13 @@ Exercises 1
     - (Advanced) Using boolean indexing, compute the survival rate
       (mean of "Survived" values) among passengers over and under the average age.
 
-.. solution::
+   .. solution::
 
-    - Mean age of the first 10 passengers: ``titanic.iloc[:10,:]["Age"].mean()``
-      or ``titanic.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
-    - Survival rate among passengers over and under average age:
-      ``titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()`` and
-      ``titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()``.
+       - Mean age of the first 10 passengers: ``titanic.iloc[:10,:]["Age"].mean()``
+         or ``titanic.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
+       - Survival rate among passengers over and under average age:
+         ``titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()`` and
+         ``titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()``.
 
 
 Tidy data
@@ -242,7 +242,7 @@ in multiple ways, for example starting with a numpy array::
 
 or a dictionary::
 
-    df = pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar', 'foo', 'bar', 'foo', 'foo'],
+    df = pd.DataFrame({'A': ['dog', 'cat', 'dog', 'cat', 'dog', 'cat', 'dog', 'dog'],
 		       'B': ['one', 'one', 'two', 'three', 'two', 'two', 'one', 'three'],
 		       'C': np.array([3] * 8, dtype='int32'),
 		       'D': np.random.randn(8),
@@ -319,11 +319,11 @@ Exercises 2
       as a parameter to ``hist`` to compute a value on the fly. For example
       ``lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich"``).
 
-.. solution:: Solution
-
-    - Existing family sizes: ``df["SibSp"].unique()``
-    - Names of members of largest family(ies): ``df[df["SibSp"] == 8]["Name"]``
-    - ``df.hist("SibSp", lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich", rwidth=0.9)``
+   .. solution:: 
+   
+       - Existing family sizes: ``df["SibSp"].unique()``
+       - Names of members of largest family(ies): ``df[df["SibSp"] == 8]["Name"]``
+       - ``df.hist("SibSp", lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich", rwidth=0.9)``
 
 
 
