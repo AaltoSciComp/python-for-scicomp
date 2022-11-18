@@ -235,14 +235,14 @@ Exercises 3
 
      - **Linux/Mac-OSX**: look at ``bin`` folder in the ``scicomp`` folder::
 
-	$ source scicomp/bin/activate
+       $ source scicomp/bin/activate
 
      - **Windows**: most likely you can find it in the ``Scripts`` folder.
 
-  3. Install Numpy 1.13.1 and Matplotlib 2.2.2 into the virtual environment::
+  3. Install Numpy 1.18.1 and Matplotlib 3.1.3 into the virtual environment::
 
-     $ pip install numpy==1.13.1
-     $ pip install matplotlib==2.2.2
+     $ pip install numpy==1.18.1
+     $ pip install matplotlib==3.1.3
 
   4. Deactivate it::
 
