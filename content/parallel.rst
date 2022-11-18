@@ -360,6 +360,43 @@ Exercises, MPI
    - Why did we use ``_, n_inside_circle = sample(n_task)`` and not ``n, n_inside_circle = sample(n_task)``?
 
 
+   .. solution::
+
+      We first run the example normally, and get:
+
+      .. code-block:: console
+
+	 $ python example.py
+	 before gather: rank 0, n_inside_circle: 7854305
+	 after gather: rank 0, n_inside_circle: [7854305]
+
+	 number of darts: 10000000, estimate: 3.141722, time spent: 2.5 seconds
+
+      Next we take advantage of the MPI parallelisation and run on 2 cores:
+
+      .. code-block:: console
+
+	 $ mpirun -n 2 python mpi_test.py
+	 before gather: rank 0, n_inside_circle: 3926634
+	 before gather: rank 1, n_inside_circle: 3925910
+	 after gather: rank 1, n_inside_circle: None
+	 after gather: rank 0, n_inside_circle: [3926634, 3925910]
+
+	 number of darts: 10000000, estimate: 3.1410176, time spent: 1.3 seconds		      
+
+      Note that two MPI processes are now printing output. Also, the parallel
+      version runs twice as fast!
+
+      The ``comm.gather`` function collects (gathers) values of a
+      given variable from all MPI ranks onto one `root` rank, which is
+      conventionally rank 0.
+
+      A conditional ``if rank == 0`` is typically used to print output
+      (or write data to file, etc) from only one rank.
+
+      An underscore ``_`` is often used as a variable name in cases
+      where the data is unimportant and will not be reused.
+      
 Coupling to other languages
 ---------------------------
 
