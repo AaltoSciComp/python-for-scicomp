@@ -215,6 +215,10 @@ Exercises, multiprocessing
    only.  Combine the results and time the calculation.  What is the
    difference in time taken?
 
+   NOTE: If you're working in an interactive environment and this
+   doesn't work with the ``multiprocessing`` module, install and use
+   the ``multiprocess`` module instead!
+   
    (optional, advanced) Do the same but with
    :py:class:`multiprocessing.pool.ThreadPool` instead.  This works identically
    to ``Pool``, but uses threads instead of different processes.
