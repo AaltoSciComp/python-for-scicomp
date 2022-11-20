@@ -65,16 +65,54 @@ PyPI (The Python Package Index) and (Ana)conda
 
 Why are there two ecosystems?
 
-- PyPI is traditionally for Python-only packages but it is no problem to also
-  distribute packages written in other languages as long as they provide a
-  Python interface.
 
-- Conda is more general and while it contains many Python packages and packages
-  with a Python interface, it is often used to also distribute packages which
-  do not contain any Python (e.g. C or C++ packages).
+.. admonition:: PyPI
 
-- Many libraries and tools are distributed in both ecosystems.
+   - **Installation tool:** ``pip``
+   - **Summary:** PyPI is traditionally used for Python-only packages or
+     for Python interfaces to external libraries. There are also packages
+     with bundled external libraries (such as numpy).
+   - **Amount of packages:** Huge number. Old versions are supported for
+     a long time.
+   - **How libraries are handled:** If your code depends on external
+     libraries or tools, these things need to be either included in the
+     pip-package or provided via some other installation system (like
+     operating system installer or manual installation).
+   - **Pros:**
+       - Easy to use
+       - Package creation is easy
+   - **Cons:**
+       - Installing packages that need external libraries can be complicated
 
+.. admonition:: Conda
+
+   - **Installation tool:** ``conda`` or ``mamba``
+   - **Summary:** Conda aims to be a more general package distribution tool
+     and it tries to provide not only the Python packages, but also libraries
+     and tools needed by the Python packages. Most scientific software written
+     in Python uses external libraries to speed up calculations and installing
+     these libraries can often become complicated without conda.
+   - **Amount of packages:** Most popular packages are provided. Other packages
+     can be installed via pip.
+   - **How libraries are handled:** Required libraries are installed as separate
+     conda packages.
+   - **Pros:**
+       - Quite easy to use
+       - Easier to manage packages that need external libraries
+   - **Cons:**
+       - Package creation is harder
+
+.. solution:: Anaconda vs. conda vs. miniconda vs. Anaconda Cloud vs. conda-forge
+
+  - `Anaconda <https://www.anaconda.com/>`__ - a distribution of conda packages
+    made by Anaconda Inc.. It is free for academic and non-commercial use.
+  - `conda <https://conda.io/>`__ - a package and environment management system
+    used by Anaconda. It is an open source project maintained by Anaconda Inc..
+  - `Miniconda <https://conda.io/miniconda.html>`__ - a minimal installer for conda.
+  - `Anaconda Cloud <https://anaconda.org/>`__ - a package cloud maintained by
+    Anaconda Inc. It is a free repository that houses conda package channels.
+  - `Conda-forge <https://conda-forge.org/>`__ - the largest open source
+    community channel.
 
 In the packaging episode we will meet PyPI and Anaconda again and practice how
 to share Python packages.
@@ -85,14 +123,16 @@ Creating isolated environments
 
 Isolated environments solve a couple of problems:
 
-- You can install specific, also older, versions into them.
+- You can install specific, also older, versions of packages into them.
 
-- You can create one for each project and no problem if the two projects
-  require different versions.
+- You can create one environment for each project and you won't encounter any
+  problems if the two projects require different versions of packages.
 
 - If you make some mistake and install something you did not want or need, you
   can remove the environment and create a new one.
 
+- You can export a list of packages in an environment and share it with your
+  code. This makes replicating your results easier.
 
 
 Exercises 2
@@ -106,19 +146,19 @@ Exercises 2
   quite familiar with Python, still finishing some Python assignments (due in a
   few weeks) and you give her a Python code for analyzing and plotting your
   favorite data. The thing is that your Python code has been developed by
-  another Master Student (from last year) and requires a pretty old version of
-  Numpy (1.13.1) and Matplotlib (2.2.2) (otherwise the code fails). The code
+  another Master Student (from last year) and requires a older version of
+  Numpy (1.18.1) and Matplotlib (3.1.3) (otherwise the code fails). The code
   could probably work with a recent version of Python but has been validated with
-  Python 3.6 only. Having no idea what the code does, she decides that the best
-  approach is to **create an isolated environment** with the same dependencies used
-  previously. This will give her a baseline for future upgrade and
+  Python 3.7 only. Having no idea what the code does, she decides that the best
+  approach is to **create an isolated environment** with the same dependencies
+  that were used previously. This will give her a baseline for future upgrade and
   developments.
 
   For this first exercise, we will be using conda for creating an isolated environment.
 
   1. Create a conda environment::
 
-     $ conda create --name python36-env python=3.6 numpy=1.13.1 matplotlib=2.2.2
+     $ conda create --name python37-env python=3.7 numpy=1.18.1 matplotlib=3.1.3
 
   Conda environments can also be managed (create, update, delete) from the
   **anaconda-navigator**. Check out the corresponding documentation `here
@@ -126,7 +166,7 @@ Exercises 2
 
   2. Activate the environment::
 
-     $ conda activate python36-env
+     $ conda activate python37-env
 
      .. callout:: conda activate versus source activate
 
@@ -134,7 +174,7 @@ Exercises 2
         setup properly, you may encounter an error. With older version of anaconda,
         you can try::
 
-          $ source activate python36-env
+          $ source activate python37-env
 
   3. Open a Python console and check that you have effectively the right version for each package::
 
@@ -154,7 +194,7 @@ Exercises 2
      $ conda deactivate
 
   5. Check Numpy and Matplotlib versions in the default environment to make
-     sure they are different from **python36-env**.
+     sure they are different from **python37-env**.
 
   There is no need to specify the conda environment when using deactivate. It
   deactivates the current environment.
@@ -167,7 +207,7 @@ Exercises 2
       for instance `conda-forge <https://conda-forge.org/>`_. Channels can then
       be indicated when installing a package::
 
-      $ conda install -c conda-forge matplotlib=2.2.0
+      $ conda install -c conda-forge matplotlib=3.1.3
 
     - We will see below that rather than specifying the list of dependencies as
       argument of ``conda create``, it is recommended to record dependencies in
@@ -185,7 +225,7 @@ Exercises 3
 
   1. Create a venv::
 
-     $ python -m venv scicomp
+     $ python3 -m venv scicomp
 
      Here ``scicomp`` is the name of the virtual environment. It creates a new
      folder called ``scicomp``.
@@ -195,77 +235,120 @@ Exercises 3
 
      - **Linux/Mac-OSX**: look at ``bin`` folder in the ``scicomp`` folder::
 
-	$ source scicomp/bin/activate
+       $ source scicomp/bin/activate
 
      - **Windows**: most likely you can find it in the ``Scripts`` folder.
 
-  3. Install Numpy 1.13.1 and Matplotlib 2.2.2 into the virtual environment::
+  3. Install Numpy 1.18.1 and Matplotlib 3.1.3 into the virtual environment::
 
-     $ pip install numpy==1.13.1
-     $ pip install matplotlib==2.2.2
+     $ pip install numpy==1.18.1
+     $ pip install matplotlib==3.1.3
 
   4. Deactivate it::
 
      $ deactivate
 
+Problems that might happen with manual installation
+---------------------------------------------------
+
+Running the install commands manually can result in unexpected behaviour
+such as:
+
+- The installer might remove an already installed packages or update them.
+- The installer might not find a package that works with already installed packages.
+
+The reason for this is that the installer does not know what commands
+you ran in the past. It only knows the state of your environment and what
+you're currently telling it to install.
+
+For example, check what version of ``scipy`` you'll get if you run
+
+.. code-block:: shell
+
+  $ pip install scipy
+
+or
+
+.. code-block:: shell
+
+  $ conda install scipy
+
+Depending on your environment you can get ``scipy`` with versions from
+``1.6.2`` with no numpy upgrade to ``1.9.3`` with automatic numpy upgrade.
+
+These kinds of problems can be mitigated by recording dependencies in an
+``environment.yml`` or ``requirements.txt``.
 
 Recording dependencies
 ----------------------
 
-There are two standard ways to record dependencies for Python projects.:
+There are two standard ways to record dependencies for Python projects:
+``requirements.txt`` and ``environment.yml``.
 
-Using a ``requirements.txt`` (used by virtual environment) file which
-looks like this::
+``requirements.txt`` (used by virtual environment) is a simple
+text file which looks like this::
 
    numpy
    matplotlib
    pandas
    scipy
 
-Or using an ``environments.yml`` (for conda) file which looks like this:
+``environments.yml`` (for conda) is a yaml-file which looks like this:
 
 .. code-block:: yaml
 
    name: my-environment
-
+   channels:
+     - defaults
    dependencies:
      - numpy
      - matplotlib
      - pandas
      - scipy
 
-But all of these dependencies evolve so before publishing our work
-it can be very useful for future generations and for the future you
-to **pin dependencies** to versions.
+If you need to recreate the exact same environment later on, it can be very
+useful to **pin dependencies** to certain versions. For example, there
+is usually a delay between doing research and that research being published.
+During this time the dependencies might update and reviewers or interested
+researchers might not be able to replicate your results or run your code.
 
 Here are the two files again, but this time with versions pinned:
 
 ``requirements.txt`` with versions::
 
-   numpy==1.19.2
-   matplotlib==3.3.2
-   pandas==1.1.2
-   scipy==1.5.2
+    numpy==1.18.1
+    matplotlib==3.1.3
+    pandas==1.1.2
+    scipy==1.6.2
 
 ``environments.yml`` with versions:
 
 .. code-block:: yaml
 
-   name: my-environment
-
-   dependencies:
-     - python=3.6
-     - numpy=1.19.2
-     - matplotlib=3.3.2
-     - pandas=1.1.2
-     - scipy=1.5.2
+    name: my-environment
+    channels:
+      - defaults
+    dependencies:
+      - python=3.7
+      - numpy=1.18.1
+      - matplotlib=3.1.3
+      - pandas=1.1.2
+      - scipy=1.6.2
 
 - Conda can also read and write ``requirements.txt``.
 - ``requirements.txt`` can also refer to packages on Github.
 - ``environments.yml`` can also contain a ``pip`` section.
 - See also: https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies.
 
+.. admonition:: Putting too strict requirements can be counter-productive
 
+  Putting exact version numbers can be good for single-use applications,
+  like replicating a research paper, but it is usually bad for long-term
+  maintenance because the program won't update at the same time as it's
+  requirements do.
+
+  If you're creating a library, adding strict dependencies can also create
+  a situation where the library cannot coexist with another library.
 
 Dependencies 4
 --------------
@@ -275,19 +358,23 @@ Dependencies 4
   - Create the file ``environment.yml`` or ``requirements.txt``
 
   - Create an environment based on these dependencies:
-     - Conda: ``$ conda create --name myenvironment --file requirements.txt``
+     - Conda: ``$ conda env create --file environment.yml``
      - Virtual environment: First create and activate, then ``$ pip install -r requirements.txt``
 
   - Freeze the environment:
-     - Conda: ``$ conda list --export > requirements.txt`` or ``$ conda env export > environment.yml``
+     - Conda: ``$ conda env export > environment.yml``
      - Virtual environment: ``$ pip freeze > requirements.txt``
 
   - Have a look at the generated ("frozen") file.
 
+.. admonition:: Hint: Updating packages from dependency files
 
-Tip: instead of installing packages with ``$ pip install somepackage``, what I do is
-to add ``somepackage`` to ``requirements.txt`` or ``environment.yml`` and install
-from the file, then you have a trace of all installed dependencies.
+  Instead of installing packages with ``$ pip install somepackage``,
+  you can add ``somepackage`` to ``requirements.txt`` and re-run
+  ``$ pip install -r requirements.txt``.
+
+  With conda, you can add the package to ``environment.yml`` and
+  run ``$ conda env update --file environment.yml``
 
 
 How to communicate the dependencies as part of a report/thesis/publication
