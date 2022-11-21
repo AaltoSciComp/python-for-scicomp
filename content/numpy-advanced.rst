@@ -82,19 +82,19 @@ Exercise 1
 
 .. highlight:: python
 
-The library behind the curtain: BLAS
-------------------------------------
+The libraries behind the curtain: MKL and BLAS
+----------------------------------------------
 
-NumPy is fast because it outsources most of its heavy lifting to
+NumPy is fast because it outsources most of its heavy lifting to heavily
+optimized math libraries, such as Intel's `Math Kernel Library (MKL) <https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-math-kernel-library-onemkl.html>`_,
+which are in turn derived from a Fortran library called
 `Basic Linear Algebra Subprograms (BLAS) <https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>`_.
 BLAS for Fortran was `published in 1979 <https://doi.org/10.1145/355841.355847>`_
 and is a collection of algorithms for common mathematical operations that are
-performed on arrays of numbers. Algorithms such as element-wise sum, matrix
-multiplication, computing the vector length, etc.
-
-The API of that software library was later standardized, and today there are
-many modern implementations available. These libraries represent over 40 years
-of optimizing efforts and make use of
+performed on arrays of numbers. Algorithms such as matrix multiplication,
+computing the vector length, etc. The API of the BLAS library was later
+standardized, and today there are many modern implementations available. These
+libraries represent over 40 years of optimizing efforts and make use of
 `specialized CPU instructions for manipulating arrays <https://www.youtube.com/watch?v=Pc8DfEyAxzg&list=PLzLzYGEbdY5lrUYSssHfk5ahwZERojgid>`_.
 In other words, they are *fast*.
 
