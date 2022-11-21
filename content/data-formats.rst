@@ -760,42 +760,25 @@ Binary files come with various benefits compared to text files.
 5. Many binary formats allow for partial loading of the data.
    This makes it possible to work with datasets that are larger than your computer's memory.
 
-**Performance when writing tidy dataset:**
+**Performance with tidy dataset:**
 
 For the tidy ``dataset`` we had, we can test the performance of the different file formats:
 
-+-------------+----------------+-----------------+----------------+
-| File format | File size [MB] | Write time [ms] | Read time [ms] |
-+=============+================+=================+================+
-| CSV         | 4.571760       | 0.296015        | 0.072096       |
-+-------------+----------------+-----------------+----------------+
-| Feather     | 2.202471       | 0.013013        | 0.007742       |
-+-------------+----------------+-----------------+----------------+
-| Parquet     | 1.820971       | 0.009052        | 0.009052       |
-+-------------+----------------+-----------------+----------------+
-| HDF5        | 4.892181       | 0.037609        | 0.033721       |
-+-------------+----------------+-----------------+----------------+
-| NetCDF4     | 6.894043       | 0.073829        | 0.010776       |
-+-------------+----------------+-----------------+----------------+
+.. csv-table::
+   :file: format_comparison_tidy.csv
+   :header-rows: 1
 
 The relatively poor performance of HDF5-based formats in this case is due to the data being mostly one dimensional columns full of character strings.
 
 
-**Performance when writing data array:**
+**Performance with data array:**
 
 For the array-shaped ``data_array`` we had, we can test the performance of the different file formats:
 
-+-------------+----------------+-----------------+----------------+
-| File format | File size [MB] | Write time [ms] | Read time [ms] |
-+=============+================+=================+================+
-| CSV         | 23.841858      | 0.647893        | 0.639863       |
-+-------------+----------------+-----------------+----------------+
-| npy         | 7.629517       | 0.009885        | 0.002539       |
-+-------------+----------------+-----------------+----------------+
-| HDF5        | 7.631348       | 0.012877        | 0.002737       |
-+-------------+----------------+-----------------+----------------+
-| NetCDF4     | 7.637207       | 0.018905        | 0.009876       |
-+-------------+----------------+-----------------+----------------+
+
+.. csv-table::
+   :file: format_comparison_array.csv
+   :header-rows: 1
 
 For this kind of a data, HDF5-based formats perform much better.
 
