@@ -437,6 +437,37 @@ Exercises 3
 	sns.catplot(x="bornCountry", col="category", data=subset_physchem, kind="count");
 
 
+   .. solution::
+
+      We use the :meth:`describe` method:
+      
+      ::
+
+         nobel.bornCountryCode.describe()
+         # count     956
+	 # unique     81
+	 # top        US
+	 # freq      287
+
+      We see that the US has received the largest number of Nobel prizes,
+      and 81 countries are represented.
+
+      To calculate the age at which laureates receive their prize, we need
+      to ensure that the "year" and "born" columns are in datetime format::
+
+	nobel["born"] = pd.to_datetime(nobel["born"], errors ='coerce')
+	nobel["year"] = pd.to_datetime(nobel["year"], format="%Y")
+
+      Then we add a column with the age at which Nobel prize was received
+      and plot a histogram::
+
+	nobel["age_nobel"] = round((nobel["year"] - nobel["born"]).dt.days / 365, 1)
+	nobel.hist(column="age_nobel", bins=25, figsize=(8,10), rwidth=0.9)
+
+      We can print names of all laureates from a given country, e.g.::
+
+	nobel[nobel["country"] == "Sweden"].loc[:, "firstname":"surname"]
+   
 Beyond the basics
 -----------------
 
