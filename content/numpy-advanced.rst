@@ -144,8 +144,7 @@ rows. All off-diagonal values change places. Let's see how long NumPy's
 transpose function takes, by transposing a huge (10 000 ✕ 20 000) matrix::
 
   import numpy as np
-  rng = np.random.default_rng(seed=0)
-  a = rng.rand(10_000, 20_000)
+  a = np.random.rand(10_000, 20_000)
   print(f'Matrix `a` takes up {a.nbytes / 10**6} MB')
 
 Let's time the :func:`numpy.transpose` function::
@@ -230,8 +229,7 @@ copying any data by just modifying the ``.strides`` of the array::
 
   import numpy as np
 
-  rng = np.random.default_rng(seed=0)
-  a = rng.rand(10_000, 20_000)
+  a = np.random.rand(10_000, 20_000)
   b = a.transpose()
 
   print(a.strides)  # (160000, 8)
@@ -242,8 +240,7 @@ Another example: reshaping
 Modifying the shape of an array through :func:`numpy.reshape` is also
 accomplished without any copying of data by modifying the ``.strides``::
 
-  rng = np.random.default_rng(seed=0)
-  a = rng.rand(20_000, 10_000)
+  a = np.random.rand(20_000, 10_000)
   print(f'{a.strides=}')  # (80000, 8)
   b = a.reshape(40_000, 5_000)
   print(f'{b.strides=}')  # (40000, 8)
@@ -309,8 +306,7 @@ If :func:`numpy.transpose` is fast, and :func:`numpy.reshape` is fast, then
 doing them both must be fast too, right?::
 
   # Create a large array
-  rng = np.random.default_rng(seed=0)
-  a = rng.rand(10_000, 20_000)
+  a = np.random.rand(10_000, 20_000)
  
 Measuring the time it takes to first transpose and then reshape::
 
