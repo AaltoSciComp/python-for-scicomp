@@ -37,7 +37,7 @@ example dataset containing the passenger list from the Titanic, which is often u
 
 We can download the data from `this GitHub repository <https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv>`__
 by visiting the page and saving it to disk, or by directly reading into
-a **dataframe**::
+a :class:`~pandas.DataFrame`::
 
     url = "https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv"
     titanic = pd.read_csv(url, index_col='Name')
@@ -94,8 +94,7 @@ is composed of rows and columns:
 
 .. image:: img/pandas/01_table_dataframe.svg
 
-Each column of a dataframe is a
-`series object <https://pandas.pydata.org/docs/user_guide/dsintro.html#series>`__
+Each column of a dataframe is a :class:`pandas.Series` object
 - a dataframe is thus a collection of series::
 
     # print some information about the columns
@@ -116,7 +115,7 @@ The columns have names. Here's how to get them::
 
     titanic.columns
 
-However, the rows also have names! This is what Pandas calls the **index**::
+However, the rows also have names! This is what Pandas calls the :obj:`~pandas.DataFrame.index`::
 
     titanic.index
 
