@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Python for Scientific Computing'
-copyright = '2020, The contributors'
+copyright = '2020-2022, The contributors'
 author = 'The contributors'
 github_user = 'AaltoSciComp'
 github_repo_name = 'python-for-scicomp'  # auto-detected from dirname if blank
@@ -40,7 +40,10 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx_aaltoscicomp_branding',
     'sphinx_plausible',
+    'sphinxext.opengraph',
 ]
+ogp_site_name = "Python for Scientific Computing"
+ogp_site_url = 'https://aaltoscicomp.github.io/python-for-scicomp/'
 
 import os
 plausible_domain = 'aaltoscicomp.github.io/python-for-scicomp'
