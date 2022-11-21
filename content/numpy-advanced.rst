@@ -363,7 +363,7 @@ no longer points to the start of the buffer, but somewhere in the middle::
 
   b = a[1:3, 1:3]   # This view does not start at the beginning
   offset = b.__array_interface__['data'][0] - a.__array_interface__['data'][0]
-  print('Offset:' offset, 'bytes')  # Offset: 48 bytes
+  print('Offset:', offset, 'bytes')  # Offset: 48 bytes
 
 .. image:: img/numpy-advanced/02_views.svg
 
