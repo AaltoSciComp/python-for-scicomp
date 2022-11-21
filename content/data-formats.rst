@@ -14,7 +14,7 @@ Data formats with Pandas and Numpy
 What is a data format?
 ----------------------
 
-Data format can mean two different things 
+Data format can mean two different things
 
 1. `data structure <https://en.wikipedia.org/wiki/Data_structure>`__ or how you're storing the data in memory while you're working on it;
 2. `file format <https://en.wikipedia.org/wiki/File_format>`__ or the way you're storing the data in the disk.
@@ -59,20 +59,20 @@ This also means that the whole array must have one data type.
 
     Source: `Elegant Scipy <https://github.com/elegant-scipy/elegant-scipy>`__
 
-Now the question is: **Can the data be saved to the disk without changing the data format?** 
+Now the question is: **Can the data be saved to the disk without changing the data format?**
 
 For this we need a **file format** that can easily store our **data structure**.
 
 .. admonition:: Data type vs. data structure vs. file format
    :class: dropdown
 
-   - **Data type:** Type of a single piece of data (integer, string, float, ...).  
+   - **Data type:** Type of a single piece of data (integer, string, float, ...).
    - **Data structure:** How the data is organized in memory (individual columns, 2D-array, nested dictionaries, ...).
    - **File format:** How the data is organized when it is saved to the disk (columns of strings, block of binary data, ...).
-   
+
    For example, a black and white image stored as a .png-file (**file format**)
    might be stored in memory as an NxM array (**data structure**) of integers (**data type**).
-   
+
 What to look for in a file format?
 ----------------------------------
 
@@ -304,7 +304,7 @@ Numpy has `routines <https://numpy.org/doc/stable/reference/routines.io.html#tex
 
     data_array_csv = np.loadtxt('data_array.csv')
 
-.. admonition:: Storing data in CSVs can reduce data precision 
+.. admonition:: Storing data in CSVs can reduce data precision
    :class: dropdown
 
     When working with floating point numbers you should be careful to save the data with enough decimal places so that you won't lose precision.
@@ -470,7 +470,7 @@ Exercise 2
               'float': np.random.uniform(size=n_rows),
           },
       )
-    
+
       dataset.to_csv('dataset.csv', index=False)
 
       dataset_csv = pd.read_csv('dataset.csv')
