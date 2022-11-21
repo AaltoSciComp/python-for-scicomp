@@ -54,7 +54,10 @@ print some summary statistics of its numerical data::
 Ok, so we have information on passenger names, survival (0 or 1), age,
 ticket fare, number of siblings/spouses, etc. With the summary statistics we see that the average age is 29.7 years, maximum ticket price is 512 USD, 38\% of passengers survived, etc.
 
-Let's say we're interested in the survival probability of different age groups. With two one-liners, we can find the average age of those who survived or didn't survive, and plot corresponding histograms of the age distribution::
+Let's say we're interested in the survival probability of different
+age groups. With two one-liners, we can find the average age of those
+who survived or didn't survive, and plot corresponding histograms of
+the age distribution (:meth:`pandas.DataFrame.groupby`, :meth:`pandas.DataFrame.hist`)::
 
     print(titanic.groupby("Survived")["Age"].mean())
 
@@ -89,7 +92,7 @@ What's in a dataframe?
 
 As we saw above, pandas dataframes are a powerful tool for working with tabular data.
 A pandas
-`DataFrame object <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame>`__
+:class:`pandas.DataFrame`
 is composed of rows and columns:
 
 .. image:: img/pandas/01_table_dataframe.svg
@@ -111,7 +114,7 @@ and reading the titanic.csv datafile into a dataframe if needed, see above)::
     titanic.Age          # same as above
     type(titanic["Age"])
 
-The columns have names. Here's how to get them::
+The columns have names. Here's how to get them (:attr:`~pandas.DataFrame.columns`)::
 
     titanic.columns
 
@@ -121,7 +124,9 @@ However, the rows also have names! This is what Pandas calls the :obj:`~pandas.D
 
 We saw above how to select a single column, but there are many ways of
 selecting (and setting) single or multiple rows, columns and values. We can
-refer to columns and rows either by number or by their name::
+refer to columns and rows either by number or by their name
+(:attr:`~pandas.DataFrame.loc`, :attr:`~pandas.DataFrame.iloc`,
+:attr:`~pandas.DataFrame.at`, :attr:`~pandas.DataFrame.iat`)::
 
     titanic.loc['Lam, Mr. Ali',"Age"]          # select single value by row and column
     titanic.loc[:'Lam, Mr. Ali',"Name":"Age"]  # slice the dataframe by row and column *names*
@@ -228,7 +233,7 @@ For a detailed exposition of data tidying, have a look at
 Working with dataframes
 -----------------------
 
-We saw above how we can read in data into a dataframe using the :obj:`~pandas.read_csv` method.
+We saw above how we can read in data into a dataframe using the :func:`~pandas.read_csv` function.
 Pandas also understands multiple other formats, for example using :obj:`~pandas.read_excel`,
 :obj:`~pandas.read_hdf`, :obj:`~pandas.read_json`, etc. (and corresponding methods to write to file:
 :obj:`~pandas.DataFrame.to_csv`, :obj:`~pandas.DataFrame.to_excel`, :obj:`~pandas.DataFrame.to_hdf`, :obj:`~pandas.DataFrame.to_json`, etc.)
@@ -337,7 +342,7 @@ an API of the Nobel prize organisation at
 http://api.nobelprize.org/v1/laureate.csv . 
 
 Unfortunately this API does not allow "non-browser requests", so
-:meth:`pd.read_csv` will not work. We can either open the above link in
+:obj:`pandas.read_csv` will not work. We can either open the above link in
 a browser and download the file, or use the JupyterLab interface by clicking
 "File" and "Open from URL", and then save the CSV file to disk.
 
@@ -366,11 +371,11 @@ to one decimal::
 
     nobel["lifespan"] = round((nobel["died"] - nobel["born"]).dt.days / 365, 1)
 
-and then plot a histogram of lifespans::
+and then plot a :meth:`histogram <pandas.DataFrame.hist>` of lifespans::
 
     nobel.hist(column='lifespan', bins=25, figsize=(8,10), rwidth=0.9)
 
-Finally, let's see one more example of an informative plot
+Finally, let's see one more example of an informative plot (:meth:`~pandas.DataFrame.boxplot`)
 produced by a single line of code::
 
     nobel.boxplot(column="lifespan", by="category")
@@ -397,8 +402,8 @@ Exercises 3
 	  countries = np.array([COUNTRY1, COUNTRY2, COUNTRY3, COUNTRY4])
 	  subset = nobel.loc[nobel['bornCountry'].isin(countries)]
 
-    - Use ``groupby`` to compute how many nobel prizes each country received in
-      each category. The ``size()`` method tells us how many rows, hence nobel
+    - Use :meth:`~pandas.DataFrame.groupby` to compute how many nobel prizes each country received in
+      each category. The :meth:`~pandas.core.groupby.GroupBy.size` method tells us how many rows, hence nobel
       prizes, are in each group::
 
 	  nobel.groupby(['bornCountry', 'category']).size()
@@ -408,7 +413,7 @@ Exercises 3
 	- First add a column “number” to the nobel dataframe containing 1’s
 	  (to enable the counting below).
 
-	- Then create the pivot table::
+	- Then create the :meth:`~pandas.DataFrame.pivot_table`::
 
 	    table = subset.pivot_table(values="number", index="bornCountry", columns="category", aggfunc=np.sum)
 
@@ -470,7 +475,7 @@ Exercises 3
 Beyond the basics
 -----------------
 
-Larger DataFrame operations might be faster using :obj:`~pandas.eval()` with string expressions, `see
+Larger DataFrame operations might be faster using :func:`~pandas.eval` with string expressions, `see
 <https://jakevdp.github.io/PythonDataScienceHandbook/03.12-performance-eval-and-query.html>`__::
 
 	import pandas as pd
@@ -484,7 +489,7 @@ Adding dataframes the pythonic way yields::
 	%timeit df1 + df2 + df3 + df4
 	# 80ms
 	
-And by using :obj:`~pandas.eval()`::
+And by using :func:`~pandas.eval`::
 
         %timeit pd.eval('df1 + df2 + df3 + df4')
 	# 40ms
