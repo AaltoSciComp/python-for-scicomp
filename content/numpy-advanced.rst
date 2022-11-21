@@ -136,6 +136,26 @@ NumPy copies data are not trivial and it is worth your while to take a closer
 look at them. This involves developing an understanding of how NumPy's
 :class:`numpy.ndarray` datastructure works behind the scenes.
 
+
+An example: matrix transpose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Transposing a matrix means that all rows become columns and all columns become
+rows. All off-diagonal values change places. Let's see how long NumPy's
+transpose function takes, by transposing a huge (10 000 ✕ 20 000) matrix::
+
+  import numpy as np
+  rng = np.random.default_rng(seed=0)
+  a = rng.rand(10_000, 20_000)
+  print(f'Matrix `a` takes up {a.nbytes / 10**6} MB')
+
+Let's time the :func:`numpy.transpose` function::
+
+  %%timeit
+  b = a.transpose()
+
+It takes mere nanoseconds to transpose 1600 MB of data! How?
+
+
 The ndarray exposed
 ~~~~~~~~~~~~~~~~~~~
 The first thing you need to know about :class:`numpy.ndarray` is that the
@@ -159,15 +179,19 @@ Exercise 2
 
 .. challenge:: Exercises: Numpy-Advanced-2
 
-   Write a function called ``ravel()`` that takes as input:
+   Write a function called ``ravel()`` that takes the row and column of an
+   element in a 2D matrix and produces the appropriate index in an 1D array,
+   where all the rows are concatenated. See the image above to remind yourself
+   how each row of the 2D matrix ends up in the 1D array.
+
+   The function takes these inputs:
 
      - ``row`` The row of the requested element in the matrix as integer index.
      - ``col`` The column of the requested element in the matrix as integer index.
      - ``n_rows`` The total number of rows of the matrix.
      - ``n_cols`` The total number of columns of the matrix.
 
-   And produces as output the appropriate index in the 1D array. Use the image above as a
-   guide. Here are some examples of input and desired output:
+   Here are some examples of input and desired output:
 
      - ``ravel(2, 3, n_rows=4, n_cols=4)`` → ``11``
      - ``ravel(2, 3, n_rows=4, n_cols=8)`` → ``19``
@@ -201,24 +225,14 @@ double-precision floating point numbers. Each one of those bad boys takes up 8
 bytes, so all the indices are multiplied by 8 to get to the proper byte in the
 memory array. To move to the next column in the matrix, we skip ahead 8 bytes.
 
-
-An example: matrix transpose
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Transposing a matrix means that all rows become columns and all columns become
-rows. All off-diagonal values change places. Let's see how long NumPy's
-transpose function takes, by transposing a huge (10 000 ✕ 20 000) matrix::
+So now we know the mystery beding the speed of `transpose()`.  NumPy can avoid
+copying any data by just modifying the ``.strides`` of the array::
 
   import numpy as np
+
+  rng = np.random.default_rng(seed=0)
   a = rng.rand(10_000, 20_000)
-  print(f'Matrix `a` takes up {a.nbytes / 10**6} MB')
-
-Let's time the :func:`numpy.transpose` function::
-
-  %%timeit
   b = a.transpose()
-
-It takes mere nanoseconds to transpose 1600 MB of data! NumPy avoided copying
-any data by *only* modifying the ``.strides`` of the existing array in-place::
 
   print(a.strides)  # (160000, 8)
   print(b.strides)  # (8, 160000)
@@ -228,6 +242,7 @@ Another example: reshaping
 Modifying the shape of an array through :func:`numpy.reshape` is also
 accomplished without any copying of data by modifying the ``.strides``::
 
+  rng = np.random.default_rng(seed=0)
   a = rng.rand(20_000, 10_000)
   print(f'{a.strides=}')  # (80000, 8)
   b = a.reshape(40_000, 5_000)
@@ -294,7 +309,8 @@ If :func:`numpy.transpose` is fast, and :func:`numpy.reshape` is fast, then
 doing them both must be fast too, right?::
 
   # Create a large array
-  a = np.random.rand(10_000, 20_000)
+  rng = np.random.default_rng(seed=0)
+  a = rng.rand(10_000, 20_000)
  
 Measuring the time it takes to first transpose and then reshape::
 
