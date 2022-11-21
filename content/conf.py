@@ -44,6 +44,10 @@ extensions = [
 ]
 ogp_site_name = "Python for Scientific Computing"
 ogp_site_url = 'https://aaltoscicomp.github.io/python-for-scicomp/'
+import datetime
+if datetime.date.today() < datetime.date(2022,12,15):
+    ogp_image = 'https://www.aalto.fi/sites/g/files/flghsv161/files/styles/o_914w_ah_n/public/2022-11/PFSC22_v2.png'
+    ogp_image_alt = 'Python for Scientific Computing course logo with date of 22-25/11/2022, twitch.tv/coderefinery, and partner logos'
 
 import os
 plausible_domain = 'aaltoscicomp.github.io/python-for-scicomp'
