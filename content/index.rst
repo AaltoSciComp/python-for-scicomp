@@ -11,12 +11,13 @@ Python for Scientific Computing
 Python is a modern, object-oriented programming language, which has
 become popular in several areas of software development. This course
 discusses how Python can be utilized in scientific computing. The
-course starts by introducing the main Python package for numerical
-computing, NumPy, and discusses then SciPy toolbox for various
-scientific computing tasks as well as visualization with the
-Matplotlib package.  In addition, it talks about *how* python is used:
+course starts by introducing some of the main Python tools for
+computing: Jupyter for interactive analysis, NumPy and SciPy for
+numerical analysis, matplotlib for visualization, and so on.  In
+addition, it talks about *how* python is used:
 related scientific libraries, reproducibility, and the broader
-ecosystem of science in Python.
+ecosystem of science in Python, because your work is more than the raw
+code you write.
 
 This course (like any course) can't teach you Python... it can show
 your some examples, let you see how experts do things, and prepare you
