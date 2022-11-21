@@ -82,19 +82,19 @@ Exercise 1
 
 .. highlight:: python
 
-The library behind the curtain: BLAS
-------------------------------------
+The libraries behind the curtain: MKL and BLAS
+----------------------------------------------
 
-NumPy is fast because it outsources most of its heavy lifting to
+NumPy is fast because it outsources most of its heavy lifting to heavily
+optimized math libraries, such as Intel's `Math Kernel Library (MKL) <https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-math-kernel-library-onemkl.html>`_,
+which are in turn derived from a Fortran library called
 `Basic Linear Algebra Subprograms (BLAS) <https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>`_.
 BLAS for Fortran was `published in 1979 <https://doi.org/10.1145/355841.355847>`_
 and is a collection of algorithms for common mathematical operations that are
-performed on arrays of numbers. Algorithms such as element-wise sum, matrix
-multiplication, computing the vector length, etc.
-
-The API of that software library was later standardized, and today there are
-many modern implementations available. These libraries represent over 40 years
-of optimizing efforts and make use of
+performed on arrays of numbers. Algorithms such as matrix multiplication,
+computing the vector length, etc. The API of the BLAS library was later
+standardized, and today there are many modern implementations available. These
+libraries represent over 40 years of optimizing efforts and make use of
 `specialized CPU instructions for manipulating arrays <https://www.youtube.com/watch?v=Pc8DfEyAxzg&list=PLzLzYGEbdY5lrUYSssHfk5ahwZERojgid>`_.
 In other words, they are *fast*.
 
@@ -136,6 +136,25 @@ NumPy copies data are not trivial and it is worth your while to take a closer
 look at them. This involves developing an understanding of how NumPy's
 :class:`numpy.ndarray` datastructure works behind the scenes.
 
+
+An example: matrix transpose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Transposing a matrix means that all rows become columns and all columns become
+rows. All off-diagonal values change places. Let's see how long NumPy's
+transpose function takes, by transposing a huge (10 000 ✕ 20 000) matrix::
+
+  import numpy as np
+  a = np.random.rand(10_000, 20_000)
+  print(f'Matrix `a` takes up {a.nbytes / 10**6} MB')
+
+Let's time the :func:`numpy.transpose` function::
+
+  %%timeit
+  b = a.transpose()
+
+It takes mere nanoseconds to transpose 1600 MB of data! How?
+
+
 The ndarray exposed
 ~~~~~~~~~~~~~~~~~~~
 The first thing you need to know about :class:`numpy.ndarray` is that the
@@ -159,15 +178,19 @@ Exercise 2
 
 .. challenge:: Exercises: Numpy-Advanced-2
 
-   Write a function called ``ravel()`` that takes as input:
+   Write a function called ``ravel()`` that takes the row and column of an
+   element in a 2D matrix and produces the appropriate index in an 1D array,
+   where all the rows are concatenated. See the image above to remind yourself
+   how each row of the 2D matrix ends up in the 1D array.
+
+   The function takes these inputs:
 
      - ``row`` The row of the requested element in the matrix as integer index.
      - ``col`` The column of the requested element in the matrix as integer index.
      - ``n_rows`` The total number of rows of the matrix.
      - ``n_cols`` The total number of columns of the matrix.
 
-   And produces as output the appropriate index in the 1D array. Use the image above as a
-   guide. Here are some examples of input and desired output:
+   Here are some examples of input and desired output:
 
      - ``ravel(2, 3, n_rows=4, n_cols=4)`` → ``11``
      - ``ravel(2, 3, n_rows=4, n_cols=8)`` → ``19``
@@ -201,24 +224,13 @@ double-precision floating point numbers. Each one of those bad boys takes up 8
 bytes, so all the indices are multiplied by 8 to get to the proper byte in the
 memory array. To move to the next column in the matrix, we skip ahead 8 bytes.
 
-
-An example: matrix transpose
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Transposing a matrix means that all rows become columns and all columns become
-rows. All off-diagonal values change places. Let's see how long NumPy's
-transpose function takes, by transposing a huge (10 000 ✕ 20 000) matrix::
+So now we know the mystery beding the speed of `transpose()`.  NumPy can avoid
+copying any data by just modifying the ``.strides`` of the array::
 
   import numpy as np
-  a = rng.rand(10_000, 20_000)
-  print(f'Matrix `a` takes up {a.nbytes / 10**6} MB')
 
-Let's time the :func:`numpy.transpose` function::
-
-  %%timeit
+  a = np.random.rand(10_000, 20_000)
   b = a.transpose()
-
-It takes mere nanoseconds to transpose 1600 MB of data! NumPy avoided copying
-any data by *only* modifying the ``.strides`` of the existing array in-place::
 
   print(a.strides)  # (160000, 8)
   print(b.strides)  # (8, 160000)
@@ -228,7 +240,7 @@ Another example: reshaping
 Modifying the shape of an array through :func:`numpy.reshape` is also
 accomplished without any copying of data by modifying the ``.strides``::
 
-  a = rng.rand(20_000, 10_000)
+  a = np.random.rand(20_000, 10_000)
   print(f'{a.strides=}')  # (80000, 8)
   b = a.reshape(40_000, 5_000)
   print(f'{b.strides=}')  # (40000, 8)
