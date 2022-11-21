@@ -42,6 +42,8 @@ extensions = [
     'sphinx_plausible',
     'sphinxext.opengraph',
 ]
+myst_enable_extensions = ['colon_fence']
+
 ogp_site_name = "Python for Scientific Computing"
 ogp_site_url = 'https://aaltoscicomp.github.io/python-for-scicomp/'
 import datetime
@@ -97,4 +99,5 @@ intersphinx_mapping = {
     'numpy': ('https://numpy.org/doc/stable', None),
     'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
     'matplotlib': ('https://matplotlib.org/stable', None),
+    'requests': ('https://requests.readthedocs.io/en/latest/', None),
     }

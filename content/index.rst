@@ -61,6 +61,7 @@ to learn yourself as you need to.
    60 min   ; :doc:`data-visualization`
    30 min   ; :doc:`data-formats`
    60 min   ; :doc:`scripts`
+   30 min   ; :doc:`web-apis`
    15 min   ; :doc:`scipy`
    30 min   ; :doc:`libraries`
    45 min   ; :doc:`parallel`
@@ -82,6 +83,7 @@ to learn yourself as you need to.
    data-visualization
    data-formats
    scripts
+   web-apis
    scipy
    libraries
    parallel
