@@ -514,6 +514,13 @@ There also exists :func:`numpy.savez`-function for storing multiple datasets in 
 
 For big arrays it's good idea to check other binary formats such as HDF5 or NetCDF4.
 
+``np.save``- and ``np.savez``-functions work with
+`sparse matrices <https://docs.scipy.org/doc/scipy/reference/sparse.html>`__,
+but one can also use dedicated
+`scipy.sparse.save_npz <https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html>`__- and
+`scipy.sparse.load_npz <https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.load_npz.html>`__-functions.
+Storing sparse matrices using these functions can give huge storage savings.
+
 
 .. _hdf5:
 
