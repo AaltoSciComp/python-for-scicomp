@@ -42,6 +42,8 @@ extensions = [
     'sphinx_plausible',
     'sphinxext.opengraph',
 ]
+myst_enable_extensions = ['colon_fence']
+
 ogp_site_name = "Python for Scientific Computing"
 ogp_site_url = 'https://aaltoscicomp.github.io/python-for-scicomp/'
 
