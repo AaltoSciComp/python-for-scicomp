@@ -95,4 +95,5 @@ intersphinx_mapping = {
     'numpy': ('https://numpy.org/doc/stable', None),
     'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
     'matplotlib': ('https://matplotlib.org/stable', None),
+    'requests': ('https://requests.readthedocs.io/en/latest/', None),
     }
