@@ -5,7 +5,7 @@ NumPy
 
 .. questions::
 
-   - Why using NumPy instead of pure python?
+   - Why use NumPy instead of pure python?
    - How to use basic NumPy?
    - What is vectorization?
 
