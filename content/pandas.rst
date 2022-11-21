@@ -439,6 +439,7 @@ Larger DataFrame operations might be faster using :obj:`~pandas.eval()` with str
 	rng = np.random.RandomState(42)
 	df1, df2, df3, df4 = (pd.DataFrame(rng.rand(nrows, ncols))
 			      for i in range(4))
+
 Adding dataframes the pythonic way yields::
 
 	%timeit df1 + df2 + df3 + df4
