@@ -102,13 +102,15 @@ Why are there two ecosystems?
    - **Cons:**
        - Package creation is harder
 
-.. solution:: Anaconda vs. conda vs. miniconda vs. Anaconda Cloud vs. conda-forge
+.. solution:: Anaconda vs. miniconda vs. conda vs. mamba vs. Anaconda Cloud vs. conda-forge
 
   - `Anaconda <https://www.anaconda.com/>`__ - a distribution of conda packages
     made by Anaconda Inc.. It is free for academic and non-commercial use.
+  - `Miniconda <https://conda.io/miniconda.html>`__ - a minimal installer for conda.
   - `conda <https://conda.io/>`__ - a package and environment management system
     used by Anaconda. It is an open source project maintained by Anaconda Inc..
-  - `Miniconda <https://conda.io/miniconda.html>`__ - a minimal installer for conda.
+  - `mamba <https://mamba.readthedocs.io/en/latest/index.html>`__ - a drop in
+    replacement for conda that does installations faster.
   - `Anaconda Cloud <https://anaconda.org/>`__ - a package cloud maintained by
     Anaconda Inc. It is a free repository that houses conda package channels.
   - `Conda-forge <https://conda-forge.org/>`__ - the largest open source
@@ -459,6 +461,10 @@ Other tools for dependency management:
 - `Pipenv <https://pipenv.pypa.io/>`__: dependency management, alternative to Poetry
 - `pyenv <https://github.com/pyenv/pyenv>`__: if you need different Python versions for different projects
 - `micropipenv <https://github.com/thoth-station/micropipenv>`__: lightweight tool to "rule them all"
+- `mamba <https://mamba.readthedocs.io/en/latest/index.html>`__: a drop in replacement for
+  conda that does installations faster.
+- `miniforge & mambaforge <https://github.com/conda-forge/miniforge>`__: Miniconda alternatives with
+  conda-forge as the default channel and optionally mamba as the default installer.
 
 Other resources:
 
