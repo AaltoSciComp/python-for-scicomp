@@ -333,9 +333,18 @@ Time series superpowers
 
 An introduction of pandas wouldn't be complete without mention of its
 special abilities to handle time series. To show just a few examples,
-we will use a new dataset of Nobel prize laureates::
+we will use a new dataset of Nobel prize laureates available through
+an API of the Nobel prize organisation at
+http://api.nobelprize.org/v1/laureate.csv . 
 
-    nobel = pd.read_csv("http://api.nobelprize.org/v1/laureate.csv")
+Unfortunately this API does not allow "non-browser requests", so
+:meth:`pd.read_csv` will not work. We can either open the above link in
+a browser and download the file, or use the JupyterLab interface by clicking
+"File" and "Open from URL", and then save the CSV file to disk.
+
+We can then load and explore the data::
+
+    nobel = pd.read_csv("laureate.csv")
     nobel.head()
 
 This dataset has three columns for time, "born"/"died" and "year".
