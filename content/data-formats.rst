@@ -115,7 +115,7 @@ Table below describes some data formats:
      - | Long term
        | storage/sharing:
 
-   * - :ref:`pickle <pickle>`
+   * - :ref:`Pickle <pickle>`
      - 🔴
      - 🟡
      - 🟢
@@ -123,7 +123,7 @@ Table below describes some data formats:
      - 🟡
      - 🔴
 
-   * - :ref:`csv <csv>`
+   * - :ref:`CSV <csv>`
      - 🟢
      - 🔴
      - 🔴
@@ -131,7 +131,7 @@ Table below describes some data formats:
      - 🟡
      - 🟢
 
-   * - :ref:`feather <feather>`
+   * - :ref:`Feather <feather>`
      - 🔴
      - 🟢
      - 🔴
@@ -700,8 +700,8 @@ Similarly to other popular files, Pandas can write and read json files with :met
 
 .. _excel:
 
-Excel (binary)
-**************
+Excel
+*****
 
 .. admonition:: Requires additional packages
    :class: dropdown
