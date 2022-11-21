@@ -513,3 +513,5 @@ See also
      you the full control you need.
    - Combining vectorized functions (NumPy, Scipy, pandas, etc.) with
      the parallel strategies listed here will get you very far.
+   - Another popular framework similar to `multiprocessing` is
+     `joblib <https://joblib.readthedocs.io/en/latest/>`__.

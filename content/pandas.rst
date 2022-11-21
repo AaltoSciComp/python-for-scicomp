@@ -333,9 +333,18 @@ Time series superpowers
 
 An introduction of pandas wouldn't be complete without mention of its
 special abilities to handle time series. To show just a few examples,
-we will use a new dataset of Nobel prize laureates::
+we will use a new dataset of Nobel prize laureates available through
+an API of the Nobel prize organisation at
+http://api.nobelprize.org/v1/laureate.csv . 
 
-    nobel = pd.read_csv("http://api.nobelprize.org/v1/laureate.csv")
+Unfortunately this API does not allow "non-browser requests", so
+:meth:`pd.read_csv` will not work. We can either open the above link in
+a browser and download the file, or use the JupyterLab interface by clicking
+"File" and "Open from URL", and then save the CSV file to disk.
+
+We can then load and explore the data::
+
+    nobel = pd.read_csv("laureate.csv")
     nobel.head()
 
 This dataset has three columns for time, "born"/"died" and "year".
@@ -428,6 +437,37 @@ Exercises 3
 	sns.catplot(x="bornCountry", col="category", data=subset_physchem, kind="count");
 
 
+   .. solution::
+
+      We use the :meth:`describe` method:
+      
+      ::
+
+         nobel.bornCountryCode.describe()
+         # count     956
+	 # unique     81
+	 # top        US
+	 # freq      287
+
+      We see that the US has received the largest number of Nobel prizes,
+      and 81 countries are represented.
+
+      To calculate the age at which laureates receive their prize, we need
+      to ensure that the "year" and "born" columns are in datetime format::
+
+	nobel["born"] = pd.to_datetime(nobel["born"], errors ='coerce')
+	nobel["year"] = pd.to_datetime(nobel["year"], format="%Y")
+
+      Then we add a column with the age at which Nobel prize was received
+      and plot a histogram::
+
+	nobel["age_nobel"] = round((nobel["year"] - nobel["born"]).dt.days / 365, 1)
+	nobel.hist(column="age_nobel", bins=25, figsize=(8,10), rwidth=0.9)
+
+      We can print names of all laureates from a given country, e.g.::
+
+	nobel[nobel["country"] == "Sweden"].loc[:, "firstname":"surname"]
+   
 Beyond the basics
 -----------------
 
@@ -439,6 +479,7 @@ Larger DataFrame operations might be faster using :obj:`~pandas.eval()` with str
 	rng = np.random.RandomState(42)
 	df1, df2, df3, df4 = (pd.DataFrame(rng.rand(nrows, ncols))
 			      for i in range(4))
+
 Adding dataframes the pythonic way yields::
 
 	%timeit df1 + df2 + df3 + df4
