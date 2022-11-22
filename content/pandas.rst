@@ -342,8 +342,8 @@ Exercises 2
 
 	   titanic["SibSp"].unique()
 
-       - We get 8 from above.  There is no ``Names`` column, since we
-	 made ``Names`` the index when we loaded the dataframe with
+       - We get 8 from above.  There is no ``Name`` column, since we
+	 made ``Name`` the index when we loaded the dataframe with
 	 ``read_csv``, so we use :attr:`pandas.DataFrame.index` to get
 	 the names.  So, names of members of largest family(ies)::
 
