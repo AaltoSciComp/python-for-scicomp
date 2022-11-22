@@ -74,7 +74,7 @@ Exercise 1
    advanced lesson.  If you are taking a live course - don't
    worry, watch and learn and explore some during the exercises!
 
-.. solution:: Solutions: Numpy-Advanced-2
+.. solution:: Solutions: Numpy-Advanced-1
 
    The script can be implemented like this::
 
