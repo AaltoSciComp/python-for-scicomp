@@ -129,12 +129,11 @@ refer to columns and rows either by number or by their name
 :attr:`~pandas.DataFrame.at`, :attr:`~pandas.DataFrame.iat`)::
 
     titanic.loc['Lam, Mr. Ali',"Age"]          # select single value by row and column
-    titanic.loc[:'Lam, Mr. Ali',"Name":"Age"]  # slice the dataframe by row and column *names*
+    titanic.loc[:'Lam, Mr. Ali',"Survived":"Age"]  # slice the dataframe by row and column *names*
     titanic.iloc[0:2,3:6]                      # same slice as above by row and column *numbers*
 
     titanic.at['Lam, Mr. Ali',"Age"] = 42      # set single value by row and column *name* (fast)
     titanic.at['Lam, Mr. Ali',"Age"]           # select single value by row and column *name* (fast)
-    titanic.at['Lam, Mr. Ali',"Age"] = 42      # set single value by row and column *name* (fast)
     titanic.iat[0,5]                           # select same value by row and column *number* (fast)
 
     titanic["is_passenger"] = True             # set a whole column
