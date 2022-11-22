@@ -116,90 +116,90 @@ Table below describes some data formats:
        | storage/sharing:
 
    * - :ref:`Pickle <pickle>`
-     - 🔴
+     - ❌
      - 🟡
-     - 🟢
+     - ✅
      - 🟡
      - 🟡
-     - 🔴
+     - ❌
 
    * - :ref:`CSV <csv>`
-     - 🟢
-     - 🔴
-     - 🔴
-     - 🟢
+     - ✅
+     - ❌
+     - ❌
+     - ✅
      - 🟡
-     - 🟢
+     - ✅
 
    * - :ref:`Feather <feather>`
-     - 🔴
-     - 🟢
-     - 🔴
-     - 🟢
-     - 🔴
-     - 🔴
+     - ❌
+     - ✅
+     - ❌
+     - ✅
+     - ❌
+     - ❌
 
    * - :ref:`Parquet <parquet>`
-     - 🔴
-     - 🟢
+     - ❌
+     - ✅
      - 🟡
-     - 🟢
+     - ✅
      - 🟡
-     - 🟢
+     - ✅
 
    * - :ref:`npy <npy>`
-     - 🔴
+     - ❌
      - 🟡
-     - 🔴
-     - 🔴
-     - 🟢
-     - 🔴
+     - ❌
+     - ❌
+     - ✅
+     - ❌
 
    * - :ref:`HDF5 <hdf5>`
-     - 🔴
-     - 🟢
-     - 🔴
-     - 🔴
-     - 🟢
-     - 🟢
+     - ❌
+     - ✅
+     - ❌
+     - ❌
+     - ✅
+     - ✅
 
    * - :ref:`NetCDF4 <netcdf4>`
-     - 🔴
-     - 🟢
-     - 🔴
-     - 🔴
-     - 🟢
-     - 🟢
+     - ❌
+     - ✅
+     - ❌
+     - ❌
+     - ✅
+     - ✅
 
    * - :ref:`JSON <json>`
-     - 🟢
-     - 🔴
+     - ✅
+     - ❌
      - 🟡
-     - 🔴
-     - 🔴
-     - 🟢
+     - ❌
+     - ❌
+     - ✅
 
    * - :ref:`Excel <excel>`
-     - 🔴
-     - 🔴
-     - 🔴
+     - ❌
+     - ❌
+     - ❌
      - 🟡
-     - 🔴
-     - 🟢
+     - ❌
+     - ✅
 
    * - :ref:`Graph formats <graph>`
      - 🟡
      - 🟡
-     - 🔴
-     - 🔴
-     - 🔴
+     - ❌
+     - ❌
+     - ❌
      - 🟡
 
 .. important::
 
-    - 🟢 : Good
+    - ✅ : Good
     - 🟡 : Ok / depends on a case
-    - 🔴 : Bad
+    - ❌ : Bad
 
 
 Storing arbitrary Python objects
@@ -216,10 +216,10 @@ Pickle
    - **Type**: Binary format
    - **Packages needed:** None (:mod:`pickle`-module is included with Python).
    - **Space efficiency:** 🟡
-   - **Arbitrary data:** 🟢
+   - **Arbitrary data:** ✅
    - **Tidy data:** 🟡
    - **Array data:** 🟡
-   - **Long term archival/sharing:** 🔴! See warning below.
+   - **Long term archival/sharing:** ❌! See warning below.
    - **Best use cases:** Saving Python objects for debugging.
 
 .. warning::
@@ -282,11 +282,11 @@ CSV (comma-separated values)
 
    - **Type:** Text format
    - **Packages needed:** numpy, pandas
-   - **Space efficiency:** 🔴
-   - **Arbitrary data:** 🔴
-   - **Tidy data:** 🟢
+   - **Space efficiency:** ❌
+   - **Arbitrary data:** ❌
+   - **Tidy data:** ✅
    - **Array data:** 🟡
-   - **Long term archival/sharing:** 🟢
+   - **Long term archival/sharing:** ✅
    - **Best use cases:** Sharing data. Small data. Data that needs to be human-readable.
 
 CSV is by far the most popular file format, as it is human-readable and easily shareable.
@@ -367,11 +367,11 @@ Feather
 
    - **Type:** Binary format
    - **Packages needed:** pandas, pyarrow
-   - **Space efficiency:** 🟢
-   - **Arbitrary data:** 🔴
-   - **Tidy data:** 🟢
-   - **Array data:** 🔴
-   - **Long term archival/sharing:** 🔴
+   - **Space efficiency:** ✅
+   - **Arbitrary data:** ❌
+   - **Tidy data:** ✅
+   - **Array data:** ❌
+   - **Long term archival/sharing:** ❌
    - **Best use cases:** Temporary storage of tidy data.
 
 `Feather <https://arrow.apache.org/docs/python/feather.html>`__ is a file format for storing data frames quickly.
@@ -408,11 +408,11 @@ Parquet
 
    - **Type:** Binary format
    - **Packages needed:** pandas, pyarrow
-   - **Space efficiency:** 🟢
+   - **Space efficiency:** ✅
    - **Arbitrary data:** 🟡
-   - **Tidy data:** 🟢
+   - **Tidy data:** ✅
    - **Array data:** 🟡
-   - **Long term archival/sharing:** 🟢
+   - **Long term archival/sharing:** ✅
    - **Best use cases:** Working with big datasets in tidy data format. Archival of said data.
 
 `Parquet <https://arrow.apache.org/docs/python/parquet.html>`__ is a standardized open-source
@@ -495,10 +495,10 @@ npy (numpy array format)
    - **Type**: Binary format
    - **Packages needed:** numpy
    - **Space efficiency:** 🟡
-   - **Arbitrary data:** 🟢
-   - **Tidy data:** 🔴
-   - **Array data:** 🟢
-   - **Long term archival/sharing:** 🔴
+   - **Arbitrary data:** ✅
+   - **Tidy data:** ❌
+   - **Array data:** ✅
+   - **Long term archival/sharing:** ❌
    - **Best use cases:** Saving numpy arrays temporarily.
 
 If you want to temporarily store numpy arrays, you can use the :func:`numpy.save`- and :func:`numpy.load`-functions::
@@ -532,11 +532,11 @@ HDF5 (Hierarchical Data Format version 5)
 
    - **Type:** Binary format
    - **Packages needed:** numpy, pandas, PyTables, h5py
-   - **Space efficiency:** 🟢
-   - **Arbitrary data:** 🔴
-   - **Tidy data:** 🔴
-   - **Array data:** 🟢
-   - **Long term archival/sharing:** 🟢
+   - **Space efficiency:** ✅
+   - **Arbitrary data:** ❌
+   - **Tidy data:** ❌
+   - **Array data:** ✅
+   - **Long term archival/sharing:** ✅
    - **Best use cases:** Working with big datasets in array data format.
 
 HDF5 is a high performance storage format for storing large amounts of data in multiple datasets in a single file.
@@ -601,11 +601,11 @@ NetCDF4 (Network Common Data Form version 4)
 
    - **Type**: Binary format
    - **Packages needed:** pandas, netCDF4/h5netcdf, xarray
-   - **Space efficiency:** 🟢
-   - **Arbitrary data:** 🔴
-   - **Tidy data:** 🔴
-   - **Array data:** 🟢
-   - **Long term archival/sharing:** 🟢
+   - **Space efficiency:** ✅
+   - **Arbitrary data:** ❌
+   - **Tidy data:** ❌
+   - **Array data:** ✅
+   - **Long term archival/sharing:** ✅
    - **Best use cases:** Working with big datasets in array data format. Especially useful if the dataset contains spatial or temporal dimensions. Archiving or sharing those datasets.
 
 NetCDF4 is a data format that uses HDF5 as its file format, but it has standardized structure of datasets and metadata related to these datasets.
@@ -679,11 +679,11 @@ JSON (JavaScript Object Notation)
 
    - **Type**: Text format
    - **Packages needed:** None (:mod:`json`-module is included with Python).
-   - **Space efficiency:** 🔴
+   - **Space efficiency:** ❌
    - **Arbitrary data:** 🟡
-   - **Tidy data:** 🔴
-   - **Array data:** 🔴
-   - **Long term archival/sharing:** 🟢
+   - **Tidy data:** ❌
+   - **Array data:** ❌
+   - **Long term archival/sharing:** ✅
    - **Best use cases:** Saving nested/relational data, storing web requests.
 
 JSON is a popular human-readable data format.
@@ -712,11 +712,11 @@ Excel
 
    - **Type**: Text format
    - **Packages needed:** `openpyxl <https://openpyxl.readthedocs.io/en/stable/>`__
-   - **Space efficiency:** 🔴
-   - **Arbitrary data:** 🔴
+   - **Space efficiency:** ❌
+   - **Arbitrary data:** ❌
    - **Tidy data:** 🟡
-   - **Array data:** 🔴
-   - **Long term archival/sharing:** 🟢
+   - **Array data:** ❌
+   - **Long term archival/sharing:** ✅
    - **Best use cases:** Sharing data in many fields. Quick data analysis.
 
 Excel is very popular in social sciences and economics.
@@ -735,9 +735,9 @@ Graph formats (adjency lists, gt, GraphML etc.)
    - **Type**: Many different formats
    - **Packages needed:** Depends on a format.
    - **Space efficiency:** 🟡
-   - **Arbitrary data:** 🔴
-   - **Tidy data:** 🔴
-   - **Array data:** 🔴
+   - **Arbitrary data:** ❌
+   - **Tidy data:** ❌
+   - **Array data:** ❌
    - **Long term archival/sharing:** 🟡
    - **Best use cases:** Saving graphs or data that can be represented as a graph.
 
