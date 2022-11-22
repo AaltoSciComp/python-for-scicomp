@@ -223,7 +223,7 @@ outside the scope of this lesson.
    ```
 
 - The more traditional option mimics MATLAB plotting and uses the
-  **pyplot interface** (:py:mod:`plt <matplotlib.pyplot>` carries
+  **pyplot interface** ({mod}`plt <matplotlib.pyplot>` carries
   the global settings):
    ```{code-block} python
    ---
@@ -334,6 +334,8 @@ In this exercise we will learn how to use log scales.
 ````
 
 ````{solution}
+See {meth}`ax.set_xscale() <matplotlib.axes.Axes.set_xscale>`.
+
 ```{code-block} python
 ---
 emphasize-lines: 5
@@ -369,6 +371,8 @@ and web search, and to arrive at this:
 ````
 
 ````{solution}
+See {meth}`ax.tick_params <matplotlib.axes.Axes.tick_params>`.
+
 ```{code-block} python
 ---
 emphasize-lines: 7-11
