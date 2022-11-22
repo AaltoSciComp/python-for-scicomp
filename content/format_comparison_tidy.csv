@@ -1,0 +1,6 @@
+File format,File size [MB],Write time [ms],Read time [ms],Data matches exactly
+CSV,4.57,360,81.2,False
+Feather,2.2,12.9,6.67,True
+Parquet,1.82,35.1,8.96,True
+HDF5,4.89,41.7,29.6,True
+NetCDF4,6.9,92.9,74.2,True

@@ -1,0 +1,5 @@
+File format,File size [MB],Write time [ms],Read time [ms],Data matches exactly
+CSV,23.8,690,294,True
+npy,7.63,13.8,2.72,True
+HDF5,7.63,27,3.97,True
+NetCDF4,7.64,28.8,12.2,True
