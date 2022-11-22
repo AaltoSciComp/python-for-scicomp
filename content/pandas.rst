@@ -339,7 +339,7 @@ An introduction of pandas wouldn't be complete without mention of its
 special abilities to handle time series. To show just a few examples,
 we will use a new dataset of Nobel prize laureates available through
 an API of the Nobel prize organisation at
-http://api.nobelprize.org/v1/laureate.csv . 
+https://api.nobelprize.org/v1/laureate.csv .
 
 Unfortunately this API does not allow "non-browser requests", so
 :obj:`pandas.read_csv` will not work. We can either open the above link in
