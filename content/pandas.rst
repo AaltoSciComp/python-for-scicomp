@@ -175,11 +175,25 @@ Exercises 1
 
    .. solution::
 
-       - Mean age of the first 10 passengers: ``titanic.iloc[:10,:]["Age"].mean()``
-         or ``titanic.loc[:"Nasser, Mrs. Nicholas (Adele Achem)","Age"].mean()`` or ``titanic.iloc[:10,4].mean()``.
-       - Survival rate among passengers over and under average age:
-         ``titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()`` and
-         ``titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()``.
+       - Mean age of the first 10 passengers::
+
+	   titanic.iloc[:10,:]["Age"].mean()
+
+	 or::
+
+	   titanic.loc[:"Nasser, Mrs. Nicholas (Adele Achem)","Age"].mean()
+
+	 or::
+
+	   titanic.iloc[:10,4].mean()
+
+       - Survival rate among passengers over and under average age::
+
+	   titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()
+
+	 and::
+
+           titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()
 
 
 Tidy data
@@ -238,12 +252,13 @@ Pandas also understands multiple other formats, for example using :obj:`~pandas.
 :obj:`~pandas.DataFrame.to_csv`, :obj:`~pandas.DataFrame.to_excel`, :obj:`~pandas.DataFrame.to_hdf`, :obj:`~pandas.DataFrame.to_json`, etc.)
 
 But sometimes you would want to create a dataframe from scratch. Also this can be done
-in multiple ways, for example starting with a numpy array::
+in multiple ways, for example starting with a numpy array (see
+:class:`~pandas.DataFrame` docs::
 
     dates = pd.date_range('20130101', periods=6)
     df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
 
-or a dictionary::
+or a dictionary (see same docs)::
 
     df = pd.DataFrame({'A': ['dog', 'cat', 'dog', 'cat', 'dog', 'cat', 'dog', 'dog'],
 		       'B': ['one', 'one', 'two', 'three', 'two', 'two', 'one', 'three'],
@@ -255,11 +270,10 @@ There are many ways to operate on dataframes. Let's look at a
 few examples in order to get a feeling of what's possible
 and what the use cases can be.
 
-We can easily split and concatenate or append dataframes::
+We can easily split and :func:`concatenate <pandas.concat>` dataframes::
 
     sub1, sub2, sub3 = df[:2], df[2:4], df[4:]
     pd.concat([sub1, sub2, sub3])
-    sub1.append([sub2, sub3])      # same as above
 
 When pulling data from multiple dataframes, a powerful :obj:`pandas.DataFrame.merge` method is
 available that acts similarly to merging in SQL. Say we have a dataframe containing the age of some athletes::
@@ -313,20 +327,33 @@ Exercises 2
     In the Titanic passenger list dataset,
     investigate the family size of the passengers (i.e. the "SibSp" column).
 
-    - What different family sizes exist in the passenger list? Hint: try the :obj:`~pandas.Series.unique` method
+    - What different family sizes exist in the passenger list? Hint: try the :meth:`~pandas.Series.unique` method
     - What are the names of the people in the largest family group?
     - (Advanced) Create histograms showing the distribution of family sizes for
       passengers split by the fare, i.e. one group of high-fare passengers (where
       the fare is above average) and one for low-fare passengers
       (Hint: instead of an existing column name, you can give a lambda function
-      as a parameter to ``hist`` to compute a value on the fly. For example
+      as a parameter to :meth:`~pandas.DataFrame.hist` to compute a value on the fly. For example
       ``lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich"``).
 
-   .. solution:: 
-   
-       - Existing family sizes: ``df["SibSp"].unique()``
-       - Names of members of largest family(ies): ``df[df["SibSp"] == 8]["Name"]``
-       - ``df.hist("SibSp", lambda x: "Poor" if df["Fare"].loc[x] < df["Fare"].mean() else "Rich", rwidth=0.9)``
+   .. solution::
+
+       - Existing family sizes::
+
+	   titanic["SibSp"].unique()
+
+       - We get 8 from above.  There is no ``Names`` column, since we
+	 made ``Names`` the index when we loaded the dataframe with
+	 ``read_csv``, so we use :attr:`pandas.DataFrame.index` to get
+	 the names.  So, names of members of largest family(ies)::
+
+           titanic[titanic["SibSp"] == 8].index
+
+       - Histogram of family size based on fare class::
+
+           titanic.hist("SibSp",
+                        lambda x: "Poor" if titanic["Fare"].loc[x] < titanic["Fare"].mean() else "Rich",
+                        rwidth=0.9)
 
 
 
@@ -347,19 +374,22 @@ a browser and download the file, or use the JupyterLab interface by clicking
 
 We can then load and explore the data::
 
+    # File → Open from URL → enter https://api.nobelprize.org/v1/laureate.csv
+    # This opens it in JupyterLab but also saves it as laureate.csv
     nobel = pd.read_csv("laureate.csv")
     nobel.head()
 
 This dataset has three columns for time, "born"/"died" and "year".
 These are represented as strings and integers, respectively, and
-need to be converted to datetime format::
+need to be converted to datetime format.  :func:`pandas.to_datetime`
+makes this easy::
 
     # the errors='coerce' argument is needed because the dataset is a bit messy
     nobel["born"] = pd.to_datetime(nobel["born"], errors ='coerce')
     nobel["died"] = pd.to_datetime(nobel["died"], errors ='coerce')
     nobel["year"] = pd.to_datetime(nobel["year"], format="%Y")
 
-Pandas knows a lot about dates::
+Pandas knows a lot about dates (using :attr:`~pandas.Series.dt`)::
 
     print(nobel["born"].dt.day)
     print(nobel["born"].dt.year)
@@ -410,7 +440,11 @@ Exercises 3
     - (Optional) Create a pivot table to view a spreadsheet like structure, and view it
 
 	- First add a column “number” to the nobel dataframe containing 1’s
-	  (to enable the counting below).
+	  (to enable the counting below).  We need to make a copy of
+	  ``subset``, because right now it is only a view::
+
+	      subset = subset.copy()
+	      subset.loc[:, 'number'] = 1
 
 	- Then create the :meth:`~pandas.DataFrame.pivot_table`::
 
@@ -424,7 +458,7 @@ Exercises 3
 
     - Play around with other nice looking plots::
 
-	sns.violinplot(y="year", x="bornCountry",inner="stick", data=subset);
+	sns.violinplot(y="year", x="bornCountry", inner="stick", data=subset);
 
       ::
 
