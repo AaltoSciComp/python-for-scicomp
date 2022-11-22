@@ -176,7 +176,7 @@ Exercises 1
    .. solution::
 
        - Mean age of the first 10 passengers: ``titanic.iloc[:10,:]["Age"].mean()``
-         or ``titanic.loc[:9,"Age"].mean()`` or ``df.iloc[:10,5].mean()``.
+         or ``titanic.loc[:"Nasser, Mrs. Nicholas (Adele Achem)","Age"].mean()`` or ``titanic.iloc[:10,4].mean()``.
        - Survival rate among passengers over and under average age:
          ``titanic[titanic["Age"] > titanic["Age"].mean()]["Survived"].mean()`` and
          ``titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()``.
