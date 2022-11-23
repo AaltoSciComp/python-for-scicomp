@@ -7,21 +7,21 @@ Scripts
 
    - Why are command line programs useful, compared to Jupyter
      notebooks and similar?
-   - How to create a python script?
-   - How to generalize a python script?
+   - How to create a Python script?
+   - How to generalize a Python script?
 
 .. objectives::
 
-   - Learn how to streamline your python notebooks by creating repeatable python scripts
-   - Learn how to import other python files
-   - Learn to parse command line arguments in python
+   - Learn how to streamline your Python notebooks by creating repeatable Python scripts
+   - Learn how to import other Python files
+   - Learn to parse command line arguments in Python
 
 Why scripts?
 -------------
 
-So far we have been learning python using Jupyter notebooks. It is very convenient: it allowed us to experiment and prototype python code so we may think that is more than enough for your day to day work.
+So far we have been learning Python using Jupyter notebooks. It is very convenient: it allowed us to experiment and prototype Python code so we may think that is more than enough for your day to day work.
 
-But after several weeks of hard work with python, you may end up:
+But after several weeks of hard work with Python, you may end up:
 
 - either with 10 different notebooks (so that you can run them concurrently)
 - or with a very long notebook which is becoming hardly readable!
@@ -29,21 +29,21 @@ But after several weeks of hard work with python, you may end up:
 Let's imagine you have created 10 notebooks to run for 10 different input parameters and now you are willing to experiment with 1000 sets of input parameters.
 Suppose you find a bug in the original notebook and need to rerun everything: are you willing to re-create manually your 1000 notebooks?
 
-In this episode, we will learn how to automate your work using python scripts so that
+In this episode, we will learn how to automate your work using Python scripts so that
 
 * you do not need to manually configure your notebooks to be able to run with different parameters
 * can easily run you work via other tools, such as on computing clusters.
 
 
-From jupyter notebooks to python scripts
+From Jupyter notebooks to Python scripts
 -----------------------------------------
 
-Save as python script
+Save as Python script
 ---------------------
 
-Jupyter notebooks can be parameterized for instance using `papermill <https://papermill.readthedocs.io/en/latest/>`_. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate python scripts. This will also force you to modularize your code.  See `CodeRefinery's lesson on Modular code development <https://coderefinery.github.io/modular-type-along/>`__.
+Jupyter notebooks can be parameterized for instance using `papermill <https://papermill.readthedocs.io/en/latest/>`_. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate Python scripts. This will also force you to modularize your code.  See `CodeRefinery's lesson on Modular code development <https://coderefinery.github.io/modular-type-along/>`__.
 
-Within JupyterLab, you can export any jupyter notebook to a python script:
+Within JupyterLab, you can export any Jupyter notebook to a Python script:
 
 .. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png
 
@@ -54,8 +54,7 @@ Within JupyterLab, you can export any jupyter notebook to a python script:
 
 Actually, you could also export your notebook in many other formats.
 Check the `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
-If you keep working in the jupyterlab folder, you can also convert files in the terminal (File -> New -> Terminal) by running::
-
+If you are working by the command line (File → New → Terminal), you can also convert files in the terminal by running::
 
   $ jupyter nbconvert --to script your_notebook_name.ipynb
 
@@ -131,7 +130,7 @@ We can try it out:
   - Why is this better than modifying the script every time I want it to
     plot data for a different period?
 
-  - What problems do you expect when using this approach (using ``sys.argv``)?
+  - What problems do you expect when using this approach (using :data:`sys.argv`)?
 
 This approach is brittle and more robust solutions exist that allow you to fully
 customize your scripts and generate help texts at the same time:
@@ -139,40 +138,41 @@ customize your scripts and generate help texts at the same time:
 - `argparse <https://docs.python.org/3/library/argparse.html>`__:
   built-in to Python, this is the one that we will show below.
 - `doctopt <http://docopt.org/>`__: you write the help text and this generates a parser for you.
-- `click <https://click.palletsprojects.com//>`__: another nice
+- `click <https://click.palletsprojects.com/>`__: another nice
   library for command line interfaces - very easy to use.
 
 
-Parsing command line arguments with ``argparse``
-------------------------------------------------
+Parsing command line arguments with :mod:`argparse`
+---------------------------------------------------
 
 :py:mod:`Argparse <argparse>` not only gives you descriptive command line arguments, it also automatically
 generates a ``--help`` option for you. To use ``argparse`` you first set up a parser
-by calling ``parser = argparse.ArgumentParser()`` and then you add arguments using
+by calling :class:`parser = argparse.ArgumentParser() <argparse.ArgumentParser>` and then you add arguments using
 :py:meth:`parser.add_argument(args) <argparse.ArgumentParser.add_argument>`. There are two different types of arguments:
 
 - Positional arguments
 - Optional arguments
 
-Positional arguments are fixed in their position, while optional arguments need to be
+**Positional arguments** are detected by their order, while **optional arguments** need to be
 given with their respective flags ( like ``--name`` or ``-n``).
 The following example would parse a positional argument ``Name`` of type ``string``
 and an optional argument ``date`` of type ``string`` which defaults to ``01/01/2000``.
 
 .. code-block:: python
+   :emphasize-lines: 3, 5-8, 10
 
    import argparse
 
    parser = argparse.ArgumentParser()
-   # set start and end time
-   parser.add_argument('Name', type=str, metavar="N", \
-		    help="The name of the subject")
-   parser.add_argument('-d', '--date', type=string, default="01/01/2000", \
-		    help="Birth date of the subject")
+   # One positional and one optional argument
+   parser.add_argument('name', type=str, metavar="N",
+                       help="The name of the subject")
+   parser.add_argument('-d', '--date', type=string, default="01/01/2000",
+                       help="Birth date of the subject")
 
    args = parser.parse_args()
 
-   print(args.Name + " was born on " + args.date)
+   print(args.name + " was born on " + args.date)
 
 If this code was in ``birthday.py`` and we would call ``python birthday.py --help`` it
 would show the following message:
@@ -229,7 +229,7 @@ Exercises 2
    - We can select multiple time ranges without modifying the script.
    - This way we can also loop over file patterns (using shell loops or similar) or use
      the script in a workflow management system and process many files in parallel.
-   - By changing from ``sys.argv`` to ``argparse`` we made the script more robust against
+   - By changing from :data:`sys.argv` to :mod:`argparse` we made the script more robust against
      user input errors and also got a help text (accessible via ``--help``).
 
 
@@ -256,11 +256,11 @@ more complex input data, like lists, or dictionaries. We won't go into the detai
 a short example using YAML here.
 
 The YAML file format can be simple or very complex allowing a large variety of data structures to be stored.
-One benefit of YAML is that there is already a python module (``yaml``) available for parsing it and it
+One benefit of YAML is that there is already a Python module (`yaml <https://pyyaml.org/>`__) available for parsing it and it
 directly parses numbers as numbers and text as strings, making conversions unnecessary (the same is true for JSON
-with the ``json`` package).
+with the :mod:`json` package).
 
-The python module :download:`optionsparser.py <../resources/code/scripts/optionsparser.py>` provides a simple parser for YAML styled options files.
+The Python module :download:`optionsparser.py <../resources/code/scripts/optionsparser.py>` provides a simple parser for YAML styled options files.
 Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
 Required arguments need to specify a type. Optional argument types are derived from their default values.
 
@@ -278,7 +278,7 @@ Exercises 3 (optional)
 .. challenge:: Scripts-3
 
   1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py>`
-     function and load it into your working folder in jupyterlab.
+     function and load it into your working folder in Jupyterlab.
      Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line
      (using e.g. argparse or sys.argv) still needs to be read from the command line.
 
