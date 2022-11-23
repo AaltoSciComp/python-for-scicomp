@@ -117,10 +117,10 @@ Table below describes some data formats:
 
    * - :ref:`Pickle <pickle>`
      - ❌
-     - 🟡
+     - 🟨
      - ✅
-     - 🟡
-     - 🟡
+     - 🟨
+     - 🟨
      - ❌
 
    * - :ref:`CSV <csv>`
@@ -128,7 +128,7 @@ Table below describes some data formats:
      - ❌
      - ❌
      - ✅
-     - 🟡
+     - 🟨
      - ✅
 
    * - :ref:`Feather <feather>`
@@ -142,14 +142,14 @@ Table below describes some data formats:
    * - :ref:`Parquet <parquet>`
      - ❌
      - ✅
-     - 🟡
+     - 🟨
      - ✅
-     - 🟡
+     - 🟨
      - ✅
 
    * - :ref:`npy <npy>`
      - ❌
-     - 🟡
+     - 🟨
      - ❌
      - ❌
      - ✅
@@ -174,7 +174,7 @@ Table below describes some data formats:
    * - :ref:`JSON <json>`
      - ✅
      - ❌
-     - 🟡
+     - 🟨
      - ❌
      - ❌
      - ✅
@@ -183,22 +183,22 @@ Table below describes some data formats:
      - ❌
      - ❌
      - ❌
-     - 🟡
+     - 🟨
      - ❌
      - ✅
 
    * - :ref:`Graph formats <graph>`
-     - 🟡
-     - 🟡
+     - 🟨
+     - 🟨
      - ❌
      - ❌
      - ❌
-     - 🟡
+     - 🟨
 
 .. important::
 
     - ✅ : Good
-    - 🟡 : Ok / depends on a case
+    - 🟨 : Ok / depends on a case
     - ❌ : Bad
 
 
@@ -215,10 +215,10 @@ Pickle
 
    - **Type**: Binary format
    - **Packages needed:** None (:mod:`pickle`-module is included with Python).
-   - **Space efficiency:** 🟡
+   - **Space efficiency:** 🟨
    - **Arbitrary data:** ✅
-   - **Tidy data:** 🟡
-   - **Array data:** 🟡
+   - **Tidy data:** 🟨
+   - **Array data:** 🟨
    - **Long term archival/sharing:** ❌! See warning below.
    - **Best use cases:** Saving Python objects for debugging.
 
@@ -285,7 +285,7 @@ CSV (comma-separated values)
    - **Space efficiency:** ❌
    - **Arbitrary data:** ❌
    - **Tidy data:** ✅
-   - **Array data:** 🟡
+   - **Array data:** 🟨
    - **Long term archival/sharing:** ✅
    - **Best use cases:** Sharing data. Small data. Data that needs to be human-readable.
 
@@ -409,9 +409,9 @@ Parquet
    - **Type:** Binary format
    - **Packages needed:** pandas, pyarrow
    - **Space efficiency:** ✅
-   - **Arbitrary data:** 🟡
+   - **Arbitrary data:** 🟨
    - **Tidy data:** ✅
-   - **Array data:** 🟡
+   - **Array data:** 🟨
    - **Long term archival/sharing:** ✅
    - **Best use cases:** Working with big datasets in tidy data format. Archival of said data.
 
@@ -494,7 +494,7 @@ npy (numpy array format)
 
    - **Type**: Binary format
    - **Packages needed:** numpy
-   - **Space efficiency:** 🟡
+   - **Space efficiency:** 🟨
    - **Arbitrary data:** ✅
    - **Tidy data:** ❌
    - **Array data:** ✅
@@ -680,7 +680,7 @@ JSON (JavaScript Object Notation)
    - **Type**: Text format
    - **Packages needed:** None (:mod:`json`-module is included with Python).
    - **Space efficiency:** ❌
-   - **Arbitrary data:** 🟡
+   - **Arbitrary data:** 🟨
    - **Tidy data:** ❌
    - **Array data:** ❌
    - **Long term archival/sharing:** ✅
@@ -695,7 +695,7 @@ nested data with multiple layers or lots of interconnections.
 Similarly to other popular files, Pandas can write and read json files with :meth:`~pandas.DataFrame.to_json`- and :func:`~pandas.read_json`-functions::
 
     dataset.to_json('dataset.json')
-    dataset_json = pd.read_csv('dataset.json')
+    dataset_json = pd.read_json('dataset.json')
 
 
 .. _excel:
@@ -714,7 +714,7 @@ Excel
    - **Packages needed:** `openpyxl <https://openpyxl.readthedocs.io/en/stable/>`__
    - **Space efficiency:** ❌
    - **Arbitrary data:** ❌
-   - **Tidy data:** 🟡
+   - **Tidy data:** 🟨
    - **Array data:** ❌
    - **Long term archival/sharing:** ✅
    - **Best use cases:** Sharing data in many fields. Quick data analysis.
@@ -734,11 +734,11 @@ Graph formats (adjency lists, gt, GraphML etc.)
 
    - **Type**: Many different formats
    - **Packages needed:** Depends on a format.
-   - **Space efficiency:** 🟡
+   - **Space efficiency:** 🟨
    - **Arbitrary data:** ❌
    - **Tidy data:** ❌
    - **Array data:** ❌
-   - **Long term archival/sharing:** 🟡
+   - **Long term archival/sharing:** 🟨
    - **Best use cases:** Saving graphs or data that can be represented as a graph.
 
 There are plenty of data formats for storing graphs.
