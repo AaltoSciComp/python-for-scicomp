@@ -268,7 +268,7 @@ calls.
   figures one day before submission deadline or regenerate a set of figures
   after the person who created them left the group.
 - Matplotlib and also all the other libraries allow to customize almost every aspect of a plot.
-- It is useful to study [Matplotlib parts of a figure](https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure)
+- It is useful to study [Matplotlib parts of a figure](https://matplotlib.org/stable/tutorials/introductory/quick_start.html#parts-of-a-figure)
   so that we know what to search for to customize things.
 - Matplotlib cheatsheets: <https://github.com/matplotlib/cheatsheets>
 - You can also select among pre-defined themes/
@@ -362,7 +362,7 @@ For figures that go to print it is good practice to look at them at the size
 they will be printed in and then often fonts and tickmarks are too small.
 
 Your task is to make the tickmarks and the axis label font larger, using
-[Matplotlib parts of a figure](https://matplotlib.org/faq/usage_faq.html#parts-of-a-figure)
+[Matplotlib parts of a figure](https://matplotlib.org/stable/tutorials/introductory/quick_start.html#parts-of-a-figure)
 and web search, and to arrive at this:
 
 ```{figure} data-visualization/customizing/gapminder-larger-font.png
