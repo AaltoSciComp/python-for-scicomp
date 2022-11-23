@@ -88,9 +88,9 @@ Command line arguments with ``sys.argv``
 We now have a python script that is callable from the command line (e.g. for use on an HPC system).
 However, this code is still not adjustable, as we still need to have a copy for each single
 time range we want to plot, or need to modify our file whenever we want to just change parameters.
-What we need is to allow arguments to be put in from the command line in order to have the same code 
+What we need is to allow arguments to be put in from the command line in order to have the same code
 plot information for different time ranges without odifying the code itself. This can be achieved by
-using pythons :py:mod:`sys` package, which provides access to arguments given to the python interpreter at 
+using pythons :py:mod:`sys` package, which provides access to arguments given to the python interpreter at
 startup in the :py:data:`sys.argv` list. The first (i.e. ``sys.argv[0]`` entry of this array is the called script,
 and any further argument (separated by space) is appended to this list. Lets see how it works:
 
@@ -147,15 +147,15 @@ Parsing command line arguments with ``argparse``
 ------------------------------------------------
 
 :py:mod:`Argparse <argparse>` not only gives you descriptive command line arguments, it also automatically
-generates a ``--help`` option for you. To use ``argparse`` you first set up a parser 
-by calling ``parser = argparse.ArgumentParser()`` and then you add arguments using 
+generates a ``--help`` option for you. To use ``argparse`` you first set up a parser
+by calling ``parser = argparse.ArgumentParser()`` and then you add arguments using
 :py:meth:`parser.add_argument(args) <argparse.ArgumentParser.add_argument>`. There are two different types of arguments:
 
 - Positional arguments
 - Optional arguments
 
 Positional arguments are fixed in their position, while optional arguments need to be
-given with their respective flags ( like ``--name`` or ``-n``). 
+given with their respective flags ( like ``--name`` or ``-n``).
 The following example would parse a positional argument ``Name`` of type ``string``
 and an optional argument ``date`` of type ``string`` which defaults to ``01/01/2000``.
 
@@ -174,7 +174,7 @@ and an optional argument ``date`` of type ``string`` which defaults to ``01/01/2
 
    print(args.Name + " was born on " + args.date)
 
-If this code was in ``birthday.py`` and we would call ``python birthday.py --help`` it 
+If this code was in ``birthday.py`` and we would call ``python birthday.py --help`` it
 would show the following message:
 
 .. code-block:: console
@@ -195,7 +195,7 @@ Exercises 2
 .. challenge:: Scripts-2
 
   1. Take the python script we have written in the preceding exercise and use
-     :py:mod:`argparse` to specify the input and output files and allow the start and end dates to be set. 
+     :py:mod:`argparse` to specify the input and output files and allow the start and end dates to be set.
      The start and end dates should be optional parameters with the defaults as they are in the current script.
 
   2. Execute your script for a few different time intervals (e.g. from January 2019 to June 2020, or from Mai 2020 to October 2020).
