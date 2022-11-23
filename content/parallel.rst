@@ -449,7 +449,7 @@ distribute operations across multiple CPUs.
 
 Dask is very popular for data analysis and is used by a number of high-level Python libraries:
 
-- Dask arrays scale NumPy (see also `xarray <http://xarray.pydata.org/en/stable/>`__ 
+- Dask arrays scale NumPy (see also `xarray <https://xarray.pydata.org/en/stable/>`__ 
 - Dask dataframes scale Pandas workflows
 - Dask-ML scales Scikit-Learn
 

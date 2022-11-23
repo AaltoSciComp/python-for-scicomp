@@ -164,7 +164,7 @@ Exercises 2
 
   Conda environments can also be managed (create, update, delete) from the
   **anaconda-navigator**. Check out the corresponding documentation `here
-  <https://docs.anaconda.com/anaconda/navigator/getting-started/#navigator-managing-environments>`_.
+  <https://docs.anaconda.com/navigator/getting-started/#navigator-managing-environments>`_.
 
   2. Activate the environment::
 
@@ -340,7 +340,7 @@ Here are the two files again, but this time with versions pinned:
 - Conda can also read and write ``requirements.txt``.
 - ``requirements.txt`` can also refer to packages on Github.
 - ``environments.yml`` can also contain a ``pip`` section.
-- See also: https://coderefinery.github.io/reproducible-research/03-dependencies/#dependencies.
+- See also: https://coderefinery.github.io/reproducible-research/dependencies/ .
 
 .. admonition:: Putting too strict requirements can be counter-productive
 

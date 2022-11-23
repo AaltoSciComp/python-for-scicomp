@@ -186,7 +186,7 @@ trend goes towards using ``pyproject.toml`` as more general alternative to
 There are at least two tools which try to make the packaging and PyPI interaction easier:
 
 - `Poetry <https://python-poetry.org/>`__
-- `Flit <https://flit.readthedocs.io/>`__
+- `Flit <https://flit.pypa.io/>`__
 
 
 Building a conda package and share it

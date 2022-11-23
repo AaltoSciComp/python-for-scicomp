@@ -64,7 +64,7 @@ Python
 We expect you to have a working Python installation with some common
 libraries.  We recommend that you install the `Anaconda python
 distribution <https://docs.continuum.io/anaconda/install/>`__.  The
-`Anaconda Navigator <https://docs.anaconda.com/anaconda/navigator/>`__
+`Anaconda Navigator <https://docs.anaconda.com/navigator/>`__
 provides a convenient way to access the software.
 
 .. admonition:: Other options
@@ -227,6 +227,6 @@ See also
   <https://www.youtube.com/watch?v=ddCde5Nu2qo&list=PLpLblYHCzJAB6blBBa0O2BEYadVZV3JYf>`__
 * `Conda manual <https://docs.conda.io/en/latest/>`__ (technical)
 * `Anaconda individual edition home
-  <https://www.anaconda.com/products/individual>`__
+  <https://www.anaconda.com/products/distribution>`__
 * `Anaconda getting started
   <https://docs.anaconda.com/anaconda/user-guide/getting-started/>`__

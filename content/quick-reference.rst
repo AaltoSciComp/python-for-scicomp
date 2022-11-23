@@ -15,12 +15,12 @@ Quick reference
   <https://www.datacamp.com/community/data-science-cheatsheets>`__)
 
 * `JupyterLab cheatsheet
-  <https://cs.anu.edu.au/courses/comp2420/labs/lab-1/helpManuals/JupyterLab-Cheatsheet.pdf>`__
+  <https://comp.anu.edu.au/courses/comp2420/labs/lab-1/helpManuals/JupyterLab-Cheatsheet.pdf>`__
 
 * `Matplotlib cheatsheet
   <https://datacamp-community-prod.s3.amazonaws.com/e1a8f39d-71ad-4d13-9a6b-618fe1b8c9e9>`__
   (via `Datacamp
-  <https://www.datacamp.com/community/data-science-cheatsheets>`__)
+  <https://www.datacamp.com/cheat-sheet>`__)
 
 * `Numpy, Pandas, Matplotlib, Scikit-learn all together
   <https://web.itu.edu.tr/iguzel/files/Python_Cheat_Sheets.pdf>`__
