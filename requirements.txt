@@ -10,3 +10,4 @@ sphinxext-opengraph
 
 # for web-apis execution
 jsonlines
+bs4
