@@ -695,7 +695,7 @@ nested data with multiple layers or lots of interconnections.
 Similarly to other popular files, Pandas can write and read json files with :meth:`~pandas.DataFrame.to_json`- and :func:`~pandas.read_json`-functions::
 
     dataset.to_json('dataset.json')
-    dataset_json = pd.read_csv('dataset.json')
+    dataset_json = pd.read_json('dataset.json')
 
 
 .. _excel:
