@@ -67,13 +67,13 @@ Exercises 1
   .. highlight:: console
 
 
-  1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from `rp5.kz <https://rp5.kz>`_ and was slightly adjusted for this lecture.
+  1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your Jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from `rp5.kz <https://rp5.kz>`_ and was slightly adjusted for this lecture.
 
-     **Note:** If you haven't downloaded the file directly to your jupyterlab folder, it will be located in your **Downloads** folder or the folder you selected. In jupyterlab click on the 'upload file' button, navigate to the folder containing the file and select it to load it into your jupyterlab folder.
+     **Note:** If you haven't downloaded the file directly to your Jupyterlab folder, it will be located in your **Downloads** folder or the folder you selected. In Jupyterlab click on the 'upload file' button, navigate to the folder containing the file and select it to load it into your Jupyterlab folder.
 
-  2. Open a terminal in jupyter (File -> New -> Terminal).
+  2. Open a terminal in Jupyter (File → New → Terminal).
 
-  3. Convert the jupyter script to a python script by calling::
+  3. Convert the Jupyter script to a Python script by calling::
 
      $ jupyter nbconvert --to script weather_observations.ipynb
 
@@ -81,19 +81,25 @@ Exercises 1
 
      $ python weather_observations.py
 
-Command line arguments with ``sys.argv``
-----------------------------------------
+Command line arguments with :data:`sys.argv`
+--------------------------------------------
 
-We now have a python script that is callable from the command line (e.g. for use on an HPC system).
+We now have a Python script that is callable from the command line (e.g. for use on an HPC system).
 However, this code is still not adjustable, as we still need to have a copy for each single
 time range we want to plot, or need to modify our file whenever we want to just change parameters.
-What we need is to allow arguments to be put in from the command line in order to have the same code
-plot information for different time ranges without odifying the code itself. This can be achieved by
-using pythons :py:mod:`sys` package, which provides access to arguments given to the python interpreter at
-startup in the :py:data:`sys.argv` list. The first (i.e. ``sys.argv[0]`` entry of this array is the called script,
-and any further argument (separated by space) is appended to this list. Lets see how it works:
+**What we need is to allow the code to do something different based on something outside the code itself**: in this case, to
+plot information for different time ranges. This can be achieved by
+using Pythons :py:mod:`sys` package, which provides access to arguments given to the Python interpreter at
+startup in the :py:data:`sys.argv` list. The first (i.e. ``sys.argv[0]`` entry of this array is the script that is running,
+and any further argument (separated by space) is appended to this list, like such:
 
-We modify the **weather_observations.py** script such that we allow start
+.. code-block:: console
+
+   $ python my_script.py A B
+   $ # sys.argv[1] is 'A'
+   $ # sys.argv[2] is 'B'
+
+Lets see how it works: We modify the **weather_observations.py** script such that we allow start
 and end times as well as the output file to be passed in as arguments to the function:
 
 .. code-block:: python
@@ -194,12 +200,15 @@ Exercises 2
 
 .. challenge:: Scripts-2
 
-  1. Take the python script we have written in the preceding exercise and use
+  1. Take the Python script (``weather_observations.py``) we have written in the preceding exercise and use
      :py:mod:`argparse` to specify the input and output files and allow the start and end dates to be set.
-     The start and end dates should be optional parameters with the defaults as they are in the current script.
 
-  2. Execute your script for a few different time intervals (e.g. from January 2019 to June 2020, or from Mai 2020 to October 2020).
-     Also use data for cairo (``https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv``)
+     * Hint: try not to do it all at once, but add one or two arguments, test, then add more, and so on.
+     * Hint: The input and output filenames make sense as positional arguments, since they must always be given.  Input is usually first, then output.
+     * Hint: The start and end dates should be optional parameters with the defaults as they are in the current script.
+
+  2. Execute your script for a few different time intervals (e.g. from January 2019 to June 2020, or from May 2020 to October 2020).
+     Also try using this data for Cairo: ``https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv``
 
 
 .. solution::
