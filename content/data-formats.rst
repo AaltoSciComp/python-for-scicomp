@@ -587,7 +587,7 @@ NetCDF4 (Network Common Data Form version 4)
     Using NetCDF4 requires `netCDF4 <https://unidata.github.io/netcdf4-python>`__- or `h5netcdf <https://github.com/h5netcdf/h5netcdf>`__-package to be installed.
     h5netcdf is often mentioned as being faster to the official netCDF4-package, so we'll be using it in the example.
 
-    A great NetCDF4 interface is provided by a `xarray-package <https://xarray.pydata.org/en/stable/getting-started-guide/quick-overview.html#read-write-netcdf-files>`__.
+    A great NetCDF4 interface is provided by a `xarray-package <https://docs.xarray.dev/en/stable/getting-started-guide/quick-overview.html#read-write-netcdf-files>`__.
 
     You can try installing these packages with
 

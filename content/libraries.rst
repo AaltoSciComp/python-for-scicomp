@@ -59,7 +59,7 @@ but searching for these repositories is a starting point of a lot of
 future work.
 
 The "core" packages `could be considered
-<https://www.scipy.org/about.html>`__.  Many other packages build on
+<https://www.scipy.org/about/>`__.  Many other packages build on
 these, and others that try to do similar things often try to conform
 to their interfaces (especially numpy):
 
@@ -102,7 +102,7 @@ Data analysis and other important core packages
   data analysis
 * `statsmodels <https://www.statsmodels.org/stable/>`__ - just what it says
 * `SymPy <https://www.sympy.org/>`__ - symbolic math
-* `networkx <https://networkx.github.io/>`__ - graph and network analysis
+* `networkx <https://networkx.org/>`__ - graph and network analysis
 * `h5py <https://www.h5py.org/>`__ and `PyTables <https://www.pytables.org/>`__ - interfaces to
   the `HDF5 <https://en.wikipedia.org/wiki/Hierarchical_Data_Format>`__ on-disk file format
 * `dateutil <https://dateutil.readthedocs.io/>`__ and `pytz
@@ -115,8 +115,8 @@ Interactive computing and human interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Interactive computing
 
-  * `IPython <http://ipython.org/>`__ - nicer interactive interpreter
-  * `Jupyter <http://jupyter.org/>`__ (notebook, lab, hub, ...) -
+  * `IPython <https://ipython.org/>`__ - nicer interactive interpreter
+  * `Jupyter <https://jupyter.org/>`__ (notebook, lab, hub, ...) -
     web-based interface to IPython and other languages
 
 * Testing
@@ -142,13 +142,13 @@ Speeding up code and parallelism
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * `PyMPI <https://sourceforge.net/projects/pympi/>`__ - Message
   Passing Interface (MPI) in Python for parallelizing jobs.
-* `cython <http://cython.org/>`__ - easily make C extensions for
+* `cython <https://cython.org/>`__ - easily make C extensions for
   Python, also interface to C libraries
 * `numba <https://numba.pydata.org/>`__ - just in time compiling of
   functions for speed-up
 * `PyPy <https://www.pypy.org/>`__ - Python written in Python so that
   it can internally optimize more.
-* `Dask <https://dask.org/>`__ - distributed array data structure for
+* `Dask <https://www.dask.org/>`__ - distributed array data structure for
   distributed computation
 * `Joblib <https://joblib.readthedocs.io/>`__ - easy embarrassingly
   parallel computing
@@ -211,7 +211,7 @@ These days, one rarely directly extends the Python interpreter, but uses
   Python, also interface to C libraries
 * `f2py <https://numpy.org/doc/stable/f2py/>`__ - interface to Fortran
   code
-* `swig <http://swig.org/>`__ - connect to a variety of programming languages.
+* `swig <https://swig.org/>`__ - connect to a variety of programming languages.
 * ``Boost.python`` - Another Python/C++ interface
 * TODO: Julia modules for Python?
 
@@ -341,7 +341,7 @@ See also
 --------
 
 * `Topical Software in the SciPy ecosystem
-  <https://www.scipy.org/topical-software.html>`__ - relatively
+  <https://new.scipy.org/topical-software.html>`__ - relatively
   detailed (but not comprehensive) list of projects
 
 

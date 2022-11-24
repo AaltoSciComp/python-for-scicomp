@@ -169,7 +169,7 @@ eventually.
 See also
 --------
 
-* `SciPy general introduction <https://docs.scipy.org/doc/scipy/reference/tutorial/general.html>`__
+* `SciPy general introduction <https://docs.scipy.org/doc/scipy/tutorial/general.html>`__
 * `SciPy documentation
   <https://docs.scipy.org/doc/scipy/reference/>`__
 
