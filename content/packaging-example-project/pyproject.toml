@@ -2,9 +2,10 @@
 requires = ["setuptools"]
 
 [project]
-name="calculator-myname",
-description="A small example package",
+name="calculator-myname"
+description="A small example package"
 version = "0.1.0"
+readme = "README.md"
 authors = [
     { name = "Firstname Lastname", email = "firstname.lastname@example.org" }
 ]
