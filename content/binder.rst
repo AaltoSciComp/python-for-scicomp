@@ -19,16 +19,7 @@ Binder
 Why is it sometimes not enough to share your code?
 --------------------------------------------------
 
-Before we work in groups,
-let's take an example from geospatial
-analysis where the first ``import`` in the code would be (please note that it is
-not necessary to install any of the packages mentioned below)::
-
-   from osgeo import ogr, osr, gdal
-
-Depending on how you install this python package, it may be necessary to have
-`libgdal` and its development headers already installed on your system; with
-information on the version you have used, etc.
+.. image:: img/binder/python_unmasked.jpg
 
 
 Exercise 1
