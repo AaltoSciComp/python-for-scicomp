@@ -101,12 +101,12 @@ To make our example package pip-installable we need to add one more file:
    │   └── subtracting.py
    ├── LICENSE
    ├── README.md
-   └── setup.py
+   └── pyproject.toml
 
-This is how ``setup.py`` looks:
+This is how ``pyproject.toml`` looks:
 
-.. literalinclude:: packaging-example-project/setup.py
-   :caption: setup.py
+.. literalinclude:: packaging-example-project/pyproject.toml
+   :caption: pyproject.toml
    :emphasize-lines: 18-20
 
 Note how our package requires ``scipy`` and we decided to not pin the version
@@ -154,7 +154,7 @@ We need two more things:
 
 Let's try it out. First we create the distribution package::
 
-  $ python setup.py sdist
+  $ python3 -m build
 
 We need twine::
 
