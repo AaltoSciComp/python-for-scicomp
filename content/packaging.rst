@@ -154,7 +154,7 @@ We need two more things:
 
 Let's try it out. First we create the distribution package::
 
-  $ python setup.py sdist
+  $ python3 -m build
 
 We need twine::
 
