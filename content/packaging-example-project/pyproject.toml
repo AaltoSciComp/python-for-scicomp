@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+
+[project]
+name="calculator-myname",
+description="A small example package",
+version = "0.1.0"
+authors = [
+    { name = "Firstname Lastname", email = "firstname.lastname@example.org" }
+]
+dependencies = [
+    "scipy"
+]
