@@ -8,6 +8,10 @@ Python for Scientific Computing
    <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2022/>`__.
    Whether you are or aren't, the course material is below.
 
+   Videos: `YouTube <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOm3xkYuInBWPUvS93sAUlk>`__
+
+   Q&A: `days 1-2 <https://hackmd.io/@coderefinery/python2022archive>`__, `days 3-4 <https://hackmd.io/@coderefinery/python2022archive2>`__
+
 Python is a modern, object-oriented programming language, which has
 become popular in several areas of software development. This course
 discusses how Python can be utilized in scientific computing. The
@@ -46,8 +50,11 @@ to learn yourself as you need to.
 
 .. admonition:: Videos
 
-   Videos from the 2021 instance of this course can be found in
-   `this YouTube playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOS7bHNmbcDoyTnMYaz_TJW>`__.
+   Videos from past instances:
+
+   * 2021: `this YouTube playlist
+     <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOS7bHNmbcDoyTnMYaz_TJW>`__.
+   * 2022: `here <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOm3xkYuInBWPUvS93sAUlk>`__
 
 
 .. csv-table::
