@@ -48,13 +48,18 @@ to learn yourself as you need to.
    - Knowing how to make scripts or use Jupyter
 
 
-.. admonition:: Videos
+.. admonition:: Videos and archived Q&A
 
-   Videos from past instances:
+   Videos and material from past instances:
 
    * 2021: `this YouTube playlist
      <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOS7bHNmbcDoyTnMYaz_TJW>`__.
-   * 2022: `here <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOm3xkYuInBWPUvS93sAUlk>`__
+   * 2022: `here
+     <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOm3xkYuInBWPUvS93sAUlk>`__,
+     Q&A: `days 1-2
+     <https://hackmd.io/@coderefinery/python2022archive>`__, `days 3-4
+     <https://hackmd.io/@coderefinery/python2022archive2>`__
+
 
 
 .. csv-table::
