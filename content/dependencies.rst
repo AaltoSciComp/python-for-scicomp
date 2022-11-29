@@ -32,7 +32,7 @@ How do you track dependencies of your project?
 Exercises 1
 -----------
 
-.. challenge:: Dependencies-1 (15 min)
+.. challenge:: Dependencies-1: Discuss dependency management (15 min)
 
   Please discuss **in breakout rooms** and answer via **collaborative document** the
   following questions:
@@ -102,7 +102,8 @@ Why are there two ecosystems?
    - **Cons:**
        - Package creation is harder
 
-.. solution:: Anaconda vs. miniconda vs. conda vs. mamba vs. Anaconda Cloud vs. conda-forge
+.. admonition:: Anaconda vs. miniconda vs. conda vs. mamba vs. Anaconda Cloud vs. conda-forge
+  :class: dropdown
 
   - `Anaconda <https://www.anaconda.com/>`__ - a distribution of conda packages
     made by Anaconda Inc.. It is free for academic and non-commercial use.
@@ -123,6 +124,8 @@ to share Python packages.
 Creating isolated environments
 ------------------------------
 
+An **isolated environment** allows installing packages without
+affecting the rest of your operating system or any other projects.
 Isolated environments solve a couple of problems:
 
 - You can install specific, also older, versions of packages into them.
@@ -140,7 +143,7 @@ Isolated environments solve a couple of problems:
 Exercises 2
 -----------
 
-.. challenge:: Dependencies-2 (15 min)
+.. challenge:: Dependencies-2: Create a conda environment (15 min)
 
    .. highlight:: console
 
@@ -178,7 +181,10 @@ Exercises 2
 
           $ source activate python37-env
 
-  3. Open a Python console and check that you have effectively the right version for each package::
+  3. Open a Python console and check that you have effectively the
+     right version for each package:
+
+     .. code-block:: python
 
       import numpy
       import matplotlib
@@ -186,7 +192,9 @@ Exercises 2
       print('Numpy version: ', numpy.__version__)
       print('Matplotlib version: ', matplotlib.__version__)
 
-     Or use the one-liner if you have access to a terminal like bash::
+     Or use the one-liner if you have access to a terminal like bash:
+
+     .. code-block:: python
 
       python -c 'import numpy; print(numpy.__version__)'
       python -c 'import matplotlib;print(matplotlib.__version__)'
@@ -220,7 +228,7 @@ Exercises 2
 Exercises 3
 -----------
 
-.. challenge:: Dependencies-3 (15 min, optional)
+.. challenge:: Dependencies-3: Create a virtualenv (15 min, optional)
 
   This is the same exercise as before but we use virtualenv rather than conda.
 
@@ -233,7 +241,7 @@ Exercises 3
      folder called ``scicomp``.
 
   2. Activate it. To activate your newly created virtual environment locate the
-     script called ``activate`` and execute it.
+     script called ``activate`` and *source* it.
 
      - **Linux/Mac-OSX**: look at ``bin`` folder in the ``scicomp`` folder::
 
@@ -265,13 +273,13 @@ you're currently telling it to install.
 
 For example, check what version of ``scipy`` you'll get if you run
 
-.. code-block:: shell
+.. code-block:: console
 
   $ pip install scipy
 
 or
 
-.. code-block:: shell
+.. code-block:: console
 
   $ conda install scipy
 
@@ -288,7 +296,9 @@ There are two standard ways to record dependencies for Python projects:
 ``requirements.txt`` and ``environment.yml``.
 
 ``requirements.txt`` (used by virtual environment) is a simple
-text file which looks like this::
+text file which looks like this:
+
+.. code-block:: none
 
    numpy
    matplotlib
@@ -316,7 +326,9 @@ researchers might not be able to replicate your results or run your code.
 
 Here are the two files again, but this time with versions pinned:
 
-``requirements.txt`` with versions::
+``requirements.txt`` with versions:
+
+.. code-block:: none
 
     numpy==1.18.1
     matplotlib==3.1.3
@@ -355,7 +367,7 @@ Here are the two files again, but this time with versions pinned:
 Dependencies 4
 --------------
 
-.. challenge:: Dependencies-4 (15 min)
+.. challenge:: Dependencies-4: Freeze an environment (15 min)
 
   - Create the file ``environment.yml`` or ``requirements.txt``
 
