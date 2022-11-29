@@ -25,7 +25,7 @@ Why is it sometimes not enough to share your code?
 Exercise 1
 ~~~~~~~~~~
 
-.. challenge:: Binder-1 (10 min)
+.. challenge:: Binder-1: Discuss better strategies than only code sharing (10 min)
 
    Lea is a PhD student in computational biology and after 2 years of intensive
    work, she is finally ready to publish her first paper. The code she has used
@@ -91,14 +91,16 @@ In an earlier episode (Data visualization with Matplotlib) we have created this 
 We will now first share it via `GitHub <https://github.com/>`__ "statically",
 then using `Binder <https://mybinder.org/>`__.
 
-.. challenge:: Exercise/demo: Making your notebooks reproducible by anyone (15 min)
+.. challenge:: Binder-2: Exercise/demo: Make your notebooks reproducible by anyone (15 min)
 
    Instructor demonstrates this:
 
    - Creates a GitHub repository
    - Uploads the notebook file
    - Then we look at the statically rendered version of the notebook on GitHub
-   - Create a ``requirements.txt`` file which contains::
+   - Create a ``requirements.txt`` file which contains:
+
+     .. code-block:: none
 
        pandas==1.2.3
        matplotlib==3.4.2
@@ -124,11 +126,11 @@ repository built and operated by `CERN <https://home.cern/>`__ and `OpenAIRE
 `Digital Object Identifier (DOI) <https://www.doi.org/>`__ to data that they
 share.
 
-.. challenge:: Binder-3 (optional)
+.. challenge:: Binder-3: Link a Github repository with Zenodo (optional)
 
   **Everything you deposit on Zenodo is meant to be kept (long-term archive).
   Therefore we recommend to practice with the Zenodo "sandbox" (practice/test area)
-  instead: https://sandbox.zenodo.org**
+  instead:** https://sandbox.zenodo.org
 
   1. **Link GitHub with Zenodo**:
 
@@ -174,7 +176,7 @@ Create a Binder link for your Zenodo DOI
 
 Rather than specifying a GitHub repository when launching binder, you can instead use a Zenodo DOI.
 
-.. challenge:: Binder-4 (10 min)
+.. challenge:: Binder-4: Link Binder with Zenodo (10 min)
 
   We will be using an existing Zenodo DOI `10.5281/zenodo.3886864 <https://doi.org/10.5281/zenodo.3247652>`_ to start Binder:
 
@@ -188,6 +190,7 @@ Rather than specifying a GitHub repository when launching binder, you can instea
 
 .. keypoints::
 
-   - Sharing reproducible computational environments
-   - Binder
-   - Zenodo DOI
+   - It is easy to sharing reproducible computational environments
+   - Binder provides a way for anyone to test and run code - without
+     you needing to set up a dedicated server for it.
+   - Zenodo provides permanent archives and a DOI.
