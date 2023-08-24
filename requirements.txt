@@ -5,7 +5,6 @@ sphinx-copybutton
 sphinx-lesson
 https://github.com/aaltoscicomp/sphinx-aaltoscicomp-branding/archive/master.zip
 sphinx_rtd_theme_ext_color_contrast
-sphinx-plausible
 sphinxext-opengraph
 
 # for web-apis execution

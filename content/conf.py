@@ -39,7 +39,6 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
     'sphinx_aaltoscicomp_branding',
-    'sphinx_plausible',
     'sphinxext.opengraph',
 ]
 myst_enable_extensions = ['colon_fence']
@@ -52,13 +51,14 @@ if datetime.date.today() < datetime.date(2022,12,15):
     ogp_image_alt = 'Python for Scientific Computing course logo with date of 22-25/11/2022, twitch.tv/coderefinery, and partner logos'
 
 import os
-plausible_domain = 'aaltoscicomp.github.io/python-for-scicomp'
-plausible_script = 'https://plausible.cs.aalto.fi/js/plausible.js'
-plausible_enabled = (
+if (
     'GITHUB_ACTION' in os.environ
     and os.environ.get('GITHUB_REPOSITORY', '').lower() == 'aaltoscicomp/python-for-scicomp'
     and os.environ.get('GITHUB_REF') == 'refs/heads/master'
-      )
+    ):
+    html_js_files = [
+        ('https://plausible.cs.aalto.fi/js/script.js', {"data-domain": "aaltoscicomp.github.io/python-for-scicomp", "defer": "defer"}),
+    ]
 
 
 # Add any paths that contain templates here, relative to this directory.
