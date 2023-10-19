@@ -2,16 +2,13 @@
 Python for Scientific Computing
 ===============================
 
-.. admonition:: Attending the course 22-25.november.2022?
+.. admonition:: Attending the course 7-10.november.2023?
 
    `See the course page here
-   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2022/>`__.
+   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2023/>`__.
    Whether you are or aren't, the course material is below.
 
-   Videos: `YouTube <https://www.youtube.com/playlist?list=PLZLVmS9rf3nOm3xkYuInBWPUvS93sAUlk>`__
-
-   Q&A: `days 1-2 <https://hackmd.io/@coderefinery/python2022archive>`__, `days 3-4 <https://hackmd.io/@coderefinery/python2022archive2>`__
-
+   
 Python is a modern, object-oriented programming language, which has
 become popular in several areas of software development. This course
 discusses how Python can be utilized in scientific computing. The
