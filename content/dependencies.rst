@@ -55,12 +55,12 @@ PyPI (The Python Package Index) and (Ana)conda
   management tools.
 
 - When you run ``pip install`` you typically install from `PyPI
-  <https://pypi.org/>`__ but one can also ``pip install`` from a GitHub
+  <https://pypi.org/>`__ but you can also ``pip install`` from a GitHub
   repository and similar.
 
 - When you run ``conda install`` you typically install from `Anaconda Cloud
-  <https://anaconda.org/>`__ but there are many community-driven conda channels
-  and you can create your own.
+  <https://anaconda.org/>`__ where there are conda channels maintained
+  by Anaconda Inc. and by various communities.
 
 
 Why are there two ecosystems?
@@ -71,7 +71,7 @@ Why are there two ecosystems?
    - **Installation tool:** ``pip``
    - **Summary:** PyPI is traditionally used for Python-only packages or
      for Python interfaces to external libraries. There are also packages
-     with bundled external libraries (such as numpy).
+     that have bundled external libraries (such as numpy).
    - **Amount of packages:** Huge number. Old versions are supported for
      a long time.
    - **How libraries are handled:** If your code depends on external
@@ -92,8 +92,8 @@ Why are there two ecosystems?
      and tools needed by the Python packages. Most scientific software written
      in Python uses external libraries to speed up calculations and installing
      these libraries can often become complicated without conda.
-   - **Amount of packages:** Most popular packages are provided. Other packages
-     can be installed via pip.
+   - **Amount of packages:** Curated list of packages in defaults-channel, huge
+     number in community managed channels. Other packages can be installed via pip.
    - **How libraries are handled:** Required libraries are installed as separate
      conda packages.
    - **Pros:**
@@ -102,20 +102,34 @@ Why are there two ecosystems?
    - **Cons:**
        - Package creation is harder
 
-.. admonition:: Anaconda vs. miniconda vs. conda vs. mamba vs. Anaconda Cloud vs. conda-forge
+.. admonition:: Anaconda vs. miniconda vs. conda vs. mamba vs. Anaconda Cloud vs. conda-forge vs. miniforge
   :class: dropdown
 
-  - `Anaconda <https://www.anaconda.com/>`__ - a distribution of conda packages
-    made by Anaconda Inc.. It is free for academic and non-commercial use.
-  - `Miniconda <https://conda.io/miniconda.html>`__ - a minimal installer for conda.
-  - `conda <https://conda.io/>`__ - a package and environment management system
-    used by Anaconda. It is an open source project maintained by Anaconda Inc..
-  - `mamba <https://mamba.readthedocs.io/en/latest/index.html>`__ - a drop in
-    replacement for conda that does installations faster.
+  Package sources:
+
   - `Anaconda Cloud <https://anaconda.org/>`__ - a package cloud maintained by
     Anaconda Inc. It is a free repository that houses conda package channels.
   - `Conda-forge <https://conda-forge.org/>`__ - the largest open source
     community channel.
+
+  Package managers:
+
+  - `conda <https://conda.io/>`__ - a package and environment management system
+    used by Anaconda. It is an open source project maintained by Anaconda Inc..
+  - `mamba <https://mamba.readthedocs.io/en/latest/index.html>`__ - a drop in
+    replacement for conda that does installations faster.
+
+  Package manager deployments:
+
+  - `Anaconda <https://www.anaconda.com/>`__ - a distribution of conda packages
+    made by Anaconda Inc.. It is free for academic and non-commercial use.
+  - `Miniconda <https://conda.io/miniconda.html>`__ - a minimal installer that
+    has conda and uses
+    `default channels <https://docs.anaconda.com/free/anaconda/reference/default-repositories/#active-default-channels>`__
+    by default.
+  - `Miniforge <https://github.com/conda-forge/miniforge>`__ - Miniconda replacement
+    that uses conda-forge as the default channel. Contains mamba as well.
+
 
 In the packaging episode we will meet PyPI and Anaconda again and practice how
 to share Python packages.
@@ -128,7 +142,7 @@ An **isolated environment** allows installing packages without
 affecting the rest of your operating system or any other projects.
 Isolated environments solve a couple of problems:
 
-- You can install specific, also older, versions of packages into them.
+- You can install specific versions of packages into them.
 
 - You can create one environment for each project and you won't encounter any
   problems if the two projects require different versions of packages.
@@ -152,9 +166,9 @@ Exercises 2
   few weeks) and you give her a Python code for analyzing and plotting your
   favorite data. The thing is that your Python code has been developed by
   another Master Student (from last year) and requires a older version of
-  Numpy (1.18.1) and Matplotlib (3.1.3) (otherwise the code fails). The code
+  Numpy (1.24.3) and Matplotlib (3.7.2) (otherwise the code fails). The code
   could probably work with a recent version of Python but has been validated with
-  Python 3.7 only. Having no idea what the code does, she decides that the best
+  Python 3.10 only. Having no idea what the code does, she decides that the best
   approach is to **create an isolated environment** with the same dependencies
   that were used previously. This will give her a baseline for future upgrade and
   developments.
@@ -163,7 +177,7 @@ Exercises 2
 
   1. Create a conda environment::
 
-     $ conda create --name python37-env python=3.7 numpy=1.18.1 matplotlib=3.1.3
+     $ conda create --name python310-env python=3.10 numpy=1.24.3 matplotlib=3.7.2
 
   Conda environments can also be managed (create, update, delete) from the
   **anaconda-navigator**. Check out the corresponding documentation `here
@@ -171,15 +185,23 @@ Exercises 2
 
   2. Activate the environment::
 
-     $ conda activate python37-env
+     $ conda activate python310-env
 
      .. callout:: conda activate versus source activate
 
-        If you do not have a recent version of Anaconda or anaconda has not been
-        setup properly, you may encounter an error. With older version of anaconda,
-        you can try::
+        ``conda activate`` will only work if you have run ``conda init``
+        in the past. Running ``conda init`` will make loading environments
+        easier as you will always have a conda environment loaded.
 
-          $ source activate python37-env
+        However, this can also cause problems as programs in the
+        main environment will be constantly loaded and they might be used
+        even when they're not supposed to be used. A common example is
+        not having ``pip`` installed in a conda environment which results
+        ``pip`` from main environment to be used instead.
+
+        You can always try::
+
+          $ source activate python310-env
 
   3. Open a Python console and check that you have effectively the
      right version for each package:
@@ -204,25 +226,10 @@ Exercises 2
      $ conda deactivate
 
   5. Check Numpy and Matplotlib versions in the default environment to make
-     sure they are different from **python37-env**.
+     sure they are different from **python310-env**.
 
   There is no need to specify the conda environment when using deactivate. It
   deactivates the current environment.
-
-  .. callout:: Remark
-
-    - Sometimes the package version you would need does not seem to be
-      available. You may have to select another `conda channel
-      <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`_
-      for instance `conda-forge <https://conda-forge.org/>`_. Channels can then
-      be indicated when installing a package::
-
-      $ conda install -c conda-forge matplotlib=3.1.3
-
-    - We will see below that rather than specifying the list of dependencies as
-      argument of ``conda create``, it is recommended to record dependencies in
-      a file.
-
 
 
 Exercises 3
@@ -249,10 +256,10 @@ Exercises 3
 
      - **Windows**: most likely you can find it in the ``Scripts`` folder.
 
-  3. Install Numpy 1.18.1 and Matplotlib 3.1.3 into the virtual environment::
+  3. Install Numpy 1.24.3 and Matplotlib 3.7.2 into the virtual environment::
 
-     $ pip install numpy==1.18.1
-     $ pip install matplotlib==3.1.3
+     $ pip install numpy==1.24.3
+     $ pip install matplotlib==3.7.2
 
   4. Deactivate it::
 
@@ -270,21 +277,6 @@ such as:
 The reason for this is that the installer does not know what commands
 you ran in the past. It only knows the state of your environment and what
 you're currently telling it to install.
-
-For example, check what version of ``scipy`` you'll get if you run
-
-.. code-block:: console
-
-  $ pip install scipy
-
-or
-
-.. code-block:: console
-
-  $ conda install scipy
-
-Depending on your environment you can get ``scipy`` with versions from
-``1.6.2`` with no numpy upgrade to ``1.9.3`` with automatic numpy upgrade.
 
 These kinds of problems can be mitigated by recording dependencies in an
 ``environment.yml`` or ``requirements.txt``.
@@ -324,16 +316,32 @@ is usually a delay between doing research and that research being published.
 During this time the dependencies might update and reviewers or interested
 researchers might not be able to replicate your results or run your code.
 
+.. callout:: Conda channels
+
+  - Sometimes the package version you would need does not seem to be
+    available. You may have to select another `conda channel
+    <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`__.
+
+    Most popular channels are
+    `defaults <https://docs.anaconda.com/free/anaconda/reference/default-repositories/#active-default-channels>`__,
+    which is managed by
+    Anaconda Inc. and `conda-forge <https://conda-forge.org/>`__,
+    which is managed by the open source community. These two channels are
+    mutually incompatible.
+
+    Channel priority goes from top to bottom.
+
+
 Here are the two files again, but this time with versions pinned:
 
 ``requirements.txt`` with versions:
 
 .. code-block:: none
 
-    numpy==1.18.1
-    matplotlib==3.1.3
-    pandas==1.1.2
-    scipy==1.6.2
+    numpy==1.24.3
+    matplotlib==3.7.2
+    pandas==2.0.3
+    scipy==1.10.1
 
 ``environments.yml`` with versions:
 
@@ -343,11 +351,11 @@ Here are the two files again, but this time with versions pinned:
     channels:
       - defaults
     dependencies:
-      - python=3.7
-      - numpy=1.18.1
-      - matplotlib=3.1.3
-      - pandas=1.1.2
-      - scipy=1.6.2
+      - python=3.10
+      - numpy=1.24.3
+      - matplotlib=3.7.2
+      - pandas=2.0.3
+      - scipy=1.10.1
 
 - Conda can also read and write ``requirements.txt``.
 - ``requirements.txt`` can also refer to packages on Github.
@@ -475,8 +483,11 @@ Other tools for dependency management:
 - `micropipenv <https://github.com/thoth-station/micropipenv>`__: lightweight tool to "rule them all"
 - `mamba <https://mamba.readthedocs.io/en/latest/index.html>`__: a drop in replacement for
   conda that does installations faster.
-- `miniforge & mambaforge <https://github.com/conda-forge/miniforge>`__: Miniconda alternatives with
+- `miniforge <https://github.com/conda-forge/miniforge>`__: Miniconda alternative with
   conda-forge as the default channel and optionally mamba as the default installer.
+- `micromamba <https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html>`__:
+  tiny version of Mamba as a static C++ executable. Does not need base environment or
+  Python for installing an environment.
 
 Other resources:
 
