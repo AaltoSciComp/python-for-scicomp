@@ -417,6 +417,8 @@ ax.tick_params(labelsize=15)
 
 - Browse the various example galleries (links above).
 - Select one example that is close to your recent visualization project or simply interests you.
+- Note that you might need to install additional Python packages in order make use of the libraries.
+  This could be the visualization library itself, and in addition also any required dependency package.
 - First try to reproduce this example in the Jupyter notebook.
 - Then try to print out the data that is used in this example just before the call of the plotting function
   to learn about its structure. Is it a pandas dataframe? Is it a NumPy array? Is it a dictionary? A list?
