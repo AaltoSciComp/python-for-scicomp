@@ -100,7 +100,7 @@ statements and loops.  For example, the :ref:`if` statement:
 
 
 Often you want to loop over a sequence of integers, in that case the
-:func:`range` function is useful:
+:class:`range` function is useful:
 
 ::
 
