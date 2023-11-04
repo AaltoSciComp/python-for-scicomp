@@ -6,7 +6,8 @@ Python for Scientific Computing
 
    `See the course page here
    <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2023/>`__.
-   Whether you are or aren't, the course material is below.
+   Whether you are or aren't, the course material is below.  Videos
+   will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__.
 
    
 Python is a modern, object-oriented programming language, which has
@@ -57,6 +58,7 @@ to learn yourself as you need to.
      <https://hackmd.io/@coderefinery/python2022archive>`__, `days 3-4
      <https://hackmd.io/@coderefinery/python2022archive2>`__
 
+   * 2023 (appearing here as the course happens): `Videos <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__
 
 
 .. csv-table::
