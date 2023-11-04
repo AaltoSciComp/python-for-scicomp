@@ -134,7 +134,8 @@ The course is targeted towards these learner personas:
 * B is a mid-to-late undergraduate student who has used Python in some
   classes.  They have possibly learned the syntax and enough to use it
   in courses, but in a course-like manner where they are expected to
-  create everything themselves.
+  create everything themselves: they want to know how to reuse tools
+  that already exist.
 
 
 Motivation
