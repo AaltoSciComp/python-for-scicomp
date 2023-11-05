@@ -261,12 +261,13 @@ calls.
 
 ## Styling and customizing plots
 
-- **Do not customize "manually"** using a graphical program (not easily repeatable/reproducible).
-- **No manual post-processing**. This will bite you when you need to regenerate 50
-  figures one day before submission deadline or regenerate a set of figures
-  after the person who created them left the group.
+- Before you customize plots "manually" using a graphical program, please
+  consider how this affects reproducibility.
+- **Try to minimize manual post-processing**. This might bite you when you
+  need to regenerate 50 figures one day before submission deadline or
+  regenerate a set of figures after the person who created them left the group.
 - Matplotlib and also all the other libraries allow to customize almost every aspect of a plot.
-- It is useful to study [Matplotlib parts of a figure](https://matplotlib.org/stable/tutorials/introductory/quick_start.html#parts-of-a-figure)
+- It is useful to study [Matplotlib parts of a figure](https://matplotlib.org/stable/users/explain/quick_start.html#parts-of-a-figure)
   so that we know what to search for to customize things.
 - Matplotlib cheatsheets: <https://github.com/matplotlib/cheatsheets>
 - You can also select among pre-defined themes/
@@ -285,10 +286,10 @@ how the plot looks** (exercises 1 and 2) or to **modify the input data** (exampl
 
 This is very close to real life: there are so many options and possibilities and it is
 almost impossible to remember everything so this strategy is useful to practice:
-- select an example that is close to what you have in mind
-- being able to adapt it to your needs
-- being able to search for help
-- being able to understand help request answers (not easy)
+- Select an example that is close to what you have in mind
+- Being able to adapt it to your needs
+- Being able to search for help
+- Being able to understand help request answers (not easy)
 
 ````{challenge} Exercise Customization-1: log scale in Matplotlib (15 min)
 In this exercise we will learn how to use log scales.
@@ -360,7 +361,7 @@ For figures that go to print it is good practice to look at them at the size
 they will be printed in and then often fonts and tickmarks are too small.
 
 Your task is to make the tickmarks and the axis label font larger, using
-[Matplotlib parts of a figure](https://matplotlib.org/stable/tutorials/introductory/quick_start.html#parts-of-a-figure)
+[Matplotlib parts of a figure](https://matplotlib.org/stable/users/explain/quick_start.html#parts-of-a-figure)
 and web search, and to arrive at this:
 
 ```{figure} data-visualization/customizing/gapminder-larger-font.png
@@ -508,7 +509,7 @@ clarify questions at this point before moving on.
 ---
 
 ```{keypoints}
-- Avoid manual post-processing, script everything.
+- Minimize manual post-processing, script everything.
 - Browse a number of example galleries to help you choose the library
   that fits best your work/style.
 - Figures for presentation slides and figures for manuscripts have
