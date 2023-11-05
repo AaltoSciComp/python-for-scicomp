@@ -30,8 +30,10 @@ material, including:
 - a `cheatsheet <https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf>`__
 - a `cookbook <https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook>`__.
 
-Let's get a flavor of what we can do with pandas. We will be working with an
-example dataset containing the passenger list from the Titanic, which is often used in Kaggle competitions and data science tutorials. First step is to load pandas::
+A quick Pandas preview
+----------------------
+
+Let's get a flavor of what we can do with pandas (you won't be able to follow everything yet). We will be working with an example dataset containing the passenger list from the Titanic, which is often used in Kaggle competitions and data science tutorials. First step is to load pandas::
 
     import pandas as pd
 
@@ -47,6 +49,8 @@ print some summary statistics of its numerical data::
 
     # print the first 5 lines of the dataframe
     titanic.head()
+
+::
 
     # print summary statistics for each column
     titanic.describe()
@@ -85,6 +89,8 @@ Clearly, pandas dataframes allows us to do advanced analysis with very few comma
     - Write a function name followed by question mark and execute the cell, e.g.
       write ``titanic.hist?`` and hit ``SHIFT + ENTER``.
     - Write the function name and hit ``SHIFT + TAB``.
+    - Right click and select "Show contextual help".  This tab will
+      update with help for anything you click.
 
 
 What's in a dataframe?
@@ -112,7 +118,10 @@ and reading the titanic.csv datafile into a dataframe if needed, see above)::
 
     titanic["Age"]
     titanic.Age          # same as above
-    type(titanic["Age"])
+
+::
+
+    type(titanic["Age"]) # a pandas Series object
 
 The columns have names. Here's how to get them (:attr:`~pandas.DataFrame.columns`)::
 
@@ -123,10 +132,11 @@ However, the rows also have names! This is what Pandas calls the :obj:`~pandas.D
     titanic.index
 
 We saw above how to select a single column, but there are many ways of
-selecting (and setting) single or multiple rows, columns and values. We can
-refer to columns and rows either by number or by their name
-(:attr:`~pandas.DataFrame.loc`, :attr:`~pandas.DataFrame.iloc`,
-:attr:`~pandas.DataFrame.at`, :attr:`~pandas.DataFrame.iat`)::
+selecting (and setting) single or multiple rows, columns and
+values. We can refer to columns and rows either by their name
+(:attr:`~pandas.DataFrame.loc`, :attr:`~pandas.DataFrame.at`) or by
+their index (:attr:`~pandas.DataFrame.iloc`,
+:attr:`~pandas.DataFrame.iat`)::
 
     titanic.loc['Lam, Mr. Ali',"Age"]          # select single value by row and column
     titanic.loc[:'Lam, Mr. Ali',"Survived":"Age"]  # slice the dataframe by row and column *names*
@@ -193,7 +203,7 @@ Exercises 1
 
 	 and::
 
-           titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()
+	   titanic[titanic["Age"] < titanic["Age"].mean()]["Survived"].mean()
 
 
 Tidy data
@@ -253,10 +263,12 @@ Pandas also understands multiple other formats, for example using :obj:`~pandas.
 
 But sometimes you would want to create a dataframe from scratch. Also this can be done
 in multiple ways, for example starting with a numpy array (see
-:class:`~pandas.DataFrame` docs::
+:class:`~pandas.DataFrame` docs)::
 
+    import numpy as np
     dates = pd.date_range('20130101', periods=6)
     df = pd.DataFrame(np.random.randn(6, 4), index=dates, columns=list('ABCD'))
+    df
 
 or a dictionary (see same docs)::
 
@@ -265,6 +277,7 @@ or a dictionary (see same docs)::
 		       'C': np.array([3] * 8, dtype='int32'),
 		       'D': np.random.randn(8),
 		       'E': np.random.randn(8)})
+    df
 
 There are many ways to operate on dataframes. Let's look at a
 few examples in order to get a feeling of what's possible
@@ -347,13 +360,13 @@ Exercises 2
 	 ``read_csv``, so we use :attr:`pandas.DataFrame.index` to get
 	 the names.  So, names of members of largest family(ies)::
 
-           titanic[titanic["SibSp"] == 8].index
+	   titanic[titanic["SibSp"] == 8].index
 
        - Histogram of family size based on fare class::
 
-           titanic.hist("SibSp",
-                        lambda x: "Poor" if titanic["Fare"].loc[x] < titanic["Fare"].mean() else "Rich",
-                        rwidth=0.9)
+	   titanic.hist("SibSp",
+			lambda x: "Poor" if titanic["Fare"].loc[x] < titanic["Fare"].mean() else "Rich",
+			rwidth=0.9)
 
 
 
@@ -458,7 +471,7 @@ Exercises 3
 
     - Play around with other nice looking plots::
 
-	sns.violinplot(y="year", x="bornCountry", inner="stick", data=subset);
+	sns.violinplot(y=subset["year"].dt.year, x="bornCountry", inner="stick", data=subset);
 
       ::
 
@@ -476,12 +489,15 @@ Exercises 3
 
    .. solution::
 
+      Below is solutions for the basic steps, advanced steps are
+      inline above.
+
       We use the :meth:`describe` method:
-      
+
       ::
 
-         nobel.bornCountryCode.describe()
-         # count     956
+	 nobel.bornCountryCode.describe()
+	 # count     956
 	 # unique     81
 	 # top        US
 	 # freq      287
@@ -504,7 +520,7 @@ Exercises 3
       We can print names of all laureates from a given country, e.g.::
 
 	nobel[nobel["country"] == "Sweden"].loc[:, "firstname":"surname"]
-   
+
 Beyond the basics
 -----------------
 
@@ -512,6 +528,7 @@ Larger DataFrame operations might be faster using :func:`~pandas.eval` with stri
 <https://jakevdp.github.io/PythonDataScienceHandbook/03.12-performance-eval-and-query.html>`__::
 
 	import pandas as pd
+	# Make some really big dataframes
 	nrows, ncols = 100000, 100
 	rng = np.random.RandomState(42)
 	df1, df2, df3, df4 = (pd.DataFrame(rng.rand(nrows, ncols))
@@ -521,17 +538,17 @@ Adding dataframes the pythonic way yields::
 
 	%timeit df1 + df2 + df3 + df4
 	# 80ms
-	
+
 And by using :func:`~pandas.eval`::
 
-        %timeit pd.eval('df1 + df2 + df3 + df4')
+	%timeit pd.eval('df1 + df2 + df3 + df4')
 	# 40ms
 
-    
+
 We can assign function return lists as dataframe columns::
 
 	def fibo(n):
-	    """Compute Fibonacci numbers. Here we skip the overhead from the 
+	    """Compute Fibonacci numbers. Here we skip the overhead from the
 	    recursive function calls by using a list. """
 	    if n < 0:
 		raise NotImplementedError('Not defined for negative values')
@@ -545,12 +562,14 @@ We can assign function return lists as dataframe columns::
 	    return memo
 
 	df = pd.DataFrame({'Generation': np.arange(100)})
-	df['Number of Rabbits'] = fibo(99)
-	
-	
+	df['Number of Rabbits'] = fibo(99)  # Assigns list to column
+
+
 There is much more to Pandas than what we covered in this lesson. Whatever your
 needs are, chances are good there is a function somewhere in its `API
-<https://pandas.pydata.org/docs/>`__. And when there is not, you can always
+<https://pandas.pydata.org/docs/>`__.  You should try to get good at
+searching the web for an example showing what you can do. And when
+there is not, you can always
 apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
 
 
@@ -569,10 +588,10 @@ apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
 
     df = pd.DataFrame({'Generation': np.arange(100)})
     df['Number of Rabbits'] = df['Generation'].apply(fib)
-	
-	
-Note that the numpy precisision for integers caps at int64 while python ints are unbounded -- 
-limited by memory size. Thus, the result from fibonacci(99) would be erroneous when 
+
+
+Note that the numpy precisision for integers caps at int64 while python ints are unbounded --
+limited by memory size. Thus, the result from fibonacci(99) would be erroneous when
 using numpy ints. The type of df['Number of Rabbits'][99] given by both functions above
 is in fact <class 'int'>.
 
