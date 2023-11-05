@@ -53,8 +53,8 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
 
 ## Why are we starting with Matplotlib?
 
-- Matplotlib is perhaps the most "standard" Python plotting library.
-- Many libraries build on top of Matplotlib.
+- Matplotlib is perhaps the most popular Python plotting library.
+- Many libraries build on top of Matplotlib (example: [Seaborn](https://seaborn.pydata.org/examples/index.html)).
 - MATLAB users will feel familiar.
 - Even if you choose to use another library (see above list), chances are high
   that you need to adapt a Matplotlib plot of somebody else.
@@ -66,7 +66,7 @@ drawing (in terms of abstractions, not in terms of quality) and does not
 provide statistical functions. Some figures require typing and tweaking many lines of code.
 
 Many other visualization libraries exist with their own strengths, it is also a
-matter of personal preferences. **Later we will also try other libraries.**
+matter of personal preferences.
 
 
 ## Getting started with Matplotlib
