@@ -35,6 +35,7 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
     high-level interface to Matplotlib, statistical functions built in
   - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
     declarative visualization, statistics built in
+    (we have an [entire lesson about data visualization using Vega-Altair](https://coderefinery.github.io/data-visualization-python/))
   - [Plotly](https://plotly.com/python/):
     interactive graphs
   - [Bokeh](https://demo.bokeh.org/):
@@ -402,6 +403,7 @@ ax.tick_params(labelsize=15)
     high-level interface to Matplotlib, statistical functions built in
   - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
     declarative visualization, statistics built in
+    (we have an [entire lesson about data visualization using Vega-Altair](https://coderefinery.github.io/data-visualization-python/))
   - [Plotly](https://plotly.com/python/):
     interactive graphs
   - [Bokeh](https://demo.bokeh.org/):
@@ -506,6 +508,28 @@ Example "solution" for such an exploration below.
 After the exercises, the group can discuss their findings and it is important to
 clarify questions at this point before moving on.
 ```
+
+---
+
+## Matplotlib and pandas DataFrames
+
+In the above exercises we have sent individual columns of the `gapminder_data` DataFrame
+into `ax.scatter()` like this:
+```python
+fig, ax = plt.subplots()
+
+ax.scatter(x=gapminder_data["gdpPercap"], y=gapminder_data["lifeExp"], alpha=0.5)
+```
+
+It is possible to do this instead and let Matplotlib "unpack" the columns:
+```python
+fig, ax = plt.subplots()
+
+ax.scatter(x="gdpPercap", y="lifeExp", alpha=0.5, data=gapminder_data)
+```
+
+Other input types are possible. See [Types of inputs to plotting
+functions](https://matplotlib.org/stable/users/explain/quick_start.html#types-of-inputs-to-plotting-functions).
 
 ---
 
