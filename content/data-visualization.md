@@ -24,17 +24,18 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
 > (which should also be automated), and they should come out of the pipeline
 > ready to be sent to the printer, no manual post-processing needed.*
 
-- **No manual post-processing**. This will bite you when you need to regenerate 50
+- **Try to minimize manual post-processing**. This could bite you when you need to regenerate 50
   figures one day before submission deadline or regenerate a set of figures
   after the person who created them left the group.
 - There is not the one perfect language and **not the one perfect library** for everything.
 - Within Python, many libraries exist:
-  - [Matplotlib](https://matplotlib.org/gallery/index.html):
+  - [Matplotlib](https://matplotlib.org/stable/gallery/index.html):
     probably the most standard and most widely used
   - [Seaborn](https://seaborn.pydata.org/examples/index.html):
     high-level interface to Matplotlib, statistical functions built in
-  - [Altair](https://altair-viz.github.io/gallery/index.html):
-    declarative visualization (R users will be more at home), statistics built in
+  - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
+    declarative visualization, statistics built in
+    (we have an [entire lesson about data visualization using Vega-Altair](https://coderefinery.github.io/data-visualization-python/))
   - [Plotly](https://plotly.com/python/):
     interactive graphs
   - [Bokeh](https://demo.bokeh.org/):
@@ -45,17 +46,16 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
     R users will be more at home
   - [PyNGL](https://www.pyngl.ucar.edu/Examples/gallery.shtml):
     used in the weather forecast community
-  - [K3D](https://k3d-jupyter.org/gallery/):
-    Jupyter notebook extension for 3D visualization
+  - [K3D](https://k3d-jupyter.org/gallery/index.html):
+    Jupyter Notebook extension for 3D visualization
   - ...
-- Two main families of libraries: procedural (e.g. Matplotlib) and declarative
-  (using grammar of graphics).
+- Two main families of libraries: procedural (e.g. Matplotlib) and declarative.
 
 
 ## Why are we starting with Matplotlib?
 
-- Matplotlib is perhaps the most "standard" Python plotting library.
-- Many libraries build on top of Matplotlib.
+- Matplotlib is perhaps the most popular Python plotting library.
+- Many libraries build on top of Matplotlib (example: [Seaborn](https://seaborn.pydata.org/examples/index.html)).
 - MATLAB users will feel familiar.
 - Even if you choose to use another library (see above list), chances are high
   that you need to adapt a Matplotlib plot of somebody else.
@@ -67,12 +67,12 @@ drawing (in terms of abstractions, not in terms of quality) and does not
 provide statistical functions. Some figures require typing and tweaking many lines of code.
 
 Many other visualization libraries exist with their own strengths, it is also a
-matter of personal preferences. **Later we will also try other libraries.**
+matter of personal preferences.
 
 
 ## Getting started with Matplotlib
 
-We can start in a Jupyter notebook since notebooks are typically a good fit
+We can start in a Jupyter Notebook since notebooks are typically a good fit
 for data visualizations. But if you prefer to run this as a script, this is
 also OK.
 
@@ -81,10 +81,7 @@ Let us create our first plot using
 {obj}`~matplotlib.axes.Axes.scatter`, and some other methods on the
 {obj}`~matplotlib.axes.Axes` object:
 
-```{code-block} python
-# this line tells Jupyter to display matplotlib figures in the notebook
-%matplotlib inline
-
+```python
 import matplotlib.pyplot as plt
 
 # this is dataset 1 from
@@ -106,6 +103,7 @@ ax.set_title("some title")
 
 ```{figure} data-visualization/first-plot/getting-started.png
 :alt: Result of our first plot
+:width: 80%
 
 This is the result of our first plot.
 ```
@@ -135,26 +133,27 @@ matplotlib.use("Agg")
   by 2.0.
   ```python
   # here we multiply all elements of data2_y by 2.0
-  data2_y_scaled = [y*2.0 for y in data2_y]
+  data2_y_scaled = [y * 2.0 for y in data2_y]
   ```
 
 - Try to add a legend to the plot with {meth}`matplotlib.axes.Axes.legend` and searching the web for clues on
   how to add labels to each dataset.
+  You can also consult this great
+  [quick start guide](https://matplotlib.org/stable/users/explain/quick_start.html).
 
 - At the end it should look like this one:
-   ```{figure} data-visualization/first-plot/exercise.png
-   :alt: Result of the exercise
-   ```
+  ```{figure} data-visualization/first-plot/exercise.png
+  :alt: Result of the exercise
+  ```
+
+- Experiment also by using named colors (e.g. "red") instead of the hex-codes.
 ````
 
 ````{solution}
 ```{code-block} python
 ---
-emphasize-lines: 12, 15, 20-21, 26
+emphasize-lines: 9, 12, 17-18, 23
 ---
-# this line tells Jupyter to display matplotlib figures in the notebook
-%matplotlib inline
-
 import matplotlib.pyplot as plt
 
 # this is dataset 1 from
@@ -166,13 +165,13 @@ data_y = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
 data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
 
 # here we multiply all elements of data2_y by 2.0
-data2_y_scaled = [y*2.0 for y in data2_y]
+data2_y_scaled = [y * 2.0 for y in data2_y]
 
 fig, ax = plt.subplots()
 
-ax.scatter(x=data_x, y=data_y, c="#E69F00", label='set 1')
-ax.scatter(x=data_x, y=data2_y, c="#56B4E9", label='set 2')
-ax.scatter(x=data_x, y=data2_y_scaled, c="#009E73", label='set 2 (scaled)')
+ax.scatter(x=data_x, y=data_y, c="#E69F00", label="set 1")
+ax.scatter(x=data_x, y=data2_y, c="#56B4E9", label="set 2")
+ax.scatter(x=data_x, y=data2_y_scaled, c="#009E73", label="set 2 (scaled)")
 
 ax.set_xlabel("we should label the x axis")
 ax.set_ylabel("we should label the y axis")
@@ -188,7 +187,7 @@ ax.legend()
 This qualitative color palette is opimized for all color-vision
 deficiencies, see <https://clauswilke.com/dataviz/color-pitfalls.html> and
 [Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD):
-How to Make Figures and Presentations That Are Friendly to Colorblind People."](http://jfly.iam.u-tokyo.ac.jp/color/).
+How to Make Figures and Presentations That Are Friendly to Colorblind People"](http://jfly.iam.u-tokyo.ac.jp/color/).
 ```
 
 ---
@@ -199,7 +198,7 @@ When plotting with Matplotlib, it is useful to know and understand that
 there are **two approaches** even though the reasons of this dual approach is
 outside the scope of this lesson.
 
-- The more modern option is an **object-oriented interface** (the
+- The more modern option is an **object-oriented interface** or **explicit interface** (the
   {class}`fig <matplotlib.figure.Figure>` and {class}`ax <matplotlib.axes.Axes>` objects
   can be configured separately and passed around to functions):
    ```{code-block} python
@@ -223,7 +222,7 @@ outside the scope of this lesson.
    ```
 
 - The more traditional option mimics MATLAB plotting and uses the
-  **pyplot interface** ({mod}`plt <matplotlib.pyplot>` carries
+  **pyplot interface** or **implicit interface** ({mod}`plt <matplotlib.pyplot>` carries
   the global settings):
    ```{code-block} python
    ---
@@ -254,7 +253,7 @@ into these functions and there is less risk that adjusting figures changes
 settings also for unrelated figures created in other functions.
 
 When using the pyplot interface, settings are modified for the entire
-{mod}`matplotlib.pyplot` package. The latter is acceptable for linear scripts but may yield
+{mod}`matplotlib.pyplot` package. The latter is acceptable for simple scripts but may yield
 surprising results when introducing functions to enhance/abstract Matplotlib
 calls.
 ```
@@ -263,12 +262,13 @@ calls.
 
 ## Styling and customizing plots
 
-- **Do not customize "manually"** using a graphical program (not easily repeatable/reproducible).
-- **No manual post-processing**. This will bite you when you need to regenerate 50
-  figures one day before submission deadline or regenerate a set of figures
-  after the person who created them left the group.
+- Before you customize plots "manually" using a graphical program, please
+  consider how this affects reproducibility.
+- **Try to minimize manual post-processing**. This might bite you when you
+  need to regenerate 50 figures one day before submission deadline or
+  regenerate a set of figures after the person who created them left the group.
 - Matplotlib and also all the other libraries allow to customize almost every aspect of a plot.
-- It is useful to study [Matplotlib parts of a figure](https://matplotlib.org/stable/tutorials/introductory/quick_start.html#parts-of-a-figure)
+- It is useful to study [Matplotlib parts of a figure](https://matplotlib.org/stable/users/explain/quick_start.html#parts-of-a-figure)
   so that we know what to search for to customize things.
 - Matplotlib cheatsheets: <https://github.com/matplotlib/cheatsheets>
 - You can also select among pre-defined themes/
@@ -287,10 +287,10 @@ how the plot looks** (exercises 1 and 2) or to **modify the input data** (exampl
 
 This is very close to real life: there are so many options and possibilities and it is
 almost impossible to remember everything so this strategy is useful to practice:
-- select an example that is close to what you have in mind
-- being able to adapt it to your needs
-- being able to search for help
-- being able to understand help request answers (not easy)
+- Select an example that is close to what you have in mind
+- Being able to adapt it to your needs
+- Being able to search for help
+- Being able to understand help request answers (not easy)
 
 ````{challenge} Exercise Customization-1: log scale in Matplotlib (15 min)
 In this exercise we will learn how to use log scales.
@@ -299,12 +299,12 @@ In this exercise we will learn how to use log scales.
   ```python
   import pandas as pd
 
-  url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
-  data = pd.read_csv(url)
+  url = (
+      "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
+  )
+  gapminder_data = pd.read_csv(url).query("year == 2007")
 
-  data_2007 = data[data["year"] == 2007]
-
-  data_2007
+  gapminder_data
   ```
 - Try the above snippet in a notebook and it will give you an overview over the data.
 
@@ -314,10 +314,10 @@ In this exercise we will learn how to use log scales.
 
   fig, ax = plt.subplots()
 
-  ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+  ax.scatter(x=gapminder_data["gdpPercap"], y=gapminder_data["lifeExp"], alpha=0.5)
 
-  ax.set_xlabel("GDP (USD) per capita")
-  ax.set_ylabel("life expectancy (years)")
+  ax.set_xlabel("GDP per capita (PPP dollars)")
+  ax.set_ylabel("Life expectancy (years)")
   ```
 
   This is the result but we realize that a linear scale is not ideal here:
@@ -342,12 +342,12 @@ emphasize-lines: 5
 ---
 fig, ax = plt.subplots()
 
-ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+ax.scatter(x=gapminder_data["gdpPercap"], y=gapminder_data["lifeExp"], alpha=0.5)
 
 ax.set_xscale("log")
 
-ax.set_xlabel("GDP (USD) per capita")
-ax.set_ylabel("life expectancy (years)")
+ax.set_xlabel("GDP per capita (PPP dollars)")
+ax.set_ylabel("Life expectancy (years)")
 ```
 * {obj}`alpha <matplotlib.artist.Artist.set_alpha>` sets transparency
   of points.
@@ -362,7 +362,7 @@ For figures that go to print it is good practice to look at them at the size
 they will be printed in and then often fonts and tickmarks are too small.
 
 Your task is to make the tickmarks and the axis label font larger, using
-[Matplotlib parts of a figure](https://matplotlib.org/stable/tutorials/introductory/quick_start.html#parts-of-a-figure)
+[Matplotlib parts of a figure](https://matplotlib.org/stable/users/explain/quick_start.html#parts-of-a-figure)
 and web search, and to arrive at this:
 
 ```{figure} data-visualization/customizing/gapminder-larger-font.png
@@ -375,16 +375,17 @@ See {meth}`ax.tick_params <matplotlib.axes.Axes.tick_params>`.
 
 ```{code-block} python
 ---
-emphasize-lines: 7-11
+emphasize-lines: 7-8, 10-12
 ---
 fig, ax = plt.subplots()
 
-ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+ax.scatter(x="gdpPercap", y="lifeExp", alpha=0.5, data=gapminder_data)
 
 ax.set_xscale("log")
 
-ax.set_xlabel("GDP (USD) per capita", fontsize=15)
-ax.set_ylabel("life expectancy (years)", fontsize=15)
+ax.set_xlabel("GDP per capita (PPP dollars)", fontsize=15)
+ax.set_ylabel("Life expectancy (years)", fontsize=15)
+
 ax.tick_params(which="major", length=10)
 ax.tick_params(which="minor", length=5)
 ax.tick_params(labelsize=15)
@@ -400,8 +401,9 @@ ax.tick_params(labelsize=15)
     probably the most standard and most widely used
   - [Seaborn](https://seaborn.pydata.org/examples/index.html):
     high-level interface to Matplotlib, statistical functions built in
-  - [Altair](https://altair-viz.github.io/gallery/index.html):
-    declarative visualization (R users will be more at home), statistics built in
+  - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
+    declarative visualization, statistics built in
+    (we have an [entire lesson about data visualization using Vega-Altair](https://coderefinery.github.io/data-visualization-python/))
   - [Plotly](https://plotly.com/python/):
     interactive graphs
   - [Bokeh](https://demo.bokeh.org/):
@@ -412,14 +414,14 @@ ax.tick_params(labelsize=15)
     R users will be more at home
   - [PyNGL](https://www.pyngl.ucar.edu/Examples/gallery.shtml):
     used in the weather forecast community
-  - [K3D](https://k3d-jupyter.org/showcase/):
-    Jupyter notebook extension for 3D visualization
+  - [K3D](https://k3d-jupyter.org/gallery/index.html):
+    Jupyter Notebook extension for 3D visualization
 
 - Browse the various example galleries (links above).
 - Select one example that is close to your recent visualization project or simply interests you.
 - Note that you might need to install additional Python packages in order make use of the libraries.
   This could be the visualization library itself, and in addition also any required dependency package.
-- First try to reproduce this example in the Jupyter notebook.
+- First try to reproduce this example in the Jupyter Notebook.
 - Then try to print out the data that is used in this example just before the call of the plotting function
   to learn about its structure. Is it a pandas dataframe? Is it a NumPy array? Is it a dictionary? A list?
   a list of lists?
@@ -509,8 +511,30 @@ clarify questions at this point before moving on.
 
 ---
 
+## Matplotlib and pandas DataFrames
+
+In the above exercises we have sent individual columns of the `gapminder_data` DataFrame
+into `ax.scatter()` like this:
+```python
+fig, ax = plt.subplots()
+
+ax.scatter(x=gapminder_data["gdpPercap"], y=gapminder_data["lifeExp"], alpha=0.5)
+```
+
+It is possible to do this instead and let Matplotlib "unpack" the columns:
+```python
+fig, ax = plt.subplots()
+
+ax.scatter(x="gdpPercap", y="lifeExp", alpha=0.5, data=gapminder_data)
+```
+
+Other input types are possible. See [Types of inputs to plotting
+functions](https://matplotlib.org/stable/users/explain/quick_start.html#types-of-inputs-to-plotting-functions).
+
+---
+
 ```{keypoints}
-- Avoid manual post-processing, script everything.
+- Minimize manual post-processing, script everything.
 - Browse a number of example galleries to help you choose the library
   that fits best your work/style.
 - Figures for presentation slides and figures for manuscripts have
