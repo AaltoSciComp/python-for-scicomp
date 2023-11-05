@@ -298,12 +298,12 @@ In this exercise we will learn how to use log scales.
   ```python
   import pandas as pd
 
-  url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
-  data = pd.read_csv(url)
+  url = (
+      "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
+  )
+  gapminder_data = pd.read_csv(url).query("year == 2007")
 
-  data_2007 = data[data["year"] == 2007]
-
-  data_2007
+  gapminder_data
   ```
 - Try the above snippet in a notebook and it will give you an overview over the data.
 
@@ -313,10 +313,10 @@ In this exercise we will learn how to use log scales.
 
   fig, ax = plt.subplots()
 
-  ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+  ax.scatter(x=gapminder_data["gdpPercap"], y=gapminder_data["lifeExp"], alpha=0.5)
 
-  ax.set_xlabel("GDP (USD) per capita")
-  ax.set_ylabel("life expectancy (years)")
+  ax.set_xlabel("GDP per capita (PPP dollars)")
+  ax.set_ylabel("Life expectancy (years)")
   ```
 
   This is the result but we realize that a linear scale is not ideal here:
@@ -341,12 +341,12 @@ emphasize-lines: 5
 ---
 fig, ax = plt.subplots()
 
-ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+ax.scatter(x=gapminder_data["gdpPercap"], y=gapminder_data["lifeExp"], alpha=0.5)
 
 ax.set_xscale("log")
 
-ax.set_xlabel("GDP (USD) per capita")
-ax.set_ylabel("life expectancy (years)")
+ax.set_xlabel("GDP per capita (PPP dollars)")
+ax.set_ylabel("Life expectancy (years)")
 ```
 * {obj}`alpha <matplotlib.artist.Artist.set_alpha>` sets transparency
   of points.
@@ -374,16 +374,17 @@ See {meth}`ax.tick_params <matplotlib.axes.Axes.tick_params>`.
 
 ```{code-block} python
 ---
-emphasize-lines: 7-11
+emphasize-lines: 7-8, 10-12
 ---
 fig, ax = plt.subplots()
 
-ax.scatter(x=data_2007["gdpPercap"], y=data_2007["lifeExp"], alpha=0.5)
+ax.scatter(x="gdpPercap", y="lifeExp", alpha=0.5, data=gapminder_data)
 
 ax.set_xscale("log")
 
-ax.set_xlabel("GDP (USD) per capita", fontsize=15)
-ax.set_ylabel("life expectancy (years)", fontsize=15)
+ax.set_xlabel("GDP per capita (PPP dollars)", fontsize=15)
+ax.set_ylabel("Life expectancy (years)", fontsize=15)
+
 ax.tick_params(which="major", length=10)
 ax.tick_params(which="minor", length=5)
 ax.tick_params(labelsize=15)
