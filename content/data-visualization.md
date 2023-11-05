@@ -137,6 +137,8 @@ matplotlib.use("Agg")
 
 - Try to add a legend to the plot with {meth}`matplotlib.axes.Axes.legend` and searching the web for clues on
   how to add labels to each dataset.
+  You can also consult this great
+  [quick start guide](https://matplotlib.org/stable/users/explain/quick_start.html).
 
 - At the end it should look like this one:
   ```{figure} data-visualization/first-plot/exercise.png
