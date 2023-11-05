@@ -24,17 +24,17 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
 > (which should also be automated), and they should come out of the pipeline
 > ready to be sent to the printer, no manual post-processing needed.*
 
-- **No manual post-processing**. This will bite you when you need to regenerate 50
+- **Try to minimize manual post-processing**. This could bite you when you need to regenerate 50
   figures one day before submission deadline or regenerate a set of figures
   after the person who created them left the group.
 - There is not the one perfect language and **not the one perfect library** for everything.
 - Within Python, many libraries exist:
-  - [Matplotlib](https://matplotlib.org/gallery/index.html):
+  - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
+    declarative visualization, statistics built in
+  - [Matplotlib](https://matplotlib.org/stable/gallery/index.html):
     probably the most standard and most widely used
   - [Seaborn](https://seaborn.pydata.org/examples/index.html):
     high-level interface to Matplotlib, statistical functions built in
-  - [Altair](https://altair-viz.github.io/gallery/index.html):
-    declarative visualization (R users will be more at home), statistics built in
   - [Plotly](https://plotly.com/python/):
     interactive graphs
   - [Bokeh](https://demo.bokeh.org/):
@@ -45,11 +45,10 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
     R users will be more at home
   - [PyNGL](https://www.pyngl.ucar.edu/Examples/gallery.shtml):
     used in the weather forecast community
-  - [K3D](https://k3d-jupyter.org/gallery/):
-    Jupyter notebook extension for 3D visualization
+  - [K3D](https://k3d-jupyter.org/gallery/index.html):
+    Jupyter Notebook extension for 3D visualization
   - ...
-- Two main families of libraries: procedural (e.g. Matplotlib) and declarative
-  (using grammar of graphics).
+- Two main families of libraries: procedural (e.g. Matplotlib) and declarative.
 
 
 ## Why are we starting with Matplotlib?
