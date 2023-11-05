@@ -195,7 +195,7 @@ When plotting with Matplotlib, it is useful to know and understand that
 there are **two approaches** even though the reasons of this dual approach is
 outside the scope of this lesson.
 
-- The more modern option is an **object-oriented interface** (the
+- The more modern option is an **object-oriented interface** or **explicit interface** (the
   {class}`fig <matplotlib.figure.Figure>` and {class}`ax <matplotlib.axes.Axes>` objects
   can be configured separately and passed around to functions):
    ```{code-block} python
@@ -219,7 +219,7 @@ outside the scope of this lesson.
    ```
 
 - The more traditional option mimics MATLAB plotting and uses the
-  **pyplot interface** ({mod}`plt <matplotlib.pyplot>` carries
+  **pyplot interface** or **implicit interface** ({mod}`plt <matplotlib.pyplot>` carries
   the global settings):
    ```{code-block} python
    ---
@@ -250,7 +250,7 @@ into these functions and there is less risk that adjusting figures changes
 settings also for unrelated figures created in other functions.
 
 When using the pyplot interface, settings are modified for the entire
-{mod}`matplotlib.pyplot` package. The latter is acceptable for linear scripts but may yield
+{mod}`matplotlib.pyplot` package. The latter is acceptable for simple scripts but may yield
 surprising results when introducing functions to enhance/abstract Matplotlib
 calls.
 ```
