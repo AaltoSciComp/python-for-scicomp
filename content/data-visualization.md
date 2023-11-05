@@ -29,12 +29,12 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
   after the person who created them left the group.
 - There is not the one perfect language and **not the one perfect library** for everything.
 - Within Python, many libraries exist:
-  - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
-    declarative visualization, statistics built in
   - [Matplotlib](https://matplotlib.org/stable/gallery/index.html):
     probably the most standard and most widely used
   - [Seaborn](https://seaborn.pydata.org/examples/index.html):
     high-level interface to Matplotlib, statistical functions built in
+  - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
+    declarative visualization, statistics built in
   - [Plotly](https://plotly.com/python/):
     interactive graphs
   - [Bokeh](https://demo.bokeh.org/):
@@ -71,7 +71,7 @@ matter of personal preferences.
 
 ## Getting started with Matplotlib
 
-We can start in a Jupyter notebook since notebooks are typically a good fit
+We can start in a Jupyter Notebook since notebooks are typically a good fit
 for data visualizations. But if you prefer to run this as a script, this is
 also OK.
 
@@ -399,8 +399,8 @@ ax.tick_params(labelsize=15)
     probably the most standard and most widely used
   - [Seaborn](https://seaborn.pydata.org/examples/index.html):
     high-level interface to Matplotlib, statistical functions built in
-  - [Altair](https://altair-viz.github.io/gallery/index.html):
-    declarative visualization (R users will be more at home), statistics built in
+  - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
+    declarative visualization, statistics built in
   - [Plotly](https://plotly.com/python/):
     interactive graphs
   - [Bokeh](https://demo.bokeh.org/):
@@ -411,14 +411,14 @@ ax.tick_params(labelsize=15)
     R users will be more at home
   - [PyNGL](https://www.pyngl.ucar.edu/Examples/gallery.shtml):
     used in the weather forecast community
-  - [K3D](https://k3d-jupyter.org/showcase/):
-    Jupyter notebook extension for 3D visualization
+  - [K3D](https://k3d-jupyter.org/gallery/index.html):
+    Jupyter Notebook extension for 3D visualization
 
 - Browse the various example galleries (links above).
 - Select one example that is close to your recent visualization project or simply interests you.
 - Note that you might need to install additional Python packages in order make use of the libraries.
   This could be the visualization library itself, and in addition also any required dependency package.
-- First try to reproduce this example in the Jupyter notebook.
+- First try to reproduce this example in the Jupyter Notebook.
 - Then try to print out the data that is used in this example just before the call of the plotting function
   to learn about its structure. Is it a pandas dataframe? Is it a NumPy array? Is it a dictionary? A list?
   a list of lists?
