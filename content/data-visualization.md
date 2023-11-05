@@ -80,10 +80,7 @@ Let us create our first plot using
 {obj}`~matplotlib.axes.Axes.scatter`, and some other methods on the
 {obj}`~matplotlib.axes.Axes` object:
 
-```{code-block} python
-# this line tells Jupyter to display matplotlib figures in the notebook
-%matplotlib inline
-
+```python
 import matplotlib.pyplot as plt
 
 # this is dataset 1 from
@@ -105,6 +102,7 @@ ax.set_title("some title")
 
 ```{figure} data-visualization/first-plot/getting-started.png
 :alt: Result of our first plot
+:width: 80%
 
 This is the result of our first plot.
 ```
@@ -134,26 +132,25 @@ matplotlib.use("Agg")
   by 2.0.
   ```python
   # here we multiply all elements of data2_y by 2.0
-  data2_y_scaled = [y*2.0 for y in data2_y]
+  data2_y_scaled = [y * 2.0 for y in data2_y]
   ```
 
 - Try to add a legend to the plot with {meth}`matplotlib.axes.Axes.legend` and searching the web for clues on
   how to add labels to each dataset.
 
 - At the end it should look like this one:
-   ```{figure} data-visualization/first-plot/exercise.png
-   :alt: Result of the exercise
-   ```
+  ```{figure} data-visualization/first-plot/exercise.png
+  :alt: Result of the exercise
+  ```
+
+- Experiment also by using named colors (e.g. "red") instead of the hex-codes.
 ````
 
 ````{solution}
 ```{code-block} python
 ---
-emphasize-lines: 12, 15, 20-21, 26
+emphasize-lines: 9, 12, 17-18, 23
 ---
-# this line tells Jupyter to display matplotlib figures in the notebook
-%matplotlib inline
-
 import matplotlib.pyplot as plt
 
 # this is dataset 1 from
@@ -165,13 +162,13 @@ data_y = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
 data2_y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
 
 # here we multiply all elements of data2_y by 2.0
-data2_y_scaled = [y*2.0 for y in data2_y]
+data2_y_scaled = [y * 2.0 for y in data2_y]
 
 fig, ax = plt.subplots()
 
-ax.scatter(x=data_x, y=data_y, c="#E69F00", label='set 1')
-ax.scatter(x=data_x, y=data2_y, c="#56B4E9", label='set 2')
-ax.scatter(x=data_x, y=data2_y_scaled, c="#009E73", label='set 2 (scaled)')
+ax.scatter(x=data_x, y=data_y, c="#E69F00", label="set 1")
+ax.scatter(x=data_x, y=data2_y, c="#56B4E9", label="set 2")
+ax.scatter(x=data_x, y=data2_y_scaled, c="#009E73", label="set 2 (scaled)")
 
 ax.set_xlabel("we should label the x axis")
 ax.set_ylabel("we should label the y axis")
@@ -187,7 +184,7 @@ ax.legend()
 This qualitative color palette is opimized for all color-vision
 deficiencies, see <https://clauswilke.com/dataviz/color-pitfalls.html> and
 [Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD):
-How to Make Figures and Presentations That Are Friendly to Colorblind People."](http://jfly.iam.u-tokyo.ac.jp/color/).
+How to Make Figures and Presentations That Are Friendly to Colorblind People"](http://jfly.iam.u-tokyo.ac.jp/color/).
 ```
 
 ---
