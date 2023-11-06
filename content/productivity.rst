@@ -524,6 +524,13 @@ code checkers when you're doing a new commit to the repository.
 
 For more information see their website.
 
+
+Other nice tools
+----------------
+
+- `isort <https://pycqa.github.io/isort/>`__ - Sorts import statements for you
+- `jupyterlab_code_formatter <https://github.com/ryantam626/jupyterlab_code_formatter>`__ - Adds formatting functionality to jupyterlab.
+
 .. keypoints::
 
    - Using linters and formatters can help you write cleaner code.
