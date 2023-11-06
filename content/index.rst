@@ -93,15 +93,15 @@ to learn yourself as you need to.
    pandas
    data-visualization
    data-formats
+   productivity
    scripts
-   web-apis
    scipy
    libraries
-   parallel
    dependencies
    binder
+   parallel
    packaging
-   productivity
+   web-apis
 
 .. toctree::
    :maxdepth: 1
