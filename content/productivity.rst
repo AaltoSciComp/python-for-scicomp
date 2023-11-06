@@ -55,7 +55,7 @@ script (:download:`lint_example.py <../resources/code/productivity/lint_example.
 
    plt.show()
 
-.. code-block:: sh
+.. code-block:: console
 
    $ pylint lint_example.py 
    ************* Module lint_example
@@ -72,7 +72,7 @@ and look at the
 After fixing the problem with the bracket and running ``pylint`` again we
 get more errors:
 
-.. code-block:: sh
+.. code-block:: console
 
    $ pylint lint_example.py 
    ************* Module lint_example
@@ -108,7 +108,7 @@ After changing the import stamement, the code works correctly and running
 You can also notice that the changes have increased the rating and
 Pylint will show the improvement since last run.
 
-.. code-block:: sh
+.. code-block:: console
 
    $ pylint lint_example.py 
    ************* Module lint_example
@@ -304,7 +304,7 @@ Let's use black and flake8 (with ``pep8-naming``-extension) to modify
 
 Running flake8 to check for style problems we get the following output:
 
-.. code-block:: bash
+.. code-block:: console
 
    $ flake8 code_style_example.py
    code_style_example.py:1:7: E271 multiple spaces after keyword
@@ -408,7 +408,7 @@ Comparing the fixed one to the original one the code is much more legible.
    `yapf <https://github.com/google/yapf>`__, which supports formatting based on
    arithmetic precedence:
 
-   .. code-block:: bash
+   .. code-block:: console
 
       $ yapf --style='{based_on_style: pep8, arithmetic_precedence_indication=true}' --diff code_style_example.py
       --- code_style_example.py       (original)
