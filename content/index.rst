@@ -101,6 +101,7 @@ to learn yourself as you need to.
    dependencies
    binder
    packaging
+   productivity
 
 .. toctree::
    :maxdepth: 1
