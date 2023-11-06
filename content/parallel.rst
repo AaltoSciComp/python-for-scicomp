@@ -348,7 +348,7 @@ to get this MPI example to work:
 Exercises, MPI
 --------------
 
-.. challenge:: Parallel-2, MPI
+.. challenge:: Parallel-3, MPI
 
    We can do this as **exercise or as demo**. Note that this example requires ``mpi4py`` and a
    MPI installation such as for instance `OpenMPI <https://www.open-mpi.org/>`__.
