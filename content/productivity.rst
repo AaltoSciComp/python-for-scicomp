@@ -199,7 +199,7 @@ Exercise 1
 
    .. code-block:: python
 
-      """https://docs.astral.sh/ruff/
+      """
       pylint exercise 1
       """
       import numpy as np
@@ -247,7 +247,6 @@ Exercise 1
 
       plt.show()
 
-
 Enforcing consistent code style
 -------------------------------
 
@@ -257,12 +256,12 @@ all kinds of coding styles.
 For example, one could use the following naming styles for variables:
 
 .. code-block:: python
-   # Different variable styles
 
+   # Different variable styles
    myvariable = 1   # Lowercase
-   myVariable = 1   # CamelCase
-   MyVariable = 1   # Pascalcase
-   my_variable = 1  # Snakecase
+   myVariable = 1   # Camel case
+   MyVariable = 1   # Pascal case
+   my_variable = 1  # Snake case
 
 Everyone has their own preference to what style to use and everybody
 has freedom to use their preferred style, but to improve legibility
