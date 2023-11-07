@@ -5,7 +5,8 @@ Python for Scientific Computing
 .. admonition:: Attending the course 7-10.november.2023?
 
    `See the course page here
-   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2023/>`__.
+   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2023/>`__
+   and watch at https://twitch.tv/coderefinery.
    Whether you are or aren't, the course material is below.  Videos
    will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__.
 
