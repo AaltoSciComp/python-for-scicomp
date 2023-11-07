@@ -402,7 +402,7 @@ makes this easy::
     nobel["died"] = pd.to_datetime(nobel["died"], errors ='coerce')
     nobel["year"] = pd.to_datetime(nobel["year"], format="%Y")
 
-Pandas knows a lot about dates (using :attr:`~pandas.Series.dt`)::
+Pandas knows a lot about dates (using :ref:`/user_guide/basics.rst#dt-accessor`)::
 
     print(nobel["born"].dt.day)
     print(nobel["born"].dt.year)
@@ -439,7 +439,9 @@ Exercises 3
     Now more advanced steps:
 
     - Now define an array of 4 countries of your choice and extract
-      only laureates from these countries::
+      only laureates from these countries (you need to look at the
+      data and find how countries are written, and replace ``COUNTRY``
+      with those strings)::
 
 	  countries = np.array([COUNTRY1, COUNTRY2, COUNTRY3, COUNTRY4])
 	  subset = nobel.loc[nobel['bornCountry'].isin(countries)]
