@@ -381,15 +381,15 @@ an API of the Nobel prize organisation at
 https://api.nobelprize.org/v1/laureate.csv .
 
 Unfortunately this API does not allow "non-browser requests", so
-:obj:`pandas.read_csv` will not work. We can either open the above link in
-a browser and download the file, or use the JupyterLab interface by clicking
-"File" and "Open from URL", and then save the CSV file to disk.
+:obj:`pandas.read_csv` will not work directly on it. Instead, we put a
+local copy on Github which we can access (the original data is CC-0,
+so we are allowed to do this).  (Aside: if you do JupyterLab →
+File → Open from URL → paste the URL above, it will open it in
+JupyterLab *and* download a copy for your use.)
 
 We can then load and explore the data::
 
-    # File → Open from URL → enter https://api.nobelprize.org/v1/laureate.csv
-    # This opens it in JupyterLab but also saves it as laureate.csv
-    nobel = pd.read_csv("laureate.csv")
+    nobel = pd.read_csv("https://github.com/AaltoSciComp/python-for-scicomp/raw/master/resources/data/laureate.csv")
     nobel.head()
 
 This dataset has three columns for time, "born"/"died" and "year".
