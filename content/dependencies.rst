@@ -34,7 +34,7 @@ Exercises 1
 
 .. challenge:: Dependencies-1: Discuss dependency management (5 min)
 
-  Please discuss **in breakout rooms** and answer via **collaborative document** the
+  Please discuss and answer via **collaborative document** the
   following questions:
 
   - How do you install Python packages (libraries) that you use in your work?
@@ -216,10 +216,10 @@ Exercises 2
 
      Or use the one-liner if you have access to a terminal like bash:
 
-     .. code-block:: python
+     .. code-block:: console
 
-      python -c 'import numpy; print(numpy.__version__)'
-      python -c 'import matplotlib;print(matplotlib.__version__)'
+      $ python -c 'import numpy; print(numpy.__version__)'
+      $ python -c 'import matplotlib;print(matplotlib.__version__)'
 
   4. Deactivate the environment::
 

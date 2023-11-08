@@ -3,7 +3,7 @@ Library ecosystem
 
 .. questions::
 
-   - What happens when you need some method Beyond what we discuss in this course, what is available?
+   - What happens when you need some method beyond what we discuss in this course, what is available?
    - How do you decide what to build on for your work?
 
 .. objectives::
