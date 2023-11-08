@@ -41,7 +41,10 @@ Some popular linters include:
 - `flake8 <https://flake8.pycqa.org/en/latest/>`__
 
 In the following example lets use ``pylint`` to check the following
-script (:download:`lint_example.py <../resources/code/productivity/lint_example.py>`):
+script (:download:`lint_example.py
+<../resources/code/productivity/lint_example.py>`: to easily download
+to JupyterLab, use File → Open from URL → Paste URL → It will download
+and open in a window.):
 
 .. code-block:: python
 
@@ -54,6 +57,10 @@ script (:download:`lint_example.py <../resources/code/productivity/lint_example.
    plt.plot(x, y)
 
    plt.show()
+
+To run ``pylint`` from the terminal in JupyterLab, File → New →
+Terminal.  Make sure you are in the right directory, then you can run
+``pylint``:
 
 .. code-block:: console
 
@@ -125,7 +132,8 @@ Exercise 1
 
    The following code uses scikit-learn to fit a simple linear
    model to randomly generated data with some error. You can download it
-   :download:`here <../resources/code/productivity/exercise1.py>`.
+   :download:`here <../resources/code/productivity/exercise1.py>` (see
+   above for how to easily download and run in JupyterLab).
 
    It has four mistakes in it. One of these cannot be found by
    Pylint.
@@ -360,7 +368,7 @@ After running ``black code_style_example.py`` the code looks like this:
 Much cleaner. If we want to check for variable naming syntax we can still run
 ``flake8 code_style_example.py``:
 
-.. code-block:: bash
+.. code-block:: console
 
    $ flake8 code_style_example.py
    code_style_example.py:4:6: N802 function name 'PI_estimate' should be lowercase
