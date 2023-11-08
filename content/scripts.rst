@@ -45,7 +45,7 @@ Jupyter notebooks can be parameterized for instance using `papermill <https://pa
 
 Within JupyterLab, you can export any Jupyter notebook to a Python script:
 
-.. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png
+.. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting-menu.png
 
    Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
 
@@ -69,9 +69,13 @@ Exercises 1
 
   1. Download the :download:`weather_observations.ipynb <../resources/code/scripts/weather_observations.ipynb>` and the weather_data file and upload them to your Jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from `rp5.kz <https://rp5.kz>`_ and was slightly adjusted for this lecture.
 
-     **Note:** If you haven't downloaded the file directly to your Jupyterlab folder, it will be located in your **Downloads** folder or the folder you selected. In Jupyterlab click on the 'upload file' button, navigate to the folder containing the file and select it to load it into your Jupyterlab folder.
+     **Hint:** Copy the URL above (right-click) and in JupyterLab, use
+     File → Open from URL → Paste the URL.  It will both download it to
+     the directory JupyterLab is in and open it for you.
 
-  2. Open a terminal in Jupyter (File → New → Terminal).
+  2. Open a terminal in Jupyter: File → New Launcher, then click
+     "Terminal" there. (if you do it this way, it will be in the right
+     directory.  File → New → Terminal might not be.)
 
   3. Convert the Jupyter script to a Python script by calling::
 
@@ -80,6 +84,8 @@ Exercises 1
   4. Run the script (note: you may have ``python3`` rather than ``python``)::
 
      $ python weather_observations.py
+
+
 
 Command line arguments with :data:`sys.argv`
 --------------------------------------------
@@ -100,29 +106,31 @@ and any further argument (separated by space) is appended to this list, like suc
    $ # sys.argv[2] is 'B'
 
 Lets see how it works: We modify the **weather_observations.py** script such that we allow start
-and end times as well as the output file to be passed in as arguments to the function:
+and end times as well as the output file to be passed in as arguments
+to the function.  Open it (find the ``.py`` file from the JupyterLab
+file browser) and make these edits:
 
 .. code-block:: python
-   :emphasize-lines: 1,5-6,8,16
+   :emphasize-lines: 1,5-6,8,14-15
 
    import sys
    import pandas as pd
 
-   # set start and end time
-   start_date = pd.to_datetime(sys.argv[1],dayfirst=True)
-   end_date = pd.to_datetime(sys.argv[2],dayfirst=True)
-
-   output_file_name = sys.argv[3]
-
+   # define the start and end time for the plot
+   start_date = pd.to_datetime(sys.argv[1], dayfirst=True)
+   end_date = pd.to_datetime(sys.argv[2], dayfirst=True)
    ...
 
    # select the data
    weather = weather[weather['Local time'].between(start_date,end_date)]
    ...
 
+   # save the figure
+   output_file_name = sys.argv[3]
    fig.savefig(output_file_name)
 
-We can try it out:
+We can try it out (see the file ``spring_in_tapiola.png`` made in the
+file browser):
 
 .. code-block:: console
 
@@ -185,6 +193,7 @@ would show the following message:
 
 .. code-block:: console
 
+   $ python birthday.py --help
    usage: birthday.py [-h] [-d DATE] N
 
    positional arguments:
@@ -201,7 +210,7 @@ Exercises 2
 .. challenge:: Scripts-2
 
   1. Take the Python script (``weather_observations.py``) we have written in the preceding exercise and use
-     :py:mod:`argparse` to specify the input and output files and allow the start and end dates to be set.
+     :py:mod:`argparse` to specify the input (URL) and output files and allow the start and end dates to be set.
 
      * Hint: try not to do it all at once, but add one or two arguments, test, then add more, and so on.
      * Hint: The input and output filenames make sense as positional arguments, since they must always be given.  Input is usually first, then output.
@@ -236,6 +245,7 @@ Exercises 2
 
    - We can now process different input files without changing the script.
    - We can select multiple time ranges without modifying the script.
+   - We can easily save these commands to know what we did.
    - This way we can also loop over file patterns (using shell loops or similar) or use
      the script in a workflow management system and process many files in parallel.
    - By changing from :data:`sys.argv` to :mod:`argparse` we made the script more robust against
@@ -287,9 +297,9 @@ Exercises 3 (optional)
 .. challenge:: Scripts-3
 
   1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py>`
-     function and load it into your working folder in Jupyterlab.
+     function and load it into your working folder in Jupyterlab (Hint: in JupyterLab, File → Open from URL).
      Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line
-     (using e.g. argparse or sys.argv) still needs to be read from the command line.
+     (using e.g. :mod:`argparse` or :data:`sys.argv`) still needs to be read from the command line.
 
 
   2. Run your script with different config files.
@@ -302,6 +312,12 @@ Exercises 3 (optional)
    .. literalinclude:: ../resources/code/scripts/weather_observations_config.py
      :language: python
      :emphasize-lines: 5,9-12,15-27,30,33,36-37,58
+
+What did this config file parser get us?  Now, we have separated the
+code from the configuration.  We could save all the configuration in
+version control - separately and have one script that runs them.  If
+done right, our work could be much more reproducible and
+understandable.
 
 
 .. admonition:: Further reading

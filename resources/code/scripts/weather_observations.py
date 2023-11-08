@@ -8,10 +8,10 @@ url = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/
 weather = pd.read_csv(url,comment='#')
 
 # define the start and end time for the plot 
-start_date=pd.to_datetime('01/06/2021',dayfirst=True)
-end_date=pd.to_datetime('01/10/2021',dayfirst=True)
+start_date=pd.to_datetime('01/06/2021', dayfirst=True)
+end_date=pd.to_datetime('01/10/2021', dayfirst=True)
 #Preprocess the data
-weather['Local time'] = pd.to_datetime(weather['Local time'],dayfirst=True)
+weather['Local time'] = pd.to_datetime(weather['Local time'], dayfirst=True)
 # select the data
 weather = weather[weather['Local time'].between(start_date,end_date)]
 

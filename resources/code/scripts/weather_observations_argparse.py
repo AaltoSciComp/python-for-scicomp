@@ -5,7 +5,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("input", type=str, help="Input data file")
 parser.add_argument("output", type=str, help="Output plot file")
 parser.add_argument("-s", "--start", default="01/01/2019", type=str, help="Start date in DD/MM/YYYY format")
-parser.add_argument("-e", "--end", default="16/10/2021", type=str, help="End date in DD/MM/YYYY format")      
+parser.add_argument("-e", "--end", default="16/10/2021", type=str, help="End date in DD/MM/YYYY format")
 
 args = parser.parse_args()
 
@@ -13,11 +13,11 @@ args = parser.parse_args()
 weather = pd.read_csv(args.input,comment='#')
 
 # define the start and end time for the plot
-start_date=pd.to_datetime(args.start,dayfirst=True)
-end_date=pd.to_datetime(args.end,dayfirst=True)
+start_date=pd.to_datetime(args.start, dayfirst=True)
+end_date=pd.to_datetime(args.end, dayfirst=True)
 
 # preprocess the data
-weather['Local time'] = pd.to_datetime(weather['Local time'],dayfirst=True)
+weather['Local time'] = pd.to_datetime(weather['Local time'], dayfirst=True)
 # select the data
 weather = weather[weather['Local time'].between(start_date,end_date)]
 

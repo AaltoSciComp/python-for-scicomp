@@ -33,11 +33,11 @@ parameters = get_parameters(args.input, required, defaults)
 weather = pd.read_csv(parameters.input,comment='#')
 
 # obtain start and end date
-start_date=pd.to_datetime(parameters.start,dayfirst=True)
-end_date=pd.to_datetime(parameters.end,dayfirst=True)
+start_date=pd.to_datetime(parameters.start, dayfirst=True)
+end_date=pd.to_datetime(parameters.end, dayfirst=True)
 
 # Data preprocessing
-weather['Local time'] = pd.to_datetime(weather['Local time'],dayfirst=True)
+weather['Local time'] = pd.to_datetime(weather['Local time'], dayfirst=True)
 # select the data
 weather = weather[weather['Local time'].between(start_date,end_date)]
 
