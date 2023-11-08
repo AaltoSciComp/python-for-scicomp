@@ -32,7 +32,7 @@ How do you track dependencies of your project?
 Exercises 1
 -----------
 
-.. challenge:: Dependencies-1: Discuss dependency management (15 min)
+.. challenge:: Dependencies-1: Discuss dependency management (5 min)
 
   Please discuss **in breakout rooms** and answer via **collaborative document** the
   following questions:
