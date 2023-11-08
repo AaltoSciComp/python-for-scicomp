@@ -50,6 +50,8 @@ if datetime.date.today() < datetime.date(2022,12,15):
     ogp_image = 'https://www.aalto.fi/sites/g/files/flghsv161/files/styles/o_914w_ah_n/public/2022-11/PFSC22_v2.png'
     ogp_image_alt = 'Python for Scientific Computing course logo with date of 22-25/11/2022, twitch.tv/coderefinery, and partner logos'
 
+copybutton_exclude = '.linenos, .gp'
+
 import os
 if (
     'GITHUB_ACTION' in os.environ
