@@ -56,12 +56,15 @@ you are currently browsing), you can convert files in the terminal by running::
 
 
 
-Within JupyterLab, you can export any Jupyter notebook to a Python
+If nbconvert doesn't work, within JupyterLab, you can export any
+Jupyter notebook to a Python
 script, but this downloads it to your own computer and then you need
-to copy it to a place you are working:
+to copy it to a place you are working (maybe upload it back to
+JupyterLab?):
 
 .. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting-menu.png
-   :scale: 50%
+   :scale: 25%
+   :alt: JupyterLab screenshot as described in caption.
 
    Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
 
