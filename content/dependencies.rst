@@ -297,7 +297,7 @@ text file which looks like this:
    pandas
    scipy
 
-``environments.yml`` (for conda) is a yaml-file which looks like this:
+``environment.yml`` (for conda) is a yaml-file which looks like this:
 
 .. code-block:: yaml
 
@@ -343,7 +343,7 @@ Here are the two files again, but this time with versions pinned:
     pandas==2.0.3
     scipy==1.10.1
 
-``environments.yml`` with versions:
+``environment.yml`` with versions:
 
 .. code-block:: yaml
 
@@ -359,7 +359,7 @@ Here are the two files again, but this time with versions pinned:
 
 - Conda can also read and write ``requirements.txt``.
 - ``requirements.txt`` can also refer to packages on Github.
-- ``environments.yml`` can also contain a ``pip`` section.
+- ``environment.yml`` can also contain a ``pip`` section.
 - See also: https://coderefinery.github.io/reproducible-research/dependencies/ .
 
 .. admonition:: Putting too strict requirements can be counter-productive
