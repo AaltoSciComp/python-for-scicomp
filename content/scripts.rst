@@ -38,25 +38,33 @@ In this episode, we will learn how to automate your work using Python scripts so
 From Jupyter notebooks to Python scripts
 -----------------------------------------
 
+.. highlight:: console
+
+
 Save as Python script
 ---------------------
 
 Jupyter notebooks can be parameterized for instance using `papermill <https://papermill.readthedocs.io/en/latest/>`_. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate Python scripts. This will also force you to modularize your code.  See `CodeRefinery's lesson on Modular code development <https://coderefinery.github.io/modular-type-along/>`__.
 
-Within JupyterLab, you can export any Jupyter notebook to a Python script:
+You need to convert the notebook to a Python file.
+Check the `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
+You can get a command line by (File → New Launcher → Terminal - if you
+go through New Launcher, your command line will be in the directory
+you are currently browsing), you can convert files in the terminal by running::
+
+  $ jupyter nbconvert --to script your_notebook_name.ipynb
+
+
+
+Within JupyterLab, you can export any Jupyter notebook to a Python
+script, but this downloads it to your own computer and then you need
+to copy it to a place you are working:
 
 .. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting-menu.png
+   :scale: 50%
 
    Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
 
-
-.. highlight:: console
-
-Actually, you could also export your notebook in many other formats.
-Check the `JupyterLab documentation <https://jupyterlab.readthedocs.io/en/stable/user/export.html>`_ for more information.
-If you are working by the command line (File → New → Terminal), you can also convert files in the terminal by running::
-
-  $ jupyter nbconvert --to script your_notebook_name.ipynb
 
 
 Exercises 1
