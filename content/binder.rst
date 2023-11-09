@@ -93,7 +93,11 @@ then using `Binder <https://mybinder.org/>`__.
 
 .. challenge:: Binder-2: Exercise/demo: Make your notebooks reproducible by anyone (15 min)
 
-   Instructor demonstrates this:
+   Instructor demonstrates this.  **This exercise (and all following)
+   requires git/GitHub knowledge and accounts, which wasn't a
+   prerequisite of this course.  Thus, this is a demo (and might even
+   be too fast for you to type-along).  Watch the video if you
+   are reading this later on**:
 
    - Creates a GitHub repository
    - Uploads the notebook file
