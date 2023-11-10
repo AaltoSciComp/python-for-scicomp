@@ -70,7 +70,7 @@ Exercise 1
    Can you beat the C version?
 
    If you are having trouble with this, we recommend completing the
-   :ref:`basic NumPy lession <numpy>` before continuing with this
+   :ref:`basic NumPy lesson <numpy>` before continuing with this
    advanced lesson.  If you are taking a live course - don't
    worry, watch and learn and explore some during the exercises!
 
