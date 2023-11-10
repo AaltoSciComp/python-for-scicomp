@@ -22,7 +22,7 @@ of the tools.
 * **Python 3** (Anaconda is recommended, it will include everything)
 
   * With some extra packages installed.  They are all included in
-    Aanconda, and are listed in the ``environment.yml`` file you can
+    Anaconda, and are listed in the ``environment.yml`` file you can
     find under miniconda below.
 * Text editor (several lessons, can also be done through Jupyterlab)
 * Command-line shell (several lessons, can also be done through Jupyterlab)
