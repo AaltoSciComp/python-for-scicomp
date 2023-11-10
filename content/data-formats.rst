@@ -50,7 +50,7 @@ Let's consider another example::
     np.info(data_array)
 
 
-Here we have a different data structure: we have a two-dimentional array of numbers.
+Here we have a different data structure: we have a two-dimensional array of numbers.
 This is different to a Pandas DataFrame as data is stored as one contiguous block instead of individual columns.
 This also means that the whole array must have one data type.
 
@@ -90,7 +90,7 @@ Usually, you'll want to consider the following things when choosing a file forma
 
 1. Is the file format good for my data structure (is it fast/space efficient/easy to use)?
 2. Is everybody else / leading authorities in my field recommending a certain format?
-3. Do I need a human-readable format or is it enought to work on it using code?
+3. Do I need a human-readable format or is it enough to work on it using code?
 4. Do I want to archive / share the data or do I just want to store it while I'm working?
 
 Pandas supports `many file formats <https://pandas.pydata.org/docs/user_guide/io.html>`__ for tidy data and Numpy supports `some file formats <https://numpy.org/doc/stable/reference/routines.io.html>`__ for array data.
