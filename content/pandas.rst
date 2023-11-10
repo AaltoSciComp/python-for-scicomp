@@ -113,7 +113,7 @@ Unlike a NumPy array, a dataframe can combine multiple data types, such as
 numbers and text, but the data in each column is of the same type. So we say a
 column is of type ``int64`` or of type ``object``.
 
-Let's inspect one column of the Titanic passanger list data (first downloading
+Let's inspect one column of the Titanic passenger list data (first downloading
 and reading the titanic.csv datafile into a dataframe if needed, see above)::
 
     titanic["Age"]
@@ -592,7 +592,7 @@ apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
     df['Number of Rabbits'] = df['Generation'].apply(fib)
 
 
-Note that the numpy precisision for integers caps at int64 while python ints are unbounded --
+Note that the numpy precision for integers caps at int64 while python ints are unbounded --
 limited by memory size. Thus, the result from fibonacci(99) would be erroneous when
 using numpy ints. The type of df['Number of Rabbits'][99] given by both functions above
 is in fact <class 'int'>.
