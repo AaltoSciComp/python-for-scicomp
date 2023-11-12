@@ -6,6 +6,7 @@ sphinx-lesson
 https://github.com/aaltoscicomp/sphinx-aaltoscicomp-branding/archive/master.zip
 sphinx_rtd_theme_ext_color_contrast
 sphinxext-opengraph
+sphinx-thebe
 
 # for web-apis execution
 jsonlines
