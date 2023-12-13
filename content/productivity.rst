@@ -95,7 +95,7 @@ get more errors:
 Here we see the following suggestions:
 
 - On line 1 we're missing a module docstring. This is a warning that we're
-  going against a coding convetion and thus we get a ``CXXXX`` message code.
+  going against a coding convention and thus we get a ``CXXXX`` message code.
   This is not critical, so let's not focus on this for now.
 - On lines 4 and 5 we have undefined variable ``np``. This will create
   error if we would execute the code and thus we get a ``EXXXX`` message code.
@@ -110,7 +110,7 @@ correctly.
 From these messages we can deduce that the main problem is that the import
 statement does not use ``import numpy as np`` and thus ``np`` is undefined.
 
-After changing the import stamement, the code works correctly and running
+After changing the import statement, the code works correctly and running
 ``pylint lint_example.py`` will only warn about the missing docstring.
 You can also notice that the changes have increased the rating and
 Pylint will show the improvement since last run.

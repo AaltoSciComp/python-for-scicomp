@@ -117,7 +117,7 @@ then using `Binder <https://mybinder.org/>`__.
    - Check that your notebook repository now has a "launch binder"
      badge in your `README.md` file on GitHub.
    - Try clicking the button and see how your repository is launched
-     on Binder (can take a minute or two). Your notebooks can now be expored and executed in the cloud.
+     on Binder (can take a minute or two). Your notebooks can now be explored and executed in the cloud.
    - Enjoy being fully reproducible!
 
 

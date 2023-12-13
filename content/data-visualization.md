@@ -184,7 +184,7 @@ ax.legend()
 ````
 
 ```{discussion} Why these colors?
-This qualitative color palette is opimized for all color-vision
+This qualitative color palette is optimized for all color-vision
 deficiencies, see <https://clauswilke.com/dataviz/color-pitfalls.html> and
 [Okabe, M., and K. Ito. 2008. "Color Universal Design (CUD):
 How to Make Figures and Presentations That Are Friendly to Colorblind People"](http://jfly.iam.u-tokyo.ac.jp/color/).
