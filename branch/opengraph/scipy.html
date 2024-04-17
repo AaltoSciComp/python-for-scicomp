@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="SciPy" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="scipy.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="SciPy is a library that builds on top of NumPy. It contains a lot of interfaces to battle-tested numerical routines written in Fortran or C, as well as python implementations of many common algorit..." />
+<meta name="description" content="SciPy is a library that builds on top of NumPy. It contains a lot of interfaces to battle-tested numerical routines written in Fortran or C, as well as python implementations of many common algorit..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SciPy &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Library ecosystem" href="libraries.html" />
+    <link rel="prev" title="Scripts" href="scripts.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-advanced.html">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SciPy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-in-scipy">What’s in SciPy?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-use-scipy">Exercises: use SciPy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-integration">1: Numerical integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sparse-matrices">2: Sparse matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder.html">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">SciPy</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/scipy.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scipy">
+<h1>SciPy<a class="headerlink" href="#scipy" title="Permalink to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>When you need more advanced mathematical functions, where do you
+look?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand that SciPy exists and what kinds of things it has.</p></li>
+<li><p>Understand the importance of using external libraries and how to
+use them.</p></li>
+<li><p>Understand the purpose of wrapping existing C/Fortran code.</p></li>
+<li><p>Non-objective: know details of everything (or anything) in SciPy.</p></li>
+</ul>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Main article: <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/">SciPy documentation</a></p></li>
+</ul>
+</div>
+<p>SciPy is a library that builds on top of NumPy. It contains a lot of
+interfaces to battle-tested numerical routines written in Fortran or
+C, as well as python implementations of many common algorithms.</p>
+<section id="what-s-in-scipy">
+<h2>What’s in SciPy?<a class="headerlink" href="#what-s-in-scipy" title="Permalink to this heading"></a></h2>
+<p>Briefly, it contains functionality for</p>
+<ul class="simple">
+<li><p>Special functions (Bessel, Gamma, etc.)</p></li>
+<li><p>Numerical integration</p></li>
+<li><p>Optimization</p></li>
+<li><p>Interpolation</p></li>
+<li><p>Fast Fourier Transform (FFT)</p></li>
+<li><p>Signal processing</p></li>
+<li><p>Linear algebra (more complete than in NumPy)</p></li>
+<li><p>Sparse matrices</p></li>
+<li><p>Statistics</p></li>
+<li><p>More I/O routine, e.g. Matrix Market format for sparse matrices,
+MATLAB files (.mat), etc.</p></li>
+</ul>
+<p>Many (most?) of these are not written specifically for SciPy, but use
+the best available open source C or Fortran libraries.  Thus, you get
+the best of Python and the best of compiled languages.</p>
+<p>Most functions are documented ridiculously well from a scientific
+standpoint: you aren’t just using some unknown function, but have a
+full scientific description and citation to the method and
+implementation.</p>
+</section>
+<section id="exercises-use-scipy">
+<h2>Exercises: use SciPy<a class="headerlink" href="#exercises-use-scipy" title="Permalink to this heading"></a></h2>
+<p>These exercises do not exist because <em>you</em> might need <em>these</em>
+functions someday.  They are because <em>you</em> will need to <em>read
+documentation and understand documentation of an an external library</em>
+eventually.</p>
+<section id="numerical-integration">
+<h3>1: Numerical integration<a class="headerlink" href="#numerical-integration" title="Permalink to this heading"></a></h3>
+<div class="admonition-exercise exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise</p>
+<p>Do the following exercise <strong>or</strong> read the documentation and
+understand the relevant functions of SciPy:</p>
+<p>Define a function of one variable and using
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html#scipy.integrate.quad">scipy.integrate.quad</a>
+calculate the integral of your function in the
+interval <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">4.0]</span></code>. Then vary the interval and also modify the function and check
+whether scipy can integrate it.</p>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+
+<span class="k">def</span> <span class="nf">myfunction</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1"># you need to define result</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">integral</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">myfunction</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">integral</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html#scipy.integrate.quad">quad</a>
+uses the Fortran library QUADPACK, which one can assume is pretty
+good.  You can also see a whole lot of scientific information about
+the function on the docs page - including the scientific names of
+the methods used.</p>
+</div>
+</section>
+<section id="sparse-matrices">
+<h3>2: Sparse matrices<a class="headerlink" href="#sparse-matrices" title="Permalink to this heading"></a></h3>
+<div class="admonition-exercise exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise</p>
+<p>Do the following exercise <strong>or</strong> read the documentation and
+understand the relevant functions of SciPy:</p>
+<p>Use the SciPy sparse matrix functionality to create a random sparse
+matrix with a probability of non-zero elements of 0.05 and size 10000
+x 10000. The use the SciPy sparse linear algebra support to calculate
+the matrix-vector product of the sparse matrix you just created and a
+random vector. Use the %timeit macro to measure how long it
+takes. Does the optional <code class="docutils literal notranslate"><span class="pre">format</span></code> argument when you create the
+sparse matrix make a difference?</p>
+<p>Then, compare to how long it takes if you’d instead first convert the
+sparse matrix to a normal NumPy dense array, and use the NumPy <code class="docutils literal notranslate"><span class="pre">dot</span></code>
+method to calculate the matrix-vector product.</p>
+<p>Can you figure out a quick rule of thumb when it’s worth using a
+sparse matrix representation vs. a dense representation?</p>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<p>The basic code to do the test is:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse</span>
+
+<span class="n">vector</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="mf">.05</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csc&#39;</span><span class="p">)</span>
+
+<span class="c1"># We time this line</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From the top of the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html">spare matrix module documentation</a>, we can
+see there are a variety of different available sparse matrix types:
+<code class="docutils literal notranslate"><span class="pre">bsr</span></code>, <code class="docutils literal notranslate"><span class="pre">coo</span></code>, <code class="docutils literal notranslate"><span class="pre">csr</span></code>, <code class="docutils literal notranslate"><span class="pre">csc</span></code>, etc.  These each represent a
+different way of storing the matrices.</p>
+<p>It seems that <code class="docutils literal notranslate"><span class="pre">csr</span></code> and <code class="docutils literal notranslate"><span class="pre">csc</span></code> are fairly fast.  <code class="docutils literal notranslate"><span class="pre">lil</span></code> and
+<code class="docutils literal notranslate"><span class="pre">dok</span></code> are slow but it says that these are good for creating
+matrices with random insertions.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">csr</span></code> takes 7ms, <code class="docutils literal notranslate"><span class="pre">lil</span></code> 42ms, <code class="docutils literal notranslate"><span class="pre">dok</span></code> 1600ms, and
+converting to a non-sparse array <code class="docutils literal notranslate"><span class="pre">matrix.toarray()</span></code> and
+multiplying takes 64ms on one particular computer.</p>
+<p>This code allows us to time the performance at different
+densities.  It seems that with the <code class="docutils literal notranslate"><span class="pre">csr</span></code> format, sparse is better
+below densities of around .4 to .5:</p>
+<p>..code-block:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">density</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">.01</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mf">.1</span><span class="p">,</span> <span class="mf">.2</span><span class="p">,</span> <span class="mf">.3</span><span class="p">,</span> <span class="mf">.4</span><span class="p">,</span> <span class="mf">.5</span><span class="p">]:</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
+    <span class="n">time_sparse</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="s1">&#39;matrix.dot(vector)&#39;</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+    <span class="n">matrix2</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+    <span class="n">time_full</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="s1">&#39;matrix2.dot(vector)&#39;</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="nb">globals</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">density</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">time_sparse</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">time_full</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/tutorial/general.html">SciPy general introduction</a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/">SciPy documentation</a></p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>When you need advance math or scientific functions, let’s just
+admit it: you do a web search first.</p></li>
+<li><p>But when you see something in SciPy come up, you know your
+solutions are in good hands.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scripts.html" class="btn btn-neutral float-left" title="Scripts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="libraries.html" class="btn btn-neutral float-right" title="Library ecosystem" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
