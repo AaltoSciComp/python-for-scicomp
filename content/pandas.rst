@@ -33,6 +33,8 @@ material, including:
 A quick Pandas preview
 ----------------------
 
+.. thebe-button::
+
 Let's get a flavor of what we can do with pandas (you won't be able to follow everything yet). We will be working with an example dataset containing the passenger list from the Titanic, which is often used in Kaggle competitions and data science tutorials. First step is to load pandas::
 
     import pandas as pd

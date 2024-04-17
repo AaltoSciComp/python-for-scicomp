@@ -40,8 +40,15 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx_aaltoscicomp_branding',
     'sphinxext.opengraph',
+    'sphinx_thebe',
 ]
 myst_enable_extensions = ['colon_fence']
+
+thebe_config = {
+   "selector": "div.highlight"
+}
+
+nb_execution_mode = "off"
 
 ogp_site_name = "Python for Scientific Computing"
 ogp_site_url = 'https://aaltoscicomp.github.io/python-for-scicomp/'
