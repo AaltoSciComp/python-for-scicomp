@@ -465,10 +465,10 @@ Additional exercises
    5. Let's test those functions with few negative and positive values::
 
        a = np.array([-3.3, -2.5, -1.5, -0.75, -0.5, 0.5, 0.75, 1.5, 2.5, 3])
-       np.round(a) // [-3. -2. -2. -1. -0.  0.  1.  2.  2.  3.]
-       np.ceil(a) // [-3. -2. -1. -0. -0.  1.  1.  2.  3.  3.]
-       np.floor(a) // [-4. -3. -2. -1. -1.  0.  0.  1.  2.  3.]
-       np.trunc(a) // [-3. -2. -1. -0. -0.  0.  0.  1.  2.  3.]
+       np.round(a)  # [-3. -2. -2. -1. -0.  0.  1.  2.  2.  3.]
+       np.ceil(a)  # [-3. -2. -1. -0. -0.  1.  1.  2.  3.  3.]
+       np.floor(a)  # [-4. -3. -2. -1. -1.  0.  0.  1.  2.  3.]
+       np.trunc(a)  # [-3. -2. -1. -0. -0.  0.  0.  1.  2.  3.]
 
 
    6. One solution is::
