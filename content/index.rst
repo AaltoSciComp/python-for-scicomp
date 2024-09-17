@@ -70,6 +70,7 @@ to learn yourself as you need to.
    30 min   ; :doc:`jupyter`
    60 min   ; :doc:`numpy` or :doc:`numpy-advanced`
    60 min   ; :doc:`pandas`
+   30 min   ; :doc:`xarray`
    60 min   ; :doc:`data-visualization`
    30 min   ; :doc:`data-formats`
    60 min   ; :doc:`scripts`
@@ -92,6 +93,7 @@ to learn yourself as you need to.
    numpy
    numpy-advanced
    pandas
+   xarray
    data-visualization
    data-formats
    productivity
