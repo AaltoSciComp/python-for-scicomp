@@ -83,7 +83,17 @@ We can now import xarray and open the dataset. Le'ts take a look at the dataset:
             geospatial_lon_min:                   -153.88242040519995
             geospatial_lon_max:                   -42.666108129242815
 
+That was a lot of information at once, but let's break it down. 
 
+        - Close to the top of the output we see the dimensions of the dataset: time1, isobaric1, y, and x. 
+        - Below the dimensions, we see the coordinates of the dataset. These are the labels for the dimensions and give us the values of the dimension at each index.
+        - The data variables are the actual data stored in the dataset.
+        - At the bottom, we see the attributes of the dataset. This is a dictionary that stores metadata about the dataset.
+
+
+The following image shows the structure of an Xarray Dataset:
+
+        .. image:: img/xarray/xarray_dataset_image.png
 
 Why use Xarray?
 ---------------
