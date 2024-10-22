@@ -219,7 +219,7 @@ Creating your own Xarray Dataset is quite simple. We can create a Dataset from s
         )
 
 
-Converting Xarray objects, NumPy and Pandas and NetCDF
+Converting Xarray objects to NumPy, Pandas and NetCDF
 ------------------------------------------------------
 
 Another handy feature of Xarray is the simple conversion between Xarray objects, NumPy arrays, Pandas DataFrames and even NetCDF files. 
@@ -259,10 +259,10 @@ Exercises 2 (if time allows)
 Advanced Topics 
 ---------------
 
-This will probably be a further reading section as I don't think we will have time to cover this in the workshop. 
+We have barely scratched the surface of all the features Xarray has to offer. Hopefully this quick introduction has shown you whether Xarray is the right tool for your data analysis needs. If you are interested in learning more about Xarray, here are some topics for further reading:
 
-        - Explain how xarray uses lazy loading into memory
-        - Explain how to use Dask for parallel computing with memory chunking
-        - Mention alternative numpy-like arrays (duck arrays), specifically Cupy (for GPU arrays) and Pint (adding units to arrays)
-        - Explain xarray.register_dataset_accessor() for custom methods (this might seem very niche but I find myself using this all the time)
 
+- Xarray integrates with Dask to support parallel computations and streaming computation on datasets that don’t fit into memory. If you work with datasets that are to large for your memory, have a read of the chapter `Parallel computing with Dask <https://docs.xarray.dev/en/stable/user-guide/dask.html>`_.
+- If you want to accelerate Xarray operations on your GPU, have a look at `CuPy-Xarray <https://cupy-xarray.readthedocs.io/latest/>`_.
+- Xarray can be combined with pint, a Python library that adds support for physical quantities to NumPy arrays. This `blog post <https://xarray.dev/blog/introducing-pint-xarray>`_ provides a good introduction to the topic.
+- You can extend Xarray with your own methods using the `register_dataset_accessor() <https://docs.xarray.dev/en/stable/generated/xarray.register_dataset_accessor.html>`_ method. This is a powerful feature that allows you to add custom methods to your own Xarray Datasets.
