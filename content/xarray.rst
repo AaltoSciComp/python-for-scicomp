@@ -136,30 +136,45 @@ As you can see, the Xarray code is much more readable and we didn't need to keep
 Plotting data in Xarray
 -----------------------
 
+Another awesome feature of Xarray is its plotting capabilities. We can easily plot data in 1D and 2D using the ``.plot()`` method. Xarray uses a widely used plotting library called matplotlib for this. When calling the ``.plot()`` Xarray checks the dimensionality of the data and plots it accordingly. Let's import matplotlib and plot the data  ::
 
+        import matplotlib.pyplot as plt
 
-Why use Xarray?
----------------
+        ds['Temperature_isobaric'].isel(x=2).plot()
+        plt.show()
+        
+For a 2D DataArray the plot would resemble this example:
 
-Personally, I believe it is more pedagogical to start with an existing dataset and showing all the cool Xarray features there instead of starting with setting up a dataset from scratch. Setting up a new dataset can be a little bit tedious. I suggest to address the following in this section:
+        .. image:: img/xarray/xarray_2d_plot.png
 
-        - Find open dataset that users can download and test (one option is the 'CESM2_sst_data' dataset used in https://foundations.projectpythia.org/core/xarray/computation-masking.html, the only downside of this dataset is the custom type for the time dimension which adds an additional layer of complexity)
-        - Explain setup of Datasets (Dimensions, Coordinates, Data Variables, Attributes)
-        - Explain how Xarray interacts with NumPy and Pandas
-        - Arithmetic Operations on DataArrays
-        - Selecting Data by Label
-        - Aggregation Methods (sum(), mean(), median(), min(), and max())
-        - Show comparison of Xarray and Numpy for the same operations (similar to https://nbviewer.org/github/TomNicholas/CPSFR_xarray_talk/blob/master/CPSFR_xarray.ipynb section "numpy vs xarray: Clearer syntax for typical operations")
-        - Plotting Data in 1D and 2D and show histogram plot for higher dimensions
-        - Mention gorupby() if time allows
+Note, that we didn't specify the labels, Xarray automatically used the coordinates of the DataArray for the plot. This plot might not be one you include directly in a paper, but it is a great way to quickly visualize your data.
 
+Let's have a look at a dataslice of 1D data: ::
+
+        ds['Temperature_isobaric'].isel(x=2, y=5).plot()
+        plt.show()
+
+The resulting plot detects the dimentionality of the data and plots it accordingly: 
+
+        .. image:: img/xarray/xarray_1d_plot.png
+
+If the data has more than two dimensions, Xarray will plot a histogram of the data: ::
+
+        ds['Temperature_isobaric'].plot()
+        plt.show()
+
+The resulting plot would look like this:
+
+        .. image:: img/xarray/xarray_hist.png
+
+We can modify the plots by passing additional arguments to the ``.plot()`` method. Since we haven't discussed the plotting library matplotlib in detail, we will not go into further detail here. You can find more information in the `Xarray documentation <https://xarray.pydata.org/en/stable/plotting.html>`_.
 
 Exercises 1 (if time allows)
 ----------------------------
 
 .. challenge:: Exercises: Xarray-1
 
-        Take example dataset and perform a series of operations on it using labels. If we use the global surface temperature data set the exercise could be to find the month with the highest average temperature at a given latitude.  
+        Take example dataset and perform a series of operations on it using labels and plot the results. Details coming soon. 
 
 .. solution:: Solutions: Xarray-1
 
