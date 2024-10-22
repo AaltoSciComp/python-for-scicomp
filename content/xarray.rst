@@ -184,11 +184,64 @@ Exercises 1 (if time allows)
 Creating your own Xarray Dataset
 --------------------------------
 
-        - Show how to creation of a DataArray object
-        - Show how to assign dimensions, coordinates, and attributes
-        - Show how to create a Dataset object from multiple DataArrays
-        - Show how to convert Xarray objects to and from pandas
-        - Mention how to transform other dataformats into Xarray Datasets (e.g. NetCDF, HDF5, Zarr)
+Creating your own Xarray Dataset is quite simple. We can create a Dataset from scratch using basic Python data structures. Let's create a simple weather dataset with pressure and humidity data: ::
+
+        import xarray as xr
+        import numpy as np
+
+        # Define coordinates using basic lists
+        time = ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05']
+        location = ['Location1', 'Location2', 'Location3']
+
+        # Define data variables as numpy arrays
+        pressure_data = np.random.rand(5, 3) * 1000  # Random pressure data in hPa
+        humidity_data = np.random.rand(5, 3) * 100  # Random humidity data
+
+        # Put everything together to create the Dataset
+        ds = xr.Dataset(
+            {
+                "pressure": (["time", "location"], pressure_data),
+                "humidity": (["time", "location"], humidity_data)
+            },
+            coords={
+                "time": time,
+                "location": location
+            },
+            attrs={
+                "description": "Weather data",
+                "units": {
+                    "pressure": "hPa",
+                    "humidity": "%"
+                },
+                "creation_date": "2023-01-01",
+                "author": "Data Scientist"
+            }
+        )
+
+
+Converting Xarray objects, NumPy and Pandas and NetCDF
+------------------------------------------------------
+
+Another handy feature of Xarray is the simple conversion between Xarray objects, NumPy arrays, Pandas DataFrames and even NetCDF files. 
+
+To convert an xarray DataArray to a NumPy array, you can use the ``.values`` attribute or the ``.to_numpy()`` method: ::
+
+        # Convert the 'pressure' DataArray to a NumPy array
+        pressure_numpy = ds['pressure'].values
+        # or
+        pressure_numpy = ds['pressure'].to_numpy()
+
+To convert the entire Dataset or individual DataArrays to pandas DataFrames, use the ``.to_dataframe()`` method: ::
+
+        # Convert the entire Dataset to a DataFrame
+        df = ds.to_dataframe()
+        # Convert a single DataArray to DataFrame
+        pressure_df = ds['pressure'].to_dataframe()
+
+To save the dataset as a NetCDF file, use the ``.to_netcdf()`` method: ::
+
+        # Save the Dataset as a NetCDF file
+        ds.to_netcdf('weather_data.nc')
 
 
 Exercises 2 (if time allows)
