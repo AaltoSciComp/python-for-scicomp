@@ -22,14 +22,14 @@ Xarray
 
 With NumPy and Pandas we have already encountered two powerful libraries that can significantly simplify working with scientific data. Unfortunately, working with real-world data with these two libraries can still be challenging and cumbersome, especially when working with multi-dimensional data. Let's consider the following example: 
 
-Imagine we have a dataset representing temperature measurements across different height, latitudes, and longitudes. We can store the temperature data as a 3D array where each axis corresponds to one of these dimensions: :: 
+Imagine we have a dataset representing temperature measurements across different heights, latitudes, and longitudes. We can store the temperature data as a 3D NumPy array where each axis corresponds to one of these dimensions: :: 
 
         import numpy as np
         # Create a 3D numpy array: height x latitude x longitude
         data = np.random.rand(10, 5, 5)  # 10 heights, 5 latitudes, 5 longitudes
 
 
-So far, so good. Let's assume now we want to take a look at a specific value in the dataset at a certain height, latitude, and longitude. We could do this by indexing the array with the corresponding indices: ::
+Let's assume now we want to take a look at a specific value in the dataset at a certain height, latitude, and longitude. We could do this by indexing the array with the corresponding indices: ::
 
         # Get the temperature at height 3, latitude 2, longitude 4
         temperature = data[3, 2, 4]
@@ -49,7 +49,7 @@ Let us open a python shell and download a public dataset: ::
         >>> from pythia_datasets import DATASETS
         >>> filepath = DATASETS.fetch('CESM2_sst_data.nc')
 
-We can now import xarray and open the dataset. Le'ts take a look at the dataset: ::
+We can now import xarray and open the dataset. Le'ts take a look at what it contains: ::
 
         >>> import xarray as xr
         >>> ds = xr.open_dataset(filepath)
@@ -91,7 +91,7 @@ That was a lot of information at once, but let's break it down.
         - At the bottom, we see the attributes of the dataset. This is a dictionary that stores metadata about the dataset.
 
 
-The following image shows the structure of an Xarray Dataset:
+The following image shows the structure of this particular Xarray Dataset:
 
         .. image:: img/xarray/xarray_dataset_image.png
 
@@ -136,7 +136,7 @@ As you can see, the Xarray code is much more readable and we didn't need to keep
 Plotting data in Xarray
 -----------------------
 
-Another awesome feature of Xarray is its plotting capabilities. We can easily plot data in 1D and 2D using the ``.plot()`` method. Xarray uses a widely used plotting library called matplotlib for this. When calling the ``.plot()`` Xarray checks the dimensionality of the data and plots it accordingly. Let's import matplotlib and plot the data  ::
+Another awesome feature of Xarray is its plotting capabilities. We can easily plot data in 1D and 2D using the ``.plot()`` method. Xarray uses a widely used plotting library called matplotlib for this. When calling the ``.plot()`` method, Xarray checks the dimensionality of the data and plots it accordingly. Let's import matplotlib and plot the data: ::
 
         import matplotlib.pyplot as plt
 
@@ -147,7 +147,7 @@ For a 2D DataArray the plot would resemble this example:
 
         .. image:: img/xarray/xarray_2d_plot.png
 
-Note, that we didn't specify the labels, Xarray automatically used the coordinates of the DataArray for the plot. This plot might not be one you include directly in a paper, but it is a great way to quickly visualize your data.
+Note, that we didn't specify the axes labels, Xarray automatically used the coordinates of the DataArray for the plot. This plot might not be one you include directly in a paper, but it is a great way to quickly visualize your data.
 
 Let's have a look at a dataslice of 1D data: ::
 
@@ -262,7 +262,7 @@ Advanced Topics
 We have barely scratched the surface of all the features Xarray has to offer. Hopefully this quick introduction has shown you whether Xarray is the right tool for your data analysis needs. If you are interested in learning more about Xarray, here are some topics for further reading:
 
 
-- Xarray integrates with Dask to support parallel computations and streaming computation on datasets that don’t fit into memory. If you work with datasets that are to large for your memory, have a read of the chapter `Parallel computing with Dask <https://docs.xarray.dev/en/stable/user-guide/dask.html>`_.
-- If you want to accelerate Xarray operations on your GPU, have a look at `CuPy-Xarray <https://cupy-xarray.readthedocs.io/latest/>`_.
+- Xarray integrates with Dask to support parallel computations and streaming computation on datasets that don’t fit into memory. If you work with datasets that are too large for your memory, have a read of the chapter `Parallel computing with Dask <https://docs.xarray.dev/en/stable/user-guide/dask.html>`_.
+- If you want to accelerate Xarray operations with your GPU, have a look at `CuPy-Xarray <https://cupy-xarray.readthedocs.io/latest/>`_.
 - Xarray can be combined with pint, a Python library that adds support for physical quantities to NumPy arrays. This `blog post <https://xarray.dev/blog/introducing-pint-xarray>`_ provides a good introduction to the topic.
 - You can extend Xarray with your own methods using the `register_dataset_accessor() <https://docs.xarray.dev/en/stable/generated/xarray.register_dataset_accessor.html>`_ method. This is a powerful feature that allows you to add custom methods to your own Xarray Datasets.
