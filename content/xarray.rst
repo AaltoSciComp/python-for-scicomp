@@ -95,6 +95,49 @@ The following image shows the structure of an Xarray Dataset:
 
         .. image:: img/xarray/xarray_dataset_image.png
 
+
+Accessing and manipulating data in Xarray
+-----------------------------------------
+
+We can select a Data variable from the dataset using a dictionary-like syntax: ::
+
+        temperature_data = ds['Temperature_isobaric']
+
+The new variable ``temperature_data`` is a ``DataArray`` object. An xarray ``Dataset`` typically consists of multiple ``DataArrays``.
+
+Xarray uses Numpy arrays under the hood, we can always access the raw data using the ``.values`` attribute: ::
+
+        temperature_numpy = ds['Temperature_isobaric'].values
+
+Xarray allows you to select data using the ``.sel()`` method, which uses the labels of the dimensions to extract data: ::
+
+        ds['Temperature_isobaric'].sel(x='-3292.0078')
+
+We can still access the same data by index using the ``.isel()`` method: ::
+
+        ds['Temperature_isobaric'].isel(x=1)
+
+Xarray also provides a wide range of aggregation methods such as ``sum()``, ``mean()``, ``median()``, ``min()``, and ``max()``. We can use these methods to aggregate data over one or multiple dimensions: ::
+
+        # Calculate the mean over the 'isobaric1' dimension
+        ds['Temperature_isobaric'].mean(dim='isobaric1')
+
+Let's take a look at a concrete example and compare it to NumPy. We will calculate the max temperature over the 'isobaric1' dimension at a specific value for x: ::
+
+        # Xarray
+        ds['Temperature_isobaric'].sel(x='-3259.5447').max(dim='isobaric1').values
+
+        # NumPy
+        np.max(temperature_numpy[:, :, :, 2 ], axis = 1)
+
+
+As you can see, the Xarray code is much more readable and we didn't need to keep track of the right indexes and order of the dimensions.
+
+Plotting data in Xarray
+-----------------------
+
+
+
 Why use Xarray?
 ---------------
 
