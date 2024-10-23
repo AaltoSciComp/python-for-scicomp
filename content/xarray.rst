@@ -230,7 +230,7 @@ Xarray also provides a wide range of aggregation methods such as ``sum()``, ``me
 Let's take a look at a concrete example and compare it to NumPy. We will calculate the max temperature over the 'isobaric1' dimension at a specific value for x: ::
 
         >>> # Xarray
-        >>> ds['Temperature_isobaric'].sel(x='-3259.5447').max(dim='isobaric1').values
+        >>> ds['Temperature_isobaric'].sel(x='-3259.5447').max(dim='isobaric1')
         array([[294.11   , 294.14124, 294.1256 , 294.0475 , 293.90686, 293.6256 ,
                 ...,
                 276.46936, 276.59436, 276.6881 , 276.78186, 276.82874]],
