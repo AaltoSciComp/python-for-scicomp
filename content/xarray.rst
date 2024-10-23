@@ -252,10 +252,10 @@ Plotting data in Xarray
 
 Another awesome feature of Xarray is its plotting capabilities. We can easily plot data in 1D and 2D using the ``.plot()`` method. Xarray uses a widely used plotting library called matplotlib for this. When calling the ``.plot()`` method, Xarray checks the dimensionality of the data and plots it accordingly. Let's import matplotlib and plot the data: ::
 
-        import matplotlib.pyplot as plt
+        >>> import matplotlib.pyplot as plt
 
-        ds['Temperature_isobaric'].isel(x=2).plot()
-        plt.show()
+        >>> ds['Temperature_isobaric'].isel(x=2).plot()
+        >>> plt.show()
         
 For a 2D DataArray the plot would resemble this example:
 
@@ -265,8 +265,8 @@ Note, that we didn't specify the axes labels, Xarray automatically used the coor
 
 Let's have a look at a dataslice of 1D data: ::
 
-        ds['Temperature_isobaric'].isel(x=2, y=5).plot()
-        plt.show()
+        >>> ds['Temperature_isobaric'].isel(x=2, y=5).plot()
+        >>> plt.show()
 
 The resulting plot detects the dimentionality of the data and plots it accordingly: 
 
@@ -274,14 +274,14 @@ The resulting plot detects the dimentionality of the data and plots it according
 
 If the data has more than two dimensions, Xarray will plot a histogram of the data: ::
 
-        ds['Temperature_isobaric'].plot()
-        plt.show()
+        >>> ds['Temperature_isobaric'].plot()
+        >>> plt.show()
 
 The resulting plot would look like this:
 
         .. image:: img/xarray/xarray_hist.png
 
-We can modify the plots by passing additional arguments to the ``.plot()`` method. Since we haven't discussed the plotting library matplotlib in detail, we will not go into further detail here. You can find more information in the `Xarray documentation <https://xarray.pydata.org/en/stable/plotting.html>`_.
+We can modify the plots by passing additional arguments to the ``.plot()`` method. Since we haven't discussed the plotting library matplotlib in this course, we will not go into further detail here. You can find more information in the `Xarray documentation <https://xarray.pydata.org/en/stable/plotting.html>`_.
 
 Exercises 1 (if time allows)
 ----------------------------
@@ -298,12 +298,12 @@ Exercises 1 (if time allows)
 Creating your own Xarray Dataset
 --------------------------------
 
-Creating your own Xarray Dataset is quite simple. We can create a Dataset from scratch using basic Python data structures. Let's create a simple weather dataset with pressure and humidity data: ::
+Creating your own Xarray Dataset is quite simple. We can create a Dataset from scratch using basic Python data structures. Let's create a simple weather dataset with pressure and humidity data with the following script: ::
 
         import xarray as xr
         import numpy as np
 
-        # Define coordinates using basic lists
+        # Define coordinates using basic Python lists
         time = ['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-04', '2023-01-05']
         location = ['Location1', 'Location2', 'Location3']
 
@@ -376,7 +376,7 @@ Advanced Topics
 We have barely scratched the surface of all the features Xarray has to offer. Hopefully this quick introduction has shown you whether Xarray is the right tool for your data analysis needs. If you are interested in learning more about Xarray, here are some topics for further reading:
 
 
-- Xarray integrates with Dask to support parallel computations and streaming computation on datasets that don’t fit into memory. If you work with datasets that are too large for your memory, have a read of the chapter `Parallel computing with Dask <https://docs.xarray.dev/en/stable/user-guide/dask.html>`_.
+- Xarray integrates with Dask to support parallel computations and streaming computation on datasets that don’t fit into memory. If you work with datasets that are too large for your memory, have a read of the chapter `Parallel computing with Dask <https://docs.xarray.dev/en/stable/user-guide/dask.html>`_ in the Xarray documentation.
 - If you want to accelerate Xarray operations with your GPU, have a look at `CuPy-Xarray <https://cupy-xarray.readthedocs.io/latest/>`_.
 - Xarray can be combined with pint, a Python library that adds support for physical quantities to NumPy arrays. This `blog post <https://xarray.dev/blog/introducing-pint-xarray>`_ provides a good introduction to the topic.
 - You can extend Xarray with your own methods using the `register_dataset_accessor() <https://docs.xarray.dev/en/stable/generated/xarray.register_dataset_accessor.html>`_ method. This is a powerful feature that allows you to add custom methods to your own Xarray Datasets.
