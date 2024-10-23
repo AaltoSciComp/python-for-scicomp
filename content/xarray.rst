@@ -283,8 +283,8 @@ The resulting plot would look like this:
 
 We can modify the plots by passing additional arguments to the ``.plot()`` method. Since we haven't discussed the plotting library matplotlib in this course, we will not go into further detail here. You can find more information in the `Xarray documentation <https://xarray.pydata.org/en/stable/plotting.html>`_.
 
-Exercises 1 (if time allows)
-----------------------------
+Exercises 1
+-----------
 
 .. challenge:: Exercises: Xarray-1
 
@@ -371,16 +371,61 @@ To save the dataset as a NetCDF file, use the ``.to_netcdf()`` method: ::
         ds.to_netcdf('weather_data.nc')
 
 
-Exercises 2 (if time allows)
-----------------------------
+Exercises 2
+-----------
 
 .. challenge:: Exercises: Xarray-2
 
-        Provide two 3D numpy arrays and let participants turn them into an Xarray Dataset with the correct dimensions and coordinates.
+        Let's change from clmate science to finance for this example. We assume we want to put the stock prices and trading volumes of three companies over ten days in one dataset. Create an Xarray Dataset that uses time and company as dimensions and contains two DataArrays: ``stock_price`` and ``trading_volume``. You can choose the values for the stock prices and trading volumes yourself. As a last thing, add the currency of the stock prices as an attribute to the Dataset.
 
 .. solution:: Solutions: Xarray-2
 
-        Solution to Exercise 2 coming soon.
+        We can use a script similar to this one: ::
+
+                import xarray as xr
+                import numpy as np
+
+                time = [
+                    "2023-01-01",
+                    "2023-01-02",
+                    "2023-01-03",
+                    "2023-01-04",
+                    "2023-01-05",
+                    "2023-01-06",
+                    "2023-01-07",
+                    "2023-01-08",
+                    "2023-01-09",
+                    "2023-01-10",
+                ]
+                companies = ["AAPL", "GOOGL", "MSFT"]
+                stock_prices = np.random.normal(loc=[100, 1500, 200], scale=[10, 50, 20], size=(10, 3))
+                trading_volumes = np.random.randint(1000, 10000, size=(10, 3))
+                ds = xr.Dataset(
+                    {
+                        "stock_price": (["time", "company"], stock_prices),
+                        "trading_volume": (["time", "company"], trading_volumes),
+                    },
+                    coords={"time": time, "company": companies},
+                    attrs={"currency": "USD"},
+                )
+                print(ds)
+
+        The output should then resemble this: ::
+
+                $ python exercise.py
+                <xarray.Dataset> Size: 940B
+                Dimensions:         (time: 10, company: 3)
+                Coordinates:
+                  * time            (time) <U10 400B '2023-01-01' '2023-01-02' ... '2023-01-10'
+                  * company         (company) <U5 60B 'AAPL' 'GOOGL' 'MSFT'
+                Data variables:
+                    stock_price     (time, company) float64 240B 101.1 1.572e+03 ... 217.8
+                    trading_volume  (time, company) int64 240B 1214 7911 4578 ... 4338 6861 6958
+                Attributes:
+                    currency:  USD
+
+
+
 
 
 Advanced Topics 
