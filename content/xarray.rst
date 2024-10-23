@@ -20,7 +20,7 @@ Xarray
 .. highlight:: python
 
 
-With NumPy and Pandas we have already encountered two powerful libraries that can significantly simplify working with scientific data. Unfortunately, working with real-world data with these two libraries can still be challenging and cumbersome, especially when working with multi-dimensional data. Let's consider the following example: 
+We have already seen how Pandas simplifies working with tabular NumPy data by adding labels to columns and rows. In this lesson, we take a look at how xarray can be used to add the same functionality to multidimensional data. Let's consider the following example: 
 
 Imagine we have a dataset representing temperature measurements across different heights, latitudes, and longitudes. We can store the temperature data as a 3D NumPy array where each axis corresponds to one of these dimensions: :: 
 
