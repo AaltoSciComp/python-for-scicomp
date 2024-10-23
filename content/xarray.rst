@@ -128,7 +128,7 @@ We can select a single ``DataArray`` from the dataset using a dictionary-like sy
 
 The new variable ``temperature_data`` is a ``DataArray`` object. An xarray ``Dataset`` typically consists of multiple ``DataArrays``.
 
-Xarray uses Numpy(-like) arrays under the hood, we can always access the raw data using the ``.values`` attribute: ::
+Xarray uses Numpy(-like) arrays under the hood, we can always access the underlying Numpy array using the ``.values`` attribute: ::
 
         >>> temperature_numpy = ds['Temperature_isobaric'].values
         >>> temperature_numpy
