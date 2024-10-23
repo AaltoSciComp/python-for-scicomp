@@ -250,7 +250,7 @@ As you can see, the Xarray code is much more readable and we didn't need to keep
 Plotting data in Xarray
 -----------------------
 
-Another awesome feature of Xarray is its plotting capabilities. We can easily plot data in 1D and 2D using the ``.plot()`` method. Xarray uses a widely used plotting library called matplotlib for this. When calling the ``.plot()`` method, Xarray checks the dimensionality of the data and plots it accordingly. Let's import matplotlib and plot the data: ::
+Like Pandas, Xarray comes with basic plotting capabilities. We can easily plot data in 1D and 2D using the ``.plot()`` method. Xarray uses a widely used plotting library called matplotlib for this. When calling the ``.plot()`` method, Xarray checks the dimensionality of the data and plots it accordingly. Let's import matplotlib and plot the data: ::
 
         >>> import matplotlib.pyplot as plt
 
