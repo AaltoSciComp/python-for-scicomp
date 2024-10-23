@@ -116,6 +116,7 @@ def count_unique_words3(file_path: str) -> int:
 
 
 def main():
+    # book.txt is downloaded from https://www.gutenberg.org/cache/epub/2600/pg2600.txt
     _result = count_unique_words1("book.txt")
     _result = count_unique_words2("book.txt")
     _result = count_unique_words3("book.txt")
