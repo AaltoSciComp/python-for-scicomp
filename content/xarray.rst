@@ -412,7 +412,7 @@ Exercises 2
 
         The output should then resemble this: ::
 
-                $ python exercise.py
+                > python exercise.py
                 <xarray.Dataset> Size: 940B
                 Dimensions:         (time: 10, company: 3)
                 Coordinates:
