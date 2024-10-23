@@ -87,7 +87,7 @@ We can now import xarray and open the dataset. Le'ts take a look at what it cont
 That was a lot of information at once, but let's break it down. 
 
         - Close to the top of the output we see the ``Dimensions`` of the dataset: ``time1``, ``isobaric1``, ``y``, and ``x``. 
-        - Below the dimensions, we see the ``Coordinates`` of the dataset. These are the labels for the dimensions and give us the values of the dimension at each index.
+        - Below the dimensions, we see the ``Coordinates`` of the dataset. These are for each dimension the labels for each value along that dimension. For example, we have a timestamp of each value along the first dimension (``time1``).
         - The ``Data variables`` are the actual data stored in the dataset. We see that the dataset contains a bunch of arrays, most of which are 4-dimensional, where each dimension corresponds to one of the ``Dimensions`` described above. There are also some 2-dimensional arrays that only have some of the ``Dimensions`` described above.
         - At the bottom, we see the ``Attributes`` of the dataset. This is a dictionary that stores metadata about the dataset.
 
