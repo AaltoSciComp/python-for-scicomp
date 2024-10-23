@@ -236,6 +236,7 @@ Let's take a look at a concrete example and compare it to NumPy. We will calcula
                 276.46936, 276.59436, 276.6881 , 276.78186, 276.82874]],
               dtype=float32)
 
+In comparison, if we were to use plain Numpy, this would be: ::
 
         >>> # NumPy
         >>> np.max(temperature_numpy[:, :, :, 2 ], axis = 1)
