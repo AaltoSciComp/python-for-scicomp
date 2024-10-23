@@ -41,7 +41,8 @@ Unfortunately, Pandas isn't of much help either since it is not designed for dat
 What is Xarray?
 ----------------
 
-Xarray is a powerful Python library that introduces labelled multidimensional arrays.  
+Xarray is a powerful Python library that introduces labelled multidimensional arrays. This means the axes have labels (=dimensions), each row/column has a label (coordinates), and labels can even have units of measurement. This makes it much easier to follow what the data in an array means and select specific portions of data.
+
 We will first download a dataset similar to the example above to illustrate the advantages of Xarray. We will cover how to transform your own data into an Xarray Dataset later in this lecture.
 
 Let us open a python shell and download a public dataset: ::
