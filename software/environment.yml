@@ -23,3 +23,4 @@ dependencies:
   - flake8
   - pep8-naming
   - yapf
+  - scalene
