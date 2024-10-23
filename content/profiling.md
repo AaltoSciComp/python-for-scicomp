@@ -72,6 +72,10 @@ Please try to go through the exercise in the following steps:
    ```console
    $ scalene example.py
    ```
+   Alternatively you can do this (and then open the generated file in a browser):
+   ```console
+   $ scalene example.py --html > profile.html
+   ```
    You can find an example of the generated HTML report in the solution below.
 1. Does the result match your prediction? Can you explain the results?
 
