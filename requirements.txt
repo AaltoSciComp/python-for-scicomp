@@ -1,10 +1,9 @@
 Sphinx
 sphinx_rtd_theme
+sphinx_rtd_theme_ext_color_contrast
 myst_nb
-sphinx-copybutton
 sphinx-lesson
 https://github.com/aaltoscicomp/sphinx-aaltoscicomp-branding/archive/master.zip
-sphinx_rtd_theme_ext_color_contrast
 sphinxext-opengraph
 sphinx-thebe
 
