@@ -101,37 +101,151 @@ Accessing and manipulating data in Xarray
 
 We can select a Data variable from the dataset using a dictionary-like syntax: ::
 
-        temperature_data = ds['Temperature_isobaric']
+        >>> temperature_data = ds['Temperature_isobaric']
+        >>> temperature_data
+        <xarray.DataArray 'Temperature_isobaric' (time1: 1, isobaric1: 29, y: 119,
+                                                  x: 268)> Size: 4MB
+        [924868 values with dtype=float32]
+        Coordinates:
+          * time1      (time1) datetime64[ns] 8B 1993-03-13
+          * isobaric1  (isobaric1) float32 116B 100.0 125.0 150.0 ... 950.0 975.0 1e+03
+          * y          (y) float32 476B -3.117e+03 -3.084e+03 -3.052e+03 ... 681.6 714.1
+          * x          (x) float32 1kB -3.324e+03 -3.292e+03 ... 5.311e+03 5.343e+03
+        Attributes:
+            long_name:           Temperature @ Isobaric surface
+            units:               K
+            description:         Temperature
+            grid_mapping:        LambertConformal_Projection
+            Grib_Variable_Id:    VAR_7-15-131-11_L100
+            Grib1_Center:        7
+            Grib1_Subcenter:     15
+            Grib1_TableVersion:  131
+            Grib1_Parameter:     11
+            Grib1_Level_Type:    100
+            Grib1_Level_Desc:    Isobaric surface
+
 
 The new variable ``temperature_data`` is a ``DataArray`` object. An xarray ``Dataset`` typically consists of multiple ``DataArrays``.
 
 Xarray uses Numpy(-like) arrays under the hood, we can always access the raw data using the ``.values`` attribute: ::
 
-        temperature_numpy = ds['Temperature_isobaric'].values
+        >>> temperature_numpy = ds['Temperature_isobaric'].values
+        >>> temperature_numpy
+        array([[[[201.88957, 202.2177 , 202.49895, ..., 195.10832, 195.23332,
+                  195.37395],
+                 [201.68645, 202.0302 , 202.3427 , ..., 195.24895, 195.38957,
+                  195.51457],
+                 [201.5302 , 201.87395, 202.20207, ..., 195.37395, 195.51457,
+                  195.63957],
+                 ...,
+                 [276.735  , 276.70374, 276.6881 , ..., 289.235  , 289.1725 ,
+                  289.07874],
+                 [276.86   , 276.84436, 276.78186, ..., 289.1881 , 289.11   ,
+                  289.01624],
+                 [277.01624, 276.82874, 276.82874, ..., 289.14124, 289.0475 ,
+                  288.96936]]]], dtype=float32)
+
 
 Xarray allows you to select data using the ``.sel()`` method, which uses the labels of the dimensions to extract data: ::
 
-        ds['Temperature_isobaric'].sel(x='-3292.0078')
+        >>> ds['Temperature_isobaric'].sel(x='-3292.0078')
+        <xarray.DataArray 'Temperature_isobaric' (time1: 1, isobaric1: 29, y: 119)> Size: 14kB
+        array([[[202.2177 , 202.0302 , ..., 219.67082, 219.74895],
+                [202.58566, 202.58566, ..., 219.16379, 219.28879],
+                ...,
+                [292.1622 , 292.14658, ..., 275.05283, 275.11533],
+                [294.1256 , 294.14124, ..., 276.84436, 276.82874]]], dtype=float32)
+        Coordinates:
+          * time1      (time1) datetime64[ns] 8B 1993-03-13
+          * isobaric1  (isobaric1) float32 116B 100.0 125.0 150.0 ... 950.0 975.0 1e+03
+          * y          (y) float32 476B -3.117e+03 -3.084e+03 -3.052e+03 ... 681.6 714.1
+            x          float32 4B -3.292e+03
+        Attributes:
+            long_name:           Temperature @ Isobaric surface
+            units:               K
+            description:         Temperature
+            grid_mapping:        LambertConformal_Projection
+            Grib_Variable_Id:    VAR_7-15-131-11_L100
+            Grib1_Center:        7
+            Grib1_Subcenter:     15
+            Grib1_TableVersion:  131
+            Grib1_Parameter:     11
+            Grib1_Level_Type:    100
+            Grib1_Level_Desc:    Isobaric surface
+
 
 We can still access the same data by index using the ``.isel()`` method: ::
 
-        ds['Temperature_isobaric'].isel(x=1)
+        >>> ds['Temperature_isobaric'].isel(x=1)
+        <xarray.DataArray 'Temperature_isobaric' (time1: 1, isobaric1: 29, y: 119)> Size: 14kB
+        array([[[202.2177 , 202.0302 , ..., 219.67082, 219.74895],
+                [202.58566, 202.58566, ..., 219.16379, 219.28879],
+                ...,
+                [292.1622 , 292.14658, ..., 275.05283, 275.11533],
+                [294.1256 , 294.14124, ..., 276.84436, 276.82874]]], dtype=float32)
+        Coordinates:
+          * time1      (time1) datetime64[ns] 8B 1993-03-13
+          * isobaric1  (isobaric1) float32 116B 100.0 125.0 150.0 ... 950.0 975.0 1e+03
+          * y          (y) float32 476B -3.117e+03 -3.084e+03 -3.052e+03 ... 681.6 714.1
+            x          float32 4B -3.292e+03
+        Attributes:
+            long_name:           Temperature @ Isobaric surface
+            units:               K
+            description:         Temperature
+            grid_mapping:        LambertConformal_Projection
+            Grib_Variable_Id:    VAR_7-15-131-11_L100
+            Grib1_Center:        7
+            Grib1_Subcenter:     15
+            Grib1_TableVersion:  131
+            Grib1_Parameter:     11
+            Grib1_Level_Type:    100
+            Grib1_Level_Desc:    Isobaric surface
+
 
 Xarray also provides a wide range of aggregation methods such as ``sum()``, ``mean()``, ``median()``, ``min()``, and ``max()``. We can use these methods to aggregate data over one or multiple dimensions: ::
 
-        # Calculate the mean over the 'isobaric1' dimension
-        ds['Temperature_isobaric'].mean(dim='isobaric1')
+        >>> # Calculate the mean over the 'isobaric1' dimension
+        >>> ds['Temperature_isobaric'].mean(dim='isobaric1')
+        <xarray.DataArray 'Temperature_isobaric' (time1: 1, y: 119, x: 268)> Size: 128kB
+        array([[[259.88446, 259.90222, 259.91678, ..., 262.61667, 262.6285 ,
+                 262.65167],
+                [259.74866, 259.76752, 259.78638, ..., 262.5757 , 262.58218,
+                 262.57516],
+                [259.6156 , 259.63498, 259.65115, ..., 262.52075, 262.51215,
+                 262.4976 ],
+                ...,
+                [249.8796 , 249.83649, 249.79501, ..., 254.43617, 254.49059,
+                 254.54985],
+                [249.8505 , 249.80202, 249.75244, ..., 254.37044, 254.42378,
+                 254.47711],
+                [249.82195, 249.75998, 249.71204, ..., 254.30956, 254.35805,
+                 254.41139]]], dtype=float32)
+        Coordinates:
+          * time1    (time1) datetime64[ns] 8B 1993-03-13
+          * y        (y) float32 476B -3.117e+03 -3.084e+03 -3.052e+03 ... 681.6 714.1
+          * x        (x) float32 1kB -3.324e+03 -3.292e+03 ... 5.311e+03 5.343e+03
+
 
 Let's take a look at a concrete example and compare it to NumPy. We will calculate the max temperature over the 'isobaric1' dimension at a specific value for x: ::
 
-        # Xarray
-        ds['Temperature_isobaric'].sel(x='-3259.5447').max(dim='isobaric1').values
+        >>> # Xarray
+        >>> ds['Temperature_isobaric'].sel(x='-3259.5447').max(dim='isobaric1').values
+        array([[294.11   , 294.14124, 294.1256 , 294.0475 , 293.90686, 293.6256 ,
+                ...,
+                276.46936, 276.59436, 276.6881 , 276.78186, 276.82874]],
+              dtype=float32)
 
-        # NumPy
-        np.max(temperature_numpy[:, :, :, 2 ], axis = 1)
+
+        >>> # NumPy
+        >>> np.max(temperature_numpy[:, :, :, 2 ], axis = 1)
+        array([[294.11   , 294.14124, 294.1256 , 294.0475 , 293.90686, 293.6256 ,
+                ...,
+                276.46936, 276.59436, 276.6881 , 276.78186, 276.82874]],
+              dtype=float32)
 
 
-As you can see, the Xarray code is much more readable and we didn't need to keep track of the right indexes and order of the dimensions.
+
+As you can see, the Xarray code is much more readable and we didn't need to keep track of the right indices and order of the dimensions.
 
 Plotting data in Xarray
 -----------------------
