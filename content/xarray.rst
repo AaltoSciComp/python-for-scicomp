@@ -203,7 +203,7 @@ We can still access the same data by index using the ``.isel()`` method: ::
             Grib1_Level_Desc:    Isobaric surface
 
 
-Xarray also provides a wide range of aggregation methods such as ``sum()``, ``mean()``, ``median()``, ``min()``, and ``max()``. We can use these methods to aggregate data over one or multiple dimensions: ::
+A ``DataArray`` provides a lot of the functionality we expect from Numpy arrays,  such as ``sum()``, ``mean()``, ``median()``, ``min()``, and ``max()`` that we can use these methods to aggregate data over one or multiple dimensions: ::
 
         >>> # Calculate the mean over the 'isobaric1' dimension
         >>> ds['Temperature_isobaric'].mean(dim='isobaric1')
