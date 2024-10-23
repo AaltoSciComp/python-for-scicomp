@@ -127,7 +127,6 @@ We can select a single ``DataArray`` from the dataset using a dictionary-like sy
             Grib1_Level_Desc:    Isobaric surface
 
 
-The new variable ``temperature_data`` is a ``DataArray`` object. An xarray ``Dataset`` typically consists of multiple ``DataArrays``.
 
 Xarray uses Numpy(-like) arrays under the hood, we can always access the underlying Numpy array using the ``.values`` attribute: ::
 
