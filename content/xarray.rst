@@ -288,11 +288,24 @@ Exercises 1 (if time allows)
 
 .. challenge:: Exercises: Xarray-1
 
-        Take example dataset and perform a series of operations on it using labels and plot the results. Details coming soon. 
+        Download the ``NARR_19930313_0000.nc`` dataset have a look at all Data variables. Calculate the geopotential height at ``x=5148.3726`` averaged over ``y`` and return the median value. You can use the ``.plot()`` method to check on the way whether you use the correct dimensions and indices.
 
 .. solution:: Solutions: Xarray-1
 
-        Solution to Exercise 1 coming soon. 
+        One way of calculating this is: ::
+
+                >>> from pythia_datasets import DATASETS
+                >>> import xarray as xr
+                >>> 
+                >>> filepath = DATASETS.fetch('NARR_19930313_0000.nc')
+                >>> ds = xr.open_dataset(filepath)
+                >>> ds['Geopotential_height_isobaric'].sel(x=5148.3726).mean('y').median()
+                <xarray.DataArray 'Geopotential_height_isobaric' ()> Size: 4B
+                array(4395.487, dtype=float32)
+                Coordinates:
+                    x        float32 4B 5.148e+03
+
+
 
 
 Creating your own Xarray Dataset
