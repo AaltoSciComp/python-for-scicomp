@@ -36,18 +36,18 @@ Let's assume now we want to take a look at a specific value in the dataset at a 
 
 OK, we got a value, but how do we know whether this value corresponds to the correct height, latitude and longitude? Are we sure that latitude was the second dimension in the dataset? Was it the second or third index that corresponds to the correct position? In pure NumPy, we are mostly left in the dark and need to manually keep track of these things. 
 
-Unfortunately, Pandas isn't of much help either since it is not designed for data with more than 2 dimensions. Fortunately, some clever climate scientists have come up with a solution to this problem and created Xarray.
+Unfortunately, Pandas isn't of much help either since it is not designed for data with more than 2 dimensions. Fortunately, `some clever climate scientists <https://github.com/pydata/xarray/graphs/contributors>`_ have come up with a solution to this problem and created Xarray.
 
 What is Xarray?
 ----------------
 
 Xarray is a powerful Python library that introduces labelled multidimensional arrays.  
-We will first download an dataset similar to the example above to illustrate the advantages of Xarray. We will cover how to transform your own data into an Xarray Dataset later in this lecture.
+We will first download a dataset similar to the example above to illustrate the advantages of Xarray. We will cover how to transform your own data into an Xarray Dataset later in this lecture.
 
 Let us open a python shell and download a public dataset: ::
         
         >>> from pythia_datasets import DATASETS
-        >>> filepath = DATASETS.fetch('CESM2_sst_data.nc')
+        >>> filepath = DATASETS.fetch('NARR_19930313_0000.nc')
 
 We can now import xarray and open the dataset. Le'ts take a look at what it contains: ::
 
@@ -85,10 +85,10 @@ We can now import xarray and open the dataset. Le'ts take a look at what it cont
 
 That was a lot of information at once, but let's break it down. 
 
-        - Close to the top of the output we see the dimensions of the dataset: time1, isobaric1, y, and x. 
-        - Below the dimensions, we see the coordinates of the dataset. These are the labels for the dimensions and give us the values of the dimension at each index.
-        - The data variables are the actual data stored in the dataset.
-        - At the bottom, we see the attributes of the dataset. This is a dictionary that stores metadata about the dataset.
+        - Close to the top of the output we see the ``Dimensions`` of the dataset: ``time1``, ``isobaric1``, ``y``, and ``x``. 
+        - Below the dimensions, we see the ``Coordinates`` of the dataset. These are the labels for the dimensions and give us the values of the dimension at each index.
+        - The ``Data variables`` are the actual data stored in the dataset.
+        - At the bottom, we see the ``Attributes`` of the dataset. This is a dictionary that stores metadata about the dataset.
 
 
 The following image shows the structure of this particular Xarray Dataset:
@@ -105,7 +105,7 @@ We can select a Data variable from the dataset using a dictionary-like syntax: :
 
 The new variable ``temperature_data`` is a ``DataArray`` object. An xarray ``Dataset`` typically consists of multiple ``DataArrays``.
 
-Xarray uses Numpy arrays under the hood, we can always access the raw data using the ``.values`` attribute: ::
+Xarray uses Numpy(-like) arrays under the hood, we can always access the raw data using the ``.values`` attribute: ::
 
         temperature_numpy = ds['Temperature_isobaric'].values
 
