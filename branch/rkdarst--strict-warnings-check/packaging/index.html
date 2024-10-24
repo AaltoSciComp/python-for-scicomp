@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Packaging &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Binder" href="../binder/" />
+    <link rel="prev" title="Library ecosystem" href="../libraries/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#organizing-python-projecs-into-modules">Organizing Python projecs into modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#birds-eye-view-of-pypi-pip-and-conda">Birds-eye view of PyPI, pip, and Conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-packages">Python packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submit-your-package-to-pypi">Submit your package to PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools-that-simplify-sharing-via-pypi">Tools that simplify sharing via PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-a-conda-package-and-share-it">Building a conda package and share it</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-a-python-package-with-conda-skeleton-pypi">Building a python package with conda skeleton pypi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publishing-a-python-package">Publishing a python package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-pinning">Version pinning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Packaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/packaging.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="packaging">
+<h1>Packaging<a class="headerlink" href="#packaging" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-questions questions admonition">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How to organize larger Python projects?</p></li>
+<li><p>How can you make your Python functions most usable by your collaborators?</p></li>
+<li><p>How to prepare your code to make a Python package?</p></li>
+<li><p>How to publish your Python package?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn to identify the components of a Python package</p></li>
+<li><p>Learn to create a Python package</p></li>
+<li><p>Learn to publish a Python package</p></li>
+</ul>
+</div>
+<div class="section" id="organizing-python-projecs-into-modules">
+<h2>Organizing Python projecs into modules<a class="headerlink" href="#organizing-python-projecs-into-modules" title="Permalink to this headline">¶</a></h2>
+<p>what is <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> and relative imports.</p>
+</div>
+<div class="section" id="best-practices">
+<h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add a license to your code (See <a class="reference external" href="https://cicero.xyz/v3/remark/0.14.0/github.com/coderefinery/social-coding/master/licensing-and-cakes.md/#1">Software Licensing and Open source explained with cakes</a>)</p></li>
+<li><p>Write a <cite>README.md</cite> file</p></li>
+</ul>
+<p>It is also recommended to <a class="reference external" href="https://coderefinery.github.io/documentation/">document your package</a>.</p>
+</div>
+<div class="section" id="birds-eye-view-of-pypi-pip-and-conda">
+<h2>Birds-eye view of PyPI, pip, and Conda<a class="headerlink" href="#birds-eye-view-of-pypi-pip-and-conda" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="python-packages">
+<h2>Python packages<a class="headerlink" href="#python-packages" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-packaging-1 challenge admonition">
+<p class="admonition-title">Packaging 1</p>
+<dl class="simple">
+<dt>TODO: - Create a very simple Python package and make it pip-installable</dt><dd><ul class="simple">
+<li><p>Test to install it locally</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="submit-your-package-to-pypi">
+<h2>Submit your package to PyPI<a class="headerlink" href="#submit-your-package-to-pypi" title="Permalink to this headline">¶</a></h2>
+<p>TODO:
+- Show what is required. Remind about the importance of documentation, license, etc.
+- Test-PyPI</p>
+</div>
+<div class="section" id="tools-that-simplify-sharing-via-pypi">
+<h2>Tools that simplify sharing via PyPI<a class="headerlink" href="#tools-that-simplify-sharing-via-pypi" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>poetry</p></li>
+<li><p>flit</p></li>
+</ul>
+</div>
+<div class="section" id="building-a-conda-package-and-share-it">
+<h2>Building a conda package and share it<a class="headerlink" href="#building-a-conda-package-and-share-it" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-prerequisites callout admonition">
+<p class="admonition-title">Prerequisites</p>
+<p>To create a conda package, <cite>conda-build</cite> package is required. You may install it with <strong>Anaconda Navigator</strong> or from the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">conda</span><span class="o">-</span><span class="n">build</span>
+</pre></div>
+</div>
+</div>
+<p>The simplest way for creating a conda package for your python script is to first publish it in <a class="reference external" href="https://pypi.org/">PyPI</a> following the steps explained above.</p>
+<div class="section" id="building-a-python-package-with-conda-skeleton-pypi">
+<h3>Building a python package with conda skeleton pypi<a class="headerlink" href="#building-a-python-package-with-conda-skeleton-pypi" title="Permalink to this headline">¶</a></h3>
+<p>Once build, the conda package can be installed locally. For this example, we will use <a class="reference external" href="https://pypi.org/project/runtest/">runtest</a>.
+<a class="reference external" href="https://github.com/bast/runtest">runtest</a> is a numerically tolerant end-to-end test library for research software.</p>
+<ol class="arabic">
+<li><p>Create pypi skeleton:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">skeleton</span> <span class="n">pypi</span> <span class="n">runtest</span>
+</pre></div>
+</div>
+<p>The command above will create a new folder called <cite>runtest</cite> containing a file <cite>meta.yaml</cite>, the conda recipe for <cite>runtest</cite>.</p>
+</li>
+<li><p>Edit <cite>meta.yaml</cite> and update requirements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requirements</span><span class="p">:</span>
+  <span class="n">host</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">pip</span>
+    <span class="o">-</span> <span class="n">python</span>
+    <span class="o">-</span> <span class="n">flit</span>
+  <span class="n">run</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">python</span>
+    <span class="o">-</span> <span class="n">flit</span>
+</pre></div>
+</div>
+<p>In the requirements above, we specified what is required for the <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#host">host</a> and for <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#run">running</a>  the package.</p>
+<div class="admonition-remark callout admonition">
+<p class="admonition-title">Remark</p>
+<p>For pure python recipes, this is all you need for building a python package with conda.
+If your package needs to be built (for instance compilation), you would need additional files e.g. <cite>build.sh</cite> (to build on Linux/Mac-OSX) and <cite>bld.bat</cite> (to build on Windows systems). You can also add test scripts for testing your package. See <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#writing-the-build-script-files-build-sh-and-bld-bat">documentation</a></p>
+</div>
+</li>
+<li><p>Build your package with conda</p>
+<p>Your package is now ready to be build with conda:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span><span class="o">-</span><span class="n">build</span> <span class="n">runtest</span>
+</pre></div>
+</div>
+<div class="admonition-conda-package-location callout admonition">
+<p class="admonition-title">Conda package location</p>
+<p>Look at the messages produced while building. The location of the local conda package is given (search for <cite>anaconda upload</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">conda</span><span class="o">-</span><span class="n">bld</span><span class="o">/</span><span class="n">win</span><span class="o">-</span><span class="mi">64</span><span class="o">/</span><span class="n">runtest</span><span class="o">-</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">py38_0</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span>
+</pre></div>
+</div>
+<p>The prefix <cite>~/anaconda3/</cite> may be different on your machine and depending on your operating system (Linux, Mac-OSX or Windows) the sub-folder <cite>win-64</cite> differs too (for instance <cite>linux-64</cite> on Linux machines).</p>
+<p>The conda package we have created is specific to your platform (here <cite>win-64</cite>). It can be converted to other platforms using <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#converting-a-package-for-use-on-all-platforms">conda convert</a>.</p>
+</div>
+</li>
+<li><p>Check within new environment</p>
+<p>It is not necessary to create a new conda environment to install it but as explained in previous episode, it is good practice to have isolated environments.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">local</span><span class="o">-</span><span class="n">runtest</span> <span class="o">--</span><span class="n">use</span><span class="o">-</span><span class="n">local</span> <span class="n">runtest</span>
+</pre></div>
+</div>
+<p>We can then check <cite>runtest</cite> has been successfully installed in <cite>local-runtest</cite> conda environment. Open a new Terminal with <cite>local-runtest</cite> environment (either from the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">local</span><span class="o">-</span><span class="n">runtest</span>
+</pre></div>
+</div>
+<p>or via <strong>Anaconda Navigator</strong> (Open Terminal), import runtest and check its version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">runtest</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">runtest</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition-building-a-conda-package-from-scratch callout admonition">
+<p class="admonition-title">Building a conda package from scratch</p>
+<p>It is possible to build a conda package from scratch without using conda skeleton. We recommend you to check the <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html">conda-build documentation</a> for more information.</p>
+</div>
+<p>To be able to share and install your local conda package anywhere (on other platforms), you would need to upload it to a <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html">conda channel</a> (see below).</p>
+</div>
+<div class="section" id="publishing-a-python-package">
+<h3>Publishing a python package<a class="headerlink" href="#publishing-a-python-package" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Upload your package to <em>Anaconda.org</em>: see instructions <a class="reference external" href="https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs-skeleton.html#optional-uploading-packages-to-anaconda-org">here</a>. Please note that you will have to create an account on Anaconda.</p></li>
+<li><p>Upload your package to <a class="reference external" href="https://conda-forge.org/">conda-forge</a>: conda-forge is a conda channel: it contains community-led collection of recipes, build infrastructure and distributions for the conda package manager. Anyone can public conda packages to conda-forge if certain <a class="reference external" href="https://conda-forge.org/docs/">guidelines</a> are respected.</p></li>
+<li><p>Upload your package to <a class="reference external" href="https://bioconda.github.io/">bioconda</a>: bioconda is a very popular channel for the conda package manager specializing in bioinformatics software. As for conda-forge, you need to follow their <a class="reference external" href="https://bioconda.github.io/contributor/guidelines.html">guidelines</a> when building conda recipes.</p></li>
+</ul>
+<p>You can also <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/create-custom-channels.html">create your own conda channel</a> for publishing your packages.</p>
+</div>
+</div>
+<div class="section" id="version-pinning">
+<h2>Version pinning<a class="headerlink" href="#version-pinning" title="Permalink to this headline">¶</a></h2>
+<p>When to pin and when not to pin.</p>
+<div class="admonition-keypoints keypoints admonition">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Organize your code for publishing</p></li>
+<li><p>Pypi</p></li>
+<li><p>conda</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../binder/" class="btn btn-neutral float-right" title="Binder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../libraries/" class="btn btn-neutral float-left" title="Library ecosystem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
