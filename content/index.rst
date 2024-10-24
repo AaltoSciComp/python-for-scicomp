@@ -73,6 +73,8 @@ to learn yourself as you need to.
    60 min   ; :doc:`data-visualization`
    30 min   ; :doc:`data-formats`
    60 min   ; :doc:`scripts`
+   40 min   ; :doc:`profiling`
+   20 min   ; :doc:`productivity`
    30 min   ; :doc:`web-apis`
    15 min   ; :doc:`scipy`
    30 min   ; :doc:`libraries`
@@ -94,9 +96,9 @@ to learn yourself as you need to.
    pandas
    data-visualization
    data-formats
+   scripts
    profiling
    productivity
-   scripts
    scipy
    libraries
    dependencies
