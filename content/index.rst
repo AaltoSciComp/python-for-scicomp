@@ -94,6 +94,7 @@ to learn yourself as you need to.
    pandas
    data-visualization
    data-formats
+   profiling
    productivity
    scripts
    scipy
