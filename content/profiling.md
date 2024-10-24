@@ -1,25 +1,4 @@
-# Productivity tools and Profiling
-
-## Productivity tools
-
-```{questions}
-   - Do you have preferences on the visual aspects of the code
-     and how it should look?
-   - Do you use any tools that help you create better looking
-     code faster?
-```
-
-```{objectives}
-   - Learn tools that can help you be more productive.
-   - Learn how to follow standards that other people have created
-     and how to pick your own favorite.
-```
-
-> [!IMPORTANT]  
-> Left to do: Summarize [Productivity tools lecture](/content/productivity.rst) in 20 minutes.
-
-
-## Profiling
+# Profiling
 
 ```{questions}
    - When shall we worry about the performance of our code?
