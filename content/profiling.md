@@ -142,7 +142,8 @@ if __name__ == "__main__":
     to store unique words and checks if a word is already in the list before
     adding it.
     Checking whether a list contains an element might require traversing the
-    whole list, which is an O(n) operation.
+    whole list, which is an O(n) operation. As the list grows in size,
+    the lookup time increases with the size of the list.
   - The `count_unique_words1` and `count_unique_words3` functions are faster
     because they **use a set** to store unique words.
     Checking whether a set contains an element is an O(1) operation.
@@ -154,6 +155,7 @@ if __name__ == "__main__":
 
   What we can learn from this exercise:
   - When processing large files, it can be good to read them line by line
+    or in batches
     instead of reading the whole file into memory.
   - It is good to get an overview over standard data structures and their
     advantages and disadvantages (e.g. adding an element to a list is fast but checking whether
