@@ -1,6 +1,6 @@
 name: python-for-scicomp
 channels:
-  - defaults
+  - conda-forge
 dependencies:
   - jsonlines
   - jupyterlab
