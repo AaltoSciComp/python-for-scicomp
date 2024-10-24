@@ -95,6 +95,7 @@ def count_unique_words3(file_path: str) -> int:
 
 
 def main():
+    # book.txt is downloaded from https://www.gutenberg.org/cache/epub/2600/pg2600.txt
     _result = count_unique_words1("book.txt")
     _result = count_unique_words2("book.txt")
     _result = count_unique_words3("book.txt")
@@ -138,6 +139,6 @@ if __name__ == "__main__":
     instead of reading the whole file into memory.
   - It is good to get an overview over standard data structures and their
     advantages and disadvantages (e.g. adding an element to a list is fast but checking whether
-    it already contains the element is slow).
+    it already contains the element can be slow).
   :::
 ::::
