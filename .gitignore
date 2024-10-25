@@ -3,3 +3,4 @@
 .ipynb_checkpoints/
 .vscode
 catfacts.jsonl
+jupyter_execute/
