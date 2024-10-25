@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Python for Scientific Computing'
-copyright = '2020-2023, The contributors'
+copyright = '2020-2024, The contributors'
 author = 'The contributors'
 github_user = 'AaltoSciComp'
 github_repo_name = 'python-for-scicomp'  # auto-detected from dirname if blank
