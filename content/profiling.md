@@ -1,37 +1,147 @@
 # Profiling
 
-```{questions}
-   - When shall we worry about the performance of our code?
-   - How do we find bottlenecks in our code?
-   - How do we measure improvements in running time and memory usage?
+:::{objectives}
+- Understand when improving code performance is worth the time and effort.
+- Knowing how to find performance bottlenecks in Python code.
+- Try `scalene` as one of many tools to profile Python code.
+:::
+
+:::{instructor-note}
+- Discussion: 20 min
+- Exercise: 20 min
+:::
+
+
+## Should we even optimize the code?
+
+Classic quote to keep in mind: "Premature optimization is the root of all evil." [Donald Knuth]
+
+:::{discussion}
+It is important to ask ourselves whether it is worth it.
+- Is it worth spending e.g. 2 days to make a program run 20% faster?
+- Is it worth optimizing the code so that it spends 90% less memory?
+
+Depends. What does it depend on?
+:::
+
+
+## Measure instead of guessing
+
+Before doing code surgery to optimize the run time or lower the memory usage,
+we should **measure** where the bottlenecks are. This is called **profiling**.
+
+Analogy: Medical doctors don't start surgery based on guessing. They first measure
+(X-ray, MRI, ...) to know precisely where the problem is.
+
+Not only programming beginners can otherwise guess wrong, but also experienced
+programmers can be surprised by the results of profiling.
+
+
+## One of the simplest tools is to insert timers
+
+Below we will list some tools that can be used to profile Python code.
+But even without these tools you can find **time-consuming parts** of your code
+by inserting timers:
+
+
+
+```{code-block} python
+---
+emphasize-lines: 1,8,10
+---
+import time
+
+
+# ...
+# code before the function
+
+
+start = time.time()
+result = some_function()
+print(f"some_function took {time.time() - start} seconds")
+
+
+# code after the function
+# ...
 ```
 
-```{objectives}
-   - Understand when improving code performance is worth the time and effort.
-   - Learn how to use profilers in Python.
-   - Use `scalene` to find and optimize bottlenecks in a given code example.
-```
+
+## Many tools exist
+
+The list below here is probably not complete, but it gives an overview of the
+different tools available for profiling Python code.
+
+CPU profilers:
+- [cProfile and profile](https://docs.python.org/3/library/profile.html)
+- [line_profiler](https://kernprof.readthedocs.io/)
+- [py-spy](https://github.com/benfred/py-spy)
+- [Yappi](https://github.com/sumerc/yappi)
+- [pyinstrument](https://pyinstrument.readthedocs.io/)
+- [Perfetto](https://perfetto.dev/docs/analysis/trace-processor-python)
+
+Memory profilers:
+- [memory_profiler](https://pypi.org/project/memory-profiler/) (not actively maintained)
+- [Pympler](https://pympler.readthedocs.io/)
+- [tracemalloc](https://docs.python.org/3/library/tracemalloc.html)
+- [guppy/heapy](https://github.com/zhuyifei1999/guppy3/)
+
+Both CPU and memory:
+- [Scalene](https://github.com/plasma-umass/scalene)
+
+In the exercise below, we will use Scalene to profile a Python program. Scalene
+is a sampling profiler that can profile CPU, memory, and GPU usage of Python.
 
 
-> [!IMPORTANT]  
-> Left to do:
-> Give 20 minutes introduction to profiling:
-> - [ ] Discuss when to profile
-> - [ ] Discuss breifly manual profiling
-> - [ ] Introduce function call profilers
-> - [ ] Introduce line profilers
-> - [ ] Visualize one code example using `scalane`
+## Tracing profilers vs. sampling profilers
+
+**Tracing profilers** record every function call and event in the program,
+logging the exact sequence and duration of events.
+- **Pros:**
+  - Provides detailed information on the program's execution.
+  - Deterministic: Captures exact call sequences and timings.
+- **Cons:**
+  - Higher overhead, slowing down the program.
+  - Can generate larger amount of data.
+
+**Sampling profilers** periodically samples the program's state (where it is
+and how much memory is used), providing a statistical view of where time is
+spent.
+- **Pros:**
+  - Lower overhead, as it doesn't track every event.
+  - Scales better with larger programs.
+- **Cons:**
+  - Less precise, potentially missing infrequent or short calls.
+  - Provides an approximation rather than exact timing.
+
+:::{discussion} Analogy: Imagine we want to optimize the London Underground (subway) system
+We wish to detect bottlenecks in the system to improve the service and for this we have
+asked few passengers to help us by tracking their journey.
+- **Tracing**: We follow every train and passenger, recording every stop
+  and delay. When passengers enter and exit the train, we record the exact time
+  and location.
+- **Sampling**: Every 5 minutes the phone notifies the passenger to note
+  down their current location. We then use this information to estimate
+  the most crowded stations and trains.
+:::
+
+
+## Choosing the right system size
+
+Sometimes we can configure the system size (for instance the time step in a simulation
+or the number of time steps or the matrix dimensions) to make the program finish sooner.
+
+For profiling, we should choose a system size that is **representative of the real-world**
+use case. If we profile a program with a small input size, we might not see the same
+bottlenecks as when running the program with a larger input size.
+
+Often, when we scale up the system size, or scale the number of processors, new bottlenecks
+might appear which we didn't see before. This brings us back to: "measure instead of guessing".
 
 
 ## Exercises
 
-:::{exercise} Exercise Profiling-1
-Work in progress: we will provide an exercise showing the improvement in
-performance when introducing numpy and/or pandas.
-:::
-
-::::{exercise} Exercise Profiling-2
-In this exercise we will use the `scalene` profiler to find out where most of the time is spent
+::::{exercise} Exercise: Practicing profiling
+In this exercise we will use the Scalene profiler to find out where most of the time is spent
 and most of the memory is used in a given code example.
 
 Please try to go through the exercise in the following steps:
@@ -58,55 +168,11 @@ Please try to go through the exercise in the following steps:
    You can find an example of the generated HTML report in the solution below.
 1. Does the result match your prediction? Can you explain the results?
 
-```python
-"""
-The code below reads a text file and counts the number of unique words in it
-(case-insensitive).
-"""
-import re
-
-
-def count_unique_words1(file_path: str) -> int:
-    with open(file_path, "r", encoding="utf-8") as file:
-        text = file.read()
-    words = re.findall(r"\b\w+\b", text.lower())
-    return len(set(words))
-
-
-def count_unique_words2(file_path: str) -> int:
-    unique_words = []
-    with open(file_path, "r", encoding="utf-8") as file:
-        for line in file:
-            words = re.findall(r"\b\w+\b", line.lower())
-            for word in words:
-                if word not in unique_words:
-                    unique_words.append(word)
-    return len(unique_words)
-
-
-def count_unique_words3(file_path: str) -> int:
-    unique_words = set()
-    with open(file_path, "r", encoding="utf-8") as file:
-        for line in file:
-            words = re.findall(r"\b\w+\b", line.lower())
-            for word in words:
-                unique_words.add(word)
-    return len(unique_words)
-
-
-def main():
-    # book.txt is downloaded from https://www.gutenberg.org/cache/epub/2600/pg2600.txt
-    _result = count_unique_words1("book.txt")
-    _result = count_unique_words2("book.txt")
-    _result = count_unique_words3("book.txt")
-
-
-if __name__ == "__main__":
-    main()
-```
+:::{literalinclude} profiling/exercise.py
+:::
 
 :::{solution}
-  ```{figure} profiling/exercise2.png
+  ```{figure} profiling/exercise.png
   :alt: Result of the profiling run for the above code example.
   :width: 100%
 
