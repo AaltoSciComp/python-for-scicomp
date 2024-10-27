@@ -378,7 +378,7 @@ Exercises 2
 
 .. challenge:: Exercises: Xarray-2
 
-        Let's change from clmate science to finance for this example. We assume we want to put the stock prices and trading volumes of three companies over ten days in one dataset. Create an Xarray Dataset that uses time and company as dimensions and contains two DataArrays: ``stock_price`` and ``trading_volume``. You can choose the values for the stock prices and trading volumes yourself. As a last thing, add the currency of the stock prices as an attribute to the Dataset.
+        Let's change from climate science to finance for this example. Put the stock prices and trading volumes of three companies over ten days in one dataset. Create an Xarray Dataset that uses time and company as dimensions and contains two DataArrays: ``stock_price`` and ``trading_volume``. You can choose the values for the stock prices and trading volumes yourself. As a last thing, add the currency of the stock prices as an attribute to the Dataset.
 
 .. solution:: Solutions: Xarray-2
 
