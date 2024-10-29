@@ -39,10 +39,10 @@ Python
 We expect you to have a working Python installation with some common
 libraries.  The `Anaconda Python distribution
 <https://docs.continuum.io/anaconda/install/>`__ conveniently packages
-everything, but its license does not allow large organizations to use
-it for research.  **Thus, we currently recommend Miniforge, which
-includes the base and packages through a different, freely usable
-channel.**
+everything, but its license has does not allow large organizations to
+use it for free (and has actually been enforced against universities).
+**Thus, we currently recommend Miniforge, which includes the base and
+packages through a different, freely usable channel.**
 
 .. admonition:: Python, conda, anaconda, miniforge, etc?
    :class: dropdown
@@ -113,9 +113,9 @@ channel.**
       <https://docs.anaconda.com/navigator/>`__ provides a convenient
       way to access the software. It can be installed from that page.
 
-      Note the license of Anaconda - for organizations of more than 50
-      people, it can't be used for research purposes without a license.
-
+      Note the license of Anaconda - there were recently issues with
+      it being used by large universities for free, and this is not
+      yet fully resolved.
 
    .. group-tab:: Other options
 
