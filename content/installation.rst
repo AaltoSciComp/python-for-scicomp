@@ -1,13 +1,18 @@
 Software installation
 =====================
 
-This page contains instructions for installing the required software
-on your computer.  Please make sure before the course that you have
-all the required software installed or some other way access to it.
-For example, the workshop could be done with a remote Jupyter server,
-as long as you can use the terminal from the Jupyter (you need to be
-able to access the command line for some lessons).
+This course is interactive and demonstrates many different tools.
+Thus, even beyond Python, extra software (Python libraries) needs to
+be installed.  This page contains the instructions.
 
+**Once the course starts, we don't have time to stop for installing
+software.**
+
+Please make sure before the course that you have all the required
+software installed or some other way access to it.  For example, the
+workshop could be done with a remote Jupyter server, as long as you
+can use the terminal from the Jupyter (you need to be able to access
+the command line for some lessons).
 
 .. admonition:: Do you need help?
    :class: important
