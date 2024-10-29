@@ -31,26 +31,6 @@ the command line for some lessons).
 
 
 
-Generic list of tools required
-------------------------------
-
-Note: The actual installation instructions are below.  This is a
-generic description, for those who already know how to install Python
-and conda.
-
-* **Python 3** (A conda-based distribution is recommended, for example
-  miniforge, miniconda, or Anaconda)
-
-  * With some extra packages installed.  They are all included in
-    Anaconda, and are listed in the ``environment.yml`` file you can
-    find under miniconda below.
-
-* Text editor (several lessons, can also be done through Jupyterlab)
-* Command-line shell (several lessons, can also be done through Jupyterlab)
-* git (not needed, this lesson is usually done as a demo)
-
-
-
 Python
 ------
 
