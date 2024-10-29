@@ -72,7 +72,7 @@ to learn yourself as you need to.
    60 min   ; :doc:`pandas`
    30 min   ; :doc:`xarray`
    60 min   ; :doc:`data-visualization`
-   30 min   ; :doc:`data-formats`
+   30 min   ; :doc:`work-with-data`
    60 min   ; :doc:`scripts`
    40 min   ; :doc:`profiling`
    20 min   ; :doc:`productivity`
