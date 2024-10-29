@@ -255,17 +255,57 @@ Good things
 - Supported by many tool out of the box
 - Easily shared
 
-Bas things
+Bad things
 ++++++++++
 
 - Can be slow to read and write
 - high potential to increase required disk space substantially (e.g. when storing floating point numbers as text)
 - Prone to loosing precision when storing floating point numbers
 - Muli-dimensional data can be hard to represent
-- While the data format might be specified, the data structure might not be clear when startig to read the data.
+- While the data format might be specified, the data structure might not be clear when starting to read the data.
 
 Further considerations
 ~~~~~~~~~~~~~~~~~~~~~~
+
+- The closer your stored data is to the code, the more likely it depends on the environment you are working in. 
+  If you e.g. `pickle` a generated model, you can only be sure, that the model will work as intended, if you 
+  load it in an environment, that has the same versions of all libraries the model depends on. 
+
+
+Exercise
+--------
+
+.. challenge::
+
+    You have a model that you have been training for a while. 
+    Lets assume it's a relatively simple neural network (consisting of a network structure and it's associated weights).
+    
+    Let's consider 2 scenarios
+
+    A: You have a different project, that is supposed to take this model, and do some processing with it to determine
+       it's efficiency after different times of training. 
+
+    B: You want to publish the model and make it available to others. 
+
+    What are good options to store the model in each of these scenarios?
+
+.. solution::
+
+    A: Some export into a binary format that can be easily read. E.g. pickle or a specific export function from the libbrary you use.
+       It also depends, on whether you intend to make the intermediary steps available to others.
+       If you do, you might also want to consider storing structure and weights separately or use a format specific for the 
+       type of model you are training, to keep the data independent of the library.
+
+    B: You might want to consider a more general format, that is supported by many libraries, e.g. ONNX, or a format that is 
+       specifically designed for the type of model you are training. 
+       You might also want to consider additionally storing the model in a way that is easily readable by humans, to make it easier for others
+       to understand the model.
+
+
+Convert untidy data into tidy data with Pandas
+----------------------------------------------
+
+
 
 
 
