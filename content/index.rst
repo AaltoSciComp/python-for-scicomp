@@ -117,6 +117,7 @@ to learn yourself as you need to.
    quick-reference
    exercises
    guide
+   data-formats
 
 
 .. _learner-personas:
