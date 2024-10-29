@@ -197,7 +197,7 @@ Table below describes some data formats:
      - ❌
      - 🟨
      - ❌
-     - ✅
+     - 🟨
 
    * - :ref:`Graph formats <graph>`
      - 🟨
@@ -205,7 +205,7 @@ Table below describes some data formats:
      - ❌
      - ❌
      - ❌
-     - 🟨
+     - ✅
 
 .. important::
 
