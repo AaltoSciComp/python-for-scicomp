@@ -137,7 +137,9 @@ Python for SciComp software environment
 
       This `environment file
       <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
-      contains all packages needed for the course, and can be installed with::
+      contains all packages needed for the course, and can be
+      installed with (there may be lots of warning messages: this is OK
+      if it still goes through)::
 
 	 $ mamba env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
 
