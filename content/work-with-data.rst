@@ -1,5 +1,5 @@
-Data formats with Pandas and Numpy
-==================================
+Working with Data
+=================
 
 .. questions::
 
