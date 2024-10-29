@@ -97,7 +97,7 @@ to learn yourself as you need to.
    pandas
    xarray
    data-visualization
-   data-formats
+   work-with-data
    scripts
    profiling
    productivity
