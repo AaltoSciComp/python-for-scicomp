@@ -29,6 +29,8 @@ the command line for some lessons).
    *harder than it should be* and it helps to have someone guide you
    through it.
 
+.. highlight:: console
+
 
 
 Python
@@ -90,13 +92,16 @@ channel.**
       but can feel unfamiliar.  See the `command line crash course
       <https://scicomp.aalto.fi/scicomp/shell/>`__ for an intro.
 
-      Linux/MacOS: Each time you start a new shell, you can activate
-      Miniforge by running ``source ~/miniforge3/bin/activate``.  This
-      is not needed if you choose "Do you wish to update your shell
-      profile to automatically initialize conda?".
+      Linux/MacOS: Each time you start a new command line terminal,
+      you can activate Miniforge by running::
+
+	$ source ~/miniforge3/bin/activate
+	$ # This is not needed if you choose yes for "Do you wish
+	$ # to update your shell profile to automatically initialize
+	$ # conda?" during installation.
 
       Windows: Use the "Miniforge Prompt" to start Miniforge.  This
-      will set up all the paths so that ``conda`` and ``mamba`` are
+      will set up everything so that ``conda`` and ``mamba`` are
       available.
 
    .. group-tab:: Anaconda
@@ -114,10 +119,10 @@ channel.**
 
    .. group-tab:: Other options
 
-      Any other Python distribution which you can install libraries into
-      would work, but because there are so many different ways to do this,
-      we don't support them.  You would need the extra libraries mentioned
-      in the Miniforge instructions.
+      There are many ways to install Python.  Other methods can work,
+      as long as you can install the libraries from the
+      ``environment.yml`` file mentioned in the Miniforge
+      instructions.
 
       We don't currently provide a ``requirements.txt`` for installing
       the required packages without Conda/Mamba, though.
@@ -130,18 +135,24 @@ Python for SciComp software environment
 
    .. group-tab:: Miniforge
 
-      This `this environment file
+      This `environment file
       <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
-      contains all packages needed, and can be installed with:
-
-      .. code:: console
+      contains all packages needed for the course, and can be installed with::
 
 	 $ mamba env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
 
       Each time you start a new command line, you need to activate
-      miniforge (if you don't do run the ``conda init`` option), and
-      then you need to activate the proper environment with ``conda
-      activate python-for-scicomp``.
+      miniforge and this environment.
+
+      Linux/MacOX::
+
+	$ source ~/miniforge3/bin/activate
+	$ conda activate python-for-scicomp
+
+      Windows::
+
+	$ # Start the Miniforge Prompt.
+	$ conda activate python-for-scicomp
 
    .. group-tab:: Anaconda
 
@@ -153,6 +164,9 @@ Python for SciComp software environment
       You'll have to download it and then `import it
       <https://docs.anaconda.com/navigator/tutorials/manage-environments/#importing-an-environment>`__.
 
+      When running this course's exercise, make sure the
+      ``python-for-scicomp`` environment is activated before starting
+      Jupyter or any code.
 
    .. group-tab:: Other options
 
@@ -161,13 +175,14 @@ Python for SciComp software environment
 
       Virtual environments: we don't currently provide a
       ``requirements.txt`` but many package names can probably be
-      copied from the ``environment.yml`` file.
+      copied from the ``environment.yml`` file.  We really recommend
+      conda/mamba based systems: it's designed for complex scientific
+      software.
 
       Any other Python distribution which you can install libraries into
       would work, but because there are so many different ways to do this,
       we don't support them.  You would need the extra libraries mentioned
       in the Miniforge instructions.
-
 
 
 
@@ -181,11 +196,21 @@ most of the other tools we need).
 
    .. group-tab:: Miniforge
 
-      First, start the Miniforge command line interface.
+      JupyterLab was instaled in the previous step.  To run it, first,
+      start the Miniforge command line interface.
 
-      Linux/MacOS: remember, you may need to activate it by running
-      ``source ~/miniforge3/bin/activate`` if you didn't update your
-      shell profile to automatically initialize conda.
+      Linux/MacOS: remember, you may need to activate Miniforge and
+      the environment first::
+
+	$ source ~/miniforge3/bin/activate
+	$ conda activate python-for-scicomp
+	$ jupyter-lab
+
+      Windows::
+
+	$ # Start the Miniforge Prompt.
+	$ conda activate python-for-scicomp
+	$ jupyter-lab
 
    .. group-tab:: Anaconda
 
@@ -193,8 +218,8 @@ most of the other tools we need).
       available and can be started either through Anaconda Navigator
       or command line.
 
-      Make sure the CodeRefinery environment is selected and you can
-      start JupyterLab.
+      Make sure the ``python-for-scicomp`` environment is selected and
+      you can start JupyterLab.
 
 
 
@@ -212,9 +237,7 @@ Verification of Python and JupyterLab
 
    .. group-tab:: Miniforge
 
-      You can start JupyterLab from the command line:
-
-      .. code-block:: console
+      You can start JupyterLab from the command line::
 
          $ jupyter-lab
          (... Jupyter starts in a web browser)
@@ -230,9 +253,7 @@ Verification of Python and JupyterLab
 
          Starting JupyterLab from the Anaconda Navigator.
 
-      ... or you can start JupyterLab from the command line:
-
-      .. code-block:: console
+      ... or you can start JupyterLab from the command line::
 
          $ jupyter-lab
          (... Jupyter starts in a web browser)
