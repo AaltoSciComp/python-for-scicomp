@@ -157,7 +157,7 @@ We can use AI as an assistant/apprentice:
 - Write a test based on an implementation
 - Write an implementation based on a test
 
-Of we can use AI as a mentor:
+Or we can use AI as a mentor:
 - Explain a concept
 - Improve code
 - Show a better alternative
