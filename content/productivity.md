@@ -160,7 +160,7 @@ We can use AI as an assistant/apprentice:
 Or we can use AI as a mentor:
 - Explain a concept
 - Improve code
-- Show a better alternative
+- Show a different (possibly better) way of implementing the same thing
 
 
 :::{figure} productivity/chatgpt.png
