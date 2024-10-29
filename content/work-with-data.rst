@@ -302,8 +302,25 @@ Exercise
        to understand the model.
 
 
-Convert untidy data into tidy data with Pandas
-----------------------------------------------
+Efficient use of untidy data
+----------------------------
+
+Many data analysis tools (like Pandas) require tidy data, but some data is not in a suitable format.
+What we have seen often in the past is people then not using the powerful tools, but write comple scripts that 
+extract individual pieces from the data each time they need to do a calculation. 
+
+Example of "questionable pipeline":
+length_array = []
+
+for entry in data:
+    length_array.append(len(entry['length']))
+...
+
+
+
+
+Example of pipeline with initial conversion to pandas e.g. via json_normalize
+
 
 
 
