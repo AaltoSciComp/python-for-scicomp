@@ -529,6 +529,24 @@ shows which packages are the important packages needed by the software.
 
        $ conda env export > environment.yml
 
+     If package build versions are not relevant for the use case,
+     one can also run
+
+     .. code-block:: console
+
+       $ conda env export --no-builds > environment.yml
+
+     which leaves out the package build versions.
+
+     Alternatively one can also run
+
+     .. code-block:: console
+
+       $ conda env export --from-history > environment.yml
+
+     which creates the ``environment.yml``-file based on
+     what packages were asked to be installed.
+
      .. admonition:: conda-lock
 
        For even more reproducibility, you should try out
@@ -564,9 +582,87 @@ Exercise 4
 Additional tips and tricks
 --------------------------
 
-- Conda can also read and write ``requirements.txt``.
-- ``requirements.txt`` can also refer to packages on Github.
-- ``environment.yml`` can also contain a ``pip`` section.
+.. tabs::
+
+   .. group-tab:: Creating a conda environment from requirements.txt
+
+      conda supports installing an environment from ``requirements.txt``.
+
+      .. code-block:: console
+
+        $ conda env create --name my-environment --channel conda-forge --file requirements.txt
+
+      To create an ``environment.yml`` from this environment that mimics
+      the ``requirements.txt``, activate it and run
+
+     .. code-block:: console
+
+       $ conda env export --from-history > environment.yml
+
+   .. group-tab:: Adding pip packages into conda environments
+
+      conda supports installing pip packages in an ``environment.yml``.
+
+      Usually this is done to add those packages that are missing
+      from conda channels.
+
+      To do this you'll want to install ``pip`` into the environment
+      and then add pip-installed packages to a list called ``pip``.
+
+      See this example ``environment.yml``:
+
+      .. code-block:: yaml
+
+         name: my-environment
+         channels:
+           - conda-forge
+         dependencies:
+           - python
+           - pip
+           - pip:
+             - numpy
+             - matplotlib
+             - pandas
+
+      One can even add a full ``requirements.txt`` to the environment:
+
+      .. code-block:: yaml
+
+         name: my-environment
+         channels:
+           - conda-forge
+         dependencies:
+           - python
+           - pip
+           - pip:
+             - "-r requirements.txt"
+
+      Do note that in both methods the pip-packages come from PyPI
+      and not from conda channels. The installation of these packages
+      is done after conda environment is created and this can also
+      remove or update conda packages installed previously.
+
+   .. group-tab:: Installing pip packages from GitHub
+
+      Packages available in GitHub or other repositorios
+      can be given as a URL in ``requirements.txt``.
+
+      For example, to install a development version of the 
+      `black code formatter <https://github.com/psf/black>`__, one can
+      write the following ``requirement.txt``.
+
+      .. code-block:: txt
+
+         git+https://github.com/psf/black
+
+      or
+
+      .. code-block:: txt
+
+         https://github.com/psf/black/archive/master.zip
+
+      First one would use git to clone the repository, second would
+      download the zip archive of the repository.
 
 
 How to communicate the dependencies as part of a report/thesis/publication
