@@ -37,12 +37,9 @@ Python
 ------
 
 We expect you to have a working Python installation with some common
-libraries.  The `Anaconda Python distribution
-<https://docs.continuum.io/anaconda/install/>`__ conveniently packages
-everything, but its license has does not allow large organizations to
-use it for free (and has actually been enforced against universities).
-**Thus, we currently recommend Miniforge, which includes the base and
-packages through a different, freely usable channel.**
+libraries.  **We currently recommend Miniforge, which includes the base and
+packages through a different, freely usable channel.**  You can
+explore the options in the tabs below.
 
 .. admonition:: Python, conda, anaconda, miniforge, etc?
    :class: dropdown
@@ -92,26 +89,17 @@ packages through a different, freely usable channel.**
       but can feel unfamiliar.  See the `command line crash course
       <https://scicomp.aalto.fi/scicomp/shell/>`__ for an intro.
 
-      Linux/MacOS: Each time you start a new command line terminal,
-      you can activate Miniforge by running::
-
-	$ source ~/miniforge3/bin/activate
-	$ # This is not needed if you choose yes for "Do you wish
-	$ # to update your shell profile to automatically initialize
-	$ # conda?" during installation.
-
-      Windows: Use the "Miniforge Prompt" to start Miniforge.  This
-      will set up everything so that ``conda`` and ``mamba`` are
-      available.
-
    .. group-tab:: Anaconda
 
       Anaconda is easier to get started with, but may be more limiting
-      in the future.
+      in the future.  The Anaconda Navigator provides a graphical
+      interface to most of what you would need.
 
-      The `Anaconda Navigator
-      <https://docs.anaconda.com/navigator/>`__ provides a convenient
-      way to access the software. It can be installed from that page.
+      The `Anaconda Python distribution
+      <https://docs.continuum.io/anaconda/install/>`__ conveniently packages
+      everything, but its license has does not allow large organizations to
+      use it for free (and has actually been enforced against
+      universities).
 
       Note the license of Anaconda - there were recently issues with
       it being used by large universities for free, and this is not
@@ -128,8 +116,50 @@ packages through a different, freely usable channel.**
       the required packages without Conda/Mamba, though.
 
 
+
+Starting Python
+---------------
+
+You need to Python in a way that activates conda/mamba.
+
+.. tabs::
+
+   .. group-tab:: Miniforge
+
+      Linux/MacOS: Each time you start a new command line terminal,
+      you can activate Miniforge by running.  This is needed so that
+      Miniforge is usable wherever you need, but doesn't affect any
+      other software on your computer (this is not needed if you
+      choose "Do you wish to update your shell profile to
+      automatically initialize conda?", but then it will always be
+      active)::
+
+	$ source ~/miniforge3/bin/activate
+
+      Windows: Use the "Miniforge Prompt" to start Miniforge.  This
+      will set up everything so that ``conda`` and ``mamba`` are
+      available.
+
+   .. group-tab:: Anaconda
+
+      The `Anaconda Navigator
+      <https://docs.anaconda.com/navigator/>`__ provides a convenient
+      way to access the software. It can be installed from that page.
+
+
+   .. group-tab:: Other options
+
+      You are on your own here.
+
+
 Python for SciComp software environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
+
+Once Python and conda/mamba are installed, you can use it to install
+an environment.  An **environment** is a self-contained set of extra
+libraries - different projects can use different environments to not
+interfere with each other.  This environment will have all of the
+software needed for this particular course.
 
 .. tabs::
 
@@ -139,14 +169,16 @@ Python for SciComp software environment
       <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
       contains all packages needed for the course, and can be
       installed with (there may be lots of warning messages: this is OK
-      if it still goes through)::
+      if it still goes through).
+
+      Linux / MacOS / Windows:
 
 	 $ mamba env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
 
       Each time you start a new command line, you need to activate
-      miniforge and this environment.
+      miniforge and this environment:
 
-      Linux/MacOX::
+      Linux/MacOS::
 
 	$ source ~/miniforge3/bin/activate
 	$ conda activate python-for-scicomp
@@ -168,7 +200,9 @@ Python for SciComp software environment
 
       When running this course's exercise, make sure the
       ``python-for-scicomp`` environment is activated before starting
-      Jupyter or any code.
+      JupyterLab or any code.  You need to start termnials or
+      JupyterLab from the Anaconda Navigator for the
+      ``python-for-scicomp`` environment to be used.
 
    .. group-tab:: Other options
 
@@ -186,10 +220,12 @@ Python for SciComp software environment
       we don't support them.  You would need the extra libraries mentioned
       in the Miniforge instructions.
 
+      Remember you need to activate the environment each time you use it.
+
 
 
 JupyterLab
-~~~~~~~~~~
+----------
 
 We do most of the lessons from JupyterLab (and JupyterLab provides
 most of the other tools we need).
@@ -226,7 +262,7 @@ most of the other tools we need).
 
 
 Verification of Python and JupyterLab
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 
 .. admonition:: Watch the video
 
