@@ -29,8 +29,8 @@ How do you track dependencies of your project?
 
 
 
-Exercises 1
------------
+Exercise 1
+----------
 
 .. challenge:: Dependencies-1: Discuss dependency management (5 min)
 
@@ -172,8 +172,8 @@ Conda ecosystem explained
     `also uses the same solver <https://conda.org/blog/2023-11-06-conda-23-10-0-release/>`__.
     It still has some UI improvements.
 
-Exercises 2
------------
+Exercise 2
+----------
 
 .. challenge:: Dependencies-2: Package language detective (2 min)
 
@@ -371,8 +371,8 @@ Creating Python environments
    package manager to update / recreate the environment.
 
 
-Exercises 3
------------
+Exercise 3
+----------
 
 .. challenge:: Dependencies-3: Create a Python environment (15 min)
 
