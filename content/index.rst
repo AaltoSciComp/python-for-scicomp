@@ -227,6 +227,6 @@ See also
 ========
 
 * `High Performance Data Analytics in Python
-  <https://enccs.github.io/HPDA-Python/>`__ is a logical follow-up to
+  <https://enccs.github.io/hpda-python/>`__ is a logical follow-up to
   this lesson that goes more in-depth to tools of high-performance
   and large-scale Python.
