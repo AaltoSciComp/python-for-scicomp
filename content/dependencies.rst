@@ -754,6 +754,7 @@ Other tools for dependency management:
 - `micromamba <https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html>`__:
   tiny version of Mamba as a static C++ executable. Does not need base environment or
   Python for installing an environment.
+- `pixi <https://pixi.sh>`__: a package management tool which builds upon the foundation of the conda ecosystem.
 
 Other resources:
 
