@@ -173,7 +173,7 @@ Conda ecosystem explained
 Exercise 2
 ----------
 
-.. challenge:: Dependencies-2: Package language detective (2 min)
+.. challenge:: Dependencies-2: Package language detective (5 min)
 
    Think about the following sentences:
 
