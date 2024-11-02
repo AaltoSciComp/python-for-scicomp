@@ -1,4 +1,4 @@
-# Data visualization with Matplotlib
+# Plotting with Matplotlib
 
 ```{questions}
 - What happens if you can't automatically produce plots?
@@ -101,7 +101,7 @@ ax.set_title("some title")
 # fig.savefig("my-first-plot.png")
 ```
 
-```{figure} data-visualization/first-plot/getting-started.png
+```{figure} plotting-matplotlib/first-plot/getting-started.png
 :alt: Result of our first plot
 :width: 80%
 
@@ -142,7 +142,7 @@ matplotlib.use("Agg")
   [quick start guide](https://matplotlib.org/stable/users/explain/quick_start.html).
 
 - At the end it should look like this one:
-  ```{figure} data-visualization/first-plot/exercise.png
+  ```{figure} plotting-matplotlib/first-plot/exercise.png
   :alt: Result of the exercise
   ```
 
@@ -321,12 +321,12 @@ In this exercise we will learn how to use log scales.
   ```
 
   This is the result but we realize that a linear scale is not ideal here:
-  ```{figure} data-visualization/customizing/gapminder-linear.png
+  ```{figure} plotting-matplotlib/customizing/gapminder-linear.png
   :alt: Gapminder data plotted using a linear scale
   ```
 
 - Your task is to switch to a log scale and arrive at this result:
-  ```{figure} data-visualization/customizing/gapminder-log.png
+  ```{figure} plotting-matplotlib/customizing/gapminder-log.png
   :alt: Gapminder data plotted using log scale
   ```
 
@@ -365,7 +365,7 @@ Your task is to make the tickmarks and the axis label font larger, using
 [Matplotlib parts of a figure](https://matplotlib.org/stable/users/explain/quick_start.html#parts-of-a-figure)
 and web search, and to arrive at this:
 
-```{figure} data-visualization/customizing/gapminder-larger-font.png
+```{figure} plotting-matplotlib/customizing/gapminder-larger-font.png
 :alt: Gapminder data plotted with larger font and larger ticks
 ```
 ````

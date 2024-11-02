@@ -10,13 +10,13 @@ Python for Scientific Computing
    Whether you are or aren't, the course material is below.  Videos
    will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__.
 
-   
+
 Python is a modern, object-oriented programming language, which has
 become popular in several areas of software development. This course
 discusses how Python can be utilized in scientific computing. The
 course starts by introducing some of the main Python tools for
 computing: Jupyter for interactive analysis, NumPy and SciPy for
-numerical analysis, matplotlib for visualization, and so on.  In
+numerical analysis, Matplotlib for visualization, and so on.  In
 addition, it talks about *how* python is used:
 related scientific libraries, reproducibility, and the broader
 ecosystem of science in Python, because your work is more than the raw
@@ -71,7 +71,7 @@ to learn yourself as you need to.
    60 min   ; :doc:`numpy` or :doc:`numpy-advanced`
    60 min   ; :doc:`pandas`
    30 min   ; :doc:`xarray`
-   60 min   ; :doc:`data-visualization`
+   60 min   ; :doc:`plotting-matplotlib`
    30 min   ; :doc:`data-formats`
    60 min   ; :doc:`scripts`
    40 min   ; :doc:`profiling`
@@ -96,7 +96,7 @@ to learn yourself as you need to.
    numpy-advanced
    pandas
    xarray
-   data-visualization
+   plotting-matplotlib
    data-formats
    scripts
    profiling
