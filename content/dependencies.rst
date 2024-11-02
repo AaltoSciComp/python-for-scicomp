@@ -7,10 +7,8 @@ Dependency management
 
    - Do you expect your code to work in one year?  Five?  What if it
      uses ``numpy`` or ``tensorflow`` or ``random-github-package`` ?
-   - How can my collaborators get the same results as me? What about
-     future me?
-   - How can my collaborators easily install my codes with all the necessary dependencies?
-   - How can I make it easy for my colleagues to reproduce my results?
+   - How can my collaborators easily install my code with all the necessary dependencies?
+   - How can I make it easy for my others (and me in future) to reproduce my results?
    - How can I work on two (or more) projects with different and conflicting dependencies?
 
 .. objectives::
@@ -763,6 +761,7 @@ Other resources:
 
 .. keypoints::
 
+   - If somebody asks you what dependencies your code has, you should be able to answer this question **with a file**.
    - Install dependencies by first recording them in ``requirements.txt`` or
      ``environment.yml`` and install using these files, then you have a trace.
    - Use isolated environments and avoid installing packages system-wide.
