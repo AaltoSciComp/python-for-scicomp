@@ -301,7 +301,7 @@ Creating Python environments
      Record packages you need to a file called
      ``requirements.txt``:
 
-     .. code-block:: txt
+     .. code-block:: text
 
         numpy
         matplotlib
@@ -470,7 +470,7 @@ compatible.
       When pinning versions in ``requirements.txt`` one can use a
       variety of comparison operators:
 
-      .. code-block:: txt
+      .. code-block:: text
 
           # numpy that is bigger or equal than version 1, but less than version 2
           numpy>=1,<2
@@ -651,13 +651,13 @@ Additional tips and tricks
       `black code formatter <https://github.com/psf/black>`__, one can
       write the following ``requirement.txt``.
 
-      .. code-block:: txt
+      .. code-block:: text
 
          git+https://github.com/psf/black
 
       or
 
-      .. code-block:: txt
+      .. code-block:: text
 
          https://github.com/psf/black/archive/master.zip
 
