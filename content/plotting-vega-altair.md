@@ -51,7 +51,7 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
 - "Simple, friendly and consistent API" allows us to focus on the data
   visualization part and get started without too much Python knowledge
 - The way it **combines visual channels with data columns** can feel intuitive
-- Interfaces very nicely with [pandas](https://pandas.pydata.org/)
+- Interfaces very nicely with [Pandas](https://pandas.pydata.org/)
 - Easy to change figures
 - Good documentation
 - Open source
@@ -59,7 +59,343 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
 - Easy to save interactive visualizations to be used in websites
 
 
-## Exercise
+## Example data: Weather data from two Norwegian cities
+
+We will experiment with some example weather data obtained from [Norsk
+KlimaServiceSenter](https://seklima.met.no/observations/), Meteorologisk
+institutt (MET) (CC BY 4.0).  The data is in CSV format (comma-separated
+values) and contains daily and monthly weather data for two cities in Norway:
+Oslo and Tromsø. You can browse the data
+[here](https://github.com/AaltoSciComp/python-for-scicomp/tree/master/resources/data/plotting).
+
+We will use the Pandas library to read the data into a dataframe. We have learned about Pandas in an {ref}`earlier episode <pandas>`.
+
+Pandas can read from and write to a large set of formats
+([overview of input/output functions and formats](https://pandas.pydata.org/pandas-docs/stable/reference/io.html)).
+We will load a CSV file directly from the web. Instead of using a web URL we
+could use a local file name instead.
+
+Pandas dataframes are a great data structure for **tabular data** and tabular
+data turns out to be a great input format for data visualization libraries.
+Vega-Altair understands Pandas dataframes and can plot them directly.
+
+
+## Reading data into a dataframe
+
+We can try this together in a notebook:
+Using Pandas we can **merge, join, concatenate, and compare**
+dataframes, see <https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html>.
+
+Let us try to **concatenate** two dataframes: one for Tromsø weather data (we
+will now load monthly values) and one for Oslo:
+```{code-block} python
+---
+emphasize-lines: 8
+---
+import pandas as pd
+
+url_prefix = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/plotting/"
+
+data_tromso = pd.read_csv(url_prefix + "tromso-monthly.csv")
+data_oslo = pd.read_csv(url_prefix + "oslo-monthly.csv")
+
+data_monthly = pd.concat([data_tromso, data_oslo], axis=0)
+
+# let us print the combined result
+data_monthly
+```
+
+Before plotting the data, there is a problem which we may not see yet: Dates
+are not in a standard date format (YYYY-MM-DD). We can fix this:
+```python
+# replace mm.yyyy to date format
+data_monthly["date"] = pd.to_datetime(list(data_monthly["date"]), format="%m.%Y")
+```
+
+With Pandas it is possible to do a lot more (adjusting missing values, fixing
+inconsistencies, changing format).
+
+
+## Plotting the data
+
+Now let's plot the data. We will start with a plot that is not optimal and
+then we will explore and improve a bit as we go:
+
+```python
+import altair as alt
+
+alt.Chart(data_monthly).mark_bar().encode(
+    x="date",
+    y="precipitation",
+    color="name",
+)
+```
+
+:::{figure} plotting-vega-altair/precipitation-on-top.svg
+:alt: Monthly precipitation for the cities Oslo and Tromsø over the course of a year.
+
+Monthly precipitation for the cities Oslo and Tromsø over the course of a year.
+:::
+
+:::{discussion} Let us pause and explain the code
+- `alt` is a short-hand for `altair` which we imported on top of the notebook
+- `Chart()` is a function defined inside `altair` which takes the data as argument
+- `mark_bar()` is a function that produces bar charts
+- `encode()` is a function which encodes data columns to **visual channels**
+
+Observe how we connect (encode) **visual channels** to data columns:
+- x-coordinate with "date"
+- y-coordinate with "precipitation"
+- color with "name" (name of weather station; city)
+:::
+
+We can improve the plot by giving Vega-Altair a bit more information that the
+x-axis is a **time series** (T) and that we would like to see the year and
+month (yearmonth):
+```{code-block} python
+---
+emphasize-lines: 2
+---
+alt.Chart(data_monthly).mark_bar().encode(
+    x="yearmonth(date):T",
+    y="precipitation",
+    color="name",
+)
+```
+
+:::{figure} plotting-vega-altair/precipitation-on-top-yearmonth.svg
+:alt: Monthly precipitation for the cities Oslo and Tromsø over the course of a year.
+
+Monthly precipitation for the cities Oslo and Tromsø over the course of a year.
+:::
+
+Let us improve the plot with another one-line change:
+```{code-block} python
+---
+emphasize-lines: 5
+---
+alt.Chart(data).mark_bar().encode(
+    x="yearmonth(date):T",
+    y="precipitation",
+    color="name",
+    column="name",
+)
+```
+
+:::{figure} plotting-vega-altair/precipitation-side.svg
+:alt: Monthly precipitation for the cities Oslo and Tromsø over the course of a year with with both cities plotted side by side.
+
+Monthly precipitation for the cities Oslo and Tromsø over the course of a year with with both cities plotted side by side.
+:::
+
+With another one-line change we can make the bar chart stacked:
+```{code-block} python
+---
+emphasize-lines: 5
+---
+alt.Chart(data_monthly).mark_bar().encode(
+    x="yearmonth(date):T",
+    y="precipitation",
+    color="name",
+    xOffset="name",
+)
+```
+:::{figure} plotting-vega-altair/precipitation-stacked-x.svg
+:alt: Monthly precipitation for the cities Oslo and Tromsø over the course of a year with with both cities plotted side by side.
+
+Monthly precipitation for the cities Oslo and Tromsø over the course of a year
+plotted as stacked bar chart.
+:::
+
+This is not publication-quality yet but a really good start!
+
+Let us try one more example where we can nicely see how Vega-Altair
+is able to map visual channels to data columns:
+```python
+alt.Chart(data_monthly).mark_area(opacity=0.5).encode(
+    x="yearmonth(date):T",
+    y="max temperature",
+    y2="min temperature",
+    color="name",
+)
+```
+
+:::{figure} plotting-vega-altair/temperature-ranges-combined.svg
+:alt: Monthly temperature ranges for two cities in Norway.
+
+Monthly temperature ranges for two cities in Norway.
+:::
+
+
+## Exercise: Using visual channels to re-arrange plots
+
+::::{exercise} Plotting-1: Using visual channels to re-arrange plots
+1. Try to reproduce the above plots if they are not already in your notebook.
+
+1. Above we have plotted the monthly precipitation for two cities side by side
+   using a stacked plot. Try to arrive at the following plot where months are
+   along the y-axis and the precipitation amount is along the x-axis:
+   :::{figure} plotting-vega-altair/precipitation-stacked-y.svg
+   :::
+
+1. Ask the web-search or AI how to change the axis title from "precipitation"
+   to "Precipitation (mm)".
+
+1. Modify the temperature range plot to show the temperature ranges for the
+   two cities side by side like this:
+   :::{figure} plotting-vega-altair/temperature-ranges-side.svg
+   :::
+
+:::{solution}
+1. Copy-paste code blocks from above.
+
+1. Basically we switched x and y:
+   ```{code-block} python
+   ---
+   emphasize-lines: 2,3,5
+   ---
+   alt.Chart(data_monthly).mark_bar().encode(
+       y="yearmonth(date):T",
+       x="precipitation",
+       color="name",
+       yOffset="name",
+   )
+   ```
+
+1. This can be done with the following modification:
+   ```{code-block} python
+   ---
+   emphasize-lines: 3
+   ---
+   alt.Chart(data_monthly).mark_bar().encode(
+       y="yearmonth(date):T",
+       x=alt.X("precipitation").title("Precipitation (mm)"),
+       color="name",
+       yOffset="name",
+   )
+   ```
+
+1. We added one line:
+   ```{code-block} python
+   ---
+   emphasize-lines: 6
+   ---
+   alt.Chart(data_monthly).mark_area(opacity=0.5).encode(
+       x="yearmonth(date):T",
+       y="max temperature",
+       y2="min temperature",
+       color="name",
+       column="name",
+   )
+   ```
+:::
+::::
+
+
+## Using visual channels
+
+Now we will try to **plot the daily data and look at snow depths**. We first
+read and concatenate two datasets:
+```python
+url_prefix = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/plotting/"
+
+data_tromso = pd.read_csv(url_prefix + "tromso-daily.csv")
+data_oslo = pd.read_csv(url_prefix + "oslo-daily.csv")
+
+data_daily = pd.concat([data_tromso, data_oslo], axis=0)
+```
+
+We adjust the data a bit:
+```python
+# replace dd.mm.yyyy to date format
+data_daily["date"] = pd.to_datetime(list(data_daily["date"]), format="%d.%m.%Y")
+
+# we are here only interested in the range december to may
+data_daily = data_daily[
+    (data_daily["date"] > "2022-12-01") & (data_daily["date"] < "2023-05-01")
+]
+```
+
+Now we can plot the snow depths for the months December to May for the two
+cities:
+```python
+alt.Chart(data_daily).mark_bar().encode(
+    x="date",
+    y="snow depth",
+    column="name",
+)
+```
+
+:::{figure} plotting-vega-altair/snow-depth.svg
+:alt: Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway.
+
+Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway.
+:::
+
+What happens if we try to color the plot by the "max temperature" values?
+```{code-block} python
+---
+emphasize-lines: 4
+---
+alt.Chart(data_daily).mark_bar().encode(
+    x="date",
+    y="snow depth",
+    color="max temperature",
+    column="name",
+)
+```
+
+The result looks neat:
+:::{figure} plotting-vega-altair/snow-depth-color.svg
+:alt: Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature.
+
+Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature.
+:::
+
+We can change the color scheme ([available color schemes](https://vega.github.io/vega/docs/schemes/)):
+```{code-block} python
+---
+emphasize-lines: 4
+---
+alt.Chart(data_daily).mark_bar().encode(
+    x="date",
+    y="snow depth",
+    color=alt.Color("max temperature").scale(scheme="plasma"),
+    column="name",
+)
+```
+
+With the following result:
+:::{figure} plotting-vega-altair/snow-depth-plasma.svg
+:alt: Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature. Warmer days are often followed by reduced snow depth.
+
+Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature. Warmer days are often followed by reduced snow depth.
+:::
+
+:::{discussion} What other marks and other visual channels exist?
+- [Overview of available marks](https://altair-viz.github.io/user_guide/marks/index.html)
+- [Overview of available visual channels](https://altair-viz.github.io/user_guide/encodings/channels.html)
+- [Gallery of examples](https://altair-viz.github.io/gallery/index.html)
+:::
+
+
+## Themes
+
+In [Vega-Altair](https://altair-viz.github.io/) you can change the theme and
+select from a long [list of themes](https://github.com/vega/vega-themes).  On
+top of your notebook try to add:
+```python
+alt.themes.enable('dark')
+```
+Then re-run all cells. Later you can try some other themes such as:
+- `fivethirtyeight`
+- `latimes`
+- `urbaninstitute`
+
+You can even define your own themes!
+
+
+## Exercise: Adapting a gallery example
 
 In this exercise we can try to adapt existing scripts to either **tweak how the
 plot looks** or to **modify the input data**.  This is very close to real life:
@@ -70,7 +406,7 @@ remember everything so this strategy is useful to practice:
 - Being able to search for help
 - Being able to understand help request answers (not easy)
 
-:::{challenge} Exercise Customization-1: Adapting a gallery example
+::::{exercise} Plotting-2: Adapting a gallery example
 **This is a great exercise which is very close to real life.**
 
 - Browse the [Vega-Altair example gallery](https://altair-viz.github.io/gallery/index.html).
@@ -82,7 +418,11 @@ remember everything so this strategy is useful to practice:
 - Then try to modify the data a bit.
 - If you have time, try to feed it different, simplified data.
   This will be key for adapting the examples to your projects.
+
+:::{solution} Example walk-through
+(work in progress)
 :::
+::::
 
 ---
 
