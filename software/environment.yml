@@ -21,4 +21,5 @@ dependencies:
   - scalene
   - ruff
   - altair-all
+  - vega_datasets
   - xarray
