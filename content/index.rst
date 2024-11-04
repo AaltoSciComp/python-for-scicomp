@@ -81,7 +81,7 @@ to learn yourself as you need to.
    15 min   ; :doc:`scipy`
    30 min   ; :doc:`libraries`
    45 min   ; :doc:`parallel`
-   30 min   ; :doc:`dependencies`
+   45 min   ; :doc:`dependencies`
    30 min   ; :doc:`binder`
    60 min   ; :doc:`packaging`
 
