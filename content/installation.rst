@@ -261,8 +261,6 @@ most of the other tools we need).
       start the Miniforge command line interface.  Remember, you may
       need to activate Miniforge and the environment first.
 
-
-
       .. tabs::
 
          .. group-tab:: Linux / MacOS
