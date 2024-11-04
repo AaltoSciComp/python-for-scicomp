@@ -208,3 +208,8 @@ Please try to go through the exercise in the following steps:
     it already contains the element can be slow).
   :::
 ::::
+
+
+## Additional resources
+
+- [Python performance workshop (by ENCCS)](https://enccs.github.io/python-perf/profile/)
