@@ -23,5 +23,7 @@ dependencies:
   - altair-all
   - vega_datasets
   - xarray
-  - pythia_datasets
   - netcdf4
+  - pip
+  - pip:
+    - pythia_datasets
