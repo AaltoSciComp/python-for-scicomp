@@ -24,4 +24,4 @@ dependencies:
   - vega_datasets
   - xarray
   - pythia_datasets
-
+  - netcdf4
