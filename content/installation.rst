@@ -126,19 +126,25 @@ You need to Python in a way that activates conda/mamba.
 
    .. group-tab:: Miniforge
 
-      Linux/MacOS: Each time you start a new command line terminal,
-      you can activate Miniforge by running.  This is needed so that
-      Miniforge is usable wherever you need, but doesn't affect any
-      other software on your computer (this is not needed if you
-      choose "Do you wish to update your shell profile to
-      automatically initialize conda?", but then it will always be
-      active)::
+      .. tabs::
 
-	$ source ~/miniforge3/bin/activate
+         .. group-tab:: Linux / MacOS
 
-      Windows: Use the "Miniforge Prompt" to start Miniforge.  This
-      will set up everything so that ``conda`` and ``mamba`` are
-      available.
+            Linux/MacOS: Each time you start a new command line terminal,
+            you can activate Miniforge by running.  This is needed so that
+            Miniforge is usable wherever you need, but doesn't affect any
+            other software on your computer (this is not needed if you
+            choose "Do you wish to update your shell profile to
+            automatically initialize conda?", but then it will always be
+            active)::
+
+               $ source ~/miniforge3/bin/activate
+
+         .. group-tab:: Windows
+
+            Windows: Use the "Miniforge Prompt" to start Miniforge.  This
+            will set up everything so that ``conda`` and ``mamba`` are
+            available.
 
    .. group-tab:: Anaconda
 
@@ -168,25 +174,42 @@ software needed for this particular course.
       This `environment file
       <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
       contains all packages needed for the course, and can be
-      installed with (there may be lots of warning messages: this is OK
-      if it still goes through).
+      installed with.  The following command will install an
+      environment named ``python-for-scicomp`` (there may be lots of
+      warning messages: this is OK if it still goes through):
 
-      Linux / MacOS / Windows::
+      .. tabs::
 
-	 $ mamba env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+         .. group-tab:: Linux / MacOS
+
+	    ::
+
+	       $ mamba env create -n python-for-scicomp -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+
+         .. group-tab:: Windows
+
+	    ::
+
+	       $ mamba env create -n python-for-scicomp -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
 
       Each time you start a new command line, you need to activate
       miniforge and this environment:
 
-      Linux/MacOS::
+      .. tabs::
 
-	$ source ~/miniforge3/bin/activate
-	$ conda activate python-for-scicomp
+         .. group-tab:: Linux / MacOS
 
-      Windows::
+	    ::
 
-	$ # Start the Miniforge Prompt.
-	$ conda activate python-for-scicomp
+               $ source ~/miniforge3/bin/activate
+               $ conda activate python-for-scicomp
+
+         .. group-tab:: Windows
+
+            ::
+
+               $ # Start the Miniforge Prompt.
+               $ conda activate python-for-scicomp
 
    .. group-tab:: Anaconda
 
@@ -235,20 +258,28 @@ most of the other tools we need).
    .. group-tab:: Miniforge
 
       JupyterLab was instaled in the previous step.  To run it, first,
-      start the Miniforge command line interface.
+      start the Miniforge command line interface.  Remember, you may
+      need to activate Miniforge and the environment first.
 
-      Linux/MacOS: remember, you may need to activate Miniforge and
-      the environment first::
 
-	$ source ~/miniforge3/bin/activate
-	$ conda activate python-for-scicomp
-	$ jupyter-lab
 
-      Windows::
+      .. tabs::
 
-	$ # Start the Miniforge Prompt.
-	$ conda activate python-for-scicomp
-	$ jupyter-lab
+         .. group-tab:: Linux / MacOS
+
+	    ::
+
+               $ source ~/miniforge3/bin/activate
+               $ conda activate python-for-scicomp
+               $ jupyter-lab
+
+         .. group-tab:: Windows
+
+            ::
+
+               $ # Start the Miniforge Prompt.
+               $ conda activate python-for-scicomp
+               $ jupyter-lab
 
    .. group-tab:: Anaconda
 
@@ -270,6 +301,8 @@ Verification of Python and JupyterLab
    <https://youtu.be/OEX1ss_HCHc>`__ - if you can do this, you are
    ready to go for day one.  Your exact steps may be a bit different.
 
+   Remember that you need to activate the environment first - see the
+   step above.
 
 .. tabs::
 
@@ -352,10 +385,10 @@ test in advance:
    * From the Anaconda Navigator:
 
      .. figure:: img/installation/anaconda-prompt.png
-	:class: with-border
+        :class: with-border
 
-	From the Anaconda Navigator, you can select "environments" on the
-	left, then click on one, then the arrow, then "Open terminal".
+        From the Anaconda Navigator, you can select "environments" on the
+        left, then click on one, then the arrow, then "Open terminal".
 
    * From your operating system's terminal applications, if you activate
      Anaconda.
