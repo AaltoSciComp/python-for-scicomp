@@ -63,7 +63,7 @@ to copy it to a place you are working (maybe upload it back to
 JupyterLab?):
 
 .. figure:: https://jupyterlab.readthedocs.io/en/stable/_images/exporting-menu.png
-   :scale: 25%
+   :width: 80%
    :alt: JupyterLab screenshot as described in caption.
 
    Select File (top menu bar) → Export Notebook as → **Export notebook to Executable Script**.
