@@ -171,7 +171,7 @@ software needed for this particular course.
       installed with (there may be lots of warning messages: this is OK
       if it still goes through).
 
-      Linux / MacOS / Windows:
+      Linux / MacOS / Windows::
 
 	 $ mamba env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
 
