@@ -45,6 +45,12 @@ Xarray is a powerful Python library that introduces labelled multidimensional ar
 
 We will first download a dataset similar to the example above to illustrate the advantages of Xarray. We will cover how to transform your own data into an Xarray Dataset later in this lecture.
 
+.. Note::
+
+   If you have set up your ``python-for-scicomp`` environment yesterday or earlier, you need to install the packages ``netcdf4`` and ``pythia_datasets`` manually. You can do this by running the following command in your (JupyterLab) terminal: ::
+
+        conda install netcdf4 pythia-datasets -c conda-forge
+
 Let us open a python shell and download a public dataset: ::
         
         >>> from pythia_datasets import DATASETS
@@ -328,7 +334,7 @@ Creating your own Xarray Dataset is quite simple. We can create a Dataset from s
 
         # Put everything together to create the Dataset
         ds = xr.Dataset(
-            {
+            data_vars = {
                 "pressure": (["time", "location"], pressure_data),
                 "humidity": (["time", "location"], humidity_data)
             },
@@ -338,10 +344,6 @@ Creating your own Xarray Dataset is quite simple. We can create a Dataset from s
             },
             attrs={
                 "description": "Weather data",
-                "units": {
-                    "pressure": "hPa",
-                    "humidity": "%"
-                },
                 "creation_date": "2023-01-01",
                 "author": "Data Scientist"
             }
@@ -403,7 +405,7 @@ Exercises 2
                 stock_prices = np.random.normal(loc=[100, 1500, 200], scale=[10, 50, 20], size=(10, 3))
                 trading_volumes = np.random.randint(1000, 10000, size=(10, 3))
                 ds = xr.Dataset(
-                    {
+                    data_vars = {
                         "stock_price": (["time", "company"], stock_prices),
                         "trading_volume": (["time", "company"], trading_volumes),
                     },
