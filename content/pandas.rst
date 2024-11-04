@@ -601,6 +601,21 @@ limited by memory size. Thus, the result from fibonacci(99) would be erroneous w
 using numpy ints. The type of df['Number of Rabbits'][99] given by both functions above
 is in fact <class 'int'>.
 
+Alternatives to Pandas
+----------------------
+
+**Polars**
+
+`Polars <https://pola.rs/>`__ is a DataFrame library designed to processing data with a fast lighting time. Polars is implemented in Rust Programming language and uses `Apache Arrow <https://arrow.apache.org/docs/format/Columnar.html>`__ as its memory format.
+
+**Dask**
+
+`Dask <https://www.dask.org/>`__ is a Python package for parallel computing in Python and uses parallel data-frames for dealing with very large arrays.
+
+**Vaex**
+
+`Vaex <https://github.com/vaexio/vaex>`__ is a high performance Python library for lazy Out-of-Core DataFrames, to visualize and explore big tabular datasets.
+
 
 .. keypoints::
 
