@@ -8,7 +8,7 @@ Python for Scientific Computing
    <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2024/>`__
    and watch at https://twitch.tv/coderefinery.
    Whether you are or aren't, the course material is below.  Videos
-   will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__.
+   will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nMWEKWtagJ6h0q9BrFO49tn>`__ (Last year's videos: `playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__).
 
 
 Python is a modern, object-oriented programming language, which has
@@ -59,7 +59,10 @@ to learn yourself as you need to.
      <https://hackmd.io/@coderefinery/python2022archive>`__, `days 3-4
      <https://hackmd.io/@coderefinery/python2022archive2>`__
 
-   * 2023 (appearing here as the course happens): `Videos <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__
+   * 2023: `Videos
+     <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__
+
+   * 2024 (Please contact us if you would like to help to process the videos): `Videos <https://www.youtube.com/playlist?list=PLZLVmS9rf3nMWEKWtagJ6h0q9BrFO49tn>`__
 
 
 .. csv-table::
