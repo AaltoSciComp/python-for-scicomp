@@ -23,14 +23,14 @@ This page provides a brief overview of pandas, but the open source community
 developing the pandas package has also created excellent documentation and training
 material, including:
 
-- a  `Getting started guide <https://pandas.pydata.org/getting_started.html>`__
+- A `Getting started guide <https://pandas.pydata.org/getting_started.html>`__
   (including tutorials and a 10 minute flash intro)
-- a `"10 minutes to pandas" <https://pandas.pydata.org/docs/user_guide/10min.html#min>`__
+- A `"10 minutes to Pandas" <https://pandas.pydata.org/docs/user_guide/10min.html#min>`__
   tutorial
-- thorough `Documentation <https://pandas.pydata.org/docs/>`__ containing a user guide,
+- Thorough `Documentation <https://pandas.pydata.org/docs/>`__ containing a user guide,
   API reference and contribution guide
-- a `cheatsheet <https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf>`__
-- a `cookbook <https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook>`__.
+- A `cheatsheet <https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf>`__
+- A `cookbook <https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook>`__
 
 A quick Pandas preview
 ----------------------
