@@ -1,5 +1,15 @@
 # Plotting with [Vega-Altair](https://altair-viz.github.io/)
 
+:::{objectives}
+- Be able to create simple plots with Vega-Altair and tweak them
+- Know how to look for help
+- Reading data with Pandas from disk or a web resource
+- Know how to tweak example plots from a gallery for your own purpose
+- We will build up
+  [this notebook](https://nbviewer.org/github/AaltoSciComp/python-for-scicomp/blob/master/resources/notebooks/plotting.ipynb)
+  (spoiler alert!)
+:::
+
 :::{instructor-note}
 - 10 min: Introduction
 - 10 min: Type-along (creating a first plot)
@@ -51,11 +61,11 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
 - "Simple, friendly and consistent API" allows us to focus on the data
   visualization part and get started without too much Python knowledge
 - The way it **combines visual channels with data columns** can feel intuitive
-- Interfaces very nicely with [Pandas](https://pandas.pydata.org/)
+- Interfaces very nicely with [Pandas](https://pandas.pydata.org/) ({ref}`earlier episode <pandas>`)
 - Easy to change figures
 - Good documentation
 - Open source
-- Makes it easy to save figures in a number of formats
+- Makes it easy to save figures in a number of formats (svg, png, html)
 - Easy to save interactive visualizations to be used in websites
 
 
@@ -66,7 +76,7 @@ KlimaServiceSenter](https://seklima.met.no/observations/), Meteorologisk
 institutt (MET) (CC BY 4.0).  The data is in CSV format (comma-separated
 values) and contains daily and monthly weather data for two cities in Norway:
 Oslo and Tromsø. You can browse the data
-[here](https://github.com/AaltoSciComp/python-for-scicomp/tree/master/resources/data/plotting).
+[here in the lesson repository](https://github.com/AaltoSciComp/python-for-scicomp/tree/master/resources/data/plotting).
 
 We will use the Pandas library to read the data into a dataframe. We have learned about Pandas in an {ref}`earlier episode <pandas>`.
 
@@ -150,7 +160,7 @@ Observe how we connect (encode) **visual channels** to data columns:
 :::
 
 We can improve the plot by giving Vega-Altair a bit more information that the
-x-axis is a **time series** (T) and that we would like to see the year and
+x-axis is **temporal** (T) and that we would like to see the year and
 month (yearmonth):
 ```{code-block} python
 ---
@@ -162,6 +172,14 @@ alt.Chart(data_monthly).mark_bar().encode(
     color="name",
 )
 ```
+
+Apart from T (temporal), there are other
+[encoding data types](https://altair-viz.github.io/user_guide/encodings/index.html#encoding-data-types):
+- Q (quantitative)
+- O (ordinal)
+- N (nominal)
+- T (temporal)
+- G (geojson)
 
 :::{figure} plotting-vega-altair/precipitation-on-top-yearmonth.svg
 :alt: Monthly precipitation for the cities Oslo and Tromsø over the course of a year.
@@ -226,6 +244,12 @@ alt.Chart(data_monthly).mark_area(opacity=0.5).encode(
 Monthly temperature ranges for two cities in Norway.
 :::
 
+:::{discussion} What other marks and other visual channels exist?
+- [Overview of available marks](https://altair-viz.github.io/user_guide/marks/index.html)
+- [Overview of available visual channels](https://altair-viz.github.io/user_guide/encodings/channels.html)
+- [Gallery of examples](https://altair-viz.github.io/gallery/index.html)
+:::
+
 
 ## Exercise: Using visual channels to re-arrange plots
 
@@ -238,7 +262,7 @@ Monthly temperature ranges for two cities in Norway.
    :::{figure} plotting-vega-altair/precipitation-stacked-y.svg
    :::
 
-1. Ask the web-search or AI how to change the axis title from "precipitation"
+1. Ask the Internet or AI how to change the axis title from "precipitation"
    to "Precipitation (mm)".
 
 1. Modify the temperature range plot to show the temperature ranges for the
@@ -292,7 +316,7 @@ Monthly temperature ranges for two cities in Norway.
 ::::
 
 
-## Using visual channels
+## More fun with visual channels
 
 Now we will try to **plot the daily data and look at snow depths**. We first
 read and concatenate two datasets:
@@ -372,10 +396,24 @@ With the following result:
 Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature. Warmer days are often followed by reduced snow depth.
 :::
 
-:::{discussion} What other marks and other visual channels exist?
-- [Overview of available marks](https://altair-viz.github.io/user_guide/marks/index.html)
-- [Overview of available visual channels](https://altair-viz.github.io/user_guide/encodings/channels.html)
-- [Gallery of examples](https://altair-viz.github.io/gallery/index.html)
+Let's try one more change to show that we can experiment with different
+plot types by changing `mark_bar()` to something else, in this case `mark_circle()`:
+```{code-block} python
+---
+emphasize-lines: 1
+---
+alt.Chart(data_daily).mark_circle().encode(
+    x="date",
+    y="snow depth",
+    color=alt.Color("max temperature").scale(scheme="plasma"),
+    column="name",
+)
+```
+
+:::{figure} plotting-vega-altair/snow-depth-circles.svg
+:alt: Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature. Warmer days are often followed by reduced snow depth.
+
+Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature. Warmer days are often followed by reduced snow depth.
 :::
 
 
@@ -404,7 +442,6 @@ remember everything so this strategy is useful to practice:
 - Select an example that is close to what you have in mind
 - Being able to adapt it to your needs
 - Being able to search for help
-- Being able to understand help request answers (not easy)
 
 ::::{exercise} Plotting-2: Adapting a gallery example
 **This is a great exercise which is very close to real life.**
@@ -421,7 +458,7 @@ remember everything so this strategy is useful to practice:
   - [Heatmap](https://altair-viz.github.io/gallery/simple_heatmap.html)
   - [Layered histogram](https://altair-viz.github.io/gallery/layered_histogram.html)
 - Then try to print out the data that is used in this example just before the call of the plotting function
-  to learn about its structure.
+  to learn about its structure. Consider writing the data to file before changing it.
 - Then try to modify the data a bit.
 - If you have time, try to feed it different, simplified data.
   **This will be key for adapting the examples to your projects.**
@@ -570,7 +607,7 @@ mydata = pd.read_csv("mydata.csv")
 mydata
 ```
 
-Now I can replace the example with my own data (note how I could comment out
+Now I can replace the example with my own data (note how I now can comment out
 some code that I don't need any longer):
 ```{code-block} python
 ---
@@ -644,9 +681,10 @@ nbviewer](https://nbviewer.org/github/AaltoSciComp/python-for-scicomp/blob/maste
 :::{keypoints}
 - Browse a number of example galleries to help you choose the library
   that fits best your work/style.
-- Figures for presentation slides and figures for manuscripts have
-  different requirements.
-- Think about color-vision deficiencies when choosing colors. There are color
-  palettes optimized for this.
 - Minimize manual post-processing and try to script all steps.
+- CSV (comma-separated values) files are often a good format to store the data
+  that we wish to plot.
+- Read the data into a Pandas dataframe and then plot it with Vega-Altair
+  where you connect data columns to
+  [visual channels](https://altair-viz.github.io/user_guide/encodings/channels.html).
 :::
