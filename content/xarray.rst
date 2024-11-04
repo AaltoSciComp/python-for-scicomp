@@ -47,10 +47,9 @@ We will first download a dataset similar to the example above to illustrate the 
 
 .. Note::
 
-   If you have set up your ``python-for-scicomp`` environment yesterday or earlier, you need to install the packages ``netcdf4`` and ``pythia_datasets`` manually. You can do this by running the following commands in your (JupyterLab) terminal: ::
+   If you have set up your ``python-for-scicomp`` environment yesterday or earlier, you need to install the packages ``netcdf4`` and ``pythia_datasets`` manually. You can do this by running the following command in your (JupyterLab) terminal: ::
 
-        conda install netcdf4
-        pip install pythia_datasets
+        conda install netcdf4 pythia-datasets
 
 Let us open a python shell and download a public dataset: ::
         
