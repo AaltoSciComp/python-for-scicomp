@@ -106,7 +106,7 @@ The following image shows the structure of this particular Xarray Dataset:
 Accessing and manipulating data in Xarray
 -----------------------------------------
 
-An xarray ``Dataset`` typically consists of multiple ``DataArrays``. Our example dataset has 7 of them (``u-component_of_wind_isobaric``, ``LambertConformal_Projection``, ``lat``, ``lon``, `Geopotential_height_isobaric``, ``v-component_of_wind_isobaric``, ``Temperature_isobaric``).
+An xarray ``Dataset`` typically consists of multiple ``DataArrays``. Our example dataset has 7 of them (``u-component_of_wind_isobaric``, ``LambertConformal_Projection``, ``lat``, ``lon``, ``Geopotential_height_isobaric``, ``v-component_of_wind_isobaric``, ``Temperature_isobaric``).
 We can select a single ``DataArray`` from the dataset using a dictionary-like syntax: ::
 
         >>> temperature_data = ds['Temperature_isobaric']
