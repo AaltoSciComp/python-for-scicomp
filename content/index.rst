@@ -2,21 +2,21 @@
 Python for Scientific Computing
 ===============================
 
-.. admonition:: Attending the course 7-10.november.2023?
+.. admonition:: Attending the course 5-7 November, 2024?
 
    `See the course page here
-   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2023/>`__
+   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2024/>`__
    and watch at https://twitch.tv/coderefinery.
    Whether you are or aren't, the course material is below.  Videos
-   will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__.
+   will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nMWEKWtagJ6h0q9BrFO49tn>`__ (Last year's videos: `playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__).
 
-   
+
 Python is a modern, object-oriented programming language, which has
 become popular in several areas of software development. This course
 discusses how Python can be utilized in scientific computing. The
 course starts by introducing some of the main Python tools for
 computing: Jupyter for interactive analysis, NumPy and SciPy for
-numerical analysis, matplotlib for visualization, and so on.  In
+numerical analysis, Matplotlib for visualization, and so on.  In
 addition, it talks about *how* python is used:
 related scientific libraries, reproducibility, and the broader
 ecosystem of science in Python, because your work is more than the raw
@@ -59,7 +59,10 @@ to learn yourself as you need to.
      <https://hackmd.io/@coderefinery/python2022archive>`__, `days 3-4
      <https://hackmd.io/@coderefinery/python2022archive2>`__
 
-   * 2023 (appearing here as the course happens): `Videos <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__
+   * 2023: `Videos
+     <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__
+
+   * 2024 (Please contact us if you would like to help to process the videos): `Videos <https://www.youtube.com/playlist?list=PLZLVmS9rf3nMWEKWtagJ6h0q9BrFO49tn>`__
 
 
 .. csv-table::
@@ -71,7 +74,8 @@ to learn yourself as you need to.
    60 min   ; :doc:`numpy` or :doc:`numpy-advanced`
    60 min   ; :doc:`pandas`
    30 min   ; :doc:`xarray`
-   60 min   ; :doc:`data-visualization`
+   60 min   ; :doc:`plotting-matplotlib`
+   60 min   ; :doc:`plotting-vega-altair`
    30 min   ; :doc:`work-with-data`
    60 min   ; :doc:`scripts`
    40 min   ; :doc:`profiling`
@@ -80,7 +84,7 @@ to learn yourself as you need to.
    15 min   ; :doc:`scipy`
    30 min   ; :doc:`libraries`
    45 min   ; :doc:`parallel`
-   30 min   ; :doc:`dependencies`
+   45 min   ; :doc:`dependencies`
    30 min   ; :doc:`binder`
    60 min   ; :doc:`packaging`
 
@@ -96,7 +100,8 @@ to learn yourself as you need to.
    numpy-advanced
    pandas
    xarray
-   data-visualization
+   plotting-matplotlib
+   plotting-vega-altair
    work-with-data
    scripts
    profiling
@@ -228,6 +233,6 @@ See also
 ========
 
 * `High Performance Data Analytics in Python
-  <https://enccs.github.io/HPDA-Python/>`__ is a logical follow-up to
+  <https://enccs.github.io/hpda-python/>`__ is a logical follow-up to
   this lesson that goes more in-depth to tools of high-performance
   and large-scale Python.

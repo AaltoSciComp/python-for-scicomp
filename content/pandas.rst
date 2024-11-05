@@ -1,3 +1,5 @@
+.. _pandas:
+
 Pandas
 ======
 
@@ -21,14 +23,14 @@ This page provides a brief overview of pandas, but the open source community
 developing the pandas package has also created excellent documentation and training
 material, including:
 
-- a  `Getting started guide <https://pandas.pydata.org/getting_started.html>`__
+- A `Getting started guide <https://pandas.pydata.org/getting_started.html>`__
   (including tutorials and a 10 minute flash intro)
-- a `"10 minutes to pandas" <https://pandas.pydata.org/docs/user_guide/10min.html#min>`__
+- A `"10 minutes to Pandas" <https://pandas.pydata.org/docs/user_guide/10min.html#min>`__
   tutorial
-- thorough `Documentation <https://pandas.pydata.org/docs/>`__ containing a user guide,
+- Thorough `Documentation <https://pandas.pydata.org/docs/>`__ containing a user guide,
   API reference and contribution guide
-- a `cheatsheet <https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf>`__
-- a `cookbook <https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook>`__.
+- A `cheatsheet <https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf>`__
+- A `cookbook <https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook>`__
 
 A quick Pandas preview
 ----------------------
@@ -598,6 +600,21 @@ Note that the numpy precision for integers caps at int64 while python ints are u
 limited by memory size. Thus, the result from fibonacci(99) would be erroneous when
 using numpy ints. The type of df['Number of Rabbits'][99] given by both functions above
 is in fact <class 'int'>.
+
+Alternatives to Pandas
+----------------------
+
+**Polars**
+
+`Polars <https://pola.rs/>`__ is a DataFrame library designed to processing data with a fast lighting time. Polars is implemented in Rust Programming language and uses `Apache Arrow <https://arrow.apache.org/docs/format/Columnar.html>`__ as its memory format.
+
+**Dask**
+
+`Dask <https://www.dask.org/>`__ is a Python package for parallel computing in Python and uses parallel data-frames for dealing with very large arrays.
+
+**Vaex**
+
+`Vaex <https://github.com/vaexio/vaex>`__ is a high performance Python library for lazy Out-of-Core DataFrames, to visualize and explore big tabular datasets.
 
 
 .. keypoints::

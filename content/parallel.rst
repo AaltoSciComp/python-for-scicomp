@@ -226,11 +226,7 @@ Exercises, multiprocessing
 
    .. solution::
 
-      See the finished notebook here:
-
-      .. toctree::
-
-	 parallel-pi-multiprocessing
+      See the finished notebook here :doc:`parallel-pi-multiprocessing`.
 
       You notice the version with ``ThreadPool`` is no faster, and
       probably takes even longer.  This is because this is a

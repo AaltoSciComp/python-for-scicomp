@@ -1,4 +1,4 @@
-# Data visualization with Matplotlib
+# Plotting with Matplotlib
 
 ```{questions}
 - What happens if you can't automatically produce plots?
@@ -101,7 +101,7 @@ ax.set_title("some title")
 # fig.savefig("my-first-plot.png")
 ```
 
-```{figure} data-visualization/first-plot/getting-started.png
+```{figure} plotting-matplotlib/first-plot/getting-started.png
 :alt: Result of our first plot
 :width: 80%
 
@@ -142,7 +142,7 @@ matplotlib.use("Agg")
   [quick start guide](https://matplotlib.org/stable/users/explain/quick_start.html).
 
 - At the end it should look like this one:
-  ```{figure} data-visualization/first-plot/exercise.png
+  ```{figure} plotting-matplotlib/first-plot/exercise.png
   :alt: Result of the exercise
   ```
 
@@ -321,12 +321,12 @@ In this exercise we will learn how to use log scales.
   ```
 
   This is the result but we realize that a linear scale is not ideal here:
-  ```{figure} data-visualization/customizing/gapminder-linear.png
+  ```{figure} plotting-matplotlib/customizing/gapminder-linear.png
   :alt: Gapminder data plotted using a linear scale
   ```
 
 - Your task is to switch to a log scale and arrive at this result:
-  ```{figure} data-visualization/customizing/gapminder-log.png
+  ```{figure} plotting-matplotlib/customizing/gapminder-log.png
   :alt: Gapminder data plotted using log scale
   ```
 
@@ -365,7 +365,7 @@ Your task is to make the tickmarks and the axis label font larger, using
 [Matplotlib parts of a figure](https://matplotlib.org/stable/users/explain/quick_start.html#parts-of-a-figure)
 and web search, and to arrive at this:
 
-```{figure} data-visualization/customizing/gapminder-larger-font.png
+```{figure} plotting-matplotlib/customizing/gapminder-larger-font.png
 :alt: Gapminder data plotted with larger font and larger ticks
 ```
 ````
@@ -390,116 +390,6 @@ ax.tick_params(which="major", length=10)
 ax.tick_params(which="minor", length=5)
 ax.tick_params(labelsize=15)
 ```
-````
-
-````{challenge} Exercise Customization-3: adapting a gallery example
-**This is a great exercise which is very close to real life.**
-
-- Your task is to select one visualization library (some need to be installed first - in
-  doubt choose Matplotlib or Seaborn since they are part of Anaconda installation):
-  - [Matplotlib](https://matplotlib.org/stable/gallery/index.html):
-    probably the most standard and most widely used
-  - [Seaborn](https://seaborn.pydata.org/examples/index.html):
-    high-level interface to Matplotlib, statistical functions built in
-  - [Vega-Altair](https://altair-viz.github.io/gallery/index.html):
-    declarative visualization, statistics built in
-    (we have an [entire lesson about data visualization using Vega-Altair](https://coderefinery.github.io/data-visualization-python/))
-  - [Plotly](https://plotly.com/python/):
-    interactive graphs
-  - [Bokeh](https://demo.bokeh.org/):
-    also here good for interactivity
-  - [plotnine](https://plotnine.readthedocs.io/):
-    implementation of a grammar of graphics in Python, it is based on [ggplot2](https://ggplot2.tidyverse.org/)
-  - [ggplot](https://yhat.github.io/ggpy/):
-    R users will be more at home
-  - [PyNGL](https://www.pyngl.ucar.edu/Examples/gallery.shtml):
-    used in the weather forecast community
-  - [K3D](https://k3d-jupyter.org/gallery/index.html):
-    Jupyter Notebook extension for 3D visualization
-
-- Browse the various example galleries (links above).
-- Select one example that is close to your recent visualization project or simply interests you.
-- Note that you might need to install additional Python packages in order make use of the libraries.
-  This could be the visualization library itself, and in addition also any required dependency package.
-- First try to reproduce this example in the Jupyter Notebook.
-- Then try to print out the data that is used in this example just before the call of the plotting function
-  to learn about its structure. Is it a pandas dataframe? Is it a NumPy array? Is it a dictionary? A list?
-  a list of lists?
-- Then try to modify the data a bit.
-- If you have time, try to feed it different, simplified data.
-  This will be key for adapting the examples to your projects.
-
-Example "solution" for such an exploration below.
-````
-
-````{solution} An example exploration
-- Let us imagine we were browsing <https://seaborn.pydata.org/examples/index.html>
-- And this example plot caught our eye: <https://seaborn.pydata.org/examples/simple_violinplots.html>
-- Try to run it in the notebook.
-- The `d` seems to be the data. Right before the call to `sns.violinplot`, add a `print(d)`:
-  ```{code-block} python
-  ---
-  emphasize-lines: 12
-  ---
-  import numpy as np
-  import seaborn as sns
-
-  sns.set_theme()
-
-  # Create a random dataset across several variables
-  rs = np.random.default_rng(0)
-  n, p = 40, 8
-  d = rs.normal(0, 2, (n, p))
-  d += np.log(np.arange(1, p + 1)) * -5 + 10
-
-  print(d)
-
-  # Show each distribution with both violins and points
-  sns.violinplot(data=d, palette="light:g", inner="points", orient="h")
-  ```
-- The print reveals that `d` is a NumPy array and looks like a two-dimensional list:
-  ```text
-  [[10.25146044  6.27005437  5.78778386  3.27832843  0.88147169  1.76439276  2.87844934  1.49695422]
-   [ 8.59252953  4.00342116  3.26038963  3.15118015 -2.69725111  0.60361933 -2.22137264 -1.86174242]
-   ... many more lines ...
-   [12.45950762  4.32352988  6.56724895  3.42215312  0.34419915  0.46123886 -1.56953795  0.95292133]]
-  ```
-- Now let's try with a much simplified two-dimensional list:
-  ```{code-block} python
-  ---
-  emphasize-lines: 12, 13
-  ---
-  # import numpy as np
-  import seaborn as sns
-
-  sns.set_theme()
-
-  # # Create a random dataset across several variables
-  # rs = np.random.default_rng(0)
-  # n, p = 40, 8
-  # d = rs.normal(0, 2, (n, p))
-  # d += np.log(np.arange(1, p + 1)) * -5 + 10
-
-  d = [[1.0, 2.0, 2.0, 3.0, 3.0, 3.0],
-       [1.0, 1.0, 1.0, 2.0, 2.0, 3.0]]
-
-  # Show each distribution with both violins and points
-  sns.violinplot(data=d, palette="light:g", inner="points", orient="h")
-  ```
-- Seems to work! And finally we arrive at a working example with our own data with all
-  the "clutter" removed:
-  ```python
-  import seaborn as sns
-
-  # l1 and l2 are note great names but they will do for a quick test
-  l1 = [1.0, 2.0, 2.0, 3.0, 3.0, 3.0]
-  l2 = [1.0, 1.0, 1.0, 2.0, 2.0, 3.0]
-
-  sns.violinplot(data=[l1, l2], palette="light:g", inner="points", orient="h")
-  ```
-- And now we can focus the rest of our work to read our real data.
-- Finally we can customize the plot, e.g. web search for "seaborn violin plot axis labels"
-  and add `ax.set_yticklabels(['dataset 1', 'dataset 2'])`.
 ````
 
 ---

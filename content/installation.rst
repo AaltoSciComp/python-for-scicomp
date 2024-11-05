@@ -1,60 +1,35 @@
 Software installation
 =====================
 
-This page contains instructions for installing the required software
-on your computer.
-Please make sure before the course that you have all the required software
-installed or some other way access to it.  For example, the workshop could be done with a remote Jupyter
-server, as long as you can use the terminal from the Jupyter (you need
-to be able to access the command line for some lessons).
+This course is interactive and demonstrates many different tools.
+Thus, even beyond Python, extra software (Python libraries) needs to
+be installed.  This page contains the instructions.
 
-**If you need installation help, show this page to someone around you
-and they can probably do all you need**
+**Once the course starts, we don't have time to stop for installing
+software.**
 
+Please make sure before the course that you have all the required
+software installed or some other way access to it.  For example, the
+workshop could be done with a remote Jupyter server, as long as you
+can use the terminal from the Jupyter (you need to be able to access
+the command line for some lessons).
 
-Generic list of tools required
-------------------------------
+.. admonition:: Do you need help?
+   :class: important
 
-Note: The actual installation instructions are below.  This is a
-generic description which will help those who already understand all
-of the tools.
+   Participants from a partner institution are invited to install help
+   sessions. (Hint: ask your institution to become a partner if it
+   isn't already!)
 
-* **Python 3** (Anaconda is recommended, it will include everything)
+   Otherwise, if you need installation help, show this page to someone
+   around you and they can probably help.  These are relatively
+   standard tools.
 
-  * With some extra packages installed.  They are all included in
-    Anaconda, and are listed in the ``environment.yml`` file you can
-    find under miniconda below.
-* Text editor (several lessons, can also be done through Jupyterlab)
-* Command-line shell (several lessons, can also be done through Jupyterlab)
-* git (not needed, this lesson is usually done as a demo)
+   Don't be afraid to ask for help.  Installing scientific software is
+   *harder than it should be* and it helps to have someone guide you
+   through it.
 
-.. admonition:: Generic instructions with miniconda and an environment file (advanced)
-   :class: dropdown
-
-   This is the advanced, minimal method of installing the Python
-   packages.  For most people, we recommend Anaconda (below).  You
-   will actually learn about miniconda during the workshop.  This
-   doesn't provide the graphical Anaconda navigator, so you'll need to
-   activate the miniconda environment using the command line.
-
-   You can read how to install miniconda from the `CodeRefinery
-   installation instructions
-   <https://coderefinery.github.io/installation/conda/>`__.
-
-   Then `this environment file
-   <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
-   contains all packages needed, and can be installed with:
-
-   .. code:: console
-
-      $ conda env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
-
-   Each time you start a new shell, you need to activate miniconda (if
-   you don't do run ``conda init``), and then you need to activate the
-   proper environment with ``conda activate python-for-scicomp``.
-
-   We might have missed some packages, though, which can be later
-   installed with ``conda install``.
+.. highlight:: console
 
 
 
@@ -62,38 +37,261 @@ Python
 ------
 
 We expect you to have a working Python installation with some common
-libraries.  We recommend that you install the `Anaconda python
-distribution <https://docs.continuum.io/anaconda/install/>`__.  The
-`Anaconda Navigator <https://docs.anaconda.com/navigator/>`__
-provides a convenient way to access the software.
+libraries.  **We currently recommend Miniforge, which includes the base and
+packages through a different, freely usable channel.**  You can
+explore the options in the tabs below.
 
-.. admonition:: Other options
-   :class: toggle
+.. admonition:: Python, conda, anaconda, miniforge, etc?
+   :class: dropdown
 
-   We recommend Anaconda, Anaconda Navigator, and JupyterLab in these
-   instructions because it is simple and can be used by everyone.  As
-   you advance in your career, we
-   recommend that you explore other options as well, but
-   that can come later.
+   Unfortunately there's a lot of jargon.  We'll go over this in the
+   course but here is a crash course:
 
-   Any other Python distribution which you can install libraries into
-   would work, but because there are so many different ways to do this,
-   we don't support them.  You would need the extra libraries mentioned
-   in the Miniconda instructions above.
+   * **Python** is a programming language very commonly used in
+     science, it's the topic of this course.
+   * **Conda** is a package manager: it allows distributing and
+     installing packages, and is designed for complex scientific
+     code.
+   * **Mamba** is a re-implementation of Conda to be much faster with
+     resolving dependencies and installing things.
+   * An **Environment** is a self-contained collections of packages
+     which can be installed separately from others.  They are used so
+     each project can install what it needs without affecting others.
+   * **Anaconda** is a commercial distribution of Python+Conda+many
+     packages that all work together.  It used to be freely usable for
+     research, but since ~2023-2024 it's more limited.  Thus, we don't
+     recommend it (even though it has a nice graphical user interface).
+   * **conda-forge** is another channel of distributing packages that
+     is maintained by the community, and thus can be used by anyone.
+     (Anaconda's parent company also hosts conda-forge packages)
+   * **miniforge** is a distribution of conda pre-configured for
+     conda-forge.  It operates via the command line.
+   * **miniconda** is a distribution of conda pre-configured to use
+     the Anaconda channels.
+
+.. tabs::
+
+   .. group-tab:: Miniforge
+
+      This is our recommended method - it can be used for any purpose
+      and makes a strong base for the future.
+
+      Follow the `instructions on the miniforge web page
+      <https://github.com/conda-forge/miniforge>`__.  This installs
+      the base, and from here other packages can be installed.
+
+      ..
+        You can read how to install miniconda from the `CodeRefinery
+        installation instructions
+        <https://coderefinery.github.io/installation/conda/>`__.
+
+      Miniforge uses the command line - this gives you the most power
+      but can feel unfamiliar.  See the `command line crash course
+      <https://scicomp.aalto.fi/scicomp/shell/>`__ for an intro.
+
+   .. group-tab:: Anaconda
+
+      Anaconda is easier to get started with, but may be more limiting
+      in the future.  The Anaconda Navigator provides a graphical
+      interface to most of what you would need.
+
+      The `Anaconda Python distribution
+      <https://docs.continuum.io/anaconda/install/>`__ conveniently packages
+      everything, but its license has does not allow large organizations to
+      use it for free (and has actually been enforced against
+      universities).
+
+      Note the license of Anaconda - there were recently issues with
+      it being used by large universities for free, and this is not
+      yet fully resolved.
+
+   .. group-tab:: Other options
+
+      There are many ways to install Python.  Other methods can work,
+      as long as you can install the libraries from the
+      ``environment.yml`` file mentioned in the Miniforge
+      instructions.
+
+      We don't currently provide a ``requirements.txt`` for installing
+      the required packages without Conda/Mamba, though.
+
+
+
+Starting Python
+---------------
+
+You need to Python in a way that activates conda/mamba.
+
+.. tabs::
+
+   .. group-tab:: Miniforge
+
+      .. tabs::
+
+         .. group-tab:: Linux / MacOS
+
+            Linux/MacOS: Each time you start a new command line terminal,
+            you can activate Miniforge by running.  This is needed so that
+            Miniforge is usable wherever you need, but doesn't affect any
+            other software on your computer (this is not needed if you
+            choose "Do you wish to update your shell profile to
+            automatically initialize conda?", but then it will always be
+            active)::
+
+               $ source ~/miniforge3/bin/activate
+
+         .. group-tab:: Windows
+
+            Windows: Use the "Miniforge Prompt" to start Miniforge.  This
+            will set up everything so that ``conda`` and ``mamba`` are
+            available.
+
+   .. group-tab:: Anaconda
+
+      The `Anaconda Navigator
+      <https://docs.anaconda.com/navigator/>`__ provides a convenient
+      way to access the software. It can be installed from that page.
+
+
+   .. group-tab:: Other options
+
+      You are on your own here.
+
+
+Python for SciComp software environment
+---------------------------------------
+
+Once Python and conda/mamba are installed, you can use it to install
+an environment.  An **environment** is a self-contained set of extra
+libraries - different projects can use different environments to not
+interfere with each other.  This environment will have all of the
+software needed for this particular course.
+
+.. tabs::
+
+   .. group-tab:: Miniforge
+
+      This `environment file
+      <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__
+      contains all packages needed for the course, and can be
+      installed with.  The following command will install an
+      environment named ``python-for-scicomp`` (there may be lots of
+      warning messages: this is OK if it still goes through):
+
+      .. tabs::
+
+         .. group-tab:: Linux / MacOS
+
+	    ::
+
+	       $ mamba env create -n python-for-scicomp -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+
+         .. group-tab:: Windows
+
+	    ::
+
+	       $ mamba env create -n python-for-scicomp -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+
+      Each time you start a new command line, you need to activate
+      miniforge and this environment:
+
+      .. tabs::
+
+         .. group-tab:: Linux / MacOS
+
+	    ::
+
+               $ source ~/miniforge3/bin/activate
+               $ conda activate python-for-scicomp
+
+         .. group-tab:: Windows
+
+            ::
+
+               $ # Start the Miniforge Prompt.
+               $ conda activate python-for-scicomp
+
+   .. group-tab:: Anaconda
+
+      Anaconda includes most of the things needed for the course
+      automatically, but as of 2024 not everything.  You can use the
+      navigator to create new environments from this `this environment
+      file
+      <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml>`__.
+      You'll have to download it and then `import it
+      <https://docs.anaconda.com/navigator/tutorials/manage-environments/#importing-an-environment>`__.
+
+      When running this course's exercise, make sure the
+      ``python-for-scicomp`` environment is activated before starting
+      JupyterLab or any code.  You need to start termnials or
+      JupyterLab from the Anaconda Navigator for the
+      ``python-for-scicomp`` environment to be used.
+
+   .. group-tab:: Other options
+
+      **Minoconda, Anaconda command line, other conda/mamba command
+      line tools**: see "Miniforge" instructions.
+
+      Virtual environments: we don't currently provide a
+      ``requirements.txt`` but many package names can probably be
+      copied from the ``environment.yml`` file.  We really recommend
+      conda/mamba based systems: it's designed for complex scientific
+      software.
+
+      Any other Python distribution which you can install libraries into
+      would work, but because there are so many different ways to do this,
+      we don't support them.  You would need the extra libraries mentioned
+      in the Miniforge instructions.
+
+      Remember you need to activate the environment each time you use it.
+
 
 
 JupyterLab
-~~~~~~~~~~
+----------
 
 We do most of the lessons from JupyterLab (and JupyterLab provides
-most of the other tools we need).  If you install the full
-Anaconda distribution, this will be available and can be started
-either through Anaconda Navigator or command line.
+most of the other tools we need).
+
+.. tabs::
+
+   .. group-tab:: Miniforge
+
+      JupyterLab was instaled in the previous step.  To run it, first,
+      start the Miniforge command line interface.  Remember, you may
+      need to activate Miniforge and the environment first.
+
+      .. tabs::
+
+         .. group-tab:: Linux / MacOS
+
+	    ::
+
+               $ source ~/miniforge3/bin/activate
+               $ conda activate python-for-scicomp
+               $ jupyter-lab
+
+         .. group-tab:: Windows
+
+            ::
+
+               $ # Start the Miniforge Prompt.
+               $ conda activate python-for-scicomp
+               $ jupyter-lab
+
+   .. group-tab:: Anaconda
+
+      If you install the full Anaconda distribution, this will be
+      available and can be started either through Anaconda Navigator
+      or command line.
+
+      Make sure the ``python-for-scicomp`` environment is selected and
+      you can start JupyterLab.
 
 
 
 Verification of Python and JupyterLab
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 
 .. admonition:: Watch the video
 
@@ -101,20 +299,33 @@ Verification of Python and JupyterLab
    <https://youtu.be/OEX1ss_HCHc>`__ - if you can do this, you are
    ready to go for day one.  Your exact steps may be a bit different.
 
-**You should be able to start JupyterLab.**  You can do this from the
-`Anaconda Navigator <https://docs.anaconda.com/anaconda/navigator/>`__ (recommended if you have it):
+   Remember that you need to activate the environment first - see the
+   step above.
 
-.. figure:: img/installation/anaconda-navigator-jupyterlab.png
-   :class: with-border
+.. tabs::
 
-   Starting JupyterLab from the Anaconda Navigator.
+   .. group-tab:: Miniforge
 
-... or you can start JupyterLab from the command line:
+      You can start JupyterLab from the command line::
 
-.. code-block:: console
+         $ jupyter-lab
+         (... Jupyter starts in a web browser)
 
-   $ jupyter-lab
-   (... Jupyter starts in a web browser)
+
+   .. group-tab:: Anaconda
+
+      **You should be able to start JupyterLab.**  You can do this from the
+      `Anaconda Navigator <https://docs.anaconda.com/anaconda/navigator/>`__ (recommended if you have it):
+
+      .. figure:: img/installation/anaconda-navigator-jupyterlab.png
+         :class: with-border
+
+         Starting JupyterLab from the Anaconda Navigator.
+
+      ... or you can start JupyterLab from the command line::
+
+         $ jupyter-lab
+         (... Jupyter starts in a web browser)
 
 
 
@@ -126,6 +337,7 @@ if you want.
    :class: with-border
 
    Starting a Jupyter Notebook from JupyterLab.
+
 
 
 Text editor
@@ -190,15 +402,15 @@ Python version:
 
 .. code-block:: console
 
-   $ python -V
-   Python 3.8.3
-
-   ## Or python3...
    $ python3 -V
    Python 3.8.3
 
-Any version of Python 3 through a recent Anaconda should work for the
-course.
+   ## Or python... if it's installed as that
+   $ python -V
+   Python 3.8.3
+
+Any recent version of Python 3 should work for the course (for example
+3.8 or higher).
 
 
 
