@@ -76,7 +76,7 @@ to learn yourself as you need to.
    30 min   ; :doc:`xarray`
    60 min   ; :doc:`plotting-matplotlib`
    60 min   ; :doc:`plotting-vega-altair`
-   30 min   ; :doc:`data-formats`
+   30 min   ; :doc:`work-with-data`
    60 min   ; :doc:`scripts`
    40 min   ; :doc:`profiling`
    20 min   ; :doc:`productivity`
@@ -102,7 +102,7 @@ to learn yourself as you need to.
    xarray
    plotting-matplotlib
    plotting-vega-altair
-   data-formats
+   work-with-data
    scripts
    profiling
    productivity
@@ -122,6 +122,7 @@ to learn yourself as you need to.
    quick-reference
    exercises
    guide
+   data-formats
 
 
 .. _learner-personas:
