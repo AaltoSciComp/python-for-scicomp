@@ -498,9 +498,9 @@ See also
 * `Thinking about Concurrency, Raymond Hettinger
   <https://youtu.be/Bv25Dwe84g0>`__.  Good introduction to simple and
   safe concurrent code.
-* `Introduction to Numba and Cython <https://enccs.github.io/HPDA-Python/performance-boosting/>`__.
-* `More detailed exposition of parallel computing in Python <https://enccs.github.io/HPDA-Python/parallel-computing/>`__.
-* `Introduction to Dask for scalable analytics <https://enccs.github.io/HPDA-Python/dask/>`__.
+* `Introduction to Numba and Cython <https://enccs.github.io/hpda-python/performance-boosting/>`__.
+* `More detailed exposition of parallel computing in Python <https://enccs.github.io/hpda-python/parallel-computing/>`__.
+* `Introduction to Dask for scalable analytics <https://enccs.github.io/hpda-python/dask/>`__.
 
 .. keypoints::
 
