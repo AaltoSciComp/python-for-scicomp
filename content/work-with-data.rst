@@ -247,9 +247,8 @@ Good things
 - Can represent floating point numbers with full precision.
 - Can potentially save lots of space, especially, when storing numbers.
 - Data reading and writing is usually much faster than loading from text files,
-  since the format contains information.
-  about the data structure, and thus memory allocation can be done more
-  efficiently.
+  since the format contains information about the data structure, and thus
+  memory allocation can be done more efficiently.
 - More explicit specification for storing multiple data sets and metadata in
   the same file.
 - Many binary formats allow for partial loading of the data.
@@ -341,29 +340,93 @@ Exercise
        understand the model.
 
 
-Efficient use of untidy data
-----------------------------
+Case study: Converting untidy data to tidy data
+-----------------------------------------------
 
-Many data analysis tools (like Pandas) require tidy data, but some data is not
-in a suitable format. What we have seen often in the past is people then not
-using the powerful tools, but write comple scripts that extract individual pieces
-from the data each time they need to do a calculation.
+Many data analysis tools (like Pandas) are designed to work with tidy data,
+but some data is not in a suitable format. What we have seen often in the
+past is people then not using the powerful tools, but write complicated
+scripts that extract individual pieces from the data each time they need
+to do a calculation.
 
-Example of "questionable pipeline":
-length_array = []
+As an example, let's see how we can use country data from an example REST API
+endpoint (for more information on how to work with web APIs, see
+:doc:`this page <web-apis>`). Let's get the data with the following piece
+of code:
 
-for entry in data:
-    length_array.append(len(entry['length']))
-...
+.. code-block:: python
 
+   import json
+   import requests
 
+   url = 'https://api.sampleapis.com/countries/countries'
 
+   response = requests.get(url)
 
-Example of pipeline with initial conversion to pandas e.g. via json_normalize
+   countries_json = json.loads(response.content)
 
+Let's try to find the country with the largest population.
 
+An example of a "questionable" way of solving this problem would be something
+like the following piece of code that is written in pure Python:
 
+.. code-block:: python
 
+   max_population = 0
+   top_population_country = ''
+
+   for country in countries_json:
+       if country.get('population', 0) > max_population:
+           top_population_country = country['name']
+           max_population = country.get('population', 0)
+
+   print(top_population_country)
+
+This is a very natural way of writing a solution for the problem, but it has
+major caveats:
+
+1. We throw all of the other data out so we cannot answer any
+   follow up questions.
+2. For bigger data, this would be very slow and ineffective.
+3. We have to write lots of code to do a simple thing.
+
+Another typical solution would be something like the following code,
+which picks some of the data and creates a Pandas dataframe out of it:
+
+.. code-block:: python
+
+   import pandas as pd
+
+   countries_list = []
+
+   for country in countries_json:
+       countries_list.append([country['name'], country.get('population',0)])
+
+   countries_df = pd.DataFrame(countries_list, columns=['name', 'population'])
+
+   print(countries_df.nlargest(1, 'population')['name'].values[0])
+
+This solution has many of the same problems as the previous one, but now we can
+use Pandas to do follow up analysis.
+
+Better solution would be to use Pandas'
+`pandas.DataFrame.from_dict <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_dict.html>`__
+or `pandas.json_normalize <https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html>`__
+to read the full data in:
+
+.. code-block:: python
+
+   countries_df = pd.DataFrame.from_dict(countries_json)
+   print(countries_df.nlargest(1, 'population')['name'].values[0])
+
+   countries_df = pd.json_normalize(countries_json)
+   print(countries_df.nlargest(1, 'population')['name'].values[0])
+
+.. admonition:: Key points
+
+   - Convert your data to a format where it is easy to do analysis on it.
+   - Check the tools you're using if they have an existing feature that can help
+     you read the data in.
 
 
 Things to remember
