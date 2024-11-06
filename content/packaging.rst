@@ -140,7 +140,7 @@ Sharing packages via PyPI
 Once we are able to pip-install the example package locally, we are ready for
 upload.
 
-We exercise by uploading to `test-PyPI <https://test.pypi.org/>`__, not the
+We exercise by uploading to test-PyPI_, not the
 real `PyPI <https://pypi.org/>`__, so that if we mess things up, nothing bad
 happens.
 
@@ -148,7 +148,9 @@ We need two more things:
 
 - We will do this using `Twine <https://twine.readthedocs.io/>`__ so you need
   to pip install that, too.
-- You need an account on `test-PyPI <https://test.pypi.org/>`__.
+- You need an account on test-PyPI_
+
+.. _test-PyPI: https://test.pypi.org/
 
 .. highlight:: console
 
@@ -165,13 +167,64 @@ And use twine to upload the distribution files to test-PyPI::
   $ twine upload -r testpypi dist/*
 
   Uploading distributions to https://test.pypi.org/legacy/
-  Enter your username:
-  Enter your password:
+  Enter your API token:
 
-Once this is done, create yet another virtual environment and try to install from test-PyPI (adapt "myname")::
 
-  $ pip install -i https://test.pypi.org/simple/ calculator-myname
+.. _Create API token: https://test.pypi.org/manage/account/token/
 
+.. note::
+
+   To generate an API token,  proceed to the `Create API token`_ page in test-PyPI.
+   You will be prompted for your password.
+
+   .. solution:: The long-version for finding the *Create API token* page
+
+      1. Log on to test-PyPI_ at https://test.pypi.org
+      2. In the top-right corner, click on the drop-down menu and click **Account settings** or
+         follow this `link <https://test.pypi.org/manage/account/#api-tokens>`__.
+      3. Scroll down to the section **API tokens** and click the button **Add API token**,
+         which opens up the
+         `Create API token`_ page.
+
+
+   #. Under **Token name** write something memorable.
+      It should remind you the *purpose* such as
+      or the *name of the computer* so you can delete it later.
+   #. Under **Scope** select ``Entire account (all projects)``.
+   #. Click on **Create token**.
+   #. Click on **Copy token** once a long string which starts
+      with ``pypi-`` is generated.
+
+   Paste that token back into terminal where ``twine upload ...`` is running and press ENTER.
+
+Once this is done, create yet another virtual environment and try to install from test-PyPI (adapt ``myname``).
+
+.. tabs::
+
+   .. tab:: Linux / macOS
+
+      .. code-block:: console
+         :emphasize-lines: 4-7
+
+          $ python3 -m venv venv-calculator
+          $ source venv-calculator/bin/activate
+          $ which python
+          $ python3 -m pip install \
+              -i https://test.pypi.org/simple/ \
+              --extra-index-url https://pypi.org/simple/ \
+              calculator-myname
+          $ deactivate
+
+   .. tab:: Windows
+
+      .. code-block:: console
+         :emphasize-lines: 4
+
+          $ python3 -m venv venv-calculator
+          $ venv-calculator\Scripts\activate
+          $ where python
+          $ python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ calculator-myname
+          $ deactivate
 
 Tools that simplify sharing via PyPI
 ------------------------------------
@@ -188,6 +241,8 @@ There are at least two tools which try to make the packaging and PyPI interactio
 - `Poetry <https://python-poetry.org/>`__
 - `Flit <https://flit.pypa.io/>`__
 
+If you upload packages to PyPI or test PyPI often you can create an API token and
+`save it in the .pypirc file <https://packaging.python.org/en/latest/specifications/pypirc/#common-configurations>`__.
 
 Building a conda package and share it
 -------------------------------------
