@@ -153,9 +153,11 @@ Please try to go through the exercise in the following steps:
    <https://www.gutenberg.org/cache/epub/2600/pg2600.txt>
    (right-click and "save as" to download the file and **save it as "book.txt"**).
 1. **Before** you run the profiler, try to predict in which function the code
+   (the example code is below)
    will spend most of the time and in which function it will use most of the
    memory.
-1. Run the `scalene` profiler on the following code example and browse the
+1. Save the example code as `example.py` and
+   run the `scalene` profiler on the following code example and browse the
    generated HTML report to find out where most of the time is spent and where
    most of the memory is used:
    ```console
@@ -168,6 +170,7 @@ Please try to go through the exercise in the following steps:
    You can find an example of the generated HTML report in the solution below.
 1. Does the result match your prediction? Can you explain the results?
 
+Example code (`example.py`):
 :::{literalinclude} profiling/exercise.py
 :::
 
