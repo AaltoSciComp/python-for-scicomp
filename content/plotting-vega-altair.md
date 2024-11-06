@@ -192,7 +192,7 @@ Let us improve the plot with another one-line change:
 ---
 emphasize-lines: 5
 ---
-alt.Chart(data).mark_bar().encode(
+alt.Chart(data_monthly).mark_bar().encode(
     x="yearmonth(date):T",
     y="precipitation",
     color="name",
