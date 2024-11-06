@@ -254,9 +254,11 @@ Building a conda package and share it
 
 .. callout:: Prerequisites
 
-  To create a conda package, `conda-build` package is required. You may install it with **Anaconda Navigator** or from the command line::
+  To generate a conda build recipe, the package ``grayskull`` and
+  to build it, the package ``conda-build`` are required.
+  You may install these with **Anaconda Navigator** or from the command line::
 
-    $ conda install conda-build
+    $ conda install -n base grayskull conda-build
 
 
 The simplest way for creating a conda package for your python script is to
@@ -264,32 +266,32 @@ first publish it in `PyPI <https://pypi.org/>`__ following the steps explained
 above.
 
 
-Building a python package with conda skeleton pypi
-***************************************************
+Building a python package with grayskull and conda-build
+********************************************************
 
 Once build, the conda package can be installed locally. For this example, we
 will use `runtest <https://pypi.org/project/runtest/>`__.  `runtest
 <https://github.com/bast/runtest>`__ is a numerically tolerant end-to-end test
 library for research software.
 
-1. Create pypi skeleton::
+1. Generate the *recipe* by executing (``grayskull`` or ``conda grayskull``)::
 
-      $ conda skeleton pypi runtest
+      $ conda grayskull pypi runtest
 
-   The command above will create a new folder called `runtest` containing a file `meta.yaml`, the conda recipe for `runtest`.
+   The command above will create a new folder called `runtest` containing a file `meta.yaml`,
+   the conda recipe for building the `runtest` package.
 
-2. Edit `meta.yaml` and update requirements:
+2. View the contents of `meta.yaml` and ensure requirements :
 
    .. code-block:: yaml
 
       requirements:
         host:
-          - pip
           - python
-          - flit
+          - flit-core >=2,<4
+          - pip
         run:
           - python
-          - flit
 
    In the requirements above, we specified what is required for the `host <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#host>`__ and for `running <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#run>`__  the package.
 
@@ -303,7 +305,7 @@ library for research software.
 
    Your package is now ready to be build with conda::
 
-     $ conda-build runtest
+     $ conda build runtest
 
 
    .. callout:: Conda package location
@@ -312,11 +314,15 @@ library for research software.
 
       .. code-block:: none
 
-	~/anaconda3/conda-bld/win-64/runtest-2.2.1-py38_0.tar.bz2
+         /home/username/miniforge3/conda-bld/noarch/runtest-2.3.4-py_0.tar.bz2
 
-      The prefix `~/anaconda3/` may be different on your machine and depending on your operating system (Linux, Mac-OSX or Windows) the sub-folder `win-64` differs too (for instance `linux-64` on Linux machines).
+      The prefix ``/home/username/miniforge3/`` may be different on your machine.
+      depending on your operating system (Linux, Mac-OSX or Windows). The sub-folder is named ``noarch`` since
+      it is a pure-python package and the recipe indicates the same.
 
-      The conda package we have created is specific to your platform (here `win-64`). It can be converted to other platforms using `conda convert <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#converting-a-package-for-use-on-all-platforms>`__.
+      If package contained compiled code then the sub-folder would have been named ``win-64`` or ``linux-64``.
+      It could then be converted to other platforms using
+      `conda convert <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html#converting-a-package-for-use-on-all-platforms>`__.
 
 4. Check within new environment
 
@@ -341,7 +347,10 @@ library for research software.
 
 .. callout:: Building a conda package from scratch
 
-  It is possible to build a conda package from scratch without using conda skeleton. We recommend you to check the `conda-build documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html>`__ for more information.
+  It is possible to build a conda package from scratch without using conda grayskull.
+  We recommend you to check the
+  `conda-build documentation <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs.html>`__
+  for more information.
 
 To be able to share and install your local conda package anywhere (on other platforms), you would need to upload it to a `conda channel <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`__ (see below).
 
@@ -350,15 +359,13 @@ To be able to share and install your local conda package anywhere (on other plat
 Publishing a python package
 ***************************
 
-- Upload your package to *Anaconda.org*: see instructions `here
-  <https://docs.conda.io/projects/conda-build/en/latest/user-guide/tutorials/build-pkgs-skeleton.html#optional-uploading-packages-to-anaconda-org>`__.
-  Please note that you will have to create an account on Anaconda.
-
 - Upload your package to `conda-forge <https://conda-forge.org/>`__:
   conda-forge is a conda channel: it contains community-led collection of
   recipes, build infrastructure and distributions for the conda package
-  manager. Anyone can public conda packages to conda-forge if certain
-  `guidelines <https://conda-forge.org/docs/>`__ are respected.
+  manager. Anyone can
+  `publish conda packages to conda-forge <https://conda-forge.org/docs/maintainer/adding_pkgs/>`__
+  if certain
+  `guidelines <https://conda-forge.org/docs/maintainer/guidelines/>`__ are respected.
 
 - Upload your package to `bioconda <https://bioconda.github.io/>`_: bioconda is
   a very popular channel for the conda package manager specializing in
