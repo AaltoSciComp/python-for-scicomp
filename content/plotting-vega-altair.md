@@ -51,6 +51,8 @@ From [Claus O. Wilke: "Fundamentals of Data Visualization"](https://clauswilke.c
     used in the weather forecast community
   - [K3D](https://k3d-jupyter.org/gallery/index.html):
     Jupyter Notebook extension for 3D visualization
+  - [Mayavi](https://docs.enthought.com/mayavi/mayavi/):
+    3D scientific data visualization and plotting in Python
   - ...
 - Two main families of libraries: procedural (e.g. Matplotlib) and declarative (e.g. Vega-Altair).
 
