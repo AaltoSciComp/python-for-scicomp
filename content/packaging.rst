@@ -109,17 +109,28 @@ This is how ``pyproject.toml`` looks:
    :caption: pyproject.toml
    :emphasize-lines: 13-15
 
-.. seealso::
-
-   pyOpenSci tutorial on
-   `pyproject.toml metadata <https://www.pyopensci.org/python-package-guide/tutorials/pyproject-toml.html>`__
-
 Note how our package requires ``scipy`` and we decided to not pin the version
 here (see :ref:`version_pinning`).
 
 Now we have all the building blocks to test a local pip install. This is a good
 test before trying to upload a package to PyPI or test-PyPI
 (see :ref:`pypi`)
+
+.. note::
+
+   Sometime you need to rely on unreleased, development versions as 
+   dependencies and this is also possible. For example, to use the 
+   latest ``xarray`` you could add::
+
+     dependencies = [
+          "scipy",
+          "xarray @ https://github.com/pydata/xarray/archive/main.zip"
+     ]
+
+   .. seealso::
+      - `pip requirement specifiers <https://pip.pypa.io/en/stable/reference/requirement-specifiers/>`__
+      - pyOpenSci tutorial on
+        `pyproject.toml metadata <https://www.pyopensci.org/python-package-guide/tutorials/pyproject-toml.html>`__
 
 
 
