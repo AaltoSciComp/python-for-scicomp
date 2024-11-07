@@ -29,7 +29,7 @@ and objects from other Python files (modules). Now we will take it a step furthe
 
 - Collect related functions into modules (files).
 - Collect related modules into packages (we will show how).
-- Add a ``LICENSE`` file to your code
+- Add a ``LICENSE`` file to your code from `choosealicense.com <https://choosealicense.com>`__
   (see `Software Licensing and Open source explained with cakes <https://github.com/coderefinery/social-coding/blob/main/licensing-and-cakes.md>`__).
 - Write a ``README.md`` file describing what the code does and how to use it.
 - It is also recommended to `document your package <https://coderefinery.github.io/documentation/>`__.
@@ -108,6 +108,11 @@ This is how ``pyproject.toml`` looks:
 .. literalinclude:: packaging-example-project/pyproject.toml
    :caption: pyproject.toml
    :emphasize-lines: 13-15
+
+.. seealso::
+
+   pyOpenSci tutorial on
+   `pyproject.toml metadata <https://www.pyopensci.org/python-package-guide/tutorials/pyproject-toml.html>`__
 
 Note how our package requires ``scipy`` and we decided to not pin the version
 here (see :ref:`version_pinning`).
