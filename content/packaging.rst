@@ -134,8 +134,8 @@ test before trying to upload a package to PyPI or test-PyPI
 
 
 
-Exercises 1
------------
+Exercise 1
+----------
 
 .. challenge:: Packaging-1
 
@@ -162,6 +162,11 @@ Exercises 1
 
 Sharing packages via PyPI
 -------------------------
+
+.. demo::
+
+   Most people will watch and observe this, due to the speed with which we will
+   move.
 
 Once we are able to pip-install the example package locally, we are ready for
 upload.
@@ -214,14 +219,15 @@ And use twine to upload the distribution files to test-PyPI::
 
 
    #. Under **Token name** write something memorable.
-      It should remind you the *purpose* such as
-      or the *name of the computer* so you can delete it later.
+      It should remind you the *purpose*
+      or the *name of the computer*, such that when you are done 
+      using it, you can safely delete it.
    #. Under **Scope** select ``Entire account (all projects)``.
    #. Click on **Create token**.
    #. Click on **Copy token** once a long string which starts
       with ``pypi-`` is generated.
 
-   Paste that token back into terminal where ``twine upload ...`` is running and press ENTER.
+   Paste that token back into the terminal where ``twine upload ...`` is running and press ENTER.
 
 Once this is done, create yet another virtual environment and try to install from test-PyPI (adapt ``myname``).
 
@@ -273,10 +279,6 @@ If you upload packages to PyPI or test PyPI often you can create an API token an
 Building a conda package and share it
 -------------------------------------
 
-.. demo::
-
-   Most people will watch and observe this, due to speed which we will
-   move.
 
 .. callout:: Prerequisites
 
