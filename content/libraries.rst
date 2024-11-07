@@ -71,76 +71,94 @@ to their interfaces (especially numpy):
 * IPython / Jupyter: interactive work
 
 
-
 Core numerics libraries
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-* `numpy <https://numpy.org/doc/stable/>`__ - arrays and array math.
-* `scipy <https://docs.scipy.org/doc/scipy/reference/>`__ - software
+* `numpy <https://numpy.org/doc/stable/>`__ - Arrays and array math.
+* `scipy <https://docs.scipy.org/doc/scipy/reference/>`__ - Software
   for math, science, and engineering.
-
 
 
 Plotting
 ~~~~~~~~
 
-* `matplotlib <https://matplotlib.org/>`__ - base plotting package,
+* `matplotlib <https://matplotlib.org/>`__ - Base plotting package,
   somewhat low level but almost everything builds on it.
-* `seaborn <https://seaborn.pydata.org/>`__ - higher level plotting
+* `seaborn <https://seaborn.pydata.org/>`__ - Higher level plotting
   interface; statistical graphics.
+* `Vega-Altair <https://altair-viz.github.io/>`__ - Declarative Python
+  plotting.
 * `mayavi <https://docs.enthought.com/mayavi/mayavi/>`__ - 3D plotting
-* `PIL <https://python-pillow.org/>`__ - image manipulation.  The
-  original PIL is no longer maintained, the new "Pillow" is a drop-in
-  replacement.
-
+* `Plotly <https://plotly.com/python/>`__ - Big graphing library.
 
 
 Data analysis and other important core packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* `pandas <https://pandas.pydata.org/docs/user_guide/>`__ - columnar
-  data analysis
-* `statsmodels <https://www.statsmodels.org/stable/>`__ - just what it says
-* `SymPy <https://www.sympy.org/>`__ - symbolic math
-* `networkx <https://networkx.org/>`__ - graph and network analysis
-* `h5py <https://www.h5py.org/>`__ and `PyTables <https://www.pytables.org/>`__ - interfaces to
-  the `HDF5 <https://en.wikipedia.org/wiki/Hierarchical_Data_Format>`__ on-disk file format
-* `dateutil <https://dateutil.readthedocs.io/>`__ and `pytz
-  <https://pythonhosted.org/pytz/>`__ - date arithmetic and handling,
-  timezone database and conversion
-
+* `pandas <https://pandas.pydata.org/docs/user_guide/>`__ - Columnar
+  data analysi.
+* `polars <https://pola.rs/>` - Alternative to pandas that uses similar
+  API, but is re-imagined for more speed.
+* `Vaex <https://vaex.io/docs/index.html>`__ - Alternative for pandas
+  that uses similar API for lazy-loading and processing huge DataFrames.
+* `Dask <https://www.dask.org/>`__ - Alternative to Pandas that uses
+  similar API and can do analysis in parallel.
+* `xarrray <https://docs.xarray.dev/en/stable/>`__ - Framework for
+  working with mutli-dimensional arrays.
+* `statsmodels <https://www.statsmodels.org/stable/>`__ - Statistical
+  models and tests.
+* `SymPy <https://www.sympy.org/>`__ - Symbolic math.
+* `networkx <https://networkx.org/>`__ - Graph and network analysis.
+* `graph-tool <https://graph-tool.skewed.de/>`__ - Graph and network analysis
+  toolkit implemented in C++.
 
 
 Interactive computing and human interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Interactive computing
 
-  * `IPython <https://ipython.org/>`__ - nicer interactive interpreter
-  * `Jupyter <https://jupyter.org/>`__ (notebook, lab, hub, ...) -
-    web-based interface to IPython and other languages
+  * `IPython <https://ipython.org/>`__ - Nicer interactive interpreter
+  * `Jupyter <https://jupyter.org/>`__ - Web-based interface to IPython
+    and other languages (includes projects such as jupyter notebook,
+    lab, hub, ...) 
 
 * Testing
 
-  * `pytest <https://docs.pytest.org/>`__ - automated testing interface
+  * `pytest <https://docs.pytest.org/>`__ - Automated testing interface
 
 * Documentation
 
-  * `Sphinx <https://www.sphinx-doc.org/>`__ - documentation generator
+  * `Sphinx <https://www.sphinx-doc.org/>`__ - Documentation generator
     (also used for this lesson...)
 
 * Development environments
 
-  * `Spyder <https://www.spyder-ide.org/>`__ - interactive Python
+  * `Spyder <https://www.spyder-ide.org/>`__ - Interactive Python
     development environment.
+  * `Visual Studio Code <https://code.visualstudio.com/>`__ - Microsoft's
+    flagship code editor.
+  * `PyCharm <https://www.jetbrains.com/pycharm/>`__ - JetBrains's
+    Python IDE.
 
 * `Binder <https://mybinder.org/>`__ - load any git repository in
   Jupyter automatically, good for reproducible research
 
 
+Data format support and data ingestion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* `pillow <https://python-pillow.org/>`__ - Image manipulation.  The
+  original PIL is no longer maintained, the new "Pillow" is a drop-in
+  replacement.
+* `h5py <https://www.h5py.org/>`__ and `PyTables <https://www.pytables.org/>`__ -
+  Interfaces to the `HDF5 <https://en.wikipedia.org/wiki/Hierarchical_Data_Format>`__
+  file format.
+
 
 Speeding up code and parallelism
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* `PyMPI <https://sourceforge.net/projects/pympi/>`__ - Message
+
+* `MPI for Python (mpi4py) <https://mpi4py.readthedocs.io/en/stable/>`__ - Message
   Passing Interface (MPI) in Python for parallelizing jobs.
 * `cython <https://cython.org/>`__ - easily make C extensions for
   Python, also interface to C libraries
@@ -148,28 +166,60 @@ Speeding up code and parallelism
   functions for speed-up
 * `PyPy <https://www.pypy.org/>`__ - Python written in Python so that
   it can internally optimize more.
-* `Dask <https://www.dask.org/>`__ - distributed array data structure for
+* `Dask <https://www.dask.org/>`__ - Distributed array data structure for
   distributed computation
-* `Joblib <https://joblib.readthedocs.io/>`__ - easy embarrassingly
+* `Joblib <https://joblib.readthedocs.io/>`__ - Easy embarrassingly
   parallel computing
-* `IPyParallel <https://ipyparallel.readthedocs.io/>`__ - easy
-  parallel task engine
+* `IPyParallel <https://ipyparallel.readthedocs.io/>`__ - Easy
+  parallel task engine.
 * `numexpr <https://numexpr.readthedocs.io/>`__ - Fast evaluation of
   array expressions by automatically compiling the arithmetic.
-
 
 
 Machine learning
 ~~~~~~~~~~~~~~~~
 
-If you need some machine learning, you probably already know what you
-need and this list is short and irrelevant.
+* `nltk <https://www.nltk.org/>`__ - Natural language processing
+  toolkit.
+* `scikit-learn <https://scikit-learn.org/>`__ - Traditional
+  machine learning toolkit.
+* `xgboost <https://xgboost.readthedocs.io/en/stable/>`__ - Toolkit for
+  gradient boosting algorithms.
 
-- `tensorflow <https://www.tensorflow.org/>`__
-- `pytorch <https://pytorch.org/>`__
-- `nltk <https://www.nltk.org/>`__ - natural language processing
-- `scikit-learn <https://scikit-learn.org/>`__ - simple tools for
-  predictive data analysis
+
+Deep learning
+~~~~~~~~~~~~~
+
+* `tensorflow <https://www.tensorflow.org/>`__ - Deep learning
+  library by Google.
+* `pytorch <https://pytorch.org/>`__ - Currently the most popular
+  deep learning library.
+* `keras <https://keras.io/>`__ - Simple libary for doing deep learning.
+* `huggingface <https://huggingface.co>`__ - Ecosystem for sharing
+  and running deep learning models and datasets. Incluses packages
+  like ``transformers``, ``datasets``, ``accelerate``, etc.
+* `jax <https://jax.readthedocs.io/en/latest/index.html>`__ - Google's
+  Python library for running NumPy and automatic differentiation
+  on GPUs.
+* `flax <https://flax.readthedocs.io/en/latest/>`__ - Neural network
+  framework built on Jax.
+* `equinox <https://docs.kidger.site/equinox/>`__ - Another neural
+  network framework built on Jax.
+* `DeepSpeed <https://www.deepspeed.ai/>`__ - Algorithms for running
+  massive scale trainings. Included in many of the frameworks.
+* `PyTorch Lightning <https://lightning.ai/docs/pytorch/stable/>`__ -
+  Framework for creating and training PyTorch models.
+* `Tensorboard <https://www.tensorflow.org/tensorboard/>` - Tool
+  for visualizing model training on a web page.
+
+
+Other packages for special cases
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* `dateutil <https://dateutil.readthedocs.io/>`__ and `pytz
+  <https://pythonhosted.org/pytz/>`__ - Date arithmetic and handling,
+  timezone database and conversion.
+
 
 
 
@@ -196,7 +246,6 @@ interfaces.  This contributes to two things:
 These features aren't exactly unique to Python, but Python does
 support them very well.  Read more: `Extending and embedding Python
 <https://docs.python.org/extending/index.html>`__.
-
 
 
 Tools for interfacing with other languages
