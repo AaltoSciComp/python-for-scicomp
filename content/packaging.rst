@@ -128,11 +128,21 @@ Exercises 1
    - Create a new folder outside of our example project
    - Create a new virtual environment (:ref:`dependency_management`)
    - Install the example package from the project folder
-     into the new environment: ``$ pip install /path/to/project-folder/``
+     into the new environment::
+
+        pip install --editable /path/to/project-folder/
+
    - Test the local installation:
 
    .. literalinclude:: packaging-example-project/test.py
 
+   - Make a change in the ``subtract`` function above such that it always
+     returns a float ``return float(x - y)``.
+
+   - Open a new Python console and test the following lines. Compare it with
+     the previous output.
+
+   .. literalinclude:: packaging-example-project/test_editable.py
 
 Sharing packages via PyPI
 -------------------------
