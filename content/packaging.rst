@@ -29,7 +29,7 @@ and objects from other Python files (modules). Now we will take it a step furthe
 
 - Collect related functions into modules (files).
 - Collect related modules into packages (we will show how).
-- Add a ``LICENSE`` file to your code
+- Add a ``LICENSE`` file to your code from `choosealicense.com <https://choosealicense.com>`__
   (see `Software Licensing and Open source explained with cakes <https://github.com/coderefinery/social-coding/blob/main/licensing-and-cakes.md>`__).
 - Write a ``README.md`` file describing what the code does and how to use it.
 - It is also recommended to `document your package <https://coderefinery.github.io/documentation/>`__.
@@ -116,6 +116,22 @@ Now we have all the building blocks to test a local pip install. This is a good
 test before trying to upload a package to PyPI or test-PyPI
 (see :ref:`pypi`)
 
+.. note::
+
+   Sometime you need to rely on unreleased, development versions as 
+   dependencies and this is also possible. For example, to use the 
+   latest ``xarray`` you could add::
+
+     dependencies = [
+          "scipy",
+          "xarray @ https://github.com/pydata/xarray/archive/main.zip"
+     ]
+
+   .. seealso::
+      - `pip requirement specifiers <https://pip.pypa.io/en/stable/reference/requirement-specifiers/>`__
+      - pyOpenSci tutorial on
+        `pyproject.toml metadata <https://www.pyopensci.org/python-package-guide/tutorials/pyproject-toml.html>`__
+
 
 
 Exercises 1
@@ -128,11 +144,21 @@ Exercises 1
    - Create a new folder outside of our example project
    - Create a new virtual environment (:ref:`dependency_management`)
    - Install the example package from the project folder
-     into the new environment: ``$ pip install /path/to/project-folder/``
+     into the new environment::
+
+        pip install --editable /path/to/project-folder/
+
    - Test the local installation:
 
    .. literalinclude:: packaging-example-project/test.py
 
+   - Make a change in the ``subtract`` function above such that it always
+     returns a float ``return float(x - y)``.
+
+   - Open a new Python console and test the following lines. Compare it with
+     the previous output.
+
+   .. literalinclude:: packaging-example-project/test_editable.py
 
 Sharing packages via PyPI
 -------------------------
