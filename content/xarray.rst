@@ -380,7 +380,16 @@ Exercises 2
 
 .. challenge:: Exercises: Xarray-2
 
-        Let's change from climate science to finance for this example. Put the stock prices and trading volumes of three companies over ten days in one dataset. Create an Xarray Dataset that uses time and company as dimensions and contains two DataArrays: ``stock_price`` and ``trading_volume``. You can choose the values for the stock prices and trading volumes yourself. As a last thing, add the currency of the stock prices as an attribute to the Dataset.
+        Let's change from climate science to finance for this example. Put the stock prices and trading volumes of three companies in one dataset. Create an Xarray Dataset that uses time and company as dimensions and contains two DataArrays: ``stock_price`` and ``trading_volume``. You can download the data as a pandas DataFrame with the following code: ::
+
+                import yfinance as yf
+
+                AAPL_df = yf.download("AAPL", start="2020-01-01", end="2024-01-01")
+                GOOGL_df = yf.download("GOOGL", start="2020-01-01", end="2024-01-01")
+                MSFT_df = yf.download("MSFT", start="2020-01-01", end="2024-01-01")
+
+
+        As a last thing, add the currency of the stock prices as an attribute to the Dataset.
 
 .. solution:: Solutions: Xarray-2
 
@@ -388,46 +397,44 @@ Exercises 2
 
                 import xarray as xr
                 import numpy as np
+                import yfinance as yf
 
-                time = [
-                    "2023-01-01",
-                    "2023-01-02",
-                    "2023-01-03",
-                    "2023-01-04",
-                    "2023-01-05",
-                    "2023-01-06",
-                    "2023-01-07",
-                    "2023-01-08",
-                    "2023-01-09",
-                    "2023-01-10",
-                ]
+                start_date = "2020-01-01"
+                end_date = "2024-01-01"
+
+                AAPL_df = yf.download("AAPL", start=start_date, end=end_date)
+                GOOGL_df = yf.download("GOOGL", start=start_date, end=end_date)
+                MSFT_df = yf.download("MSFT", start=start_date, end=end_date)
+
+
+                stock_prices = np.array(
+                    [
+                        AAPL_df["Close"].values,
+                        GOOGL_df["Close"].values,
+                        MSFT_df["Close"].values,
+                    ]
+                )
+
+                trading_volumes = np.array(
+                    [
+                        AAPL_df["Volume"].values,
+                        GOOGL_df["Volume"].values,
+                        MSFT_df["Volume"].values,
+                    ]
+                )
+
+
                 companies = ["AAPL", "GOOGL", "MSFT"]
-                stock_prices = np.random.normal(loc=[100, 1500, 200], scale=[10, 50, 20], size=(10, 3))
-                trading_volumes = np.random.randint(1000, 10000, size=(10, 3))
+                time = AAPL_df.index[:].strftime("%Y-%m-%d").tolist()
+
                 ds = xr.Dataset(
-                    data_vars = {
-                        "stock_price": (["time", "company"], stock_prices),
-                        "trading_volume": (["time", "company"], trading_volumes),
+                    {
+                        "stock_price": (["company", "time"], stock_prices[:, :, 0]),
+                        "trading_volume": (["company", "time"], trading_volumes[:, :, 0]),
                     },
                     coords={"time": time, "company": companies},
                     attrs={"currency": "USD"},
                 )
-                print(ds)
-
-        The output should then resemble this: ::
-
-                > python exercise.py
-                <xarray.Dataset> Size: 940B
-                Dimensions:         (time: 10, company: 3)
-                Coordinates:
-                  * time            (time) <U10 400B '2023-01-01' '2023-01-02' ... '2023-01-10'
-                  * company         (company) <U5 60B 'AAPL' 'GOOGL' 'MSFT'
-                Data variables:
-                    stock_price     (time, company) float64 240B 101.1 1.572e+03 ... 217.8
-                    trading_volume  (time, company) int64 240B 1214 7911 4578 ... 4338 6861 6958
-                Attributes:
-                    currency:  USD
-
 
 
 
