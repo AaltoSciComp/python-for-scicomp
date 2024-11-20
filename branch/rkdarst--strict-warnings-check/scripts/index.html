@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Scripts &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Dependency management" href="../dependencies/" />
+    <link rel="prev" title="Data visualization with Matplotlib" href="../data-visualization/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-scripts">Why scripts?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-jupyter-notebooks-to-python-scripts">From jupyter notebooks to python scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-as-python-script">Save as python script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-a-python-script">Run a python script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-other-python-files">Importing other python files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-arguments-with-sys-argv">Command line arguments with <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parsing-command-line-arguments-with-argparse">Parsing command line arguments with <code class="docutils literal notranslate"><span class="pre">argparse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synchronize-with-jupytext-optional">Synchronize with Jupytext (optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Scripts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/scripts.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="scripts">
+<h1>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-questions questions admonition">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>Why moving from Jupyter notebooks to scripts?</p></li>
+<li><p>How to create a python script?</p></li>
+<li><p>How to generalize a python script?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn how to streamline your python notebooks by creating repeatable python scripts</p></li>
+<li><p>Learn how to import other python files</p></li>
+<li><p>Learn to parse command line arguments in python</p></li>
+</ul>
+</div>
+<div class="section" id="why-scripts">
+<h2>Why scripts?<a class="headerlink" href="#why-scripts" title="Permalink to this headline">¶</a></h2>
+<p>So far we have been learning python using Jupyter notebooks. It is very convenient: it allowed us to experiment and prototype python code so we may think that is more than enough for your day to day work.</p>
+<p>But after several weeks of hard work with python, you may end up:</p>
+<ul class="simple">
+<li><p>either with 10 different notebooks (so that you can run them concurrently)</p></li>
+<li><p>or with a very long notebook which is becoming hardly readable!</p></li>
+</ul>
+<p>Let’s imagine you have created 10 notebooks to run for 10 different input parameters and now you are willing to experiment with 1000 sets of input parameters.
+Suppose you find a bug in the original notebook and need to rerun everything: are you willing to re-create manually your 1000 notebooks?</p>
+<p>In this episode, we will learn how to automate your work using python scripts so that</p>
+<ul class="simple">
+<li><p>you do not need to manually configure your notebooks to be able to run with different parameters</p></li>
+<li><p>can easily run you work via other tools, such as on computing clusters.</p></li>
+</ul>
+</div>
+<div class="section" id="from-jupyter-notebooks-to-python-scripts">
+<h2>From jupyter notebooks to python scripts<a class="headerlink" href="#from-jupyter-notebooks-to-python-scripts" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="save-as-python-script">
+<h2>Save as python script<a class="headerlink" href="#save-as-python-script" title="Permalink to this headline">¶</a></h2>
+<p>Jupyter notebooks can be parameterized for instance using <a class="reference external" href="https://papermill.readthedocs.io/en/latest/">papermill</a>. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate python scripts. This will also force you to modularize your code.</p>
+<p>Within JupyterLab, you can export any jupyter notebook to a python script:</p>
+<div class="figure align-default" id="id1">
+<img alt="https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png" src="https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png" />
+<p class="caption"><span class="caption-text">Select File (top menu bar) → Export Notebook as → <strong>Export notebook to Executable Script</strong>.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Actually, you could also export your notebook in many other formats. Check <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/user/export.html">JupyterLab documentation</a> for more information.</p>
+<div class="admonition-scripts-1 challenge admonition">
+<p class="admonition-title">Scripts-1</p>
+<ol class="arabic">
+<li><p>Create a fresh jupyter notebook and rename it  <strong>plot_inflammation.ipynb</strong></p></li>
+<li><p>Download the <a class="reference external" href="https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv">first dataset</a> and load it in python. Below is an example on how you can proceed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv&#39;</span>
+<span class="n">s</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">StringIO</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Note that later in the course, you will learn how to use</em> <a class="reference external" href="https://pandas.pydata.org/">pandas</a> <em>python package where loading such dataset from an url would become much simpler.</em></p>
+</li>
+<li><p>Plot the dataset (you may simply use <code class="docutils literal notranslate"><span class="pre">imshow</span></code> from <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code>) and save the resulting plot in a file called <strong>plot.png</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;plot.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Feel free to customize your plot as you learned in the preceding episode</em>.</p>
+</li>
+<li><p>Export your notebook as a python script and check that you have a new file called <strong>plot_inflammation.py</strong>. Please note that the file may be located in your <strong>Downloads</strong> folder (in that case, make sure you move it to your working directory).</p></li>
+<li><p>Open a Terminal and navigate to the folder where you have exported your notebook to run it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">plot_inflammation</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="run-a-python-script">
+<h2>Run a python script<a class="headerlink" href="#run-a-python-script" title="Permalink to this headline">¶</a></h2>
+<p>Let’s understand why our python script ran out of the box. Open <strong>plot_inflammation.py</strong> with your favorite editor (from JupyerLab, you can double click on the file to open it). You should have, at the very top of your script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+</pre></div>
+</div>
+<p><em>Note: you may have</em> <strong>python3</strong> <em>rather than python</em>.</p>
+<p>In the exercise above, a few things can go wrong:</p>
+<ul>
+<li><p>if you get an error such as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">can</span><span class="s1">&#39;t open file &#39;</span><span class="n">test_inflammation</span><span class="o">.</span><span class="n">py</span><span class="s1">&#39;: [Errno 2] No such file or directory</span>
+</pre></div>
+</div>
+<p>That’s probably because you try to run <strong>plot_inflammation.py</strong> from a different folder. The solution is to check <strong>plot_inflammation.py</strong> is in the current folder.</p>
+</li>
+<li><p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span><span class="p">:</span> <span class="n">python</span><span class="p">:</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>This happens if the python command is not in your <strong>PATH</strong>. You may have to specify the full path to the python command.</p>
+</div>
+<div class="section" id="importing-other-python-files">
+<h2>Importing other python files<a class="headerlink" href="#importing-other-python-files" title="Permalink to this headline">¶</a></h2>
+<p>We have a very short notebook that loads and plots data but let’s imagine we need to process data after loading them. For instance, we can normalize data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In that case, it is good practice to separate processing from plotting. The reason is that you usually need to generate your plot several time while processing data once only (especially when data processing is computational intensive).</p>
+<p>For example, we can create a new python file (<strong>inflammation_functions.py</strong>) containing a function to normalize our dataset:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">processing</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">dataset</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and a second file calling this function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="hll"><span class="kn">import</span> <span class="nn">inflammation_functions</span>
+</span>
+<span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv&#39;</span>
+<span class="n">s</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">StringIO</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># call processing function from inflammation_functions</span>
+
+<span class="hll"><span class="n">data</span> <span class="o">=</span> <span class="n">inflammation_functions</span><span class="o">.</span><span class="n">processing</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="admonition-scripts-2-optional challenge admonition">
+<p class="admonition-title">Scripts-2 (optional)</p>
+<ol class="arabic simple">
+<li><p>Update <strong>inflammation_functions.py</strong> to add a new function for plotting the dataset.</p></li>
+<li><p>Update <strong>test_inflammation.py</strong> to call it.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="command-line-arguments-with-sys-argv">
+<h2>Command line arguments with <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code><a class="headerlink" href="#command-line-arguments-with-sys-argv" title="Permalink to this headline">¶</a></h2>
+<p>We have better organized our code but it still cannot easily process different
+input files. For this, rather than copying several time the same code for
+different input files, we can update the main code to take the input file from the command
+line.</p>
+<p><strong>Example</strong>: We create a Python script and pass the input file and the output file
+name as command line arguments:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="hll"><span class="n">input_file_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class="hll"><span class="n">output_file_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span>
+<span class="c1"># to keep things simple we only print them out:</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;input file is </span><span class="si">{</span><span class="n">input_file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output file is </span><span class="si">{</span><span class="n">output_file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can try it out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python myscript.py myinput myoutput
+</pre></div>
+</div>
+<div class="admonition-discussion discussion admonition">
+<p class="admonition-title">Discussion</p>
+<ul class="simple">
+<li><p>Does it work?</p></li>
+<li><p>Why is this better than modifying the script every time I want it to
+operate on a different file?</p></li>
+<li><p>What problems do you expect when using this approach (using <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code>)?</p></li>
+</ul>
+</div>
+<p>This approach is brittle and more robust solutions exist that allow to fully
+customize your scripts and generate help texts at the same time:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>: this is the one that we will show</p></li>
+<li><p><a class="reference external" href="http://docopt.org/">doctopt</a>: you write the help text and this generates a parser for you</p></li>
+<li><p><a class="reference external" href="https://click.palletsprojects.com//">click</a>: another nice library for command line interfaces</p></li>
+</ul>
+</div>
+<div class="section" id="parsing-command-line-arguments-with-argparse">
+<h2>Parsing command line arguments with <code class="docutils literal notranslate"><span class="pre">argparse</span></code><a class="headerlink" href="#parsing-command-line-arguments-with-argparse" title="Permalink to this headline">¶</a></h2>
+<p>This example not only gives you descriptive command line
+arguments, it also automatically generates a <code class="docutils literal notranslate"><span class="pre">--help</span></code> option for you:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;output filename&quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;output file is </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-scripts-3 challenge admonition">
+<p class="admonition-title">Scripts-3</p>
+<ol class="arabic simple">
+<li><p>Take the python script we have written in the preceding exercise and use
+<code class="docutils literal notranslate"><span class="pre">argparse</span></code> to be able to read any input file and save the resulting image in an output file (filename is specified via command line argument).</p></li>
+<li><p>Execute your script for all the <strong>inflammation</strong> files (there are 12 files numbered from 01 to 12).</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">argparse</span>
+</span>
+<span class="hll"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;input data file (URL)&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;output plot file&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span>
+<span class="hll"><span class="n">url</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">input</span>
+</span><span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">StringIO</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="hll"><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="admonition-discussion discussion admonition">
+<p class="admonition-title">Discussion</p>
+<p><strong>What was the point of doing this?</strong></p>
+<p>Now you can do this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python test_inflammation.py --help
+$ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-01.csv --output 01.png
+$ python test_inflammation.py --input https://raw.githubusercontent.com/swcarpentry/python-novice-inflammation/gh-pages/data/inflammation-02.csv --output 02.png
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>We can now process different input files without changing the script.</p></li>
+<li><p>This way we can also loop over file patterns (using shell loops or similar) or use
+the script in a workflow management system and process many files in parallel.</p></li>
+<li><p>By changing from <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> to <code class="docutils literal notranslate"><span class="pre">argparse</span></code> we made the script more robust against
+user input errors and also got a help text (accessible via <code class="docutils literal notranslate"><span class="pre">--help</span></code>).</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="synchronize-with-jupytext-optional">
+<h2>Synchronize with Jupytext (optional)<a class="headerlink" href="#synchronize-with-jupytext-optional" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://jupytext.readthedocs.io/en/latest/">jupytext</a> is a python package you can use for automatically synchronizing your notebooks into python scripts.</p>
+<p>To install it from the command line (make sure you use JupyterLab 2.x):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">jupytext</span> <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">jupytext</span>
+</pre></div>
+</div>
+<p>Please note that you may also use <a class="reference external" href="https://docs.anaconda.com/anaconda/navigator/tutorials/manage-packages/">Anaconda navigator</a> (if installed) to install <code class="docutils literal notranslate"><span class="pre">jupytext</span></code>.</p>
+<p>Installing Jupytext will trigger a build of the JupyterLab extension the next time you open it. If you prefer, you can trigger the build manually with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">lab</span> <span class="n">build</span>
+</pre></div>
+</div>
+<p>Once installed, you can pair your notebook:</p>
+<div class="figure align-default" id="id2">
+<img alt="https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png" src="https://raw.githubusercontent.com/mwouts/jupytext/master/packages/labextension/jupytext_commands.png" />
+<p class="caption"><span class="caption-text">Select “Commands” from left toolbar, search “jupytext”, then <strong>Pair notebook with percent script</strong> (<strong>NOT</strong> what you see in the image).</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>After few seconds, <strong>test_inflammation.py</strong> will be created and synchronized with <strong>test_inflammation.ipynb</strong>.</p>
+<p>Double click on the python script to edit it and add (on the top of the script):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+</pre></div>
+</div>
+<p>This will make sure you can execute it from the command line.</p>
+<p><em>Note that, it can also be added in the jupyter notebook by editing notebook metadata (Property Inspector)</em>.</p>
+<div class="admonition-keypoints keypoints admonition">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>synchronize your jupyter notebooks &amp; python scripts with <code class="docutils literal notranslate"><span class="pre">jupytext</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span></code> other python files</p></li>
+<li><p>command line arguments in python scripts</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../dependencies/" class="btn btn-neutral float-right" title="Dependency management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../data-visualization/" class="btn btn-neutral float-left" title="Data visualization with Matplotlib" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

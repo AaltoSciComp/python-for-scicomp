@@ -1,0 +1,678 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "c87bb04a-3f53-45ac-bbc9-fe182c844219",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "# Web APIs with Python\n",
+    "\n",
+    ":::{questions}\n",
+    "- Have you ever needed to get some data from somewhere else on the web?\n",
+    ":::\n",
+    "\n",
+    ":::{objectives}\n",
+    "- Understand a web server and API and why might you need to talk to one.\n",
+    "- Basics of the [requests](https://requests.readthedocs.io/en/latest/) Python library\n",
+    "- Some lightweight recommendations on saving data when you get to more serious data download.\n",
+    ":::\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2398bb45-e061-4e7a-8931-82906a3892ff",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "## Requests\n",
+    "\n",
+    "Requests is a Python library that makes **requests** to web servers.  It provides a nice interface and is one of the go-to tools.  It does the raw data-download for simple web servers.\n",
+    "\n",
+    "First, let's take a tour of the Requests webpage.  Below, we embed the Requests website into a Jupyter notebook, but you might want to open it in another browser tab: <https://requests.readthedocs.io/en/latest/>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c69a16ac-a5b3-4ff0-a949-720b5bbd37cd",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Embed the requests homepage\n",
+    "from IPython.display import IFrame\n",
+    "requests_documentation_url = \"https://requests.readthedocs.io/en/latest/\"\n",
+    "IFrame(requests_documentation_url, '100%', '30%')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6d6b334b-309e-429b-aad5-0ab76f071c15",
+   "metadata": {},
+   "source": [
+    "## Retrieve data from API\n",
+    "\n",
+    "An **API (Application Programming Interface)** is the definition of the way computer programs communicate with each other.  We use Requests to connect to the API of a web server, tell it what we want, and it returns it to us.  This is called the **request-response** cycle.\n",
+    "\n",
+    "We can find a list of some free APIs (available without authentication) at <https://apipheny.io/free-api/#apis-without-key> . These APIs can be used for developing and testing our code."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0a21faac-a7d8-448d-a8db-6fb23b9bd64c",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "Let's make a request to the Cat Fact API.  If we go to <https://catfact.ninja/>, it gives us the definitions:\n",
+    "* GET `/fact` is the **API endpoint**.\n",
+    "* **GET** is the type of request we make and\n",
+    "* `/fact` is the **path**.\n",
+    "\n",
+    "You can even test this in your web browser: <https://catfact.ninja/fact>\n",
+    "\n",
+    "Using the Requests library, we do this with {func}`~requests.get`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fa134bb7-1250-46bd-bd80-e3e0d0820523",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import\n",
+    "import requests\n",
+    "\n",
+    "# URL\n",
+    "url = 'https://catfact.ninja/fact'\n",
+    "\n",
+    "# Make a request\n",
+    "response = requests.get(url)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "64a7f3be-420b-4e1c-a76d-67d9e6b29f4f",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "The {class}`requests.Response` object tells us what the server said.  We can access the response content using {attr}`~requests.Response.content`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b3e1ddb3-76a1-4e53-a32b-4005d92626c6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "response_content = response.content\n",
+    "\n",
+    "# Display\n",
+    "display(response_content)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3886ff1c-0619-4fc5-828a-269257db6e63",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "The response content is in the [JSON format](https://en.wikipedia.org/wiki/JSON) and Requests gives us the {meth}`~requests.Response.json` method that decodes it and returns the corresponding data as Python objects.  This is equivalent to {func}`json.load`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7651cd8c-9581-4d04-b3bf-c57997a5684a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "response_json = response.json()\n",
+    "\n",
+    "# Display\n",
+    "display(response_json)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "10ca2577-94a4-4689-a01a-2681fe4c5d20",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "(Note that, normally, we could study the API documentation to check the response format beforehand. However, many times manual inspection and trial-and-error is needed, as we did here.)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "80e02c0b-9b59-44ea-ab26-092b6cdb510b",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "## API which requires parameters\n",
+    "\n",
+    "Let's then examine another API which accepts [parameters](https://requests.readthedocs.io/en/latest/user/quickstart/#passing-parameters-in-urls) to specify the information request. In particular, we will request a list of Finnish universities from <http://universities.hipolabs.com> using the `/search` end point and a parameter _country_ with value _Finland_, like this:\n",
+    "`http://universities.hipolabs.com/search?country=Finland` ."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b98cba34-0f3a-43fb-befe-0e1c48fdb1c3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# URL\n",
+    "url = 'http://universities.hipolabs.com/search?country=Finland'\n",
+    "\n",
+    "# Make a request\n",
+    "response = requests.get(url)\n",
+    "\n",
+    "# Decode JSON\n",
+    "response_json = response.json()\n",
+    "\n",
+    "# Display\n",
+    "display(response_json[:2])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "18ee30d2-e072-41b2-b4d4-8203cb5e86ce",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "URLs containing parameters can always be constructed manually using the _&_ character and then listing the parameter (_key_, _value_) pairs as above.\n",
+    "\n",
+    "However, _Requests_ allows us to provide the parameters as a dictionary of strings, using the _params_ keyword argument to {func}`~requests.get`. This is easier to read and less error-prone."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1c1ddced-d423-42cd-89ac-3a0c6d751d9d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# URL\n",
+    "url = 'http://universities.hipolabs.com/search'\n",
+    "\n",
+    "# Make the parameter dictionary\n",
+    "parameters = {'country' : 'Finland'}\n",
+    "\n",
+    "# Get response\n",
+    "response = requests.get(url, params=parameters)\n",
+    "\n",
+    "# Decode JSON\n",
+    "response_json = response.json()\n",
+    "\n",
+    "# Display\n",
+    "display(response_json[:2])\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "35c751c9-009c-46f7-af8a-40c4132dcfbd",
+   "metadata": {},
+   "source": [
+    "## Exercises 1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "033d8d63-43db-4a3e-a9cd-e142134a0b9b",
+   "metadata": {},
+   "source": [
+    "::::{exercise} Exercise WebAPIs-1: Request different activity suggestions from the Bored API\n",
+    "\n",
+    "Go to the [documentation page of the Bored API](https://www.boredapi.com/documentation). The Bored API is an open API which can be used to randomly generate activity suggestions.\n",
+    "\n",
+    "Let's examine the first sample query on the page http://www.boredapi.com/api/activity/ with a sample JSON response\n",
+    "\n",
+    "```json\n",
+    "{\n",
+    "    \"activity\": \"Learn Express.js\",\n",
+    "    \"accessibility\": 0.25,\n",
+    "    \"type\": \"education\",\n",
+    "    \"participants\": 1,\n",
+    "    \"price\": 0.1,\n",
+    "    \"link\": \"https://expressjs.com/\",\n",
+    "    \"key\": \"3943506\"\n",
+    "} \n",
+    "```\n",
+    "\n",
+    "Let's replicate the query and see if we can get another random suggestion.\n",
+    "::::"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1744a2a7-5c9a-48d4-96b4-9d523b2e43bc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import module\n",
+    "import requests\n",
+    "\n",
+    "# URL of the activity API end point\n",
+    "url = \"http://www.boredapi.com/api/activity/\"\n",
+    "\n",
+    "# Send the request using the get() function\n",
+    "response = requests.get(url)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "77fdd8cd-2c85-474e-bceb-2a737c92521b",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Show the JSON content of the response\n",
+    "display(response.json())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "69ae7da6-6c9c-4f2a-94ea-fc75f437eb80",
+   "metadata": {},
+   "source": [
+    "Next, let's try to narrow down the suggestions by adding some parameters\n",
+    "- type\n",
+    "- participants\n",
+    "\n",
+    "All possible parameter values are presented at the bottom of the bored documentation page.  [Relevant parts in the _Requests_ documentation](https://requests.readthedocs.io/en/latest/user/quickstart/#parameters)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "933feded-0d73-4038-b909-6f713cb3782a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Define some parameters\n",
+    "params = {\n",
+    "    'type' : 'education',\n",
+    "    'participants' : 1,\n",
+    "}\n",
+    "\n",
+    "# Send the request using get() with parameters\n",
+    "response = requests.get(url, params)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f9dbeea0-31d3-43b0-8d18-94b608e82a77",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Show the JSON content of the response\n",
+    "display(\"Response\")\n",
+    "display(response.json())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "301eb0af-2db2-474b-87e4-8d8815a3a04b",
+   "metadata": {},
+   "source": [
+    "Let's narrow the request further with more parameters\n",
+    "- price range\n",
+    "- accessibility range\n",
+    "\n",
+    "(All possible parameter values are again presented at the bottom of the document page.)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d04823d4-154e-48ec-9576-f537bd20c271",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Define some parameters\n",
+    "params = {\n",
+    "    'type' : 'social',\n",
+    "    'participants' : 2,\n",
+    "    'minprice' : 0,\n",
+    "    'maxprice' : 1000,\n",
+    "}\n",
+    "\n",
+    "# Send the request using get() with parameters\n",
+    "response = requests.get(url, params)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "87978afc-6d0d-46c0-ad0f-e5b851d302e1",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Show the JSON content of the response\n",
+    "display(response.json())\n",
+    "display(\"\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0a019d02-cd86-4fdc-874e-b99557955cd1",
+   "metadata": {},
+   "source": [
+    "## Exercises 2\n",
+    "\n",
+    ":::{exercise} Exercise WebAPIs-2: Examine request and response headers\n",
+    "\n",
+    "Request [headers](https://requests.readthedocs.io/en/latest/user/quickstart/#response-headers) are similar to request parameters but usually define meta information regarding, e.g., content encoding (gzip, utf-8) or user identification (user-agent/user ID/etc., password/access token/etc.).\n",
+    "\n",
+    "Let's first make a request.\n",
+    ":::"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "eb583c27-2ce3-420e-a116-b717f8fa0e3e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import modules\n",
+    "import requests\n",
+    "\n",
+    "# URL of the activity API end point\n",
+    "url = \"http://www.boredapi.com/api/activity/\"\n",
+    "\n",
+    "# Make the request using the get() function\n",
+    "response = requests.get(url)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "271d5abd-6648-4976-899e-25e93d5d8f73",
+   "metadata": {},
+   "source": [
+    "We can access the headers of the original request"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "91f78d05-60e7-48ad-8f13-bc4d445e75bc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "display(\"Request headers\")\n",
+    "display(dict(response.request.headers))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d6149ec8-c57f-4fab-aaa5-6a61fc7d0291",
+   "metadata": {},
+   "source": [
+    "We can also access the headers of the response "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d4ff753a-d3dd-41c9-b533-386d0b30d4c3",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "display(\"Response headers\")\n",
+    "display(dict(response.headers))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7132bc48-90a0-49ea-a215-a87006aecf1d",
+   "metadata": {},
+   "source": [
+    "In many cases, the default headers\n",
+    "\n",
+    "```json\n",
+    "{'User-Agent': 'python-requests/2.28.1',\n",
+    " 'Accept-Encoding': 'gzip, deflate, br',\n",
+    " 'Accept': '*/*',\n",
+    " 'Connection': 'keep-alive'}\n",
+    "```\n",
+    "\n",
+    "added automatically by _Requests_ are sufficient. However, similarly to parameters, we can pass [custom headers](https://requests.readthedocs.io/en/latest/user/quickstart/#custom-headers) to the _get_ function as an argument. \n",
+    "\n",
+    "This is useful when, for example, the API has restricted access and requires a user ID and/or password as a part of the headers.\n",
+    "\n",
+    "```json\n",
+    "{'User-Agent': 'python-requests/2.28.1',\n",
+    " 'Accept-Encoding': 'gzip, deflate, br',\n",
+    " 'Accept': '*/*',\n",
+    " 'Connection': 'keep-alive',\n",
+    " 'example-user-id' : 'example-password'}\n",
+    "```\n",
+    "\n",
+    "For examples of APIs using this type of authentication, see\n",
+    "\n",
+    "- [Imgur API](https://api.imgur.com/oauth2)\n",
+    "\n",
+    "For more on authentication, see also [_Requests_ documentation](https://requests.readthedocs.io/en/latest/user/authentication/). \n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3d50de82-4f2c-4bc4-8f23-3cb4bdb62127",
+   "metadata": {},
+   "source": [
+    "## Exercises 3\n",
+    "\n",
+    ":::{exercise} Exercise WebAPIs-3: Scrape links from a webpage (Advanced)\n",
+    "\n",
+    "Let's use _Requests_ to get the HTML source code of www.example.com, examine it, and use the [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) library to extract links from it.  **Note:** This requires the extra `bs4` Python package to be installed, which was not in our initial requirements.  Consider this a demo.\n",
+    ":::"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cc3373a9-e54f-4049-b715-481ec9893189",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import module\n",
+    "import requests\n",
+    "\n",
+    "# Define webpage to scrape\n",
+    "url = \"http://www.example.com/\"\n",
+    "\n",
+    "# Make a request for the URL\n",
+    "response = requests.get(url)\n",
+    "\n",
+    "# Examine the response\n",
+    "display(response.content)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d59e52c4-95cf-427d-b3d4-8d0a6dc02aa5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Looks like HTML :) Let's access it using the text attribute\n",
+    "html = response.text\n",
+    "\n",
+    "print(html)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "327695ae-b376-4d5b-9293-6e89ff272790",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import beautiful soup module\n",
+    "from bs4 import BeautifulSoup\n",
+    "\n",
+    "# Create soup\n",
+    "soup = BeautifulSoup(html, 'html.parser')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0e21c6de-a845-4823-b777-bf2cd44fbfd2",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Extract page title from the HTML\n",
+    "print(f\"Found title: {soup.title.text}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a7fa0e7b-b171-4e65-b987-84a101da58df",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Extract links (hrefs) from the HTML\n",
+    "for link in soup.find_all('a'):\n",
+    "    print(f\"Found link: {link.get('href')}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6581edcb-c170-4cc7-a442-d8d8c724ca50",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Extract all text from the HTML\n",
+    "print(f\"Found text: {soup.get_text()}\")    "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7cdff2d8-0c98-45b3-a825-ed1492d10302",
+   "metadata": {},
+   "source": [
+    "## After exercises: Saving retrieved data to disk\n",
+    "\n",
+    "Usually, we want to save the retrieved data to disk for later use. For example, we might collect data for one year and later analyze it for a longitudal study.\n",
+    "\n",
+    "To save the retrieved JSON objects to disk, it is practical to use the JSONLINES file format. The JSONLINES format contains a single valid JSON object on each line. This is preferable to saving each object as its own file since we don't, in general, want to end up with excessive amounts of individual files (say, hundreds of thousands or millions).\n",
+    "\n",
+    "For example, let's retrieve three cat facts and save them to a JSONLINES file using the [jsonlines library](https://jsonlines.readthedocs.io/en/latest/)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "80a8dcd1-ba04-45de-840e-aa014c19a75c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Import\n",
+    "import requests\n",
+    "import jsonlines\n",
+    "import time\n",
+    "\n",
+    "# URL\n",
+    "url = 'https://catfact.ninja/fact'\n",
+    "\n",
+    "# Make three requests in loop and make a list of response JSON objects\n",
+    "for i in range(3):\n",
+    "\n",
+    "    # Logging\n",
+    "    print(f\"Make request {i}\")\n",
+    "\n",
+    "    # Make a request\n",
+    "    response = requests.get(url)\n",
+    "    \n",
+    "    # Decode to JSON\n",
+    "    response_json = response.json()\n",
+    "                \n",
+    "    # Open a jsonlines writer in 'append' mode \n",
+    "    with jsonlines.open('catfacts.jsonl', mode='a') as writer:\n",
+    "\n",
+    "        # Write\n",
+    "        writer.write(response_json)\n",
+    "        \n",
+    "    # Sleep for one second between requests\n",
+    "    time.sleep(1)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "efb4a0ff-6a70-471a-af61-39c0350d4166",
+   "metadata": {},
+   "source": [
+    "We can then read the objects from the disk using the same library."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2d424c23-bdf3-47f7-a643-4312a07c955a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Open a jsonlines reader\n",
+    "with jsonlines.open('catfacts.jsonl', mode='r') as reader:\n",
+    "    \n",
+    "    # Read and display\n",
+    "    for obj in reader:\n",
+    "        display(obj)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "2f6b8117-b1ef-43cb-9458-0fe4ac49b67a",
+   "metadata": {},
+   "source": [
+    "## Wrap-up\n",
+    "\n",
+    "\n",
+    ":::{keypoints}\n",
+    "- Requests is a common tool\n",
+    "- Web APIs may often require some trial and error, but actually getting data is usually not that difficult\n",
+    "- Storing all the data and processing it well can be a much larger issue.\n",
+    ":::\n",
+    "\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

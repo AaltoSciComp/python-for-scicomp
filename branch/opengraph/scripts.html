@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Scripts" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="scripts.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Why scripts?: So far we have been learning python using Jupyter notebooks. It is very convenient: it allowed us to experiment and prototype python code so we may think that is more than enough for ..." />
+<meta name="description" content="Why scripts?: So far we have been learning python using Jupyter notebooks. It is very convenient: it allowed us to experiment and prototype python code so we may think that is more than enough for ..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scripts &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SciPy" href="scipy.html" />
+    <link rel="prev" title="Data formats with Pandas and Numpy" href="data-formats.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-advanced.html">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-scripts">Why scripts?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-jupyter-notebooks-to-python-scripts">From jupyter notebooks to python scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-as-python-script">Save as python script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-1">Exercises 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-other-python-files">Importing other python files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-2">Exercises 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-arguments-with-sys-argv">Command line arguments with <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parsing-command-line-arguments-with-argparse">Parsing command line arguments with <code class="docutils literal notranslate"><span class="pre">argparse</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-3">Exercises 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-larger-option-lists-using-config-files">Load larger option lists using config files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-4-optional">Exercises 4 (optional)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scipy.html">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder.html">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Scripts</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/scripts.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scripts">
+<span id="id1"></span><h1>Scripts<a class="headerlink" href="#scripts" title="Permalink to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>Why are command line programs useful, compared to Jupyter
+notebooks and similar?</p></li>
+<li><p>How to create a python script?</p></li>
+<li><p>How to generalize a python script?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn how to streamline your python notebooks by creating repeatable python scripts</p></li>
+<li><p>Learn how to import other python files</p></li>
+<li><p>Learn to parse command line arguments in python</p></li>
+</ul>
+</div>
+<section id="why-scripts">
+<h2>Why scripts?<a class="headerlink" href="#why-scripts" title="Permalink to this heading"></a></h2>
+<p>So far we have been learning python using Jupyter notebooks. It is very convenient: it allowed us to experiment and prototype python code so we may think that is more than enough for your day to day work.</p>
+<p>But after several weeks of hard work with python, you may end up:</p>
+<ul class="simple">
+<li><p>either with 10 different notebooks (so that you can run them concurrently)</p></li>
+<li><p>or with a very long notebook which is becoming hardly readable!</p></li>
+</ul>
+<p>Let’s imagine you have created 10 notebooks to run for 10 different input parameters and now you are willing to experiment with 1000 sets of input parameters.
+Suppose you find a bug in the original notebook and need to rerun everything: are you willing to re-create manually your 1000 notebooks?</p>
+<p>In this episode, we will learn how to automate your work using python scripts so that</p>
+<ul class="simple">
+<li><p>you do not need to manually configure your notebooks to be able to run with different parameters</p></li>
+<li><p>can easily run you work via other tools, such as on computing clusters.</p></li>
+</ul>
+</section>
+<section id="from-jupyter-notebooks-to-python-scripts">
+<h2>From jupyter notebooks to python scripts<a class="headerlink" href="#from-jupyter-notebooks-to-python-scripts" title="Permalink to this heading"></a></h2>
+</section>
+<section id="save-as-python-script">
+<h2>Save as python script<a class="headerlink" href="#save-as-python-script" title="Permalink to this heading"></a></h2>
+<p>Jupyter notebooks can be parameterized for instance using <a class="reference external" href="https://papermill.readthedocs.io/en/latest/">papermill</a>. It can be an attractive approach when you have short notebooks (to generate automatically plots/reports) but as soon as you have more complex tasks to execute, we strongly recommend to generate python scripts. This will also force you to modularize your code.  See <a class="reference external" href="https://coderefinery.github.io/modular-type-along/">CodeRefinery’s lesson on Modular code development</a>.</p>
+<p>Within JupyterLab, you can export any jupyter notebook to a python script:</p>
+<figure class="align-default" id="id2">
+<img alt="https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png" src="https://jupyterlab.readthedocs.io/en/stable/_images/exporting_menu.png" />
+<figcaption>
+<p><span class="caption-text">Select File (top menu bar) → Export Notebook as → <strong>Export notebook to Executable Script</strong>.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>Actually, you could also export your notebook in many other formats.
+Check the <a class="reference external" href="https://jupyterlab.readthedocs.io/en/stable/user/export.html">JupyterLab documentation</a> for more information.
+If you keep working in the jupyterlab folder, you can also convert files in the terminal (File -&gt; New -&gt; Terminal) by running:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter nbconvert --to script your_notebook_name.ipynb
+</pre></div>
+</div>
+</section>
+<section id="exercises-1">
+<h2>Exercises 1<a class="headerlink" href="#exercises-1" title="Permalink to this heading"></a></h2>
+<div class="admonition-scripts-1 exercise important admonition" id="exercise-0">
+<p class="admonition-title">Scripts-1</p>
+<ol class="arabic">
+<li><p>Download the <a class="reference download internal" download="" href="_downloads/4b858dab9366f77b3641c99adece5fd2/weather_observations.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">weather_observations.ipynb</span></code></a> and the weather_data file and upload them to your jupyterlab. The script plots the temperature data for Tapiola in Espoo. The data is originally from <a class="reference external" href="https://rp5.kz">rp5.kz</a> and was slightly adjusted for this lecture.</p>
+<p><strong>Note:</strong> If you haven’t downloaded the file directly to your jupyterlab folder, it will be located in your <strong>Downloads</strong> folder or the folder you selected. In jupyterlab click on the ‘upload file’ button, navigate to the folder containing the file and select it to load it into your jupyterlab folder.</p>
+</li>
+<li><p>Open a terminal in jupyter (File -&gt; New -&gt; Terminal).</p></li>
+<li><p>Convert the jupyter script to a python script by calling:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter nbconvert --to script weather_observations.ipynb
+</pre></div>
+</div>
+</li>
+<li><p>Run the script (note: you may have <code class="docutils literal notranslate"><span class="pre">python3</span></code> rather than <code class="docutils literal notranslate"><span class="pre">python</span></code>):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python weather_observations.py
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</section>
+<section id="importing-other-python-files">
+<h2>Importing other python files<a class="headerlink" href="#importing-other-python-files" title="Permalink to this heading"></a></h2>
+<p>We have a very short notebook that loads and plots data. But even in this script, we have to do a bit of processing (changing the format of the dates). We also extract a subset of our data for a
+given date range.</p>
+<p>In general, it is good practice to separate processing from plotting. The reason is that you often need to generate multiple plots using the data while pre-processing data once only.
+When data preprocessing is expensive this is even more important.</p>
+<p>For example, we can create a new python file (<strong>weather_functions.py</strong>) containing a function to adjust the dates in our dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
+  <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">],</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)]</span>
+  <span class="k">return</span> <span class="n">dataset</span>
+</pre></div>
+</div>
+<p>and modify the <code class="docutils literal notranslate"><span class="pre">weather_observations.py</span></code> file to</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">weather_functions</span>
+</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv&quot;</span>
+<span class="c1"># read the data skipping comment lines</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">comment</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+<span class="c1"># set start and end time</span>
+<span class="n">start_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;01/06/2021&#39;</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">end_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;01/10/2021&#39;</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># preprocess the data</span>
+<span class="hll"><span class="n">weather</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+</span><span class="o">...</span>
+</pre></div>
+</div>
+</section>
+<section id="exercises-2">
+<h2>Exercises 2<a class="headerlink" href="#exercises-2" title="Permalink to this heading"></a></h2>
+<div class="admonition-scripts-2-optional exercise important admonition" id="exercise-1">
+<p class="admonition-title">Scripts-2 (optional)</p>
+<ol class="arabic simple">
+<li><p>Create <strong>weather_functions.py</strong> with the above function and add an additional function for plotting the dataset.</p></li>
+<li><p>Update <strong>weather_observations.py</strong> to call it.</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p><strong>weather_observations.py</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># coding: utf-8</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">weather_functions</span>
+</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv&quot;</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">comment</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+
+<span class="c1"># define the start and end time for the plot </span>
+<span class="n">start_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;01/06/2021&#39;</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">end_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;01/10/2021&#39;</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="hll"><span class="n">weather</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)</span>
+</span>
+<span class="c1"># Now, we have the data loaded, and adapted to our needs. So lets get plotting</span>
+<span class="hll"><span class="n">ax</span><span class="p">,</span><span class="n">fig</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">],</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">])</span>
+</span><span class="c1"># save the figure</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;weather.png&#39;</span><span class="p">)</span>
+
+
+
+</pre></div>
+</div>
+<p><strong>weather_functions.py</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span>
+<span class="k">def</span> <span class="nf">preprocessing</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
+    <span class="c1"># The date format in the file is in a day-first format, which matplotlib does nto understand.</span>
+    <span class="c1"># so we need to convert it.</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">],</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">dataset</span>
+    
+
+<span class="hll"><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+</span><span class="hll">    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</span><span class="hll">    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+</span><span class="hll">    <span class="c1"># label the axes</span>
+</span><span class="hll">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Date of observation&quot;</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature in Celsius&quot;</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Temperature Observations&quot;</span><span class="p">)</span>
+</span><span class="hll">    <span class="c1"># adjust tick labels</span>
+</span><span class="hll">    <span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+</span><span class="hll">    <span class="k">return</span> <span class="n">ax</span><span class="p">,</span><span class="n">fig</span>
+</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="command-line-arguments-with-sys-argv">
+<h2>Command line arguments with <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code><a class="headerlink" href="#command-line-arguments-with-sys-argv" title="Permalink to this heading"></a></h2>
+<p>We now have a better organized code but it still cannot easily process time ranges or a
+specified output file name. To achieve this, rather than copying the same code several times for
+different time ranges or output file names, we can update the main code to take the
+start/end time and output file name from the command line</p>
+<p><strong>Example</strong>: We modify the <strong>weather_observations.py</strong> script such that we allow start
+and end times as well as the output file to be passed in as arguments to the function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">weather_functions</span>
+
+<span class="c1"># set start and end time</span>
+<span class="hll"><span class="n">start_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="hll"><span class="n">end_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span>
+<span class="hll"><span class="n">output_file_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</span>
+<span class="o">...</span>
+
+<span class="c1"># preprocess the data</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">output_file_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can try it out:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python weather_observations.py <span class="m">01</span>/03/2021 <span class="m">31</span>/05/2021 spring_in_tapiola.png
+</pre></div>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<ul class="simple">
+<li><p>Does it work?</p></li>
+<li><p>Why is this better than modifying the script every time I want it to
+plot data for a different period?</p></li>
+<li><p>What problems do you expect when using this approach (using <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code>)?</p></li>
+</ul>
+</div>
+<p>This approach is brittle and more robust solutions exist that allow to fully
+customize your scripts and generate help texts at the same time:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/argparse.html">argparse</a>:
+built-in to Python, this is the one that we will show below.</p></li>
+<li><p><a class="reference external" href="http://docopt.org/">doctopt</a>: you write the help text and this generates a parser for you.</p></li>
+<li><p><a class="reference external" href="https://click.palletsprojects.com//">click</a>: another nice
+library for command line interfaces - very easy to use.</p></li>
+</ul>
+</section>
+<section id="parsing-command-line-arguments-with-argparse">
+<h2>Parsing command line arguments with <code class="docutils literal notranslate"><span class="pre">argparse</span></code><a class="headerlink" href="#parsing-command-line-arguments-with-argparse" title="Permalink to this heading"></a></h2>
+<p>This example not only gives you descriptive command line
+arguments, it also automatically generates a <code class="docutils literal notranslate"><span class="pre">--help</span></code> option for you:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">import</span> <span class="nn">argparse</span>
+</span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">weather_functions</span>
+
+<span class="hll"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span><span class="hll"><span class="c1"># set start and end time</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;Out.png&quot;</span>
+</span><span class="hll">                 <span class="n">help</span><span class="o">=</span><span class="s2">&quot;end time&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--start&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;1/1/2019&quot;</span>
+</span><span class="hll">                 <span class="n">help</span><span class="o">=</span><span class="s2">&quot;start time&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--end&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;1/1/2021&quot;</span>
+</span><span class="hll">                 <span class="n">help</span><span class="o">=</span><span class="s2">&quot;output filename&quot;</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="hll"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">start</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">end</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="c1"># preprocess the data</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exercises-3">
+<h2>Exercises 3<a class="headerlink" href="#exercises-3" title="Permalink to this heading"></a></h2>
+<div class="admonition-scripts-3 exercise important admonition" id="exercise-2">
+<p class="admonition-title">Scripts-3</p>
+<ol class="arabic simple">
+<li><p>Take the python script we have written in the preceding exercise and use
+<code class="docutils literal notranslate"><span class="pre">argparse</span></code> to specify the input and output files and allow the start and end dates to be set.</p></li>
+<li><p>Execute your script for a few different time intervals (e.g. from January 2019 to June 2020, or from Mai 2020 to October 2020).
+Also use data for cairo (<code class="docutils literal notranslate"><span class="pre">https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv</span></code>)</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="hll"><span class="kn">import</span> <span class="nn">argparse</span>
+</span><span class="kn">import</span> <span class="nn">weather_functions</span>
+
+<span class="hll"><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Input data file&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output plot file&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--start&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;01/01/2019&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Start date in DD/MM/YYYY format&quot;</span><span class="p">)</span>
+</span><span class="hll"><span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--end&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;16/10/2021&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;End date in DD/MM/YYYY format&quot;</span><span class="p">)</span>      
+</span>
+<span class="hll"><span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span>
+<span class="c1"># load the data</span>
+<span class="hll"><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input</span><span class="p">,</span><span class="n">comment</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+</span>
+<span class="c1"># define the start and end time for the plot</span>
+<span class="hll"><span class="n">start_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">start</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="hll"><span class="n">end_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">end</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span>
+<span class="c1"># preprocess the data</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)</span>
+
+<span class="c1"># plot the data</span>
+<span class="n">ax</span><span class="p">,</span><span class="n">fig</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">],</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">])</span>
+
+<span class="c1"># save the figure</span>
+<span class="hll"><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<div class="admonition-discussion discussion important admonition" id="discussion-1">
+<p class="admonition-title">Discussion</p>
+<p><strong>What was the point of doing this?</strong></p>
+<p>Now you can do this:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python weather_observations.py --help
+<span class="gp">$ </span>python weather_observations.py https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola.png
+<span class="gp">$ </span>python weather_observations.py -s <span class="m">1</span>/12/2020 -e <span class="m">31</span>/12/2020 https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola_dec.png
+<span class="gp">$ </span>python weather_observations.py -s <span class="m">1</span>/2/2021 -e <span class="m">28</span>/2/2021 https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_tapiola.csv temperature_tapiola_feb.png
+<span class="gp">$ </span>python weather_observations.py https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv --output temperature_cairo.png
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>We can now process different input files without changing the script.</p></li>
+<li><p>We can select multiple time ranges without modifying the script.</p></li>
+<li><p>This way we can also loop over file patterns (using shell loops or similar) or use
+the script in a workflow management system and process many files in parallel.</p></li>
+<li><p>By changing from <code class="docutils literal notranslate"><span class="pre">sys.argv</span></code> to <code class="docutils literal notranslate"><span class="pre">argparse</span></code> we made the script more robust against
+user input errors and also got a help text (accessible via <code class="docutils literal notranslate"><span class="pre">--help</span></code>).</p></li>
+</ul>
+</div>
+</section>
+<section id="load-larger-option-lists-using-config-files">
+<h2>Load larger option lists using config files<a class="headerlink" href="#load-larger-option-lists-using-config-files" title="Permalink to this heading"></a></h2>
+<p>In the above example we only allowed the input and output files along with start and end dates to be selected by command line arguments.
+This already leads to a quite large command line call. Now imagine, that we also want to allow the user to select more specific information
+from the dataset, define specific X and Y labels, write their own
+title etc. Now imagine to put all this into the command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python weather_observations.py --input https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv --output rain_in_tapiola.png --xlabel <span class="s2">&quot;Days in June&quot;</span> --ylabel <span class="s2">&quot;Rainfall in mm&quot;</span> --title <span class="s2">&quot;Rainfall in Cairo&quot;</span> --data_column RRR --start <span class="m">01</span>/06/2021 --end <span class="m">30</span>/06/2021
+</pre></div>
+</div>
+<p>This is an even larger line, needs scrolling and becomes quite inconvenient to modify.
+Instead of putting all of this into the command line, you could think about storing and modifying the arguments in a config file.
+There are several ways, how config files can be stored. You can use a simple <code class="docutils literal notranslate"><span class="pre">Parameter</span> <span class="pre">=</span> <span class="pre">Value</span></code>
+format, and parse it yourself, or you can use e.g. the <code class="docutils literal notranslate"><span class="pre">JSON</span></code> or <code class="docutils literal notranslate"><span class="pre">YAML</span></code> formats.
+For both parsers exist that can save you some work, and both formats also allow you to use
+more complex input data, like lists, or dictionaries. We won’t go into the details of the formats, and will only give
+a short example using YAML here.</p>
+<p>The YAML file format can be simple or very complex allowing a large variety of data structures to be stored.
+One benefit of YAML is that there is already a python module (<code class="docutils literal notranslate"><span class="pre">yaml</span></code>) available for parsing it and it
+directly parses numbers as numbers and text as strings, making conversions unnecessary (the same is true for JSON
+with the <code class="docutils literal notranslate"><span class="pre">json</span></code> package).</p>
+<p>The python module <a class="reference download internal" download="" href="_downloads/75c4ab69c0f59fbb1589b03be360a485/optionsparser.py"><code class="xref download docutils literal notranslate"><span class="pre">optionsparser.py</span></code></a> provides a simple parser for YAML styled options files.
+Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
+Required arguments need to specify a type. Optional argument types are derived from their default values.</p>
+<p>In our example above, we could for example add optional parameters that allow the selection of other weather data
+from the dataset (precipitation …), set the labels and titles explicitly etc.</p>
+<p>In the YAML format, names and values are separated by <code class="docutils literal notranslate"><span class="pre">:</span></code>. Our above example would therefore translate to the following YAML file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">input</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv</span><span class="w"></span>
+<span class="nt">output</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">rain_in_cairo.png</span><span class="w"></span>
+<span class="nt">xlabel</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">Days in June</span><span class="w"></span>
+<span class="nt">ylabel</span><span class="p">:</span><span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">Rainfall in mm</span><span class="w"></span>
+<span class="nt">title</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">Rainfall in Cairo</span><span class="w"></span>
+<span class="nt">data_column</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">RRR</span><span class="w"></span>
+<span class="nt">start</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">01/06/2021</span><span class="w"></span>
+<span class="nt">end</span><span class="p">:</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">30/06/2021</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="exercises-4-optional">
+<h2>Exercises 4 (optional)<a class="headerlink" href="#exercises-4-optional" title="Permalink to this heading"></a></h2>
+<div class="admonition-scripts-4 exercise important admonition" id="exercise-3">
+<p class="admonition-title">Scripts-4</p>
+<ol class="arabic simple">
+<li><p>Download the <a class="reference download external" download="" href="https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py"><code class="xref download docutils literal notranslate"><span class="pre">optionsparser.py</span></code></a>
+function and load it into your working folder in jupyterlab.
+Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line
+(using e.g. argparse or sys.argv) still needs to be read from the command line.</p></li>
+<li><p>Run your script with different config files.</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution</p>
+<p>The modified <strong>weather_observations.py</strong> script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># coding: utf-8</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="hll"><span class="kn">from</span> <span class="nn">optionsparser</span> <span class="kn">import</span> <span class="n">get_parameters</span>
+</span><span class="kn">import</span> <span class="nn">weather_functions</span>
+<span class="kn">import</span> <span class="nn">argparse</span> 
+
+<span class="c1"># Lets start reading our confg file. we&#39;ll use argparse to get the config file.</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Config File name &quot;</span><span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="c1"># Set optional parameters with default values and required parameter values with their type</span>
+<span class="hll"><span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="hll">           <span class="s2">&quot;xlabel&quot;</span>      <span class="p">:</span> <span class="s2">&quot;Date of observation&quot;</span><span class="p">,</span>
+</span><span class="hll">           <span class="s2">&quot;title&quot;</span>       <span class="p">:</span> <span class="s2">&quot;Weather Observations&quot;</span><span class="p">,</span>
+</span><span class="hll">           <span class="s2">&quot;start&quot;</span>       <span class="p">:</span> <span class="s2">&quot;01/06/2021&quot;</span><span class="p">,</span>
+</span><span class="hll">           <span class="s2">&quot;end&quot;</span>         <span class="p">:</span> <span class="s2">&quot;01/10/2021&quot;</span><span class="p">,</span>
+</span><span class="hll">           <span class="s2">&quot;output&quot;</span>      <span class="p">:</span> <span class="s2">&quot;weather.png&quot;</span><span class="p">,</span>
+</span><span class="hll">           <span class="s2">&quot;ylabel&quot;</span>      <span class="p">:</span> <span class="s2">&quot;Temperature in Celsius&quot;</span><span class="p">,</span>
+</span><span class="hll">           <span class="s2">&quot;data_column&quot;</span> <span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span>
+</span><span class="hll">           <span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="n">required</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class="hll">           <span class="s2">&quot;input&quot;</span>  <span class="p">:</span> <span class="nb">str</span>
+</span>           <span class="p">}</span>
+           
+<span class="c1"># now, parse the config file</span>
+<span class="hll"><span class="n">parameters</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input</span><span class="p">,</span> <span class="n">required</span><span class="p">,</span> <span class="n">defaults</span><span class="p">)</span>
+</span>
+<span class="c1"># load the data</span>
+<span class="hll"><span class="n">weather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">input</span><span class="p">,</span><span class="n">comment</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+</span>
+<span class="c1"># obtain start and end date</span>
+<span class="n">start_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">start</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">end_date</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">end</span><span class="p">,</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Data preprocessing</span>
+<span class="n">weather</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)</span>
+
+<span class="c1"># Data plotting</span>
+<span class="hll"><span class="n">ax</span><span class="p">,</span><span class="n">fig</span> <span class="o">=</span> <span class="n">weather_functions</span><span class="o">.</span><span class="n">plot_data</span><span class="p">(</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">],</span> <span class="n">weather</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">data_column</span><span class="p">],</span> <span class="n">parameters</span><span class="p">)</span>
+</span>
+<span class="c1"># save the figure</span>
+<span class="hll"><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>The modified <strong>weather_functions.py</strong> script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">preprocessing</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
+    <span class="c1"># The date format in the file is in a day-first format, which matplotlib does nto understand.</span>
+    <span class="c1"># so we need to convert it.</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">],</span><span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;Local time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">dataset</span>
+    
+
+<span class="hll"><span class="k">def</span> <span class="nf">plot_data</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    <span class="c1"># label the axes</span>
+<span class="hll">    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">xlabel</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">ylabel</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</span>    <span class="c1"># adjust tick labels</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">ax</span><span class="p">,</span><span class="n">fig</span>
+
+</pre></div>
+</div>
+</div>
+<div class="admonition-further-reading admonition">
+<p class="admonition-title">Further reading</p>
+<ul class="simple">
+<li><p>Linking Jupyterlab notebooks to python scripts (making linking <code class="docutils literal notranslate"><span class="pre">.py</span></code>- and <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>-files easier) using <a class="reference external" href="https://jupytext.readthedocs.io/en/latest/paired-notebooks.html">jupytext</a></p></li>
+<li><p>The <a class="reference external" href="https://en.wikipedia.org/wiki/YAML">wikipedia page about YAML</a> contains a lot of additional information on the YAML syntax.</p></li>
+<li><p><a class="reference external" href="https://coderefinery.github.io/reproducible-research/">The Coderefinery Lesson about reproducible research</a> can give additional information about good coding practices and workflow automation.</p></li>
+<li><p><a class="reference external" href="https://coderefinery.github.io/modular-type-along/">CodeRefinery’s lesson on Modular code development</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data-formats.html" class="btn btn-neutral float-left" title="Data formats with Pandas and Numpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="scipy.html" class="btn btn-neutral float-right" title="SciPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
