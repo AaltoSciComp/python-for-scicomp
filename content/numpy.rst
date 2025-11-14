@@ -266,18 +266,30 @@ Exercises 3
    ::
 
       a = np.eye(4)
-      b = a[:,0]
+      b = a[:, 0]
       b[0] = 5
 
-   - **View vs copy** Try out above code. How does ``a`` look like before ``b`` has changed and after? How could it be avoided?
+   Try out the above code. 
+
+   - How does ``a`` look like before ``b`` has changed and after? 
+   - How could it be avoided?
 
 .. solution:: Solution: Numpy-3
 
-   - **View vs copy** The change in ``b`` has also changed the array ``a``!
-     This is because ``b`` is merely a view of a part of array ``a``.  Both
-     variables point to the same memory. Hence, if one is changed, the other
-     one also changes. If you need to keep the original array as is, use
-     ``np.copy(a)``.
+   **View vs copy**: The change in ``b`` has also changed the array ``a``!
+   This is because ``b`` is merely a *view* or a *shallow copy* of a part of array ``a``.  Both
+   variables point to the same memory. Hence, if one is changed, the other
+   one also changes. 
+   
+   In this example, if you need to keep the original array as is, use
+   :func:`np.copy(a) <numpy.copy>` or ``np.copy(a[:, 0])``
+   to create a new *deep copy* of the whole or a slice of array respectively,
+   before updating ``b``.
+   
+   .. seealso::
+
+      NumPy's documentation on :numpy:ref:`quickstart.copies-and-views`
+     
 
 
 Types of operations
