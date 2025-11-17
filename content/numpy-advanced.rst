@@ -340,7 +340,7 @@ Copy versus view
 ----------------
 
 Whenever NumPy constructs a new array by modifying the :attr:`~numpy.ndarray.strides` instead of
-copying data, we way it created a "view". This also happens when we select only
+copying data, we create a "view". This also happens when we select only
 a portion of an existing matrix. Whenever a view is created, the
 :class:`numpy.ndarray` object will have a reference to the original array in
 its :attr:`~numpy.ndarray.base` attribute::

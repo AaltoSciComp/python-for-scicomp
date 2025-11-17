@@ -191,14 +191,32 @@ Exercises 2
 
 .. challenge:: Exercises: Numpy-2
 
-   - **Matrix multiplication** What is the difference between :data:`numpy.multiply` and :func:`numpy.dot` ? Try it.
-   - **Axis** What is the difference between :func:`np.sum(axis=1) <numpy.sum>` vs
-     :func:`np.sum(axis=0) <numpy.sum>` on a two-dimensional array? What if you leave out the axis parameter?
+   Create the following arrays:
+
+   .. code-block:: python
+
+      # 1-dimensional arrays
+      x = np.array([1, 10, 100])
+      # TODO: similar to `x`, create another 1-dimensional array with shape (3,)
+      # y = np.array(...)
+
+      # 2-dimensional arrays
+      a = np.array([[1, 2], [3, 4]])
+      # TODO: similar to `a`, create another 2-dimensional array with shape (2, 2)
+      # b = np.array(...)
+
+   - **Matrix multiplication** What is the difference between :data:`numpy.multiply` and :func:`numpy.dot` ? Try calling these functions
+     with either ``x, y`` (1D arrays) or ``a, b`` (2D arrays) as input and observe the behaviour.
+   - **Axis** What is the difference between :func:`np.sum(a, axis=1) <numpy.sum>` vs
+     :func:`np.sum(a, axis=0) <numpy.sum>` on a two-dimensional array? What if you leave out the axis parameter?
 
 
 .. solution:: Solutions: Numpy-2
 
-   - **Matrix multiplication** ``np.multiply`` does elementwise multiplication on two arrays, while ``np.dot`` enables matrix multiplication.
+   - **Matrix multiplication** ``np.multiply`` does elementwise multiplication on two arrays. The function ``np.dot`` enables:
+     - *dot product* and returns a scalar, when both input arrays are 1 dimensional
+     - *matrix multiplication* and returns back a 2-dimensional array, when both the input arrays are 2 dimensional
+     However, ``a @ b`` is preferred over ``np.dot(a, b)`` to express matrix multiplication.
    - **Axis** ``axis=1`` does the operation (here: ``np.sum``) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.
 
 
@@ -248,18 +266,30 @@ Exercises 3
    ::
 
       a = np.eye(4)
-      b = a[:,0]
+      b = a[:, 0]
       b[0] = 5
 
-   - **View vs copy** Try out above code. How does ``a`` look like before ``b`` has changed and after? How could it be avoided?
+   Try out the above code. 
+
+   - How does ``a`` look like before ``b`` has changed and after? 
+   - How could it be avoided?
 
 .. solution:: Solution: Numpy-3
 
-   - **View vs copy** The change in ``b`` has also changed the array ``a``!
-     This is because ``b`` is merely a view of a part of array ``a``.  Both
-     variables point to the same memory. Hence, if one is changed, the other
-     one also changes. If you need to keep the original array as is, use
-     ``np.copy(a)``.
+   **View vs copy**: The change in ``b`` has also changed the array ``a``!
+   This is because ``b`` is merely a *view* or a *shallow copy* of a part of array ``a``.  Both
+   variables point to the same memory. Hence, if one is changed, the other
+   one also changes. 
+   
+   In this example, if you need to keep the original array as is, use
+   :func:`np.copy(a) <numpy.copy>` or ``np.copy(a[:, 0])``
+   to create a new *deep copy* of the whole or a slice of array respectively,
+   before updating ``b``.
+   
+   .. seealso::
+
+      NumPy's documentation on :numpy:ref:`quickstart.copies-and-views`
+     
 
 
 Types of operations
