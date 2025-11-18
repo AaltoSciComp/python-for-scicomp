@@ -12,6 +12,17 @@ Cython
    - O1
    - O2
 
+
+.. callout::
+
+   Using Cython requires that you have a working environment for compiling
+   C code. This goes beyond the software requirements for this course, so the
+   teaching will be given in form of demonstrations and no exercises.
+   You may still follow along with the code examples if you have a C compiler
+   installed, in which case you can install Cython to your Conda environment
+   with `conda install cython`.
+
+
 Interpreted languages like Python are rather slow to execute compared to
 languages like C or Fortran that are compiled to machine code before execution.
 Python in particular is both strongly typed and dynamically typed: this means
@@ -37,8 +48,6 @@ the Python interpreter needs to:
   5. Perform the **+** operation
   6. Construct a new integer object for the result ("boxing")
 
-TODO non-transparent figure
-
   .. image:: img/cython/unboxing-boxing.svg
    :class: center
    :width: 90.0%
@@ -51,56 +60,43 @@ Scientific programs often include computationally expensive sections (e.g.
 simulations of any kind). So how do we make Python execute our code faster in
 these situations? Well that's the neat part: we don't! Instead, we write the
 performance critical parts in a faster language and make them usable from
-Python.
+Python. This is called extending Python, and usually involves writing C-code
+with Python-specific boilerplate and compiling this as a shared library.
+
+Here we discuss one popular approach for extending Python with compiled code:
+using a tool called Cython.
 
 Cython
 ------
 
-Cython is an optimising static compiler for Python that also provides
-its own programming language as a superset for standard Python.
+`Cython <https://cython.org/>`__ is a framework for writing Python-like code
+that can be processed with the Cython compiler to produce optimized code.
+Cython is designed to provide C-like performance for code that is mostly
+written in Python by adding only a few C-like declarations to existing
+Python code. As such, Cython provides the best of the both worlds:
+the good programmer productivity of Python together with the high performance
+of C. Cython also makes it easy to interact with external C/C++ code.
 
-`Cython <https://cython.org/>`__ is designed to provide C-like
-performance for a code that is mostly written in Python by adding only a
-few C-like declarations to an existing Python code. As such, Cython
-provides the best of the both Python and C worlds: the good programmer
-productivity of Python together with the high performance of C.
-Especially for scientific programs performing a lot of numerical
-computations, Cython can speed up the execution times more than an order
-of magnitude. Cython makes it also easy to interact with external C/C++
-code.
+The Cython compiler processes code written in Python, or more
+commonly the Cython extension of Python language, turns it into valid C-code
+which is then compiled into a Python extension module using a C compiler
+(GCC, Clang, MSVC, ...). The Cython programming language is a a superset of
+Python that adds C-like static type declarations and other features that
+make it possible to generate efficient machine code.
 
-Cython works by transferring existing Python/Cython code into C code,
-albeit in a form that is generally not easily readable by humans. The
-resulting C-code calls functions from Python C application programming
-interface (API), and thus requires an existing Python compiler and
-runtime system. The Cython generated code is compiled into a Python
-module. Normally, this module cannot be used as such, but needs to be
-imported from a Python program that uses the functionality implemented
-in Cython.
+.. callout::
 
-The main mechanism of how Cython speeds up Python programs is by adding
-static declarations for variables. Thus, one loses some of the dynamic
-nature of Python when working with Cython. This works best for
-fundamental data types (integers, floats, strings) and contiguous arrays
-(such as NumPy arrays), operations on lists and dictionaries do not
-normally benefit much from Cython.
+   Unlike plain Python code, Cython code must be compiled ahead of time before
+   it can be executed. This is usually done during the build phase of a
+   project. Note that Cython is *not* a just-in-time (JIT) compiler like e.g.
+   Numba, although you *can* call the Cython compiler at runtime for JIT-like
+   behavior if you really want to.
 
-In summary, Cython can alleviate the following Python performance
-bottlenecks discussed in Week 1:
 
--  Interpretation overhead
--  Unboxing / boxing Python objects
--  Overheads of Python control structures
--  Function call overheads
-
-Creating Cython modules
+Your first Cython module
 ------------------------
 
-Normally, when working with Cython one does not Cythonize the whole
-program but only selected modules.
-
-Suppose we have a Python module named **my_module.py** that defines a
-function called **add**:
+Suppose we have a Python module called **my_module.py** that contains:
 
 .. code:: python
 
@@ -108,114 +104,124 @@ function called **add**:
        result = x + y
        return result
 
-This function could then be used from some other Python code for example as:
+Cython allows one to compile **my_module.py** directly to machine code while
+still allowing its contents to be imported and used from Python code. We can
+Cynthonize the module "manually" from command line:
+
+.. code:: bash
+
+   $ cythonize -i my_module.py
+
+This produces a file called **my_module.c**, full of C code. One can
+investigate the generated **.c** file but it is not really meant for humans to
+read, because of all the boilerplate that Cython adds in order to make the
+compiled code available to Python. Already this simple function results in
+over 7000 lines of C code!
+
+The option **-i** (meaning inplace) tells Cython to also compile the generated
+**.c** file into an extension module in the same directory.
+This could also be done manually by invoking a C-compiler of your choice.
+On Linux/Mac systems the compiled module will be called something
+like **my_module.cpython-314-x86_64-linux-gnu.so**, on Windows the suffix will
+be **.pyd**.
+
+The extension module can be imported from Python in the same way as one would
+import a pure Python module, e.g.:
 
 .. code:: python
 
    from my_module import add
-
    z = add(4, 5)
 
-Cython can transform this Python code into an equivalent C-code utilizing
-the Python API as:
 
-.. code:: bash
+Usually when working with Cython, one does not Cythonize the whole program but
+only selected modules. A typical Cython project is separated into plain Python
+modules (file suffix **.py**), and Cython code files (suffix **.pyx**).
+The **.pyx** files will usually contain Cython-specific code like static type
+information, so that they are not valid Python code anymore and must be
+Cythonized before use.
 
-   $ cython my_module.py
+.. callout::
 
-The result is a file **my_module.c**, which could be compiled into a Python
-extension module using a C-compiler. One can investigate the generated **.c**
-file but it is not really meant for humans to read (already this simple
-function results in over 4000 lines of C code)!
+   Real-world project don't usually invoke Cython from the command line and
+   instead use an established build tool like **setuptools** to handle the
+   Cythonization during the project's build phase. More info is available on
+   the `Cython documentation <https://cython.readthedocs.io/en/latest/src/userguide/source_files_and_compilation.html#compilation>`__.
+   See also the course page on packaging. (TODO: link.)
 
-A typical Cython project is separated into plain Python modules (file
-extension **.py**) and Cython modules (extension **.pyx**). One usually uses
-established build tools to Cythonize and compile code that
-estalished ubild tools to Cythonize and compile the **.pyx** files while
-leaving the **.py** files as such. One common approach is to use
-**setuptools** (see section on packaging) with a Cython stage specified in
-**setup.py**: 
+
+Using Cython with Jupyter
+-------------------------
+
+Jupyter has an `extension <https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook>`
+for supporting Cython compilation directly inside notebooks, assuming your
+environment has Cython installed.
+
+We first load the Cython extension, e.g. in the very first cell: ::
+
+   %load_ext Cython
+
+We can Cythonize cell contents using the magic `%%cython` and executing it:
 
 .. code:: python
 
-   from setuptools import setup
-   from Cython.Build import cythonize
+   %%cython
+   def add(x, y):
+       result = x + y
+       return result
 
-   setup(
-      name='My cool app',
-      ext_modules=cythonize("my_module.pyx"),
-   )
 
-In larger real-world projects one would list all **.pyx** files here.
 
-One can then create the C-extension module with:
-
-.. code:: bash
-
-   $ python3 setup.py build_ext --inplace
-   running build_ext
-   building 'my_module' extension
-   creating build
-   creating build/temp.linux-x86_64-3.6
-   gcc -pthread -Wno-unused-result -Wsign-compare -DDYNAMIC_ANNOTATIONS_ENABLED=1 -DNDEBUG -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv -fPIC -I/usr/include/python3.6m -c my_module.c -o build/temp.linux-x86_64-3.6/my_module.o
-   gcc -pthread -shared ...
-
-where the ``--inplace`` option places the C-extension in the current
-directory. The end result is a .so file containing the C-extension that
-can be imported and used just the same as the pure Python module:
-
-.. code:: python
-
-   from my_module import add
-
-   z = add(4, 5)
-
-As the C-extension implements the fully dynamic Python code (just using
-the Python C-API), transforming the pure Python module into C-extension
-gives normally only very modest speed-ups. However, as we will discuss
-in the following steps, by adding Cython language extensions into the
-code (so it is no longer valid Python code) it is possible to achieve
-much more significant performance improvements.
+There is also `%%cython --annotate` which is useful for analyzing the
+generated C code.
 
 
 Adding static type information
 ------------------------------
 
-What if one knows that e.g. in a certain function the variables have
-always the same type? That's where Cython steps in: Cython allows one to
-add static typing information so that boxing and unboxing are not
-needed, and one can operate directly with the actual values.
+So far our Cythonized extension module is rather dumb. We have reduced some
+of interpreting overhead by compiling the code, but it's still using Python's
+fully dynamic type system with the same boxing and unboxing overhead as in
+standard Python. This is because there are no type declarations in the code
+that Cython could use for optimizations.
 
 When Cythonizing a Python code, static type information can be added
 either:
 
 -  In function signatures by prefixing the formal arguments by their
-   type
+   type.
 -  By declaring variables with the **cdef** Cython keyword, followed by
-   the the type
+   the the type.
 
-For example, a simple Python function adding two objects could be
-Cythonized as follows:
+To make Cythonize a function that adds two integers and returns the result as
+an integer, we would write:
 
 .. code:: python
 
-   def add (int x, int y):
+   def add(int x, int y):
        cdef int result
        result = x + y
        return result
 
 The function works now only with integers but with less boxing/unboxing
-overheads.
+overheads. Store this as **my_module.pyx** (note the file extension) and
+Cythonize as before:
 
-The types provided in Cython code are C types, and the variables with
-type information are pure C variables and not Python objects. When
-calling a Cythonized function from Python, there is an automatic
-conversion from the Python object of actual arguments to the C value of
-formal argument, and when returning a C variable it is converted to
-corresponding Python object. Automatic conversions are carried out also
-in most cases within the Cython code where both Python objects and C
-variables are involved.
+.. code:: bash
 
+   $ cythonize -i my_module.pyx
+
+Import this into Python and confirm that it works as expected with integers.
+However, if passing floating-point numbers the function is forced to interpret
+the inputs as integers before performing the addition. For example,
+**add(1.2, 2.7)** would return 3. This happens because there is an automatic
+conversion from the input Python objects (floating point numbers) to the
+declared C-types when calling the Cythonized function from Python.
+Similarly the returned C variable is converted to a corresponding Python
+object.
+
+To make the function work with floats we'd instead declare the types to be
+either **float** (32-bit) or **double** (64-bit) type instead of **int**.
 The table below lists the most common C types and their corresponding
 Python types. More information can be found in the `Cython
 documentation <https://cython.readthedocs.io/en/latest/src/userguide/language_basics.html>`__.
@@ -236,395 +242,150 @@ float, double float
 char \*       str/bytes
 ============= ===============
 
-“Boxing”
---------
+Using Numpy arrays with Cython
+------------------------------
 
--  In Python, everything is an object
+Cython has built-in support for Numpy arrays.
 
-.. image:: img/cython/unboxing-boxing.svg
-   :class: center
-   :width: 90.0%
+As discussed in the Numpy lectures (TODO: LINK), Numpy arrays provide great performance
+for vectorized operations. In contrast, thing like **for**-loops over Numpy
+arrays should be avoided because of interpreting overhead inherent to Python
+**for**-loops. There is also overhead from accessing individual elements of
+Numpy arrays.
 
-Static type declarations
-------------------------
+With Cython we can bypass both restrictions and write efficient loops over
+Numpy arrays. Consider e.g. a double loop that sets values of a 2D array:
 
--  Cython extended code should have .pyx ending
+.. code:: python
+   
+   import numpy as np
 
-   -  Cannot be run with normal Python
+   def slow_looper(N):
+      """"""
+      data = np.empty((N, N), dtype=int)
+      
+      counter = 0
+      for i in range(N):
+         for j in range(N):
+               data[i, j] = counter
+               counter += 1 
 
--  Types are declared with ``cdef`` keyword
 
-   -  In function signatures only type is given
+We can Cythonize this as before to optimize the **for**-loops. A quick check 
+with **timeit** shows that with **N=100**, the pure Python version takes 820μs
+and the Cythonized version (without any static typing) takes 700μs. This is
+nice, but we are still bottlenecked by array lookups and assignments, i.e. the
+**[]** operator, which invokes Python code.
 
-.. container:: column
+We can get a huge speedup by adding a static type declaration for the Numpy
+array, and for the other variables too while we are at it. To do this we must
+import compile-time information about the Numpy module using the
+Cython-specific `cimport` keyword, then use Cython's Numpy interface to
+declare the array's datatype and dimensions:
 
-   .. code:: python
+.. code:: python
+   
+   import numpy as np   # Normal NumPy import
+   cimport numpy as cnp # Import for NumPY C-API
 
-      def integrate(f, a, b, N):
-          s = 0
-          dx = (b - a) / N
-          for i in range(N):
-              s += f(a + i * dx)
-          return s * dx
+   def fast_looper(int N):
+      """"""
 
-.. container:: column
+      # Static declaration: 2D array of integers 
+      cdef cnp.ndarray[cnp.int32_t, ndim=2] data
+      data = np.empty((N, N), dtype=np.int32)
+      
+      cdef int counter = 0    
+      # double loop is done at nearly C speed
+      for i in range(N):
+         for j in range(N):
+               data[i, j] = counter
+               counter += 1
 
-   .. code:: python
 
-      def integrate(f, double a, double b, int N):
-          cdef double s = 0
-          cdef int i
-          cdef double dx = (b - a) / N
-          for i in range(N):
-              s += f(a + i * dx)
-          return s * dx
+Cythonizing and running the function with **timeit** shows that the function
+now only takes 3.30μs with **N = 100**. This is ~250 times faster than the
+pure Python implementation!
 
-.. _static-type-declarations-1:
+.. callout::
 
-Static type declarations
-------------------------
+   `cimport numpy` needs access to Numpy C-headers which are usually included
+   in Python distributions. This usually works out of the box for Jupyter
+   notebooks. However, if using the command line `cythonize` tool you may need
+   to manually set include paths for the C compiler knows where to find the
+   headers. Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>__`
+   for more details.
 
--  Pure Python: 5.55 s
--  Static type declarations in kernel: 100 ms
+.. callout::
 
-.. container:: column
+   It is good practice to also call `cnp.import_array()` after doing the
+   `cimport` of Numpy. This is required for accessing attributes (like
+   `.shape`) of typed Numpy arrays.
 
-   .. code:: python
 
-      def kernel(double zr, double zi, ...):
-          cdef int count = 0
+More Numpy indexing enhancements
+--------------------------------
 
-          while ((zr*zr + zi*zi) < (lim*lim)) 
-                  and count < cutoff:
-              zr = zr * zr - zi * zi + cr
-              zi = zr * zr - zi * zi + cr
-              count += 1
-
-          return count
-
-.. container:: column
-
-   .. image:: img/cython/fractal.svg
-      :class: center
-      :width: 80.0%
-
-Function call overhead
-----------------------
-
--  Function calls in Python can involve lots of checking and “boxing”
--  Overhead can be reduced by declaring functions to be C-functions
-
-   -  **cdef** keyword: functions can be called only from Cython
-   -  **cpdef** keyword: generate also Python wrapper
-
-.. container:: column
-
-   .. code:: python
-
-      def integrate(f, a, b, N):
-          s = 0
-          dx = (b - a) / N
-          for i in range(N):
-              s += f(a + i * dx)
-          return s * dx
-
-.. container:: column
-
-   .. code:: python
-
-      cdef double integrate(f, double a, ...):
-          cdef double s = 0
-          cdef int i
-          cdef double dx = (b - a) / N
-          for i in range(N):
-              s += f(a + i * dx)
-          return s * dx
-
-Using C functions
------------------
-
--  Static type declarations in kernel: 100 ms
--  Kernel as C function: 69 ms
-
-.. container:: column
-
-   .. code:: python
-
-      cdef int kernel(double zr, double zi, ...):
-          cdef int count = 0
-          while ((zr*zr + zi*zi) < (lim*lim)) 
-                  and count < cutoff:
-              zr = zr * zr - zi * zi + cr
-              zi = zr * zr - zi * zi + cr
-              count += 1
-          return count
-
-.. container:: column
-
-   .. image:: img/cython/fractal.svg
-      :class: center
-      :width: 80.0%
-
-NumPy arrays with Cython
--------------------------
-
--  Cython supports fast indexing for NumPy arrays
--  Type and dimensions of array have to be declared
+When indexing arrays, Numpy does some bounds checking in an attempt to catch
+logic errors (e.g. attempting to access element at index 100 of an array of
+length 10). Numpy also checks for negative indices to support wraparound
+syntax like **a[-1]**. We can tell Cython to disable these checks for some extra
+performance:
 
 .. code:: python
 
-   import numpy as np    # normal NumPy import
-   cimport numpy as cnp  # import for NumPY C-API
-
-   def func(): # declarations can be made only in function scope
-       cdef cnp.ndarray[cnp.int_t, ndim=2] data
-       data = np.empty((N, N), dtype=int)
-
-       ...
-
-       for i in range(N):
-           for j in range(N):
-               data[i,j] = ... # double loop is done in nearly C speed
-
-Compiler directives
--------------------
-
--  Compiler directives can be used for turning of certain Python
-   features for additional performance
-
-   -  boundscheck (False) : assume no IndexErrors
-   -  wraparound (False): no negative indexing
-   -  …
-
-.. code:: python
-
-   import numpy as np    # normal NumPy import
-   cimport numpy as cnp  # import for NumPY C-API
-
-   import cython
+   import numpy as np
+   cimport numpy as cnp
+   cimport cython
 
    @cython.boundscheck(False)
-   def func(): # declarations can be made only in function scope
-       cdef cnp.ndarray[cnp.int_t, ndim=2] data
-       data = np.empty((N, N), dtype=int)
-
-Final performance
------------------
-
--  Pure Python: 5.5 s
--  Static type declarations: 100 ms
--  Kernel as C function: 69 ms
--  Fast indexing and directives: 15 ms
-
-Where to add types?
--------------------
-
--  Typing everything reduces readibility and can even slow down the
-   performance
--  Profiling should be first step when optimising
+   @cython.wraparound(False)
+   def fast_looper(int N):
+      # ... Same function body as above ...
 
 
-Profiling Cython code
----------------------
+Whether these decorators *actually* result in faster code or not depends on
+how complicated your array usage is. In this simple example there is likely
+no measurable improvement: even if the checks are kept, modern compilers and
+processors are rather good at predicting unlikely branches and optimize the
+execution accordingly ("branch prediction").
 
--  By default, Cython code does not show up in profile produced by
-   cProfile
--  Profiling can be enabled for entire source file or on per function
-   basis
+Disabling bounds checking of course means that out-of-bounds indexing will go
+undetected and lead to undefined behavior. It may crash your program or cause
+memory corruption, so be very careful if using these decorators!
 
-.. code:: python
 
-   # cython: profile=True
-   import cython
+When to Cythonize?
+------------------
 
-   @cython.profile(False)
-   cdef func():
-       ...
+Static typing in Cython is a tradeoff between performance and the dynamical
+nature of Python code. You most certainly do not want to Cythonize your whole
+project: at that point you may just as well pick a different programming
+language!
 
-.. code:: python
+Here are some rules of thumb to keep in mind when optimizing your code with
+Cython (see also `Cython docs <https://cython.readthedocs.io/en/latest/src/quickstart/cythonize.html#determining-where-to-add-types>`__):
 
-   # cython: profile=False
-   import cython
+- Only Cythonize the modules/functions for which performance is *really*
+  needed. Profiling tools help at identifying such bottlenecks.  
+- Static type declarations work the best for fundamental data types (integers,
+  floats, strings) and for contiguous arrays. Operations on lists and
+  dictionaries do not usually benefit much from Cython.
 
-   @cython.profile(True)
-   cdef func():
-       ...
+TODO: when to use other C extension stuff
+
+Further reading
+---------------
+
+- Newer usage of Numpy arrays (memory views) https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#numpy-tutorial
+- cpdef keyword for functions
+
+
 
 Summary
 -------
 
--  Cython is optimising static compiler for Python
--  Possible to add type declarations with Cython language
--  Fast indexing for NumPy arrays
--  At best cases, huge speed ups can be obtained
-
-   -  Some compromise for Python flexibility
-
-Further functionality in Cython
--------------------------------
-
--  Using C structs and C++ classes in Cython
--  Exceptions handling
--  Parallelisation (threading) with Cython
--  …
-
-Interfacing external libraries
-------------------------------
-
-Increasing performance with compiled code
------------------------------------------
-
--  There are Python interfaces for many high performance libraries
--  However, sometimes one might want to utilize a library without Python
-   interface
-
-   -  Existing libraries
-   -  Own code written in C or Fortran
-
--  Python C-API provides the most comprehensive way to extend Python
--  CFFI, Cython, and f2py can provide easier approaches
-
-CFFI
-----
-
--  C Foreign Function Interface for Python
--  Interact with almost any C code
--  C-like declarations within Python
-
-   -  Can often be copy-pasted from headers / documentation
-
--  ABI and API modes
-
-   -  ABI does not require compilation
-   -  API can be faster and more robust
-   -  Only API discussed here
-
--  Some understanding of C required
-
-Creating Python interface to C library
---------------------------------------
-
--  In API mode, CFFI is used for building a Python extension module that
-   provides interface to the library
--  One needs to write a *build* script that specifies:
-
-   -  the library functions to be interfaced
-   -  name of the Python extension
-   -  instructions for compiling and linking
-
--  CFFI uses C compiler and creates the shared library
--  The extension module can then be used from Python code.
-
-Example: Python interface to C math library
--------------------------------------------
-
-.. code:: python
-
-   from cffi import FFI
-   ffibuilder = FFI()
-
-   ffibuilder.cdef("""
-       double sqrt(double x);  // list all the function prototypes from the
-       double sin(double x);   // library that we want to use
-                   """)
-
-   ffibuilder.set_source("_my_math",  # name of the Python extension
-   """
-        #include <math.h>   // Some C source, often just include
-   """,
-      library_dirs = [],  # location of library, not needed for C 
-                          # C standard library 
-      libraries = ['m']   # name of the library we want to interface
-   )
-
-   ffibuilder.compile(verbose=True)
-
-.. _example-python-interface-to-c-math-library-1:
-
-Example: Python interface to C math library
--------------------------------------------
-
--  Building the extension
-
-.. code:: bash
-
-   python3 build_mymath.py
-   generating ./_mymath.c
-   running build_ext
-   building '_mymath' extension
-   ...
-   gcc -pthread -shared -Wl,-z,relro -g ./_mymath.o -L/usr/lib64 -lm -lpython3.6m
-   -o ./_mymath.cpython-36m-x86_64-linux-gnu.so
-
--  Using the extension
-
-.. code:: python
-
-   from _mymath import lib
-
-   a = lib.sqrt(4.5)
-   b = lib.sin(1.2)
-
--  Python ``float``\ s are automatically converted to C ``double``\ s
-   and back
-
-Passing NumPy arrays to C code
-------------------------------
-
--  Only simple scalar numbers can be automatically converted Python
-   objects and C types
--  In C, arrays are passed to functions as pointers
--  A “pointer” object to NumPy array can be obtained with ``cast`` and
-   ``from_buffer`` functions
-
-.. _passing-numpy-arrays-to-c-code-1:
-
-Passing NumPy arrays to C code
-------------------------------
-
-.. container:: column
-
-   -  C function adding two arrays
-
-   .. code:: c
-
-      // c = a + b
-      void add(double *a, double *b, double *c, int n)
-      {
-        for (int i=0; i<n; i++)
-           c[i] = a[i] + b[i];
-      }
-
-   -  Can be built into extension ``add_module`` with CFFI
-
-.. container:: column
-
-   -  Obtaining “pointers” in Python
-
-   .. code:: python
-
-      from add_module import ffi, lib
-
-      a = np.random.random((1000000,1))
-      aptr = ffi.cast("double *", ffi.from_buffer(a))
-      ...
-
-      lib.add(aptr, bptr, cptr, len(a))
-
-   -  “pointer” objects resemble C pointers and can result easily in
-      Segmentation faults!
-
-.. _summary-1:
-
-Summary
--------
-
--  External libraries can be interfaced in various ways
--  CFFI provides easy interfacing to C libraries
-
-   -  System libraries and user libraries
-   -  Python can take care of some datatype conversions
-   -  “pointer” objects are needed for NumPy arrays
+- TODO
 
 Acknowledgements
 ----------------
