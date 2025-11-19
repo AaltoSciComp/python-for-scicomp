@@ -1,16 +1,20 @@
 .. _cython:
 
-Cython
-======
+Extending Python with Cython
+============================
 
 .. questions::
 
-   - Q1
-   - Q2
+   - How does runtime performance of Python compare to languages like C, C++
+     or Fortran?
+   - How do we use code written in other languages from within Python? In what
+     situations is this useful?
+
+
 .. objectives::
 
-   - O1
-   - O2
+   - Understand how compiled extension modules can speed up code execution. 
+   - Understand the basics of Cython.
 
 
 .. callout::
@@ -23,10 +27,13 @@ Cython
    with `conda install cython`.
 
 
+Python and performance
+----------------------
+
 Interpreted languages like Python are rather slow to execute compared to
-languages like C or Fortran that are compiled to machine code before execution.
-Python in particular is both strongly typed and dynamically typed: this means
-that all variables have a type that matters for operations that
+languages like C or Fortran that are compiled to machine code ahead of
+execution. Python in particular is both strongly typed and dynamically typed:
+this means that all variables have a type that matters for operations that
 can be performed on the variable, and that the type is determined only during
 runtime by the Python interpreter. The interpreter does a lot of
 "unboxing" of variable types when performing operations, and this comes with
@@ -60,8 +67,20 @@ Scientific programs often include computationally expensive sections (e.g.
 simulations of any kind). So how do we make Python execute our code faster in
 these situations? Well that's the neat part: we don't! Instead, we write the
 performance critical parts in a faster language and make them usable from
-Python. This is called extending Python, and usually involves writing C-code
-with Python-specific boilerplate and compiling this as a shared library.
+Python. 
+
+This is called extending Python, and usually involves writing C-code
+with Python-specific boilerplate and compiling this as a shared library, which
+in this context is called a **Python extension module**.
+Most scientific Python libraries (Numpy, Scipy etc) do exactly this: their
+computationally intensive parts are either written in a compiled language,
+or they call an external library written in such language.
+
+When working on your own Python project, you may find that there is a C
+library that does exactly what you need, but it doesn't provide a Python
+interface. Or you may have computationally intensive code that doesn't
+vectorize nicely for Numpy. In cases like these it can be useful to write
+your own extension modules that you then import into your Python code.
 
 Here we discuss one popular approach for extending Python with compiled code:
 using a tool called Cython.
@@ -73,7 +92,7 @@ Cython
 that can be processed with the Cython compiler to produce optimized code.
 Cython is designed to provide C-like performance for code that is mostly
 written in Python by adding only a few C-like declarations to existing
-Python code. As such, Cython provides the best of the both worlds:
+Python code. As such, Cython aims to provide the best of the both worlds:
 the good programmer productivity of Python together with the high performance
 of C. Cython also makes it easy to interact with external C/C++ code.
 
@@ -147,15 +166,14 @@ Cythonized before use.
    instead use an established build tool like **setuptools** to handle the
    Cythonization during the project's build phase. More info is available on
    the `Cython documentation <https://cython.readthedocs.io/en/latest/src/userguide/source_files_and_compilation.html#compilation>`__.
-   See also the course page on packaging. (TODO: link.)
+   See also the :doc:`course page on packaging <packaging>`.
 
 
 Using Cython with Jupyter
 -------------------------
 
-Jupyter has an `extension <https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook>`
-for supporting Cython compilation directly inside notebooks, assuming your
-environment has Cython installed.
+Jupyter supports Cython compilation directly inside notebooks via `an extension <https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook>`__,
+assuming your environment has Cython installed.
 
 We first load the Cython extension, e.g. in the very first cell: ::
 
@@ -214,11 +232,11 @@ Cythonize as before:
 Import this into Python and confirm that it works as expected with integers.
 However, if passing floating-point numbers the function is forced to interpret
 the inputs as integers before performing the addition. For example,
-**add(1.2, 2.7)** would return 3. This happens because there is an automatic
-conversion from the input Python objects (floating point numbers) to the
-declared C-types when calling the Cythonized function from Python.
-Similarly the returned C variable is converted to a corresponding Python
-object.
+**add(1.4, 2.7)** would return 3. This happens because there is an automatic
+conversion from the input Python objects to the
+declared C-types, in this case integers, when calling the Cythonized function
+from Python. Similarly the returned C variable is converted to a corresponding
+Python object.
 
 To make the function work with floats we'd instead declare the types to be
 either **float** (32-bit) or **double** (64-bit) type instead of **int**.
@@ -247,11 +265,11 @@ Using Numpy arrays with Cython
 
 Cython has built-in support for Numpy arrays.
 
-As discussed in the Numpy lectures (TODO: LINK), Numpy arrays provide great performance
-for vectorized operations. In contrast, thing like **for**-loops over Numpy
-arrays should be avoided because of interpreting overhead inherent to Python
-**for**-loops. There is also overhead from accessing individual elements of
-Numpy arrays.
+As discussed in the :doc:`Numpy lectures <numpy-advanced>`, Numpy arrays provide
+great performance for vectorized operations. In contrast, thing like
+**for**-loops over Numpy arrays should be avoided because of interpreting
+overhead inherent to Python **for**-loops. There is also overhead from
+accessing individual elements of Numpy arrays.
 
 With Cython we can bypass both restrictions and write efficient loops over
 Numpy arrays. Consider e.g. a double loop that sets values of a 2D array:
@@ -280,7 +298,7 @@ nice, but we are still bottlenecked by array lookups and assignments, i.e. the
 We can get a huge speedup by adding a static type declaration for the Numpy
 array, and for the other variables too while we are at it. To do this we must
 import compile-time information about the Numpy module using the
-Cython-specific `cimport` keyword, then use Cython's Numpy interface to
+Cython-specific **cimport** keyword, then use Cython's Numpy interface to
 declare the array's datatype and dimensions:
 
 .. code:: python
@@ -291,7 +309,7 @@ declare the array's datatype and dimensions:
    def fast_looper(int N):
       """"""
 
-      # Static declaration: 2D array of integers 
+      # Type declaration: 2D array of 32-bit integers 
       cdef cnp.ndarray[cnp.int32_t, ndim=2] data
       data = np.empty((N, N), dtype=np.int32)
       
@@ -313,7 +331,7 @@ pure Python implementation!
    in Python distributions. This usually works out of the box for Jupyter
    notebooks. However, if using the command line `cythonize` tool you may need
    to manually set include paths for the C compiler knows where to find the
-   headers. Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>__`
+   headers. Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>`__
    for more details.
 
 .. callout::
@@ -378,8 +396,7 @@ Further reading
 ---------------
 
 - Newer usage of Numpy arrays (memory views) https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#numpy-tutorial
-- cpdef keyword for functions
-
+- TODO
 
 
 Summary
