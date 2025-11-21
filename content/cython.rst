@@ -204,7 +204,7 @@ generated C code.
 Adding static type information
 ------------------------------
 
-So far our Cythonized extension module is rather dumb. We have reduced some
+So far our Cythonized extension module is rather minimal. We have reduced some
 of the interpreting overhead by compiling the code, but it's still using Python's
 fully dynamic type system with the same boxing and unboxing overhead as in
 standard Python. This is because there are no type declarations in the code
