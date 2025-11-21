@@ -22,9 +22,9 @@ Extending Python with Cython
    Using Cython requires that you have a working environment for compiling
    C code. This goes beyond the software requirements for this course, so the
    teaching will be given in form of demonstrations and no exercises.
-   You may still follow along with the code examples if you have a C compiler
-   installed, in which case you can install Cython to your Conda environment
-   with `conda install cython`.
+   You may still follow along with the code examples but you will need to have
+   Cython and a working C compiler available. You can install both to your
+   Conda environment with `conda install -c conda-forge cython c-compiler`.
 
 
 Python and performance
@@ -66,12 +66,13 @@ performance at runtime.
 Scientific programs often include computationally expensive sections (e.g.
 simulations of any kind). So how do we make Python execute our code faster in
 these situations? Well that's the neat part: we don't! Instead, we write the
-performance critical parts in a faster language and make them usable from
-Python. 
+performance critical parts in a faster language and make them usable
+from Python.
 
-This is called extending Python, and usually involves writing C-code
-with Python-specific boilerplate and compiling this as a shared library, which
-in this context is called a **Python extension module**.
+This is called extending Python, and usually boils down to writing C-code
+with Python-specific boilerplate, or using a specialized tool for generating
+such C code from Python code (so-called *transpilers*). The C-code is compiled
+into a shared library, in this context called a **Python extension module**.
 Most scientific Python libraries (Numpy, Scipy etc) do exactly this: their
 computationally intensive parts are either written in a compiled language,
 or they call an external library written in such language.
@@ -197,8 +198,8 @@ We can Cythonize cell contents using the magic `%%cython`:
 
 The compiled function can then be called from other cells.
 
-There is also `%%cython --annotate` which is useful for analyzing the
-generated C code.
+There is also `%%cython --annotate` (or `%%cython -a` for short) which is
+useful for analyzing the generated C code.
 
 
 Adding static type information
@@ -258,14 +259,6 @@ int               int, long
 int, float        float, double
 str/bytes         char \*
 ================= =============
-
-============= ===============
-From C types  To Python types
-============= ===============
-int, long     int
-float, double float
-char \*       str/bytes
-============= ===============
 
 
 Using Numpy arrays with Cython
