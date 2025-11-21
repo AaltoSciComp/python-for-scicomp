@@ -97,11 +97,11 @@ the good programmer productivity of Python together with the high performance
 of C. Cython also makes it easy to interact with external C/C++ code.
 
 The Cython compiler processes code written in Python, or more
-commonly the Cython extension of Python language, turns it into valid C-code
-which is then compiled into a Python extension module using a C compiler
-(GCC, Clang, MSVC, ...). The Cython programming language is a a superset of
-Python that adds C-like static type declarations and other features that
-make it possible to generate efficient machine code.
+commonly the Cython extension of Python language, and turns it into valid
+C-code which is then compiled into a Python extension module using a
+C compiler (GCC, Clang, MSVC, ...). The Cython programming language is a 
+superset of Python that adds C-like static type declarations and other
+features that make it possible to generate efficient machine code.
 
 .. callout::
 
@@ -125,7 +125,7 @@ Suppose we have a Python module called **my_module.py** that contains:
 
 Cython allows one to compile **my_module.py** directly to machine code while
 still allowing its contents to be imported and used from Python code. We can
-Cynthonize the module "manually" from command line:
+Cythonize the module "manually" from command line:
 
 .. code:: bash
 
@@ -179,7 +179,7 @@ We first load the Cython extension, e.g. in the very first cell: ::
 
    %load_ext Cython
 
-We can Cythonize cell contents using the magic `%%cython` and executing it:
+We can Cythonize cell contents using the magic `%%cython`:
 
 .. code:: python
 
@@ -189,6 +189,7 @@ We can Cythonize cell contents using the magic `%%cython` and executing it:
        return result
 
 
+The compiled function can then be called from other cells.
 
 There is also `%%cython --annotate` which is useful for analyzing the
 generated C code.
@@ -198,10 +199,10 @@ Adding static type information
 ------------------------------
 
 So far our Cythonized extension module is rather dumb. We have reduced some
-of interpreting overhead by compiling the code, but it's still using Python's
+of the interpreting overhead by compiling the code, but it's still using Python's
 fully dynamic type system with the same boxing and unboxing overhead as in
 standard Python. This is because there are no type declarations in the code
-that Cython could use for optimizations.
+that Cython could use to optimize.
 
 When Cythonizing a Python code, static type information can be added
 either:
@@ -211,7 +212,7 @@ either:
 -  By declaring variables with the **cdef** Cython keyword, followed by
    the the type.
 
-To make Cythonize a function that adds two integers and returns the result as
+To make Cython function that adds two integers and returns the result as
 an integer, we would write:
 
 .. code:: python
@@ -222,7 +223,7 @@ an integer, we would write:
        return result
 
 The function works now only with integers but with less boxing/unboxing
-overheads. Store this as **my_module.pyx** (note the file extension) and
+overhead. Store this as **my_module.pyx** (note the file extension) and
 Cythonize as before:
 
 .. code:: bash
@@ -303,8 +304,8 @@ declare the array's datatype and dimensions:
 
 .. code:: python
    
-   import numpy as np   # Normal NumPy import
-   cimport numpy as cnp # Import for NumPY C-API
+   import numpy as np   # Normal Numpy import
+   cimport numpy as cnp # Import for Numpy C-API
 
    def fast_looper(int N):
       """"""
@@ -330,8 +331,8 @@ pure Python implementation!
    `cimport numpy` needs access to Numpy C-headers which are usually included
    in Python distributions. This usually works out of the box for Jupyter
    notebooks. However, if using the command line `cythonize` tool you may need
-   to manually set include paths for the C compiler knows where to find the
-   headers. Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>`__
+   to manually set include paths for the C compiler.
+   Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>`__
    for more details.
 
 .. callout::
@@ -347,8 +348,8 @@ More Numpy indexing enhancements
 When indexing arrays, Numpy does some bounds checking in an attempt to catch
 logic errors (e.g. attempting to access element at index 100 of an array of
 length 10). Numpy also checks for negative indices to support wraparound
-syntax like **a[-1]**. We can tell Cython to disable these checks for some extra
-performance:
+syntax like **a[-1]**. We can tell Cython to disable these checks for some
+extra performance:
 
 .. code:: python
 
@@ -395,9 +396,9 @@ TODO: when to use other C extension stuff
 Further reading
 ---------------
 
-- Newer usage of Numpy arrays (memory views) https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#numpy-tutorial
-- TODO
-
+- Cython `memory views <https://cython.readthedocs.io/en/latest/src/userguide/memoryviews.html>`__
+  are a newer and more general way of interfacing with Numpy arrays and other buffer-like objects.
+- `Calling C functions from Cython <https://cython.readthedocs.io/en/latest/src/tutorial/external.html>`__
 
 Summary
 -------
