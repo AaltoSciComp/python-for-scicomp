@@ -25,6 +25,5 @@ dependencies:
   - xarray
   - netcdf4
   - yfinance
-  - pip
-  - pip:
-    - pythia_datasets
+  - pythia-datasets
+  
