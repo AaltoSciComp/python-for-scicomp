@@ -14,8 +14,10 @@ Extending Python with Cython
 .. objectives::
 
    - Understand how compiled extension modules can speed up code execution. 
-   - Understand the basics of Cython.
-
+   - Build your first compiled extension module with Cython.
+   - Learn to optimize your Cython code with static type declarations.
+   - Learn to use Numpy arrays in Cython code and implement common performance
+     enhancements for Cythonized arrays.
 
 .. callout::
 
@@ -198,8 +200,18 @@ We can Cythonize cell contents using the magic `%%cython`:
 
 The compiled function can then be called from other cells.
 
-There is also `%%cython --annotate` (or `%%cython -a` for short) which is
-useful for analyzing the generated C code.
+.. demo::
+
+   There is also `%%cython --annotate`, or `%%cython -a` for short, which is
+   useful for analyzing the generated C code. Try executing the code for
+   `add()` with this magic command in Jupyter. Upon doing so:
+
+   1. Estimate the amount of interactions with the Python runtime, by the intensity of the yellow background colour.
+   2. You will be able to inspect the underlying C code.
+
+   .. solution::
+
+      .. image:: img/cython/jupyter-cython-annotate.png
 
 
 Adding static type information
@@ -395,14 +407,18 @@ Cython (see also `Cython docs <https://cython.readthedocs.io/en/latest/src/quick
 Alternatives to Cython
 ----------------------
 
-There exists a plethora of other tools and libraries for extending Python with
-compiled C code. If you already have a working C/C++ codebase and would like
+`Numba <https://numba.pydata.org/>`__ is a tool that compiles Python code to
+optimized machine code on the fly without needing a manual compilation step.
+It works with Numpy but does not support all of Python's features.
+
+For creating compiled extension modules there are a plethora of tools and
+libraries. If you already have a working C/C++ codebase and would like
 to use it from Python, consider using one of the following:
 
 - `ctypes <https://docs.python.org/3/library/ctypes.html>`__: part of Python standard library.
 - `CFFI <https://cffi.readthedocs.io/en/stable/index.html>`__: somewhat similar to `ctypes` but with more features and probably better for large projects.
 - `pybind11 <https://pybind11.readthedocs.io/en/stable/index.html>`__: very robust and modern way of creating extension modules. C++ only.
-
+- `PyO3 <https://pyo3.rs/v0.27.1/>`__ for Rust code.
 
 Further reading
 ---------------
