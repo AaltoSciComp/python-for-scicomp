@@ -171,6 +171,12 @@ Cythonized before use.
 
 Using Cython with Jupyter
 -------------------------
+.. important::
+
+   Due to a `known issue`_ with ``%%cython -a`` in ``jupyter-lab`` we have to use the ``jupyter-nbclassic`` interface
+   for this episode.
+
+.. _known issue: https://github.com/cython/cython/issues/7319
 
 Jupyter supports Cython compilation directly inside notebooks via `an extension <https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook>`__,
 assuming your environment has Cython installed.
