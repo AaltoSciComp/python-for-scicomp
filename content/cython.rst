@@ -261,6 +261,7 @@ float, double float
 char \*       str/bytes
 ============= ===============
 
+
 Using Numpy arrays with Cython
 ------------------------------
 
@@ -388,10 +389,21 @@ Cython (see also `Cython docs <https://cython.readthedocs.io/en/latest/src/quick
 - Only Cythonize the modules/functions for which performance is *really*
   needed. Profiling tools help at identifying such bottlenecks.  
 - Static type declarations work the best for fundamental data types (integers,
-  floats, strings) and for contiguous arrays. Operations on lists and
-  dictionaries do not usually benefit much from Cython.
+  floats, strings) and for contiguous arrays. Operations on heterogeneous lists
+  and dictionaries do not usually benefit much from Cython.
 
-TODO: when to use other C extension stuff
+
+Alternatives to Cython
+----------------------
+
+There exists a plethora of other tools and libraries for extending Python with
+compiled C code. If you already have a working C/C++ codebase and would like
+to use it from Python, consider using one of the following:
+
+- `ctypes <https://docs.python.org/3/library/ctypes.html>`__: part of Python standard library.
+- `CFFI <https://cffi.readthedocs.io/en/stable/index.html>`__: somewhat similar to `ctypes` but with more features and probably better for large projects.
+- `pybind11 <https://pybind11.readthedocs.io/en/stable/index.html>`__: very robust and modern way of creating extension modules. C++ only.
+
 
 Further reading
 ---------------
@@ -400,10 +412,6 @@ Further reading
   are a newer and more general way of interfacing with Numpy arrays and other buffer-like objects.
 - `Calling C functions from Cython <https://cython.readthedocs.io/en/latest/src/tutorial/external.html>`__
 
-Summary
--------
-
-- TODO
 
 Acknowledgements
 ----------------
