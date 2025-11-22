@@ -87,6 +87,7 @@ to learn yourself as you need to.
    45 min   ; :doc:`dependencies`
    30 min   ; :doc:`binder`
    60 min   ; :doc:`packaging`
+   30 min   ; :doc:`cython`
 
 
 .. toctree::
@@ -113,6 +114,7 @@ to learn yourself as you need to.
    parallel
    packaging
    web-apis
+   cython
 
 .. toctree::
    :maxdepth: 1
