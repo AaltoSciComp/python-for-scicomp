@@ -45,12 +45,6 @@ Xarray is a powerful Python library that introduces labelled multidimensional ar
 
 We will first download a dataset similar to the example above to illustrate the advantages of Xarray. We will cover how to transform your own data into an Xarray Dataset later in this lecture.
 
-.. Note::
-
-   If you have set up your ``python-for-scicomp`` environment yesterday or earlier, you need to install the packages ``netcdf4`` and ``pythia_datasets`` manually. You can do this by running the following command in your (JupyterLab) terminal: ::
-
-        conda install netcdf4 pythia-datasets -c conda-forge
-
 Let us open a python shell and download a public dataset: ::
         
         >>> from pythia_datasets import DATASETS
@@ -61,6 +55,9 @@ We can now import xarray and open the dataset. Le'ts take a look at what it cont
         >>> import xarray as xr
         >>> ds = xr.open_dataset(filepath)
         >>> ds
+
+Output: ::
+
         <xarray.Dataset> Size: 15MB
         Dimensions:                       (time1: 1, isobaric1: 29, y: 119, x: 268)
         Coordinates:
@@ -111,6 +108,9 @@ We can select a single ``DataArray`` from the dataset using a dictionary-like sy
 
         >>> temperature_data = ds['Temperature_isobaric']
         >>> temperature_data
+
+Output: ::
+
         <xarray.DataArray 'Temperature_isobaric' (time1: 1, isobaric1: 29, y: 119,
                                                   x: 268)> Size: 4MB
         [924868 values with dtype=float32]
@@ -138,6 +138,9 @@ Xarray uses Numpy(-like) arrays under the hood, we can always access the underly
 
         >>> temperature_numpy = ds['Temperature_isobaric'].values
         >>> temperature_numpy
+
+Output: ::
+
         array([[[[201.88957, 202.2177 , 202.49895, ..., 195.10832, 195.23332,
                   195.37395],
                  [201.68645, 202.0302 , 202.3427 , ..., 195.24895, 195.38957,
@@ -156,6 +159,9 @@ Xarray uses Numpy(-like) arrays under the hood, we can always access the underly
 Xarray allows you to select data using the ``.sel()`` method, which uses the labels of the dimensions to extract data: ::
 
         >>> ds['Temperature_isobaric'].sel(x='-3292.0078')
+
+Output: ::
+
         <xarray.DataArray 'Temperature_isobaric' (time1: 1, isobaric1: 29, y: 119)> Size: 14kB
         array([[[202.2177 , 202.0302 , ..., 219.67082, 219.74895],
                 [202.58566, 202.58566, ..., 219.16379, 219.28879],
@@ -184,6 +190,9 @@ Xarray allows you to select data using the ``.sel()`` method, which uses the lab
 We can still access the same data by index using the ``.isel()`` method: ::
 
         >>> ds['Temperature_isobaric'].isel(x=1)
+
+Output: ::
+
         <xarray.DataArray 'Temperature_isobaric' (time1: 1, isobaric1: 29, y: 119)> Size: 14kB
         array([[[202.2177 , 202.0302 , ..., 219.67082, 219.74895],
                 [202.58566, 202.58566, ..., 219.16379, 219.28879],
@@ -213,6 +222,9 @@ A ``DataArray`` provides a lot of the functionality we expect from Numpy arrays,
 
         >>> # Calculate the mean over the 'isobaric1' dimension
         >>> ds['Temperature_isobaric'].mean(dim='isobaric1')
+
+Output: ::
+
         <xarray.DataArray 'Temperature_isobaric' (time1: 1, y: 119, x: 268)> Size: 128kB
         array([[[259.88446, 259.90222, 259.91678, ..., 262.61667, 262.6285 ,
                  262.65167],
@@ -237,6 +249,9 @@ Let's take a look at a concrete example and compare it to NumPy. We will calcula
 
         >>> # Xarray
         >>> ds['Temperature_isobaric'].sel(x='-3259.5447').max(dim='isobaric1')
+
+Output: ::
+
         array([[294.11   , 294.14124, 294.1256 , 294.0475 , 293.90686, 293.6256 ,
                 ...,
                 276.46936, 276.59436, 276.6881 , 276.78186, 276.82874]],
@@ -246,6 +261,9 @@ In comparison, if we were to use plain Numpy, this would be: ::
 
         >>> # NumPy
         >>> np.max(temperature_numpy[:, :, :, 2 ], axis = 1)
+
+Output: ::
+
         array([[294.11   , 294.14124, 294.1256 , 294.0475 , 293.90686, 293.6256 ,
                 ...,
                 276.46936, 276.59436, 276.6881 , 276.78186, 276.82874]],
