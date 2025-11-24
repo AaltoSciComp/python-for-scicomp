@@ -160,7 +160,7 @@ Xarray allows you to select data using the ``.sel()`` method, which uses the lab
 
         >>> ds['Temperature_isobaric'].sel(x='-3292.0078')
 
-By default, you need to enter the exact coordinate, but often you want to select the closest value to some number. For this, you can use ``method='nearest'``: ::
+By default, you need to enter the exact coordinate, but often we want to select the closest value to some number. For this, you can use ``method='nearest'``: ::
 
         >>> ds['Temperature_isobaric'].sel(x='-3292', method='nearest')
 
