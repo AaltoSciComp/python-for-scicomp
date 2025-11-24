@@ -51,6 +51,43 @@ These are the 3 files:
 .. literalinclude:: packaging-example-project/calculator/integrating.py
    :caption: integrating.py
 
+
+
+
+
+Initializing the package
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note::
+   
+   In this part of the episode, we will introduce a *package build tool* called uv_ to 
+   initialize, build and publish the package.
+   This choice is purely out of convenience there are numerous similar
+   tools [1]_, which can be used interchangeably [2]_. We will soon see that the
+   resulting package is `pip`-installable without using uv_.
+
+   To install uv, the preferred method is to use the 
+   `standalone installer provided here <https://docs.astral.sh/uv/getting-started/installation/#installation-methods>`__.
+   Alternatively you can obtain ``uv`` via ``pip install uv`` or 
+   ``conda install -c conda-forge uv`` [3]_.
+
+
+.. _uv: https://docs.astral.sh/uv/
+.. _pdm: https://pdm-project.org/en/latest/
+.. _hatch: https://hatch.pypa.io/
+.. _flit: https://flit.pypa.io/en/stable/ 
+ 
+
+Create a new folder with the name ``calculator-myname`` (replace with *myname* with your name),
+open terminal and run:
+
+.. code-block:: console
+
+   $ uv init --lib
+   $ uv init --lib --python 3.10 --no-pin-python
+
+This result in the following set of files.
+
 We will add a fourth file:
 
 .. literalinclude:: packaging-example-project/calculator/__init__.py
@@ -412,3 +449,8 @@ for publishing your packages.
      you are using it.
    - PyPI is a place for Python packages
    - conda is similar but is not limited to Python
+
+.. [1] In 2025, tools such as pdm_, hatch_, flit_ have similar functionality as uv_. 
+.. [2] Some package build tools are simple and some have advanced features. Refer to 
+         `pyOpenSci's guide on the choosing the right tool <https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html>`__
+.. [3] `uv` is also included in the conda environment you have created in :doc:`software installation <installation>` episode.
