@@ -503,13 +503,13 @@ Exercises 3
       ::
 
 	 nobel.bornCountryCode.describe()
-	 # count     956
-	 # unique     81
+	 # count     969
+	 # unique     82
 	 # top        US
-	 # freq      287
+	 # freq      292
 
       We see that the US has received the largest number of Nobel prizes,
-      and 81 countries are represented.
+      and 82 countries are represented.
 
       To calculate the age at which laureates receive their prize, we need
       to ensure that the "year" and "born" columns are in datetime format::
