@@ -160,6 +160,10 @@ Xarray allows you to select data using the ``.sel()`` method, which uses the lab
 
         >>> ds['Temperature_isobaric'].sel(x='-3292.0078')
 
+By default, you need to enter the exact coordinate, but often you want to select the closest value to some number. For this, you can use ``method='nearest'``: ::
+
+        >>> ds['Temperature_isobaric'].sel(x='-3292', method='nearest')
+
 Output: ::
 
         <xarray.DataArray 'Temperature_isobaric' (time1: 1, isobaric1: 29, y: 119)> Size: 14kB
@@ -187,7 +191,7 @@ Output: ::
             Grib1_Level_Desc:    Isobaric surface
 
 
-We can still access the same data by index using the ``.isel()`` method: ::
+We can also access the same data by index using the ``.isel()`` method: ::
 
         >>> ds['Temperature_isobaric'].isel(x=1)
 
