@@ -355,10 +355,10 @@ Exercises 4
 
    - **In-place addition** (advanced): Create an array of
      ``dtype='float'``, and an array of ``dtype='int'``.  Try to use the
-     int array is the output argument of the first two arrays.
+     int array as the output argument of the first two arrays.
 
    - **Output arguments and timing** Repeat the initial ``b = a **
-     2`` example using the output arguments and time it.  Can you make
+     2`` example using a ufunc and time it.  Can you make
      it even faster using the output argument?
 
 .. solution:: Solution: Numpy-4
@@ -367,22 +367,21 @@ Exercises 4
 
        x = np.array([1, 2, 3])
        id(x)                        # get the memory-ID of x
-       np.add(x, x, x)              # Third argument is output array
-       np.add(x, x, x)
+       np.add(x, x, out=x)          # Third argument is output array
+       np.add(x, x, out=x)
        print(x)
        id(x)                        # get the memory-ID of x
                                     # - notice  it is the same
 
-     You note that ``np.add()`` has a third argument that is the
-     output array (same as ``out=``), *and* the function returns that
-     same array.
+     Note that ``np.add()`` writes the result to the output array (``out=``)
+     *and* the function returns that same array.
 
 
    - **Output arguments and timing** In this case, on my computer, it was
      actually slower (this is due to it being such a small array!)::
 
-        a = np.arange(10000)
-	b = np.zeros(10000)
+        a = np.arange(10_000)
+	b = np.zeros(10_000)
 
      ::
 
@@ -391,6 +390,11 @@ Exercises 4
 
      This is a good example of why you always need to time things
      before deciding what is best.
+
+     Note: the ``_`` inside numbers is just for human readability and is
+     ignored by python.
+
+
 
 
 Linear algebra and other advanced math
