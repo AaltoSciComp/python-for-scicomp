@@ -20,31 +20,33 @@ NumPy
    exercises at the end in that case.
 
 
-
-So, we already know about python lists, and that we can put all kinds of things in there.
-But in scientific usage, lists are often not enough. They are slow and
-not very flexible.
+NumPy is the most used library for scientific computing.
+Even if you are not using it directly, chances are high that some library uses it in the background.
+NumPy provides the high-performance multidimensional array object and tools to use it.
 
 .. highlight:: python
 
 What is an array?
 -----------------
 
-For example, consider ``[1, 2.5, 'asdf', False, [1.5, True]]`` -
-this is a Python list but it has different types for every
-element.  When you do math on this, every element has to be handled separately.
+So, we already know about python lists, and that we can put different types of
+data in the same list. For example, consider
+``[1, 2.5, 'asdf', False, [1.5, True]]``.
+This is a Python list but it has different types for every element.
+This makes them very flexible, but this comes at a cost: if we want to do
+something to each element in the list, for example "add 1", we need to consider
+each element one-by-one, because "add 1" means something different if the item
+is a number then when it is a string, or a sub-list. In scientific usage, we
+want to be able to quickly perform operations on large groups of elements at
+once, which is what NumPy arrays are optimized for.
 
-NumPy is the most used library for scientific computing. 
-Even if you are not using it directly, chances are high that some library uses it in the background.
-NumPy provides the high-performance multidimensional array object and tools to use it. 
-
-An array is a 'grid' of values, with all the same types. It is indexed by tuples of
+An array is a 'grid' of values, with all the same type. It is indexed by tuples of
 non negative indices and provides the framework for multiple
 dimensions.  An array has:
 
 * :ref:`dtype <arrays.dtypes>` - data type.  Arrays always contain one type
 * :term:`shape` - shape of the data, for example ``3×2`` or ``3×2×500`` or even
-  ``500`` (one dimensional) or ``[]`` (zero dimensional).
+  ``500`` (one dimensional) or ``()`` (zero dimensional).
 * :attr:`data <numpy.ndarray.data>` - raw data storage in memory.  This can be passed to C or
   Fortran code for efficient calculations.
 
