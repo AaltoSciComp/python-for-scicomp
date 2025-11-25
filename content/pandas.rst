@@ -456,7 +456,7 @@ Exercises 3
 
 	  nobel.groupby(['bornCountry', 'category']).size()
 
-    - (Optional) Create a pivot table to view a spreadsheet like structure, and view it
+    - **(Optional)** Create a pivot table to view a spreadsheet like structure, and view it
 
 	- First add a column “number” to the nobel dataframe containing 1’s
 	  (to enable the counting below).  We need to make a copy of
@@ -467,15 +467,17 @@ Exercises 3
 
 	- Then create the :meth:`~pandas.DataFrame.pivot_table`::
 
-	    table = subset.pivot_table(values="number", index="bornCountry", columns="category", aggfunc=np.sum)
+	    table = subset.pivot_table(
+                values="number", index="bornCountry", columns="category", aggfunc="sum"
+            )
 
-    - (Optional) Install the **seaborn** visualization library if you don't
+    - **(Optional)** Install the ``seaborn`` visualization library if you don't
       already have it, and create a heatmap of your table::
 
 	  import seaborn as sns
 	  sns.heatmap(table,linewidths=.5);
 
-    - Play around with other nice looking plots::
+    - **(Optional)** Play around with other nice looking plots::
 
 	sns.violinplot(y=subset["year"].dt.year, x="bornCountry", inner="stick", data=subset);
 
@@ -485,8 +487,14 @@ Exercises 3
 
       ::
 
-	subset_physchem = nobel.loc[nobel['bornCountry'].isin(countries) & (nobel['category'].isin(['physics']) | nobel['category'].isin(['chemistry']))]
-	sns.catplot(x="bornCountry", y="year", col="category", data=subset_physchem, kind="swarm");
+	subset_physchem = nobel.loc[
+            nobel['bornCountry'].isin(countries) & (
+                nobel['category'].isin(['physics']) | nobel['category'].isin(['chemistry'])
+            )
+        ]
+	sns.catplot(
+            x="bornCountry", y="year", col="category", data=subset_physchem, kind="swarm"
+        );
 
       ::
 
