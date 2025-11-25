@@ -16,6 +16,13 @@
 
 Classic quote to keep in mind: "Premature optimization is the root of all evil." [Donald Knuth]
 
+:::{figure} https://imgs.xkcd.com/comics/is_it_worth_the_time.png
+:alt: Humorous comic from xkcd that shows how long you can work on making a routine task more efficient before you're spending more time than you save? 
+Figure 1: Is it worth the time? ([xkcd#1205](https://xkcd.com/1205/))
+:::
+
+
+
 :::{discussion}
 It is important to ask ourselves whether it is worth it.
 - Is it worth spending e.g. 2 days to make a program run 20% faster?
@@ -25,24 +32,67 @@ Depends. What does it depend on?
 :::
 
 
-## Measure instead of guessing
+## Key steps of optimization
 
-Before doing code surgery to optimize the run time or lower the memory usage,
-we should **measure** where the bottlenecks are. This is called **profiling**.
+When you encounter a situation that you think would benefit from optimization,
+follow these three steps:
 
-Analogy: Medical doctors don't start surgery based on guessing. They first measure
-(X-ray, MRI, ...) to know precisely where the problem is.
+1. **Measure:** Before doing blind modifications you should figure out which
+   part of the code is actually the problem.
 
-Not only programming beginners can otherwise guess wrong, but also experienced
-programmers can be surprised by the results of profiling.
+   This is analogous to medical doctors doing lab tests and taking X-rays
+   to determine the disease. They won't start treatment without figuring out
+   what is wrong with the patient.
+
+2. **Diagnose:** When you have found out the part of the code that is slow,
+   you should determine why it is slow. Doing changes without knowing why the
+   code is slow can be counter-productive. Remember that not all slow parts
+   can be endlessly optimized: some parts of the code might take time because
+   they do a lot of work.
+
+   This step is analogous to doctor creating a specialized treatment
+   program for a disease.
+
+3. **Treat:** When you have found out the slow part and figured what causes
+   it to be slow, you can then try to fix it.
+
+   This is analogous to doctor treating the disease with surgery or a
+   prescription.
 
 
-## One of the simplest tools is to insert timers
+## Using profiling to measure your program
 
-Below we will list some tools that can be used to profile Python code.
-But even without these tools you can find **time-consuming parts** of your code
-by inserting timers:
 
+While diagnosing and treating depends heavily on the case at hand, the
+measurement part can be done with tools and tactics that show where the
+bottlenecks are. This is called **profiling**.
+
+Doing profiling is recommended for everyone. Even experienced programmers
+can be surprised by the results of profiling.
+
+:::{discussion} Scale matters for profiling
+
+Sometimes we can configure the system size (for instance the time step in a simulation
+or the number of time steps or the matrix dimensions) to make the program finish sooner.
+
+For profiling, we should choose a system size that is **representative of the real-world**
+use case. If we profile a program with a small input size, we might not see the same
+bottlenecks as when running the program with a larger input size.
+
+Often, when we scale up the system size, or scale the number of processors, new bottlenecks
+might appear which we didn't see before. This brings us back to: "measure instead of guessing".
+
+At the same time adding more time steps or more iterations can mean that the
+program does the same things over and over again. Thus sometimes you can try to
+profile a program for a shorter time and then extrapolate the results for the
+case where you're running for a longer time. When doing this be mindful to
+profile enough so that you can make proper extrapolations.
+:::
+
+## Simplest profiling: timers
+
+Simplest way of determining where the **time-consuming parts** are is to
+insert timers into your code:
 
 
 ```{code-block} python
@@ -65,13 +115,23 @@ print(f"some_function took {time.time() - start} seconds")
 # ...
 ```
 
+An alternative solution that also improves your code's output is to
+use Python's
+[logging module](https://docs.python.org/3/library/logging.html) to log
+important breakpoints in your code. You can then check the timestamps of
+different log entries to see how long it took to execute a section
+of your code.
 
-## Many tools exist
+## Better profiling: Dedicated profiling tools
+
+There are plenty of dedicated profile tools that can be used to profile
+your code. These can measure the CPU time and memory utilization often on a
+line-by-line level.
 
 The list below here is probably not complete, but it gives an overview of the
 different tools available for profiling Python code.
 
-CPU profilers:
+**CPU profilers:**
 - [cProfile and profile](https://docs.python.org/3/library/profile.html)
 - [line_profiler](https://kernprof.readthedocs.io/)
 - [py-spy](https://github.com/benfred/py-spy)
@@ -79,17 +139,14 @@ CPU profilers:
 - [pyinstrument](https://pyinstrument.readthedocs.io/)
 - [Perfetto](https://perfetto.dev/docs/analysis/trace-processor-python)
 
-Memory profilers:
+**Memory profilers:**
 - [memory_profiler](https://pypi.org/project/memory-profiler/) (not actively maintained)
 - [Pympler](https://pympler.readthedocs.io/)
 - [tracemalloc](https://docs.python.org/3/library/tracemalloc.html)
 - [guppy/heapy](https://github.com/zhuyifei1999/guppy3/)
 
-Both CPU and memory:
+**CPU, memory and GPU:**
 - [Scalene](https://github.com/plasma-umass/scalene)
-
-In the exercise below, we will use Scalene to profile a Python program. Scalene
-is a sampling profiler that can profile CPU, memory, and GPU usage of Python.
 
 
 ## Tracing profilers vs. sampling profilers
@@ -125,17 +182,220 @@ asked few passengers to help us by tracking their journey.
 :::
 
 
-## Choosing the right system size
+## Example profiling case: throwing darts to calculate pi
 
-Sometimes we can configure the system size (for instance the time step in a simulation
-or the number of time steps or the matrix dimensions) to make the program finish sooner.
+### Problem description
 
-For profiling, we should choose a system size that is **representative of the real-world**
-use case. If we profile a program with a small input size, we might not see the same
-bottlenecks as when running the program with a larger input size.
+In this example we'll profile the following Python code:
 
-Often, when we scale up the system size, or scale the number of processors, new bottlenecks
-might appear which we didn't see before. This brings us back to: "measure instead of guessing".
+```{code-block} python
+import random
+import math
+
+def calculate_pi(n_darts):
+    hits = 0
+    for n in range(n_darts):
+        i = random.random()
+        j = random.random()
+        r = math.sqrt(i*i + j*j)
+        if (r<1):
+            hits += 1
+    pi = 4 * hits / n_darts
+    return pi
+```
+
+This code implements a well known example of the Monte Carlo method, where by
+throwing darts at a dartboard we can calculate an approximation for pi.
+
+:::{figure} img/profiling/dartboard.png
+:alt: Diagram that shows a unit circle inside a square with side length 1
+:width: 50%
+Figure 2: The algorithm throws darts at a dartboard and estimates pi by calculating the ratio of hits to throws
+:::
+
+:::{}
+
+Commented out for now, maybe not interesting for learners.
+
+The algorithm goes as follows:
+
+1. Place a square with side length 1 around origin.
+2. Place an unit circle inside the square.
+3. Pick a random point inside the square (this is like throwing a dart, if
+   the thrower was really random).
+4. If the throw landed inside the circle, count is as a hit.
+5. Continue throwing darts until **N** darts have been thrown.
+6. Probability of a throw landing inside the circle is
+```{math}
+P(\mathrm{throw}) = \frac{A_{circle}}{A_{square}} = \frac{\pi}{4}
+```
+   and we can estimate this probability by calculating the ratio of hits
+   to throws
+```{math}
+\pi \approx 4\frac{N_{hits}}{N_{throws}}
+
+```
+
+:::
+
+### Profiling the example
+
+
+Let's run this with `%%time`-magic and ten million throws:
+
+```{code-block} python
+%%timeit
+calculate_pi(10_000_000)
+```
+```{code-block} console
+1.07 s ± 30.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+```
+
+We can then profile the code with either cProfile by using the ``%%prun`` magic.
+Here we tell the magic to sort the results by the total time used and to give us
+top 5 time users:
+```{code-block} python
+%%prun -s tottime -l 5
+
+def calculate_pi(n_darts):
+    hits = 0
+    for n in range(n_darts):
+        i = random.random()
+        j = random.random()
+        r = math.sqrt(i*i + j*j)
+        if (r<1):
+            hits += 1
+    pi = 4 * hits / n_darts
+    return pi 
+
+         30000742 function calls (30000736 primitive calls) in 4.608 seconds
+
+   Ordered by: internal time
+   List reduced from 150 to 5 due to restriction <5>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        4    2.545    0.636    4.005    1.001 {built-in method time.sleep}
+ 20000000    1.091    0.000    1.091    0.000 {method 'random' of '_random.Random' objects}
+ 10000000    0.571    0.000    0.571    0.000 {built-in method math.sqrt}
+        3    0.172    0.057    0.270    0.090 {method 'poll' of 'select.epoll' objects}
+        1    0.148    0.148    0.233    0.233 <string>:1(calculate_pi)
+
+calculate_pi(10_000_000)
+```
+
+```{code-block} console
+ 
+
+         30000742 function calls (30000736 primitive calls) in 4.608 seconds
+
+   Ordered by: internal time
+   List reduced from 150 to 5 due to restriction <5>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        4    2.545    0.636    4.005    1.001 {built-in method time.sleep}
+ 20000000    1.091    0.000    1.091    0.000 {method 'random' of '_random.Random' objects}
+ 10000000    0.571    0.000    0.571    0.000 {built-in method math.sqrt}
+        3    0.172    0.057    0.270    0.090 {method 'poll' of 'select.epoll' objects}
+        1    0.148    0.148    0.233    0.233 <string>:1(calculate_pi)
+```
+
+The output shows that most of the time is used by the `random.random` and
+`math.sqrt` function calls. Those functions are called in every iteration of the loop,
+so the profile makes sense.
+
+### Naive optimization: switching to NumPy functions
+
+A naive approach to optimization might be to simply switch to using NumPy functions
+instead of basic Python functions. The code would then look like this:
+
+```{code-block} python
+---
+emphasize-lines: 1,6-8
+---
+
+import numpy
+
+def calculate_pi_numpy(n_darts):
+    hits = 0
+    for n in range(n_darts):
+        i = numpy.random.random()
+        j = numpy.random.random()
+        r = numpy.sqrt(i*i + j*j)
+        if (r<1):
+            hits += 1
+    pi = 4 * hits / n_darts
+    return pi
+```
+
+However, if we do the same profiling, we'll find out that the program is
+**ten times slower**. Something must have gone wrong.
+
+
+### Actual optimization: using vectorization
+
+
+The reason for the bad performance is simple: we didn't actually reduce
+the number of function calls, we just switched them to ones from NumPy. These
+function call have extra overhead because they have more complex logic compared
+to the standard library ones. 
+
+The actual speedup is right around the corner: switch from the costly for-loop
+to vectorized calls. NumPy's functions can calculate all of the operations for
+all of our numbers in a single function call without the for-loop:
+
+```{code-block} python
+---
+emphasize-lines: 2-5
+---
+def calculate_numpy_fast(n_darts):
+    i = numpy.random.random(n_darts)
+    j = numpy.random.random(n_darts)
+    r = numpy.sqrt(i*i + j*j)
+    hits = (r < 1).sum() 
+    pi = 4 * hits / n_darts
+    return pi
+```
+
+```{code-block} python
+%%prun -s tottime -l 5
+
+def calculate_numpy_fast(n_darts):
+    i = numpy.random.random(n_darts)
+    j = numpy.random.random(n_darts)
+    r = numpy.sqrt(i*i + j*j)
+    hits = (r < 1).sum() 
+    pi = 4 * hits / n_darts
+    return pi
+
+calculate_numpy_fast(10_000_000)
+```
+
+```{code-block} console
+
+         664 function calls (658 primitive calls) in 0.225 seconds
+
+   Ordered by: internal time
+   List reduced from 129 to 5 due to restriction <5>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.202    0.202    0.205    0.205 <string>:1(calculate_numpy_fast)
+        2    0.010    0.005    0.010    0.005 {method '__exit__' of 'sqlite3.Connection' objects}
+      2/1    0.009    0.005    0.214    0.214 <string>:1(<module>)
+        1    0.002    0.002    0.002    0.002 {method 'reduce' of 'numpy.ufunc' objects}
+        1    0.001    0.001    0.010    0.010 history.py:92(only_when_enabled)
+```
+
+So vectorizing the code achieved around five times speedup.
+
+### Profiling with scalene
+
+The previous example can also be profiled with
+[scalene](https://github.com/plasma-umass/scalene). Scalene is a sampling
+profiler and it can be run in Jupyter as well with `%scrun` (line-mode) and
+`%%scalene` (cell-mode).
+
+Scalene will produce a nice looking output containing line-by-line profiling
+information. 
 
 
 ## Exercises
