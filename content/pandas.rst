@@ -530,10 +530,20 @@ Exercises 3
 Beyond the basics
 -----------------
 
-Larger DataFrame operations might be faster using :func:`~pandas.eval` with string expressions, `see
-<https://jakevdp.github.io/PythonDataScienceHandbook/03.12-performance-eval-and-query.html>`__::
+Faster expression evaluation with :func:`~pandas.eval`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Larger DataFrame operations might be faster using :func:`~pandas.eval` with string expressions (`see
+here <https://pandas.pydata.org/docs/user_guide/enhancingperf.html#eval-performance-comparison>`__).
+To do so, we start by installing ``numexpr`` a Python library which optimizes such expressions::
+
+        %conda install numexpr
+
+You may need to restart the kernel in Jupyter for this to be. Then::
 
 	import pandas as pd
+	import numpy as np
+
 	# Make some really big dataframes
 	nrows, ncols = 100000, 100
 	rng = np.random.RandomState(42)
@@ -547,9 +557,11 @@ Adding dataframes the pythonic way yields::
 
 And by using :func:`~pandas.eval`::
 
-	%timeit pd.eval('df1 + df2 + df3 + df4')
+	%timeit pd.eval('df1 + df2 + df3 + df4', engine='numexpr')
 	# 40ms
 
+Assigning columns with :meth:`~pandas.DataFrame.apply`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We can assign function return lists as dataframe columns::
 
