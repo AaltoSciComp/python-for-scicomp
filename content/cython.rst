@@ -26,7 +26,7 @@ Extending Python with Cython
    teaching will be given in form of demonstrations and no exercises.
    You may still follow along with the code examples but you will need to have
    Cython and a working C compiler available. You can install both to your
-   Conda environment with `conda install -c conda-forge cython c-compiler`.
+   Conda environment with ``conda install -c conda-forge cython c-compiler``.
 
 
 Python and performance
@@ -50,11 +50,11 @@ significant overhead. For example, when just adding two integers
 the Python interpreter needs to:
 
   1. Check the types of both operands
-  2. Check whether they both support the **+** operation
-  3. Extract the function that performs the **+** operation (due to operator
+  2. Check whether they both support the ``+`` operation
+  3. Extract the function that performs the ``+`` operation (due to operator
      overloading objects can have a custom definition for addition)
   4. Extract the actual values of the objects
-  5. Perform the **+** operation
+  5. Perform the ``+`` operation
   6. Construct a new integer object for the result ("boxing")
 
   .. image:: img/cython/unboxing-boxing.svg
@@ -118,7 +118,7 @@ features that make it possible to generate efficient machine code.
 Your first Cython module
 ------------------------
 
-Suppose we have a Python module called **my_module.py** that contains:
+Suppose we have a Python module called ``my_module.py`` that contains:
 
 .. code:: python
 
@@ -126,7 +126,7 @@ Suppose we have a Python module called **my_module.py** that contains:
        result = x + y
        return result
 
-Cython allows one to compile **my_module.py** directly to machine code while
+Cython allows one to compile ``my_module.py`` directly to machine code while
 still allowing its contents to be imported and used from Python code. We can
 Cythonize the module "manually" from command line:
 
@@ -134,18 +134,18 @@ Cythonize the module "manually" from command line:
 
    $ cythonize -i my_module.py
 
-This produces a file called **my_module.c**, full of C code. One can
-investigate the generated **.c** file but it is not really meant for humans to
+This produces a file called ``my_module.c``, full of C code. One can
+investigate the generated ``.c`` file but it is not really meant for humans to
 read, because of all the boilerplate that Cython adds in order to make the
 compiled code available to Python. Already this simple function results in
 over 7000 lines of C code!
 
-The option **-i** (meaning inplace) tells Cython to also compile the generated
-**.c** file into an extension module in the same directory.
+The option ``-i`` (meaning inplace) tells Cython to also compile the generated
+``.c`` file into an extension module in the same directory.
 This could also be done manually by invoking a C-compiler of your choice.
 On Linux/Mac systems the compiled module will be called something
-like **my_module.cpython-314-x86_64-linux-gnu.so**, on Windows the suffix will
-be **.pyd**.
+like ``my_module.cpython-314-x86_64-linux-gnu.so``, on Windows the suffix will
+be ``.pyd``.
 
 The extension module can be imported from Python in the same way as one would
 import a pure Python module, e.g.:
@@ -158,15 +158,15 @@ import a pure Python module, e.g.:
 
 Usually when working with Cython, one does not Cythonize the whole program but
 only selected modules. A typical Cython project is separated into plain Python
-modules (file suffix **.py**), and Cython code files (suffix **.pyx**).
-The **.pyx** files will usually contain Cython-specific code like static type
+modules (file suffix ``.py``), and Cython code files (suffix ``.pyx``).
+The ``.pyx`` files will usually contain Cython-specific code like static type
 information, so that they are not valid Python code anymore and must be
 Cythonized before use.
 
 .. callout::
 
    Real-world project don't usually invoke Cython from the command line and
-   instead use an established build tool like **setuptools** to handle the
+   instead use an established build tool like ``setuptools`` to handle the
    Cythonization during the project's build phase. More info is available on
    the `Cython documentation <https://cython.readthedocs.io/en/latest/src/userguide/source_files_and_compilation.html#compilation>`__.
    See also the :doc:`course page on packaging <packaging>`.
@@ -188,7 +188,7 @@ We first load the Cython extension, e.g. in the very first cell: ::
 
    %load_ext Cython
 
-We can Cythonize cell contents using the magic `%%cython`:
+We can Cythonize cell contents using the magic ``%%cython``:
 
 .. code:: python
 
@@ -202,7 +202,7 @@ The compiled function can then be called from other cells.
 
 .. demo::
 
-   There is also `%%cython --annotate`, or `%%cython -a` for short, which is
+   There is also ``%%cython --annotate``, or ``%%cython -a`` for short, which is
    useful for analyzing the generated C code. Try executing the code for
    `add()` with this magic command in Jupyter. Upon doing so:
 
@@ -228,7 +228,7 @@ either:
 
 -  In function signatures by prefixing the formal arguments by their
    type.
--  By declaring variables with the **cdef** Cython keyword, followed by
+-  By declaring variables with the ``cdef`` Cython keyword, followed by
    the the type.
 
 To make Cython function that adds two integers and returns the result as
@@ -242,7 +242,7 @@ an integer, we would write:
        return result
 
 The function works now only with integers but with less boxing/unboxing
-overhead. Store this as **my_module.pyx** (note the file extension) and
+overhead. Store this as ``my_module.pyx`` (note the file extension) and
 Cythonize as before:
 
 .. code:: bash
@@ -252,14 +252,14 @@ Cythonize as before:
 Import this into Python and confirm that it works as expected with integers.
 However, if passing floating-point numbers the function is forced to interpret
 the inputs as integers before performing the addition. For example,
-**add(1.4, 2.7)** would return 3. This happens because there is an automatic
+``add(1.4, 2.7)`` would return ``3``. This happens because there is an automatic
 conversion from the input Python objects to the
 declared C-types, in this case integers, when calling the Cythonized function
 from Python. Similarly the returned C variable is converted to a corresponding
 Python object.
 
 To make the function work with floats we'd instead declare the types to be
-either **float** (32-bit) or **double** (64-bit) type instead of **int**.
+either ``float`` (32-bit) or ``double`` (64-bit) type instead of ``int``.
 The table below lists the most common C types and their corresponding
 Python types. More information can be found in the `Cython
 documentation <https://cython.readthedocs.io/en/latest/src/userguide/language_basics.html>`__.
@@ -280,8 +280,8 @@ Cython has built-in support for Numpy arrays.
 
 As discussed in the :doc:`Numpy lectures <numpy-advanced>`, Numpy arrays provide
 great performance for vectorized operations. In contrast, thing like
-**for**-loops over Numpy arrays should be avoided because of interpreting
-overhead inherent to Python **for**-loops. There is also overhead from
+``for``-loops over Numpy arrays should be avoided because of interpreting
+overhead inherent to Python ``for``-loops. There is also overhead from
 accessing individual elements of Numpy arrays.
 
 With Cython we can bypass both restrictions and write efficient loops over
@@ -302,16 +302,16 @@ Numpy arrays. Consider e.g. a double loop that sets values of a 2D array:
                counter += 1 
 
 
-We can Cythonize this as before to optimize the **for**-loops. A quick check 
-with **timeit** shows that with **N=100**, the pure Python version takes 820μs
+We can Cythonize this as before to optimize the ``for``-loops. A quick check 
+with ``timeit`` shows that with ``N=100``, the pure Python version takes 820μs
 and the Cythonized version (without any static typing) takes 700μs. This is
 nice, but we are still bottlenecked by array lookups and assignments, i.e. the
-**[]** operator, which invokes Python code.
+``[]`` operator, which invokes Python code.
 
 We can get a huge speedup by adding a static type declaration for the Numpy
 array, and for the other variables too while we are at it. To do this we must
 import compile-time information about the Numpy module using the
-Cython-specific **cimport** keyword, then use Cython's Numpy interface to
+Cython-specific ``cimport`` keyword, then use Cython's Numpy interface to
 declare the array's datatype and dimensions:
 
 .. code:: python
@@ -334,24 +334,24 @@ declare the array's datatype and dimensions:
                counter += 1
 
 
-Cythonizing and running the function with **timeit** shows that the function
-now only takes 3.30μs with **N = 100**. This is ~250 times faster than the
+Cythonizing and running the function with ``timeit`` shows that the function
+now only takes 3.30μs with ``N = 100``. This is ~250 times faster than the
 pure Python implementation!
 
 .. callout::
 
-   `cimport numpy` needs access to Numpy C-headers which are usually included
+   ``cimport numpy`` needs access to Numpy C-headers which are usually included
    in Python distributions. This usually works out of the box for Jupyter
-   notebooks. However, if using the command line `cythonize` tool you may need
+   notebooks. However, if using the command line ``cythonize`` tool you may need
    to manually set include paths for the C compiler.
    Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>`__
    for more details.
 
 .. callout::
 
-   It is good practice to also call `cnp.import_array()` after doing the
-   `cimport` of Numpy. This is required for accessing attributes (like
-   `.shape`) of typed Numpy arrays.
+   It is good practice to also call ``cnp.import_array()`` after doing the
+   ``cimport`` of Numpy. This is required for accessing attributes (like
+   ``.shape``) of typed Numpy arrays.
 
 
 More Numpy indexing enhancements
@@ -360,7 +360,7 @@ More Numpy indexing enhancements
 When indexing arrays, Numpy does some bounds checking in an attempt to catch
 logic errors (e.g. attempting to access element at index 100 of an array of
 length 10). Numpy also checks for negative indices to support wraparound
-syntax like **a[-1]**. We can tell Cython to disable these checks for some
+syntax like ``a[-1]``. We can tell Cython to disable these checks for some
 extra performance:
 
 .. code:: python
