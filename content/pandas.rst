@@ -456,7 +456,7 @@ Exercises 3
 
 	  nobel.groupby(['bornCountry', 'category']).size()
 
-    - (Optional) Create a pivot table to view a spreadsheet like structure, and view it
+    - **(Optional)** Create a pivot table to view a spreadsheet like structure, and view it
 
 	- First add a column “number” to the nobel dataframe containing 1’s
 	  (to enable the counting below).  We need to make a copy of
@@ -467,15 +467,17 @@ Exercises 3
 
 	- Then create the :meth:`~pandas.DataFrame.pivot_table`::
 
-	    table = subset.pivot_table(values="number", index="bornCountry", columns="category", aggfunc=np.sum)
+	    table = subset.pivot_table(
+                values="number", index="bornCountry", columns="category", aggfunc="sum"
+            )
 
-    - (Optional) Install the **seaborn** visualization library if you don't
+    - **(Optional)** Install the ``seaborn`` visualization library if you don't
       already have it, and create a heatmap of your table::
 
 	  import seaborn as sns
 	  sns.heatmap(table,linewidths=.5);
 
-    - Play around with other nice looking plots::
+    - **(Optional)** Play around with other nice looking plots::
 
 	sns.violinplot(y=subset["year"].dt.year, x="bornCountry", inner="stick", data=subset);
 
@@ -485,8 +487,14 @@ Exercises 3
 
       ::
 
-	subset_physchem = nobel.loc[nobel['bornCountry'].isin(countries) & (nobel['category'].isin(['physics']) | nobel['category'].isin(['chemistry']))]
-	sns.catplot(x="bornCountry", y="year", col="category", data=subset_physchem, kind="swarm");
+	subset_physchem = nobel.loc[
+            nobel['bornCountry'].isin(countries) & (
+                nobel['category'].isin(['physics']) | nobel['category'].isin(['chemistry'])
+            )
+        ]
+	sns.catplot(
+            x="bornCountry", y="year", col="category", data=subset_physchem, kind="swarm"
+        );
 
       ::
 
@@ -503,13 +511,13 @@ Exercises 3
       ::
 
 	 nobel.bornCountryCode.describe()
-	 # count     956
-	 # unique     81
+	 # count     969
+	 # unique     82
 	 # top        US
-	 # freq      287
+	 # freq      292
 
       We see that the US has received the largest number of Nobel prizes,
-      and 81 countries are represented.
+      and 82 countries are represented.
 
       To calculate the age at which laureates receive their prize, we need
       to ensure that the "year" and "born" columns are in datetime format::
@@ -530,10 +538,20 @@ Exercises 3
 Beyond the basics
 -----------------
 
-Larger DataFrame operations might be faster using :func:`~pandas.eval` with string expressions, `see
-<https://jakevdp.github.io/PythonDataScienceHandbook/03.12-performance-eval-and-query.html>`__::
+Faster expression evaluation with :func:`~pandas.eval`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Larger DataFrame operations might be faster using :func:`~pandas.eval` with string expressions (`see
+here <https://pandas.pydata.org/docs/user_guide/enhancingperf.html#eval-performance-comparison>`__).
+To do so, we start by installing ``numexpr`` a Python library which optimizes such expressions::
+
+        %conda install numexpr
+
+You may need to restart the kernel in Jupyter for this to be. Then::
 
 	import pandas as pd
+	import numpy as np
+
 	# Make some really big dataframes
 	nrows, ncols = 100000, 100
 	rng = np.random.RandomState(42)
@@ -547,9 +565,11 @@ Adding dataframes the pythonic way yields::
 
 And by using :func:`~pandas.eval`::
 
-	%timeit pd.eval('df1 + df2 + df3 + df4')
+	%timeit pd.eval('df1 + df2 + df3 + df4', engine='numexpr')
 	# 40ms
 
+Assigning columns with :meth:`~pandas.DataFrame.apply`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We can assign function return lists as dataframe columns::
 
@@ -597,9 +617,17 @@ apply your own functions to the data using :obj:`~pandas.DataFrame.apply`::
 
 
 Note that the numpy precision for integers caps at int64 while python ints are unbounded --
-limited by memory size. Thus, the result from fibonacci(99) would be erroneous when
-using numpy ints. The type of df['Number of Rabbits'][99] given by both functions above
-is in fact <class 'int'>.
+limited by memory size. Thus, the result from ``fibonacci(99)`` would be erroneous when
+using numpy ints. The type of ``df['Number of Rabbits'][99]`` given by both functions above
+is in fact ``<class 'int'>``.
+
+.. seealso::
+
+   - `Modern Pandas <https://tomaugspurger.net/posts/modern-1-intro/>`__ (2020) -- a blog series
+     on writing modern idiomatic pandas.
+   - `Python Data Science Handbook <https://jakevdp.github.io/PythonDataScienceHandbook/index.html>`__ (2016) --
+     which contains a chapter on `Data Manipulation with Pandas`.
+
 
 Alternatives to Pandas
 ----------------------
