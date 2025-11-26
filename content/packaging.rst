@@ -280,9 +280,19 @@ There are at least five tools which try to make the packaging and PyPI interacti
 - `Flit <https://flit.pypa.io/>`__
 
 Today, due to standards such as ``pyproject.toml`` and ``pylock.toml``, to specify the
-package metadata and dependency lock file respectively, the four tools are largely
-cross-compatible amongst themselves and with ``pip``.
+package metadata and dependency lock file respectively, the above are largely
+cross-compatible amongst each other and with ``pip``.
 
+.. figure:: https://www.pyopensci.org/python-package-guide/_images/python-package-tools-decision-tree.png
+   :alt: Flowchart to help decide on a packaging tool
+
+   Credits: pyOpenSci's Python Package Guide licensed CC-BY-SA 4.0
+
+   The properties of the project and your development requirements may determine which packaging
+   tool suits you. Use the above decision tree from pyOpenSci_ to help make that choice.
+   
+
+.. _pyOpenSci: https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html
 
 Building a conda package and share it
 -------------------------------------
