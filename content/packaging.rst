@@ -142,7 +142,29 @@ Exercise 1
    To test a local pip install:
 
    - Create a new folder outside of our example project
-   - Create a new virtual environment (:ref:`dependency_management`)
+   - Create a new virtual environment and activate it (more on this in :ref:`dependency_management`)
+
+   .. hint:: To create and activate a virtual environment
+      :class: dropdown
+     
+      .. tabs::
+
+         .. tab:: Unix/macOS
+
+             .. code-block:: bash
+
+                 python -m venv .venv
+                 source .venv/bin/activate
+                 which python
+
+         .. tab:: Windows
+
+             .. code-block:: bat
+
+                 python -m venv .venv
+                 .venv\Scripts\activate
+                 where python
+
    - Install the example package from the project folder
      into the new environment::
 
@@ -258,6 +280,9 @@ Once this is done, create yet another virtual environment and try to install fro
           $ python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ calculator-myname
           $ deactivate
 
+If you upload packages to PyPI or test PyPI often you can create an API token and
+`save it in the .pypirc file <https://packaging.python.org/en/latest/specifications/pypirc/#common-configurations>`__.
+
 Tools that simplify sharing via PyPI
 ------------------------------------
 
@@ -268,13 +293,28 @@ confuse too much. If you web-search this, you will also see that recently the
 trend goes towards using ``pyproject.toml`` as more general
 alternative to the previous ``setup.py``.
 
-There are at least two tools which try to make the packaging and PyPI interaction easier:
+There are at least five tools which try to make the packaging and PyPI interaction easier:
 
+- `uv <https://docs.astral.sh/uv/>`__
+- `PDM <https://pdm-project.org/>`__
+- `Hatch <https://hatch.pypa.io/latest/>`__
 - `Poetry <https://python-poetry.org/>`__
 - `Flit <https://flit.pypa.io/>`__
 
-If you upload packages to PyPI or test PyPI often you can create an API token and
-`save it in the .pypirc file <https://packaging.python.org/en/latest/specifications/pypirc/#common-configurations>`__.
+Today, due to standards such as ``pyproject.toml`` and ``pylock.toml``, to specify the
+package metadata and dependency lock file respectively, the above are largely
+cross-compatible amongst each other and with ``pip``.
+
+.. figure:: https://www.pyopensci.org/python-package-guide/_images/python-package-tools-decision-tree.png
+   :alt: Flowchart to help decide on a packaging tool
+
+   Credits: pyOpenSci's Python Package Guide licensed CC-BY-SA 4.0
+
+   The properties of the project and your development requirements may determine which packaging
+   tool suits you. Use the above decision tree from pyOpenSci_ to help make that choice.
+   
+
+.. _pyOpenSci: https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html
 
 Building a conda package and share it
 -------------------------------------
@@ -382,6 +422,13 @@ library for research software.
 
 To be able to share and install your local conda package anywhere (on other platforms), you would need to upload it to a `conda channel <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`__ (see below).
 
+Tools that simplify sharing conda packages
+------------------------------------------
+
+- `pixi <https://pixi.sh>`__ is package management tool to cover all features of conda, along with
+  ability to initialize and package new projects.
+- `rattler-build <https://rattler.build>`__ is a build tool which combines the functionalities of 
+  ``conda grayskull``, ``conda build`` and allows you to also publish packages.
 
 
 Publishing a python package
