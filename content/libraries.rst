@@ -262,7 +262,7 @@ These days, one rarely directly extends the Python interpreter, but uses
   code
 * `swig <https://swig.org/>`__ - connect to a variety of programming languages.
 * ``Boost.python`` - Another Python/C++ interface
-* TODO: Julia modules for Python?
+* [PythonCall.jl](https://github.com/JuliaPy/PythonCall.jl) -- Interface to call Julia from Python and viceversa
 
 
 
