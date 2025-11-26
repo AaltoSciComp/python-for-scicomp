@@ -57,7 +57,7 @@ the Python interpreter needs to:
   5. Perform the ``+`` operation
   6. Construct a new integer object for the result ("boxing")
 
-  .. image:: img/cython/unboxing-boxing.svg
+  .. image:: img/cython/unboxing-boxing.png
    :class: center
    :width: 90.0%
 
