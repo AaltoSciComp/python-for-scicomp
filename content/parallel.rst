@@ -428,7 +428,14 @@ Of course sometimes coupling languages is not about overcoming bottlenecks but
 about combining existing programs which have been written in different
 languages for whatever reason.
 
+Examples of scientific codes that combine Python and other languages:
 
+- The numerical toolkit `Runko <https://runko.readthedocs.io/>`__ for simulating
+  astrophysical plasmas. The code is written in C++17 and Python.
+- The quantum chemistry code `VeloxChem <https://veloxchem.org/>`__ is a Python
+  based program for spectroscopy calculations in high-performance computing
+  environments. The code is written in Python, C++, and has kernels in CUDA and
+  HIP for running on GPUs.
 
 Dask and task queues
 --------------------
