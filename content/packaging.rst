@@ -142,7 +142,29 @@ Exercise 1
    To test a local pip install:
 
    - Create a new folder outside of our example project
-   - Create a new virtual environment (:ref:`dependency_management`)
+   - Create a new virtual environment and activate it (more on this in :ref:`dependency_management`)
+
+   .. hint:: To create and activate a virtual environment
+      :class: dropdown
+     
+      .. tabs::
+
+         .. tab:: Unix/macOS
+
+             .. code-block:: bash
+
+                 python -m venv .venv
+                 source .venv/bin/activate
+                 which python
+
+         .. tab:: Windows
+
+             .. code-block:: bat
+
+                 python -m venv .venv
+                 .venv\Scripts\activate
+                 where python
+
    - Install the example package from the project folder
      into the new environment::
 
