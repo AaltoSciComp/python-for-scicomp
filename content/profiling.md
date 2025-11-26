@@ -247,6 +247,7 @@ Let's run this with `%%time`-magic and ten million throws:
 %%timeit
 calculate_pi(10_000_000)
 ```
+
 ```{code-block} console
 1.07 s ± 30.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 ```
@@ -267,18 +268,6 @@ def calculate_pi(n_darts):
             hits += 1
     pi = 4 * hits / n_darts
     return pi 
-
-         30000742 function calls (30000736 primitive calls) in 4.608 seconds
-
-   Ordered by: internal time
-   List reduced from 150 to 5 due to restriction <5>
-
-   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        4    2.545    0.636    4.005    1.001 {built-in method time.sleep}
- 20000000    1.091    0.000    1.091    0.000 {method 'random' of '_random.Random' objects}
- 10000000    0.571    0.000    0.571    0.000 {built-in method math.sqrt}
-        3    0.172    0.057    0.270    0.090 {method 'poll' of 'select.epoll' objects}
-        1    0.148    0.148    0.233    0.233 <string>:1(calculate_pi)
 
 calculate_pi(10_000_000)
 ```
