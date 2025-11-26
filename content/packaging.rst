@@ -258,6 +258,9 @@ Once this is done, create yet another virtual environment and try to install fro
           $ python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ calculator-myname
           $ deactivate
 
+If you upload packages to PyPI or test PyPI often you can create an API token and
+`save it in the .pypirc file <https://packaging.python.org/en/latest/specifications/pypirc/#common-configurations>`__.
+
 Tools that simplify sharing via PyPI
 ------------------------------------
 
@@ -268,13 +271,18 @@ confuse too much. If you web-search this, you will also see that recently the
 trend goes towards using ``pyproject.toml`` as more general
 alternative to the previous ``setup.py``.
 
-There are at least two tools which try to make the packaging and PyPI interaction easier:
+There are at least five tools which try to make the packaging and PyPI interaction easier:
 
+- `uv <https://docs.astral.sh/uv/>`__
+- `PDM <https://pdm-project.org/>`__
+- `Hatch <https://hatch.pypa.io/latest/>`__
 - `Poetry <https://python-poetry.org/>`__
 - `Flit <https://flit.pypa.io/>`__
 
-If you upload packages to PyPI or test PyPI often you can create an API token and
-`save it in the .pypirc file <https://packaging.python.org/en/latest/specifications/pypirc/#common-configurations>`__.
+Today, due to standards such as ``pyproject.toml`` and ``pylock.toml``, to specify the
+package metadata and dependency lock file respectively, the four tools are largely
+cross-compatible amongst themselves and with ``pip``.
+
 
 Building a conda package and share it
 -------------------------------------
