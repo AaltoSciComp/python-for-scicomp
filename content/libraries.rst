@@ -337,7 +337,7 @@ Exercises
    you could have reused from some other source.  What have you used
    from some other source that you wished you had re-created?
 
-   Discuss in your groups or HackMD.
+   Discuss in the collaborative document.
 
 .. solution:: Libraries 1.1
 
