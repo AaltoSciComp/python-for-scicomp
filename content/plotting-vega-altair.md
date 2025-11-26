@@ -318,6 +318,62 @@ Monthly temperature ranges for two cities in Norway.
 ::::
 
 
+## Customizing channels for extra beauty
+
+All of the visual channels can be modified with multiple different parameters.
+The shorthand notation for specifying the channels can be modified to use channel
+objects initialized by the user.
+
+For the whole list of available channels and corresponding classes, see
+[this page](https://altair-viz.github.io/user_guide/encodings/channels.html).
+
+
+For example, we can rename channels to make them more beautiful:
+
+```python
+alt.Chart(data_monthly).mark_area(opacity=0.5).encode(
+    x=alt.X("yearmonth(date):T", title="Date"),
+    y=alt.Y("max temperature", title="Temperature range (min-max)"),
+    y2="min temperature",
+    color=alt.Color("name", title="Station name"),
+)
+```
+
+:::{figure} plotting-vega-altair/channels-renamed.svg
+:alt: Monthly temperature ranges for two cities in Norway.
+
+Monthly temperature ranges for two cities in Norway.
+:::
+
+## Saving charts
+
+Saving charts is easy: you just call the
+[chart.save()](https://altair-viz.github.io/user_guide/saving_charts.html)-method.
+
+```python
+alt.Chart(data_monthly).mark_area(opacity=0.5).encode(
+    x=alt.X("yearmonth(date):T", title="Date"),
+    y=alt.Y("max temperature", title="Temperature range (min-max)"),
+    y2="min temperature",
+    color=alt.Color("name", title="Station name"),
+).save("temperature_range.png", ppi=144)
+```
+
+Altair supports png, svg and pdf saving. For png files you can adjust the image
+resolution by giving an extra keyword argument (`ppi`).
+
+It also supports exporting the image as
+[HTML](https://altair-viz.github.io/user_guide/saving_charts.html#html-format)
+or as
+[JSON](https://altair-viz.github.io/user_guide/saving_charts.html#json-format)
+that can be embedded
+to any web page.
+
+You can even use
+[chart.to_url()](https://altair-viz.github.io/user_guide/saving_charts.html#sharable-url)-method
+to get a shareable url that you can view in an online editor (remember that
+the URL will also contain some of the data used to create the plot).
+
 ## More fun with visual channels
 
 Now we will try to **plot the daily data and look at snow depths**. We first
@@ -418,6 +474,38 @@ alt.Chart(data_daily).mark_circle().encode(
 Snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature. Warmer days are often followed by reduced snow depth.
 :::
 
+
+## Data transformations
+
+Vega-Altair also provides many different
+[data transformations](https://altair-viz.github.io/user_guide/transform/index.html)
+that you can use to quickly modify plots.
+
+For example, lets plot weekly average snowfall:
+
+```python
+alt.Chart(data_daily).mark_bar().encode(
+    x="week(date)",
+    y="mean(snow depth)",
+    color="max temperature",
+    column="name",
+)
+```
+
+Here we have used the `mean`-transform from
+[Aggregate](https://altair-viz.github.io/user_guide/transform/aggregate.html)-transformations
+and `week`-transform from
+[TimeUnit](https://altair-viz.github.io/user_guide/transform/timeunit.html)-transformations.
+
+Vega-Altair will then automatically do a group by-operation over weekly periods
+across aggregated columns.
+
+:::{figure} plotting-vega-altair/weekly-snow-depth.svg
+:alt: Weekly mean snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by daily max temperature.
+
+Weekly mean snow depth (in cm) for the months December 2022 to May 2023 for two cities in Norway. Colored by weekly max temperature.
+
+:::
 
 ## Themes
 
