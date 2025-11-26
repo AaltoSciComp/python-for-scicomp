@@ -390,6 +390,13 @@ library for research software.
 
 To be able to share and install your local conda package anywhere (on other platforms), you would need to upload it to a `conda channel <https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/channels.html>`__ (see below).
 
+Tools that simplify sharing conda packages
+------------------------------------------
+
+- `pixi <https://pixi.sh>`__ is package management tool to cover all features of conda, along with
+  ability to initialize and package new projects.
+- `rattler-build <https://rattler.build>`__ is a build tool which combines the functionalities of 
+  ``conda grayskull``, ``conda build`` and allows you to also publish packages.
 
 
 Publishing a python package
