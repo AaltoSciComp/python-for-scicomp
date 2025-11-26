@@ -192,7 +192,7 @@ and an optional argument ``date`` of type ``string`` which defaults to ``01/01/2
    # One positional and one optional argument
    parser.add_argument('name', type=str, metavar="N",
                        help="The name of the subject")
-   parser.add_argument('-d', '--date', type=string, default="01/01/2000",
+   parser.add_argument('-d', '--date', type=str, default="01/01/2000",
                        help="Birth date of the subject")
 
    args = parser.parse_args()
