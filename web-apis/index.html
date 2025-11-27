@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Web APIs with Python" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/web-apis/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Requests: Requests is a Python library that makes requests to web servers. It provides a nice interface and is one of the go-to tools. It does the raw data-download for simple web servers. First, l..." />
+<meta name="description" content="Requests: Requests is a Python library that makes requests to web servers. It provides a nice interface and is one of the go-to tools. It does the raw data-download for simple web servers. First, l..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web APIs with Python &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Extending Python with Cython" href="../cython/" />
+    <link rel="prev" title="Packaging" href="../packaging/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/">Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work-with-data/">Working with Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiling/">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../productivity/">Productivity tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Web APIs with Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requests">Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#retrieve-data-from-api">Retrieve data from API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-which-requires-parameters">API which requires parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-1">Exercises 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-2">Exercises 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-3">Exercises 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#after-exercises-saving-retrieved-data-to-disk">After exercises: Saving retrieved data to disk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wrap-up">Wrap-up</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cython/">Extending Python with Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">In depth analysis of some selected file formats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Web APIs with Python</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/web-apis.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="web-apis-with-python">
+<h1>Web APIs with Python<a class="headerlink" href="#web-apis-with-python" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>Have you ever needed to get some data from somewhere else on the web?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand a web server and API and why might you need to talk to one.</p></li>
+<li><p>Basics of the <a class="reference external" href="https://requests.readthedocs.io/en/latest/">requests</a> Python library</p></li>
+<li><p>Some lightweight recommendations on saving data when you get to more serious data download.</p></li>
+</ul>
+</div>
+<section id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Link to this heading"></a></h2>
+<p>Requests is a Python library that makes <strong>requests</strong> to web servers.  It provides a nice interface and is one of the go-to tools.  It does the raw data-download for simple web servers.</p>
+<p>First, let’s take a tour of the Requests webpage.  Below, we embed the Requests website into a Jupyter notebook, but you might want to open it in another browser tab: <a class="reference external" href="https://requests.readthedocs.io/en/latest/">https://requests.readthedocs.io/en/latest/</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Embed the requests homepage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">IFrame</span>
+<span class="n">requests_documentation_url</span> <span class="o">=</span> <span class="s2">&quot;https://requests.readthedocs.io/en/latest/&quot;</span>
+<span class="n">IFrame</span><span class="p">(</span><span class="n">requests_documentation_url</span><span class="p">,</span> <span class="s1">&#39;100%&#39;</span><span class="p">,</span> <span class="s1">&#39;30%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="retrieve-data-from-api">
+<h2>Retrieve data from API<a class="headerlink" href="#retrieve-data-from-api" title="Link to this heading"></a></h2>
+<p>An <strong>API (Application Programming Interface)</strong> is the definition of the way computer programs communicate with each other.  We use Requests to connect to the API of a web server, tell it what we want, and it returns it to us.  This is called the <strong>request-response</strong> cycle.</p>
+<p>We can find a list of some free APIs (available without authentication) at <a class="reference external" href="https://apipheny.io/free-api/#apis-without-key">https://apipheny.io/free-api/#apis-without-key</a> . These APIs can be used for developing and testing our code.</p>
+<p>Let’s make a request to the Cat Fact API.  If we go to <a class="reference external" href="https://catfact.ninja/">https://catfact.ninja/</a>, it gives us the definitions:</p>
+<ul class="simple">
+<li><p>GET <code class="docutils literal notranslate"><span class="pre">/fact</span></code> is the <strong>API endpoint</strong>.</p></li>
+<li><p><strong>GET</strong> is the type of request we make and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/fact</span></code> is the <strong>path</strong>.</p></li>
+</ul>
+<p>You can even test this in your web browser: <a class="reference external" href="https://catfact.ninja/fact">https://catfact.ninja/fact</a></p>
+<p>Using the Requests library, we do this with <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.get" title="(in Requests v2.32.5)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get()</span></code></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># URL</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://catfact.ninja/fact&#39;</span>
+
+<span class="c1"># Make a request</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response" title="(in Requests v2.32.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">requests.Response</span></code></a> object tells us what the server said.  We can access the response content using <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response.content" title="(in Requests v2.32.5)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">content</span></code></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
+
+<span class="c1"># Display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response_content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The response content is in the <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">JSON format</a> and Requests gives us the <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.Response.json" title="(in Requests v2.32.5)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">json()</span></code></a> method that decodes it and returns the corresponding data as Python objects.  This is equivalent to <a class="reference external" href="https://docs.python.org/3/library/json.html#json.load" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">json.load()</span></code></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response_json</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="c1"># Display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response_json</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>(Note that, normally, we could study the API documentation to check the response format beforehand. However, many times manual inspection and trial-and-error is needed, as we did here.)</p>
+</section>
+<section id="api-which-requires-parameters">
+<h2>API which requires parameters<a class="headerlink" href="#api-which-requires-parameters" title="Link to this heading"></a></h2>
+<p>Let’s then examine another API which accepts <a class="reference external" href="https://requests.readthedocs.io/en/latest/user/quickstart/#passing-parameters-in-urls">parameters</a> to specify the information request. In particular, we will request a list of Finnish universities from <a class="reference external" href="http://universities.hipolabs.com">http://universities.hipolabs.com</a> using the <code class="docutils literal notranslate"><span class="pre">/search</span></code> end point and a parameter <em>country</em> with value <em>Finland</em>, like this:
+<code class="docutils literal notranslate"><span class="pre">http://universities.hipolabs.com/search?country=Finland</span></code> .</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://universities.hipolabs.com/search?country=Finland&#39;</span>
+
+<span class="c1"># Make a request</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># Decode JSON</span>
+<span class="n">response_json</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="c1"># Display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response_json</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>URLs containing parameters can always be constructed manually using the <em>&amp;</em> character and then listing the parameter (<em>key</em>, <em>value</em>) pairs as above.</p>
+<p>However, <em>Requests</em> allows us to provide the parameters as a dictionary of strings, using the <em>params</em> keyword argument to <a class="reference external" href="https://requests.readthedocs.io/en/latest/api/#requests.get" title="(in Requests v2.32.5)"><code class="xref py py-func docutils literal notranslate"><span class="pre">get()</span></code></a>. This is easier to read and less error-prone.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://universities.hipolabs.com/search&#39;</span>
+
+<span class="c1"># Make the parameter dictionary</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;country&#39;</span> <span class="p">:</span> <span class="s1">&#39;Finland&#39;</span><span class="p">}</span>
+
+<span class="c1"># Get response</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">parameters</span><span class="p">)</span>
+
+<span class="c1"># Decode JSON</span>
+<span class="n">response_json</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="c1"># Display</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response_json</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercises-1">
+<h2>Exercises 1<a class="headerlink" href="#exercises-1" title="Link to this heading"></a></h2>
+<div class="admonition-exercise-webapis-1-request-different-activity-suggestions-from-the-bored-api exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise WebAPIs-1: Request different activity suggestions from the Bored API</p>
+<p>Go to the <a class="reference external" href="https://www.boredapi.com/documentation">documentation page of the Bored API</a>. The Bored API is an open API which can be used to randomly generate activity suggestions.</p>
+<p>Let’s examine the first sample query on the page http://www.boredapi.com/api/activity/ with a sample JSON response</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;activity&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Learn Express.js&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;accessibility&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.25</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;education&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;participants&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;link&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://expressjs.com/&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3943506&quot;</span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>Let’s replicate the query and see if we can get another random suggestion.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import module</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># URL of the activity API end point</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.boredapi.com/api/activity/&quot;</span>
+
+<span class="c1"># Send the request using the get() function</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show the JSON content of the response</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, let’s try to narrow down the suggestions by adding some parameters</p>
+<ul class="simple">
+<li><p>type</p></li>
+<li><p>participants</p></li>
+</ul>
+<p>All possible parameter values are presented at the bottom of the bored documentation page.  <a class="reference external" href="https://requests.readthedocs.io/en/latest/user/quickstart/#parameters">Relevant parts in the <em>Requests</em> documentation</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define some parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;education&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;participants&#39;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Send the request using get() with parameters</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show the JSON content of the response</span>
+<span class="n">display</span><span class="p">(</span><span class="s2">&quot;Response&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s narrow the request further with more parameters</p>
+<ul class="simple">
+<li><p>price range</p></li>
+<li><p>accessibility range</p></li>
+</ul>
+<p>(All possible parameter values are again presented at the bottom of the document page.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define some parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;type&#39;</span> <span class="p">:</span> <span class="s1">&#39;social&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;participants&#39;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;minprice&#39;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;maxprice&#39;</span> <span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Send the request using get() with parameters</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show the JSON content of the response</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<span class="n">display</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercises-2">
+<h2>Exercises 2<a class="headerlink" href="#exercises-2" title="Link to this heading"></a></h2>
+<div class="admonition-exercise-webapis-2-examine-request-and-response-headers exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise WebAPIs-2: Examine request and response headers</p>
+<p>Request <a class="reference external" href="https://requests.readthedocs.io/en/latest/user/quickstart/#response-headers">headers</a> are similar to request parameters but usually define meta information regarding, e.g., content encoding (gzip, utf-8) or user identification (user-agent/user ID/etc., password/access token/etc.).</p>
+<p>Let’s first make a request.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import modules</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># URL of the activity API end point</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.boredapi.com/api/activity/&quot;</span>
+
+<span class="c1"># Make the request using the get() function</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can access the headers of the original request</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="s2">&quot;Request headers&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also access the headers of the response</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="s2">&quot;Response headers&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In many cases, the default headers</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="err">&#39;User</span><span class="mi">-</span><span class="err">Age</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span><span class="mi">-</span><span class="err">reques</span><span class="kc">ts</span><span class="err">/</span><span class="mf">2.28.1</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;Accep</span><span class="kc">t</span><span class="mf">-E</span><span class="kc">n</span><span class="err">codi</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;gzip</span><span class="p">,</span><span class="w"> </span><span class="err">de</span><span class="kc">flate</span><span class="p">,</span><span class="w"> </span><span class="err">br&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;Accep</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;*/*&#39;,</span>
+<span class="err"> &#39;Connection&#39;: &#39;keep-alive&#39;}</span>
+</pre></div>
+</div>
+<p>added automatically by <em>Requests</em> are sufficient. However, similarly to parameters, we can pass <a class="reference external" href="https://requests.readthedocs.io/en/latest/user/quickstart/#custom-headers">custom headers</a> to the <em>get</em> function as an argument.</p>
+<p>This is useful when, for example, the API has restricted access and requires a user ID and/or password as a part of the headers.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="err">&#39;User</span><span class="mi">-</span><span class="err">Age</span><span class="kc">nt</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span><span class="mi">-</span><span class="err">reques</span><span class="kc">ts</span><span class="err">/</span><span class="mf">2.28.1</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;Accep</span><span class="kc">t</span><span class="mf">-E</span><span class="kc">n</span><span class="err">codi</span><span class="kc">n</span><span class="err">g&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;gzip</span><span class="p">,</span><span class="w"> </span><span class="err">de</span><span class="kc">flate</span><span class="p">,</span><span class="w"> </span><span class="err">br&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;Accep</span><span class="kc">t</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;*/*&#39;,</span>
+<span class="err"> &#39;Connection&#39;: &#39;keep-alive&#39;,</span>
+<span class="err"> &#39;example-user-id&#39; : &#39;example-password&#39;}</span>
+</pre></div>
+</div>
+<p>For examples of APIs using this type of authentication, see</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://api.imgur.com/oauth2">Imgur API</a></p></li>
+</ul>
+<p>For more on authentication, see also <a class="reference external" href="https://requests.readthedocs.io/en/latest/user/authentication/"><em>Requests</em> documentation</a>.</p>
+</section>
+<section id="exercises-3">
+<h2>Exercises 3<a class="headerlink" href="#exercises-3" title="Link to this heading"></a></h2>
+<div class="admonition-exercise-webapis-3-scrape-links-from-a-webpage-advanced exercise important admonition" id="exercise-2">
+<p class="admonition-title">Exercise WebAPIs-3: Scrape links from a webpage (Advanced)</p>
+<p>Let’s use <em>Requests</em> to get the HTML source code of www.example.com, examine it, and use the <a class="reference external" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">Beautiful Soup</a> library to extract links from it.  <strong>Note:</strong> This requires the extra <code class="docutils literal notranslate"><span class="pre">bs4</span></code> Python package to be installed, which was not in our initial requirements.  Consider this a demo.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import module</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># Define webpage to scrape</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.example.com/&quot;</span>
+
+<span class="c1"># Make a request for the URL</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># Examine the response</span>
+<span class="n">display</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Looks like HTML :) Let&#39;s access it using the text attribute</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import beautiful soup module</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="c1"># Create soup</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract page title from the HTML</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found title: </span><span class="si">{</span><span class="n">soup</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract links (hrefs) from the HTML</span>
+<span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found link: </span><span class="si">{</span><span class="n">link</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract all text from the HTML</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found text: </span><span class="si">{</span><span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="after-exercises-saving-retrieved-data-to-disk">
+<h2>After exercises: Saving retrieved data to disk<a class="headerlink" href="#after-exercises-saving-retrieved-data-to-disk" title="Link to this heading"></a></h2>
+<p>Usually, we want to save the retrieved data to disk for later use. For example, we might collect data for one year and later analyze it for a longitudinal study.</p>
+<p>To save the retrieved JSON objects to disk, it is practical to use the JSONLINES file format. The JSONLINES format contains a single valid JSON object on each line. This is preferable to saving each object as its own file since we don’t, in general, want to end up with excessive amounts of individual files (say, hundreds of thousands or millions).</p>
+<p>For example, let’s retrieve three cat facts and save them to a JSONLINES file using the <a class="reference external" href="https://jsonlines.readthedocs.io/en/latest/">jsonlines library</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jsonlines</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="c1"># URL</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://catfact.ninja/fact&#39;</span>
+
+<span class="c1"># Make three requests in loop and make a list of response JSON objects</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+
+    <span class="c1"># Logging</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Make request </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Make a request</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    
+    <span class="c1"># Decode to JSON</span>
+    <span class="n">response_json</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                
+    <span class="c1"># Open a jsonlines writer in &#39;append&#39; mode </span>
+    <span class="k">with</span> <span class="n">jsonlines</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;catfacts.jsonl&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+
+        <span class="c1"># Write</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response_json</span><span class="p">)</span>
+        
+    <span class="c1"># Sleep for one second between requests</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can then read the objects from the disk using the same library.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open a jsonlines reader</span>
+<span class="k">with</span> <span class="n">jsonlines</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;catfacts.jsonl&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
+    
+    <span class="c1"># Read and display</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="wrap-up">
+<h2>Wrap-up<a class="headerlink" href="#wrap-up" title="Link to this heading"></a></h2>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Requests is a common tool</p></li>
+<li><p>Web APIs may often require some trial and error, but actually getting data is usually not that difficult</p></li>
+<li><p>Storing all the data and processing it well can be a much larger issue.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../packaging/" class="btn btn-neutral float-left" title="Packaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../cython/" class="btn btn-neutral float-right" title="Extending Python with Cython" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

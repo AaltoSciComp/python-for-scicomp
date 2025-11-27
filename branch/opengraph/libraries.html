@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Library ecosystem" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="libraries.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="You can’t do everything yourself. In fact, once we heard a quote such as this: When you are a student, you are expected to do everything yourself, and that is how you are evaluated. When you become..." />
+<meta name="description" content="You can’t do everything yourself. In fact, once we heard a quote such as this: When you are a student, you are expected to do everything yourself, and that is how you are evaluated. When you become..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library ecosystem &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Parallel programming" href="parallel.html" />
+    <link rel="prev" title="SciPy" href="scipy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-advanced.html">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scipy.html">SciPy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Library ecosystem</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-python-scipy-ecosystem">The Python/SciPy ecosystem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#core-numerics-libraries">Core numerics libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plotting">Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-analysis-and-other-important-core-packages">Data analysis and other important core packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interactive-computing-and-human-interface">Interactive computing and human interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#speeding-up-code-and-parallelism">Speeding up code and parallelism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#machine-learning">Machine learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#connecting-python-to-other-languages">Connecting Python to other languages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tools-for-interfacing-with-other-languages">Tools for interfacing with other languages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluating-python-packages-for-reuse">Evaluating Python packages for reuse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#is-your-work-reuseable">Is your work reuseable?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-next">What’s next?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder.html">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Library ecosystem</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/libraries.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="library-ecosystem">
+<h1>Library ecosystem<a class="headerlink" href="#library-ecosystem" title="Permalink to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What happens when you need some method Beyond what we discuss in this course, what is available?</p></li>
+<li><p>How do you decide what to build on for your work?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Know of some other available packages, but don’t necessarily know
+how to use them.</p></li>
+<li><p>Be able to evaluate what you should reuse and what you should
+develop yourself.</p></li>
+</ul>
+</div>
+<p>You can’t do everything yourself.  In fact, once we heard a quote such
+as this:</p>
+<blockquote>
+<div><p>When you are a student, you are expected to do everything
+yourself, and that is how you are evaluated.  When you become a
+researcher, you <em>have</em> to be able to reuse what others have done.
+We don’t have much practice in doing this.
+– A student</p>
+</div></blockquote>
+<p>In this lesson, we’ll talk about the broader ecosystem in Python: all
+the resources you have available to you.  Perhaps we can even classify
+this into two types:</p>
+<ul class="simple">
+<li><p>Well-maintained libraries that are used by many others.</p></li>
+<li><p>A wide variety of public code that might work but isn’t necessarily
+well-maintained (for example, code from articles).</p></li>
+</ul>
+<p>We’ll start with the first then go to the second.</p>
+<section id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>Library</dt><dd><p>A collection of code used by a program.</p>
+</dd>
+<dt>Package</dt><dd><p>A library that has been made easily installable and reusable.
+Often published on public repositories such as the <a class="reference external" href="https://pypi.python.org">Python Package
+Index</a></p>
+</dd>
+<dt>Dependency</dt><dd><p>A requirement of another program, not included in that program.</p>
+</dd>
+</dl>
+</section>
+<section id="the-python-scipy-ecosystem">
+<h2>The Python/SciPy ecosystem<a class="headerlink" href="#the-python-scipy-ecosystem" title="Permalink to this heading"></a></h2>
+<p>This section is nothing more than a tour of what exists in Python.
+You aren’t expected to particularly remember any of these right now,
+but searching for these repositories is a starting point of a lot of
+future work.</p>
+<p>The “core” packages <a class="reference external" href="https://www.scipy.org/about.html">could be considered</a>.  Many other packages build on
+these, and others that try to do similar things often try to conform
+to their interfaces (especially numpy):</p>
+<ul class="simple">
+<li><p>Python</p></li>
+<li><p>Numpy - arrays, everything builds on this</p></li>
+<li><p>Scipy - scientific functions (not necessarily a lot builds on this)</p></li>
+<li><p>matplotlib - plotting, many other plotting tools build on this</p></li>
+<li><p>pandas - data structures</p></li>
+<li><p>IPython / Jupyter: interactive work</p></li>
+</ul>
+<section id="core-numerics-libraries">
+<h3>Core numerics libraries<a class="headerlink" href="#core-numerics-libraries" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/">numpy</a> - arrays and array math.</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/">scipy</a> - software
+for math, science, and engineering.</p></li>
+</ul>
+</section>
+<section id="plotting">
+<h3>Plotting<a class="headerlink" href="#plotting" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/">matplotlib</a> - base plotting package,
+somewhat low level but almost everything builds on it.</p></li>
+<li><p><a class="reference external" href="https://seaborn.pydata.org/">seaborn</a> - higher level plotting
+interface; statistical graphics.</p></li>
+<li><p><a class="reference external" href="https://docs.enthought.com/mayavi/mayavi/">mayavi</a> - 3D plotting</p></li>
+<li><p><a class="reference external" href="https://python-pillow.org/">PIL</a> - image manipulation.  The
+original PIL is no longer maintained, the new “Pillow” is a drop-in
+replacement.</p></li>
+</ul>
+</section>
+<section id="data-analysis-and-other-important-core-packages">
+<h3>Data analysis and other important core packages<a class="headerlink" href="#data-analysis-and-other-important-core-packages" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/">pandas</a> - columnar
+data analysis</p></li>
+<li><p><a class="reference external" href="https://www.statsmodels.org/stable/">statsmodels</a> - just what it says</p></li>
+<li><p><a class="reference external" href="https://www.sympy.org/">SymPy</a> - symbolic math</p></li>
+<li><p><a class="reference external" href="https://networkx.github.io/">networkx</a> - graph and network analysis</p></li>
+<li><p><a class="reference external" href="https://www.h5py.org/">h5py</a> and <a class="reference external" href="https://www.pytables.org/">PyTables</a> - interfaces to
+the <a class="reference external" href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format">HDF5</a> on-disk file format</p></li>
+<li><p><a class="reference external" href="https://dateutil.readthedocs.io/">dateutil</a> and <a class="reference external" href="https://pythonhosted.org/pytz/">pytz</a> - date arithmetic and handling,
+timezone database and conversion</p></li>
+</ul>
+</section>
+<section id="interactive-computing-and-human-interface">
+<h3>Interactive computing and human interface<a class="headerlink" href="#interactive-computing-and-human-interface" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Interactive computing</p>
+<ul>
+<li><p><a class="reference external" href="http://ipython.org/">IPython</a> - nicer interactive interpreter</p></li>
+<li><p><a class="reference external" href="http://jupyter.org/">Jupyter</a> (notebook, lab, hub, …) -
+web-based interface to IPython and other languages</p></li>
+</ul>
+</li>
+<li><p>Testing</p>
+<ul>
+<li><p><a class="reference external" href="https://docs.pytest.org/">pytest</a> - automated testing interface</p></li>
+</ul>
+</li>
+<li><p>Documentation</p>
+<ul>
+<li><p><a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> - documentation generator
+(also used for this lesson…)</p></li>
+</ul>
+</li>
+<li><p>Development environments</p>
+<ul>
+<li><p><a class="reference external" href="https://www.spyder-ide.org/">Spyder</a> - interactive Python
+development environment.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://mybinder.org/">Binder</a> - load any git repository in
+Jupyter automatically, good for reproducible research</p></li>
+</ul>
+</section>
+<section id="speeding-up-code-and-parallelism">
+<h3>Speeding up code and parallelism<a class="headerlink" href="#speeding-up-code-and-parallelism" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sourceforge.net/projects/pympi/">PyMPI</a> - Message
+Passing Interface (MPI) in Python for parallelizing jobs.</p></li>
+<li><p><a class="reference external" href="http://cython.org/">cython</a> - easily make C extensions for
+Python, also interface to C libraries</p></li>
+<li><p><a class="reference external" href="https://numba.pydata.org/">numba</a> - just in time compiling of
+functions for speed-up</p></li>
+<li><p><a class="reference external" href="https://www.pypy.org/">PyPy</a> - Python written in Python so that
+it can internally optimize more.</p></li>
+<li><p><a class="reference external" href="https://dask.org/">Dask</a> - distributed array data structure for
+distributed computation</p></li>
+<li><p><a class="reference external" href="https://joblib.readthedocs.io/">Joblib</a> - easy embarrassingly
+parallel computing</p></li>
+<li><p><a class="reference external" href="https://ipyparallel.readthedocs.io/">IPyParallel</a> - easy
+parallel task engine</p></li>
+<li><p><a class="reference external" href="https://numexpr.readthedocs.io/">numexpr</a> - Fast evaluation of
+array expressions by automatically compiling the arithmetic.</p></li>
+</ul>
+</section>
+<section id="machine-learning">
+<h3>Machine learning<a class="headerlink" href="#machine-learning" title="Permalink to this heading"></a></h3>
+<p>If you need some machine learning, you probably already know what you
+need and this list is short and irrelevant.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.tensorflow.org/">tensorflow</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/">pytorch</a></p></li>
+<li><p><a class="reference external" href="https://www.nltk.org/">nltk</a> - natural language processing</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/">scikit-learn</a> - simple tools for
+predictive data analysis</p></li>
+</ul>
+</section>
+</section>
+<section id="connecting-python-to-other-languages">
+<h2>Connecting Python to other languages<a class="headerlink" href="#connecting-python-to-other-languages" title="Permalink to this heading"></a></h2>
+<p>As we discussed with Scipy, very many of the above packages aren’t
+written in Python: they are written in some other language and have a
+Python interface.  Python is written in C, and thus has great C
+interfaces.  This contributes to two things:</p>
+<ul class="simple">
+<li><p><strong>Extending Python</strong> by writing your own modules in C.</p>
+<ul>
+<li><p>It’s actually common to first have (or write) an analysis package
+in C or C++, then make the Python interface.  Then it can be
+supported by other languages, too.</p></li>
+<li><p>Or one starts an analysis package in Python, and slowly moves bits
+of it to C over time as there is need.</p></li>
+</ul>
+</li>
+<li><p><strong>Embedding Python</strong>, where you have another primary application
+that uses Python under the hood as an internal scripting language.</p></li>
+</ul>
+<p>These features aren’t exactly unique to Python, but Python does
+support them very well.  Read more: <a class="reference external" href="https://docs.python.org/extending/index.html">Extending and embedding Python</a>.</p>
+<section id="tools-for-interfacing-with-other-languages">
+<h3>Tools for interfacing with other languages<a class="headerlink" href="#tools-for-interfacing-with-other-languages" title="Permalink to this heading"></a></h3>
+<p>These days, one rarely directly extends the Python interpreter, but uses</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cffi.readthedocs.io/">cffi</a> and <a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a> - interface to C
+and compatible libraries</p></li>
+<li><p><a class="reference external" href="https://cython.org/">cython</a> - easily make C extensions for
+Python, also interface to C libraries</p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/f2py/">f2py</a> - interface to Fortran
+code</p></li>
+<li><p><a class="reference external" href="http://swig.org/">swig</a> - connect to a variety of programming languages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Boost.python</span></code> - Another Python/C++ interface</p></li>
+<li><p>TODO: Julia modules for Python?</p></li>
+</ul>
+</section>
+</section>
+<section id="evaluating-python-packages-for-reuse">
+<h2>Evaluating Python packages for reuse<a class="headerlink" href="#evaluating-python-packages-for-reuse" title="Permalink to this heading"></a></h2>
+<p>Above, we talked about well-maintained mainstream packages.  <strong>Do you
+trust random code you find online (for example included in a paper)?</strong></p>
+<p>Especially consider scientific results, which <em>have</em> to be correct.
+Still, you also <em>can’t</em> build everything yourself, so you have to
+carefully evaluate the situation.</p>
+<p>Below are some things to consider:</p>
+<ul class="simple">
+<li><p>Are there releases?  Have they been going on for a while?</p></li>
+<li><p>Are releases installable without copy-paste?</p></li>
+<li><p>Are dependencies handled well?</p></li>
+<li><p>Does the code randomly change, so that it no longer works with your
+code.  Is this relevant?</p></li>
+<li><p>Is there good documentation, that not just tells how to use it but
+how it works?</p></li>
+<li><p>Is there automated testing?  What’s your evaluation of the risk of
+undetectable scientific errors?</p></li>
+<li><p>Is there a community, or is it one person?  Is it backed by some
+organization?  Does it have a permanent home?</p></li>
+<li><p>Is it is a public hosting site (GitLab, GitHub, Bitbucket, etc)
+where a community <em>could</em> form?</p></li>
+<li><p>Do others post issues and make contributions?  Are these issues
+dealt with in a timely manner?  Can you search past bug reports?</p></li>
+<li><p>Is the software citeable?</p></li>
+</ul>
+</section>
+<section id="is-your-work-reuseable">
+<h2>Is your work reuseable?<a class="headerlink" href="#is-your-work-reuseable" title="Permalink to this heading"></a></h2>
+<p>Every small project you do contributes a little bit to the Python and
+SciPy ecosystem.  This course has sort of started you on that path,
+and a <a class="reference external" href="https://coderefinery.org">CodeRefinery workshop</a> will make
+sure you have the tools to produce high-quality, reusable code.</p>
+</section>
+<section id="what-s-next">
+<h2>What’s next?<a class="headerlink" href="#what-s-next" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://coderefinery.org">CodeRefinery workshop</a> mentioned
+above will prepare you for others to reuse your code and for you to
+contribute to other code.</p></li>
+<li><p>The upcoming <a class="reference internal" href="dependencies.html"><span class="doc">Dependency management</span></a> lesson will teach you how to
+record and manage dependencies so that anyone can seamlessly reuse
+your code.</p></li>
+</ul>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading"></a></h2>
+<div class="admonition-libraries-1-1-libraries-in-your-work exercise important admonition" id="exercise-0">
+<p class="admonition-title">Libraries 1.1: Libraries in your work</p>
+<p>What libraries do you use in your work?  What have you made, which
+you could have reused from some other source.  What have you used
+from some other source that you wished you had re-created?</p>
+<p>Discuss in your groups or HackMD.</p>
+</div>
+<div class="admonition-libraries-1-1 solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Libraries 1.1</p>
+<p>… is there anything to say here?</p>
+</div>
+<div class="admonition-libraries-1-2-evaluating-packages exercise important admonition" id="exercise-1">
+<p class="admonition-title">Libraries 1.2: Evaluating packages</p>
+<p>Below are some links to some packages, both public and made by the
+authors of this lesson.  Evaluate them, considering “would I use
+this in my project?”</p>
+<ol class="loweralpha simple">
+<li><p><a class="reference external" href="https://github.com/networkx/networkx/">https://github.com/networkx/networkx/</a></p></li>
+<li><p>some code on webpage in a paper’s footnote</p></li>
+<li><p><a class="reference external" href="https://github.com/rkdarst/pcd">https://github.com/rkdarst/pcd</a></p></li>
+<li><p><a class="reference external" href="https://github.com/dftlibs/numgrid">https://github.com/dftlibs/numgrid</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rkdarst/dynbench">https://github.com/rkdarst/dynbench</a></p></li>
+<li><p><a class="reference external" href="https://vpython.org/">https://vpython.org/</a></p></li>
+</ol>
+</div>
+<div class="admonition-libraries-1-2 solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Libraries 1.2</p>
+<ol class="loweralpha simple">
+<li><p>networkx: This seems to be a relatively large, active project
+using best practices.  Probably usable.</p></li>
+<li><p>I would probably use it if I had to, but would prefer not to.</p></li>
+<li><p>This (written by one of the authors of this lesson) has no
+documenting, no community, no best practices, and is very old.
+Probably not a good idea to try to use it</p></li>
+<li><p>This project uses best practices, but doesn’t seem to have a big
+community.  It’s probably fine to use, but who knows if it will
+be maintained 10 years from now.  It does have automated tests
+via Github Actions (<code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code> and the green checks),
+so the authors have put some work into making it correct.</p></li>
+<li><p>This (also written by one of the authors) looks like it was made
+for a paper of some sort.  It has some minimal documentation,
+but still is missing many best practices and is clearly not
+maintained anymore (look at the ancient pull request).  Probably
+not a good idea to use unless you have to.</p></li>
+<li><p>This project has a pretty website, and some information.  But
+seems to not be using best practices of an open repository, and
+custom locations which could disappear at any time.</p></li>
+</ol>
+<p>You notice that several of the older projects here were written by
+one of the authors of this lesson.  It goes to show that everyone
+starts somewhere and improves over time - don’t feel bad if your
+work isn’t perfect, as long as you keep trying to get better!</p>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.scipy.org/topical-software.html">Topical Software in the SciPy ecosystem</a> - relatively
+detailed (but not comprehensive) list of projects</p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Almost everything you need can already be found, except your
+incremental work.</p></li>
+<li><p>When do you build on that other work, and when do you create
+things yourself?</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scipy.html" class="btn btn-neutral float-left" title="SciPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="parallel.html" class="btn btn-neutral float-right" title="Parallel programming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

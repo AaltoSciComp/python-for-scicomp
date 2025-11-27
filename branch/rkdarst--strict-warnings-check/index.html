@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python for Scientific Computing &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+  <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="#" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/togglebutton.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex/" />
+    <link rel="search" title="Search" href="search/" />
+    <link rel="next" title="Introduction to Python" href="python/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Python for Scientific Computing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/index.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-for-scientific-computing">
+<h1>Python for Scientific Computing<a class="headerlink" href="#python-for-scientific-computing" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-attending-the-course-14-23-sep admonition">
+<p class="admonition-title">Attending the course 14-23.sep?</p>
+<p><a class="reference external" href="https://scicomp.aalto.fi/training/scip/python-for-scicomp/">See the course page here</a>,
+below is the course material.</p>
+</div>
+<p>Python is a modern, object-oriented programming language, which has
+become popular in several areas of software development. This course
+discusses how Python can be utilized in scientific computing. The
+course starts by introducing the main Python package for numerical
+computing, NumPy, and discusses then SciPy toolbox for various
+scientific computing tasks as well as visualization with the
+Matplotlib package.  In addition, it talks about <em>how</em> python is used:
+related scientific libraries, reproducibility, and the broader
+ecosystem of science in Python.</p>
+<p>This course (like any course) can’t teach you Python… it can show
+your some examples, let you see how experts do things, and prepare you
+to learn yourself as you need to.</p>
+<div class="admonition-prerequisites prereq admonition" id="prerequisites">
+<p class="admonition-title">Prerequisites</p>
+<ul class="simple">
+<li><p>Knowing basic Python syntax.  We assume that you can do some
+Python programming, but not much more that that.  We don’t cover
+standard Python programming.</p></li>
+<li><p>Watch or read the <a class="reference external" href="https://scicomp.aalto.fi/scicomp/shell/">command line crash course</a>, if you aren’t
+familiar.</p></li>
+<li><p>You should be able to use a text editor to edit files some.</p></li>
+<li><p>The <a class="reference internal" href="installation/"><span class="doc">software installation</span></a> described below
+(basically, anaconda).</p></li>
+</ul>
+<p>These are not prerequisites:</p>
+<ul class="simple">
+<li><p>Any external libraries, e.g. numpy</p></li>
+<li><p>Knowing how to make scripts or use Jupyter</p></li>
+</ul>
+</div>
+<table class="colwidths-auto docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>(prereq)</p></td>
+<td><p><a class="reference internal" href="python/"><span class="doc">Introduction to Python</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>30 min</p></td>
+<td><p><a class="reference internal" href="jupyter/"><span class="doc">Jupyter</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>60 min</p></td>
+<td><p><a class="reference internal" href="numpy/"><span class="doc">NumPy</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>60 min</p></td>
+<td><p><a class="reference internal" href="data-visualization/"><span class="doc">Data visualization with Matplotlib</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>60 min</p></td>
+<td><p><a class="reference internal" href="scripts/"><span class="doc">Scripts</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>30 min</p></td>
+<td><p><a class="reference internal" href="dependencies/"><span class="doc">Dependency management</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>15 min</p></td>
+<td><p><a class="reference internal" href="scipy/"><span class="doc">SciPy</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>60 min</p></td>
+<td><p><a class="reference internal" href="pandas/"><span class="doc">Pandas</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>45 min</p></td>
+<td><p><a class="reference internal" href="parallel/"><span class="doc">Parallel programming</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>30 min</p></td>
+<td><p><a class="reference internal" href="libraries/"><span class="doc">Library ecosystem</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>60 min</p></td>
+<td><p><a class="reference internal" href="packaging/"><span class="doc">Packaging</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>30 min</p></td>
+<td><p><a class="reference internal" href="binder/"><span class="doc">Binder</span></a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide/">Instructor’s guide</a></li>
+</ul>
+</div>
+<div class="section" id="who-is-the-course-for">
+<span id="learner-personas"></span><h2>Who is the course for?<a class="headerlink" href="#who-is-the-course-for" title="Permalink to this headline">¶</a></h2>
+<p>The course is targeted towards these learner personas:</p>
+<ul class="simple">
+<li><p>A is a early career PhD researcher who has been using Python a bit,
+but is not sure what they know or don’t know.  They want to be able
+to do their research more efficiently and make sure that they are
+using the right tools.  A may know that numpy exists, etc. and could
+theoretically read some about it themselves, but aren’t sure if they
+are going in the right direction.</p></li>
+<li><p>A2 can use numpy and pandas, but have learned little bits here and
+there and hasn’t had a comprehensive introduction.  They want to
+ensure they are using best practices.  (Baseline of high-level
+packages)</p></li>
+<li><p>B is a mid-to-late undergraduate student who has used Python in some
+classes.  They have possibly learned the syntax and enough to use it
+in courses, but in a course-like manner where they are expected to
+create everything themselves.</p></li>
+</ul>
+</div>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-python">
+<h3>Why Python<a class="headerlink" href="#why-python" title="Permalink to this headline">¶</a></h3>
+<p>Python has become popular, largely due to good reasons. It’s very easy
+to get started, there’s lots of educational material, a huge amount of
+libraries for doing everything imaginable.  Particularly in the
+scientific computing space, there is the Numpy, Scipy, and matplotlib
+libraries which form the basis of almost everything.  Numpy and Scipy
+are excellent examples of using Python as a glue language, meaning to
+glue together battle-tested and well performing code and present them
+with an easy to use interface.  Also machine learning and deep
+learning frameworks have embraced python as the glue language of
+choice.  And finally, Python is open source, meaning that anybody can
+download and install it on their computer, without having to bother
+with acquiring a license or such.  This makes it easier to distribute
+your code e.g. to collaborators in different universities.</p>
+</div>
+<div class="section" id="why-not-python-for-scientific-computing">
+<h3>Why not Python for Scientific Computing<a class="headerlink" href="#why-not-python-for-scientific-computing" title="Permalink to this headline">¶</a></h3>
+<p>While Python is extremely popular in scientific computing today, there
+are certainly things better left to other tools.</p>
+<ul class="simple">
+<li><p>Implementing performance-critical kernels.  Python is a <strong>very</strong>
+slow language, which often doesn’t matter if you can offload the
+heavy lifting to fast compiled code, e.g. by using Numpy array
+operations.  But if what you’re trying to do isn’t <em>vectorizable</em>
+then you’re out of luck.  An alternative to Python, albeit much less
+mature and with a smaller ecosystem, but which provides very fast
+generated code, is <em>Julia</em>.</p></li>
+<li><p>Creating libraries that can be called from other languages.  In this
+case you’ll often want to create a library with a C interface, which
+can then be called from most languages.  Suitable languages for this
+sort of task, depending on what you are doing, could be Rust, C,
+C++, or Fortran.</p></li>
+<li><p>You really like static typing, or functional programming
+approaches. <em>Haskell</em> might be what you’re looking for.</p></li>
+</ul>
+</div>
+<div class="section" id="python-2-vs-python-3">
+<h3>Python 2 vs Python 3<a class="headerlink" href="#python-2-vs-python-3" title="Permalink to this headline">¶</a></h3>
+<p>There are two slightly incompatible versions of Python being used
+today, 2 and 3.  Most large projects have supported 3 for a long time
+already, and have announced dropping Python 2 support for future
+versions (or have already done so), so at this point you should use
+version 3 unless you’re working on an existing project that for some
+reason hasn’t yet been ported to version 3.  Accordingly, in this
+course we will use Python 3. For more info, see <a class="reference external" href="https://python3statement.org/">Python 3
+statement</a> by many other the major
+projects.</p>
+</div>
+</div>
+<div class="section" id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<p>This course was originally designed by Janne Blomqvist.</p>
+<p>In 2020 it was completely redesigned by a team of the following:</p>
+<ul class="simple">
+<li><p>Authors: Radovan Bast, Richard Darst, Anne Fouilloux, …</p></li>
+<li><p>Editor:</p></li>
+<li><p>Testers and advisors: Enrico Glerean</p></li>
+</ul>
+<p>We follow The Carpentries Code of Conduct: <a class="reference external" href="https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html">https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python/" class="btn btn-neutral float-right" title="Introduction to Python" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Productivity tools" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/productivity/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Linters and formatters: Linter: Tool that analyzes source code to detect potential errors, unused imports, unused variables, code style violations, and to improve readability. Popular linters:- Aut..." />
+<meta name="description" content="Linters and formatters: Linter: Tool that analyzes source code to detect potential errors, unused imports, unused variables, code style violations, and to improve readability. Popular linters:- Aut..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productivity tools &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="SciPy" href="../scipy/" />
+    <link rel="prev" title="Profiling" href="../profiling/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/">Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work-with-data/">Working with Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiling/">Profiling</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Productivity tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linters-and-formatters">Linters and formatters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#type-checking">Type checking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-editors">Integration with editors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-jupyter-notebooks">Integration with Jupyter notebooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-version-control">Integration with version control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ai-assisted-coding">AI-assisted coding</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cython/">Extending Python with Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">In depth analysis of some selected file formats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Productivity tools</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/productivity.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="productivity-tools">
+<h1>Productivity tools<a class="headerlink" href="#productivity-tools" title="Link to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Know about tools that can help you <strong>spot code problems</strong> and help you following
+a <strong>consistent code style</strong> without you having to do it manually.</p></li>
+<li><p>Get an overview of <strong>AI-based tools</strong> and how they can help you
+writing code.</p></li>
+</ul>
+</div>
+<div class="admonition-instructor-note instructor-note admonition" id="instructor-note-0">
+<p class="admonition-title">Instructor note</p>
+<ul class="simple">
+<li><p>Demo/discussion: 20 min</p></li>
+</ul>
+</div>
+<section id="linters-and-formatters">
+<h2>Linters and formatters<a class="headerlink" href="#linters-and-formatters" title="Link to this heading"></a></h2>
+<p><strong>Linter</strong>: Tool that analyzes source code to detect potential errors, unused
+imports, unused variables, code style violations, and to improve readability.</p>
+<ul class="simple">
+<li><p>Popular linters:</p>
+<ul>
+<li><p><a class="reference external" href="https://pypi.org/project/autoflake/">Autoflake</a></p></li>
+<li><p><a class="reference external" href="https://flake8.pycqa.org/">Flake8</a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/pyflakes/">Pyflakes</a></p></li>
+<li><p><a class="reference external" href="https://pycodestyle.pycqa.org/">Pycodestyle</a></p></li>
+<li><p><a class="reference external" href="https://pylint.readthedocs.io/">Pylint</a></p></li>
+<li><p><a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Formatter</strong>: Tool that automatically formats your code to a consistent style,
+for instance following <a class="reference external" href="https://peps.python.org/pep-0008/">PEP 8</a>.</p>
+<ul class="simple">
+<li><p>Popular formatters:</p>
+<ul>
+<li><p><a class="reference external" href="https://black.readthedocs.io/">Black</a></p></li>
+<li><p><a class="reference external" href="https://github.com/google/yapf">YAPF</a></p></li>
+<li><p><a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a></p></li>
+</ul>
+</li>
+</ul>
+<p>In this course we will focus on <a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a> since it
+can do <strong>both checking and formatting</strong> and you don’t have to switch between
+multiple tools.</p>
+<div class="admonition-linters-and-formatters-can-be-configured-to-your-liking discussion important admonition" id="discussion-0">
+<p class="admonition-title">Linters and formatters can be configured to your liking</p>
+<p>These tools typically have good defaults. But if you don’t like the defaults,
+you can configure what they should ignore or how they should format or not format.</p>
+</div>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<p>This code example (which we possibly recognize from the previous section about
+<a class="reference external" href="https://docs.python.org/3/c-api/init.html#profiling" title="(in Python v3.14)"><span>Profiling and Tracing</span></a>)
+has few problems (highlighted):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_unique_words</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">unique_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="hll">    <span class="n">forgotten_variable</span> <span class="o">=</span> <span class="mi">13</span>
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+<span class="hll">            <span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
+</span>            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+                <span class="n">unique_words</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_words</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Please try whether you can locate these problems using Ruff:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ruff<span class="w"> </span>check
+</pre></div>
+</div>
+<p>Next, let us try to auto-format a code example which is badly formatted and also difficult
+to read:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Badly formatted</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Auto-formatted</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="k">def</span><span class="w">  </span><span class="nf">count_unique_words</span> <span class="p">(</span><span class="n">file_path</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span><span class="p">:</span>
+  <span class="n">unique_words</span><span class="o">=</span><span class="nb">set</span><span class="p">()</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+      <span class="n">words</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b&quot;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+      <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+        <span class="n">unique_words</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nb">len</span><span class="p">(</span>   <span class="n">unique_words</span>   <span class="p">)</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_unique_words</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">unique_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+                <span class="n">unique_words</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_words</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This was done using:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ruff<span class="w"> </span>format
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="type-checking">
+<h2>Type checking<a class="headerlink" href="#type-checking" title="Link to this heading"></a></h2>
+<p>A (static) type checker is a tool that checks whether the types of variables in your
+code match the types that you have specified.</p>
+<ul class="simple">
+<li><p>Tools:</p>
+<ul>
+<li><p><a class="reference external" href="https://mypy.readthedocs.io/">Mypy</a></p></li>
+<li><p><a class="reference external" href="https://github.com/microsoft/pyright">Pyright</a> (Microsoft)</p></li>
+<li><p><a class="reference external" href="https://pyre-check.org/">Pyre</a> (Meta)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="integration-with-editors">
+<h2>Integration with editors<a class="headerlink" href="#integration-with-editors" title="Link to this heading"></a></h2>
+<p>Many/most of the above tools can be integrated with your editor.  For instance,
+you can configure your editor to automatically format your code when you save
+the file. However, this only makes sense when all team members agree to follow
+the same style, otherwise saving and possibly committing changes to version
+control will show up changes to code written by others which you possibly
+didn’t intend to make.</p>
+</section>
+<section id="integration-with-jupyter-notebooks">
+<h2>Integration with Jupyter notebooks<a class="headerlink" href="#integration-with-jupyter-notebooks" title="Link to this heading"></a></h2>
+<p>It is possible to automatically format your code in Jupyter notebooks!
+For this to work you need
+the following three dependencies installed:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyterlab-code-formatter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">black</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">isort</span></code></p></li>
+</ul>
+<p>More information and a screen-cast of how this works can be found at
+<a class="reference external" href="https://jupyterlab-code-formatter.readthedocs.io/">https://jupyterlab-code-formatter.readthedocs.io/</a>.</p>
+</section>
+<section id="integration-with-version-control">
+<h2>Integration with version control<a class="headerlink" href="#integration-with-version-control" title="Link to this heading"></a></h2>
+<p>If you use version control and like to have your code checked or formatted
+<strong>before you commit the change</strong>, you can use tools like <a class="reference external" href="https://pre-commit.com/">pre-commit</a>.</p>
+</section>
+<section id="ai-assisted-coding">
+<h2>AI-assisted coding<a class="headerlink" href="#ai-assisted-coding" title="Link to this heading"></a></h2>
+<p>We can use AI as an assistant/apprentice:</p>
+<ul class="simple">
+<li><p>Code completion</p></li>
+<li><p>Write a test based on an implementation</p></li>
+<li><p>Write an implementation based on a test</p></li>
+</ul>
+<p>Or we can use AI as a mentor:</p>
+<ul class="simple">
+<li><p>Explain a concept</p></li>
+<li><p>Improve code</p></li>
+<li><p>Show a different (possibly better) way of implementing the same thing</p></li>
+</ul>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="../_images/chatgpt.png"><img alt="Screenshot of ChatGPT" src="../_images/chatgpt.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Example for using a chat-based AI tool.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="../_images/code-completion.gif"><img alt="Screen-cast of working with GitHub Copilot" src="../_images/code-completion.gif" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Example for using AI to complete code in an editor.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition-ai-tools-open-up-a-box-of-questions admonition">
+<p class="admonition-title">AI tools open up a box of questions</p>
+<ul class="simple">
+<li><p>Legal</p></li>
+<li><p>Ethical</p></li>
+<li><p>Privacy</p></li>
+<li><p>Lock-in/ monopolies</p></li>
+<li><p>Lack of diversity</p></li>
+<li><p>Will we still need to learn programming?</p></li>
+<li><p>How will it affect learning and teaching programming?</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../profiling/" class="btn btn-neutral float-left" title="Profiling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../scipy/" class="btn btn-neutral float-right" title="SciPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

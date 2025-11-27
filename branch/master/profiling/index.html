@@ -1,0 +1,670 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Profiling" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/profiling/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Should we even optimize the code?: Classic quote to keep in mind: “Premature optimization is the root of all evil.” [Donald Knuth] Humorous comic from xkcd that shows how long you can work on makin..." />
+<meta name="description" content="Should we even optimize the code?: Classic quote to keep in mind: “Premature optimization is the root of all evil.” [Donald Knuth] Humorous comic from xkcd that shows how long you can work on makin..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profiling &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Productivity tools" href="../productivity/" />
+    <link rel="prev" title="Scripts" href="../scripts/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/">Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work-with-data/">Working with Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Profiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#should-we-even-optimize-the-code">Should we even optimize the code?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-steps-of-optimization">Key steps of optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-profiling-to-measure-your-program">Using profiling to measure your program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simplest-profiling-timers">Simplest profiling: timers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#better-profiling-dedicated-profiling-tools">Better profiling: Dedicated profiling tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tracing-profilers-vs-sampling-profilers">Tracing profilers vs. sampling profilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example-profiling-case-throwing-darts-to-calculate-pi">Example profiling case: throwing darts to calculate pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#problem-description">Problem description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiling-the-example">Profiling the example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#naive-optimization-switching-to-numpy-functions">Naive optimization: switching to NumPy functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#actual-optimization-using-vectorization">Actual optimization: using vectorization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profiling-with-scalene">Profiling with scalene</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises">Exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-resources">Additional resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../productivity/">Productivity tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cython/">Extending Python with Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">In depth analysis of some selected file formats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Profiling</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/profiling.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="profiling">
+<h1>Profiling<a class="headerlink" href="#profiling" title="Link to this heading"></a></h1>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand when improving code performance is worth the time and effort.</p></li>
+<li><p>Knowing how to find performance bottlenecks in Python code.</p></li>
+<li><p>Try <code class="docutils literal notranslate"><span class="pre">scalene</span></code> as one of many tools to profile Python code.</p></li>
+</ul>
+</div>
+<div class="admonition-instructor-note instructor-note admonition" id="instructor-note-0">
+<p class="admonition-title">Instructor note</p>
+<ul class="simple">
+<li><p>Discussion: 20 min</p></li>
+<li><p>Exercise: 20 min</p></li>
+</ul>
+</div>
+<section id="should-we-even-optimize-the-code">
+<h2>Should we even optimize the code?<a class="headerlink" href="#should-we-even-optimize-the-code" title="Link to this heading"></a></h2>
+<p>Classic quote to keep in mind: “Premature optimization is the root of all evil.” [Donald Knuth]</p>
+<figure class="align-default" id="id1">
+<img alt="Humorous comic from xkcd that shows how long you can work on making a routine task more efficient before you're spending more time than you save?" src="https://imgs.xkcd.com/comics/is_it_worth_the_time.png" />
+<figcaption>
+<p><span class="caption-text">Figure 1: Is it worth the time? (<a class="reference external" href="https://xkcd.com/1205/">xkcd#1205</a>)</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<p>It is important to ask ourselves whether it is worth it.</p>
+<ul class="simple">
+<li><p>Is it worth spending e.g. 2 days to make a program run 20% faster?</p></li>
+<li><p>Is it worth optimizing the code so that it spends 90% less memory?</p></li>
+</ul>
+<p>Depends. What does it depend on?</p>
+</div>
+</section>
+<section id="key-steps-of-optimization">
+<h2>Key steps of optimization<a class="headerlink" href="#key-steps-of-optimization" title="Link to this heading"></a></h2>
+<p>When you encounter a situation that you think would benefit from optimization,
+follow these three steps:</p>
+<ol class="arabic">
+<li><p><strong>Measure:</strong> Before doing blind modifications you should figure out which
+part of the code is actually the problem.</p>
+<p>This is analogous to medical doctors doing lab tests and taking X-rays
+to determine the disease. They won’t start treatment without figuring out
+what is wrong with the patient.</p>
+</li>
+<li><p><strong>Diagnose:</strong> When you have found out the part of the code that is slow,
+you should determine why it is slow. Doing changes without knowing why the
+code is slow can be counter-productive. Remember that not all slow parts
+can be endlessly optimized: some parts of the code might take time because
+they do a lot of work.</p>
+<p>This step is analogous to doctor creating a specialized treatment
+program for a disease.</p>
+</li>
+<li><p><strong>Treat:</strong> When you have found out the slow part and figured what causes
+it to be slow, you can then try to fix it.</p>
+<p>This is analogous to doctor treating the disease with surgery or a
+prescription.</p>
+</li>
+</ol>
+</section>
+<section id="using-profiling-to-measure-your-program">
+<h2>Using profiling to measure your program<a class="headerlink" href="#using-profiling-to-measure-your-program" title="Link to this heading"></a></h2>
+<p>While diagnosing and treating depends heavily on the case at hand, the
+measurement part can be done with tools and tactics that show where the
+bottlenecks are. This is called <strong>profiling</strong>.</p>
+<p>Doing profiling is recommended for everyone. Even experienced programmers
+can be surprised by the results of profiling.</p>
+<div class="admonition-scale-matters-for-profiling discussion important admonition" id="discussion-1">
+<p class="admonition-title">Scale matters for profiling</p>
+<p>Sometimes we can configure the system size (for instance the time step in a simulation
+or the number of time steps or the matrix dimensions) to make the program finish sooner.</p>
+<p>For profiling, we should choose a system size that is <strong>representative of the real-world</strong>
+use case. If we profile a program with a small input size, we might not see the same
+bottlenecks as when running the program with a larger input size.</p>
+<p>Often, when we scale up the system size, or scale the number of processors, new bottlenecks
+might appear which we didn’t see before. This brings us back to: “measure instead of guessing”.</p>
+<p>At the same time adding more time steps or more iterations can mean that the
+program does the same things over and over again. Thus sometimes you can try to
+profile a program for a shorter time and then extrapolate the results for the
+case where you’re running for a longer time. When doing this be mindful to
+profile enough so that you can make proper extrapolations.</p>
+</div>
+</section>
+<section id="simplest-profiling-timers">
+<h2>Simplest profiling: timers<a class="headerlink" href="#simplest-profiling-timers" title="Link to this heading"></a></h2>
+<p>Simplest way of determining where the <strong>time-consuming parts</strong> are is to
+insert timers into your code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span>
+
+<span class="c1"># ...</span>
+<span class="c1"># code before the function</span>
+
+
+<span class="hll"><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span class="n">result</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
+<span class="hll"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;some_function took </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</span>
+
+<span class="c1"># code after the function</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>An alternative solution that also improves your code’s output is to
+use Python’s
+<a class="reference external" href="https://docs.python.org/3/library/logging.html">logging module</a> to log
+important breakpoints in your code. You can then check the timestamps of
+different log entries to see how long it took to execute a section
+of your code.</p>
+</section>
+<section id="better-profiling-dedicated-profiling-tools">
+<h2>Better profiling: Dedicated profiling tools<a class="headerlink" href="#better-profiling-dedicated-profiling-tools" title="Link to this heading"></a></h2>
+<p>There are plenty of dedicated profile tools that can be used to profile
+your code. These can measure the CPU time and memory utilization often on a
+line-by-line level.</p>
+<p>The list below here is probably not complete, but it gives an overview of the
+different tools available for profiling Python code.</p>
+<p><strong>CPU profilers:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/profile.html">cProfile and profile</a></p></li>
+<li><p><a class="reference external" href="https://kernprof.readthedocs.io/">line_profiler</a></p></li>
+<li><p><a class="reference external" href="https://github.com/benfred/py-spy">py-spy</a></p></li>
+<li><p><a class="reference external" href="https://github.com/sumerc/yappi">Yappi</a></p></li>
+<li><p><a class="reference external" href="https://pyinstrument.readthedocs.io/">pyinstrument</a></p></li>
+<li><p><a class="reference external" href="https://perfetto.dev/docs/analysis/trace-processor-python">Perfetto</a></p></li>
+</ul>
+<p><strong>Memory profilers:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.org/project/memory-profiler/">memory_profiler</a> (not actively maintained)</p></li>
+<li><p><a class="reference external" href="https://pympler.readthedocs.io/">Pympler</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/tracemalloc.html">tracemalloc</a></p></li>
+<li><p><a class="reference external" href="https://github.com/zhuyifei1999/guppy3/">guppy/heapy</a></p></li>
+</ul>
+<p><strong>CPU, memory and GPU:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/plasma-umass/scalene">Scalene</a></p></li>
+</ul>
+</section>
+<section id="tracing-profilers-vs-sampling-profilers">
+<h2>Tracing profilers vs. sampling profilers<a class="headerlink" href="#tracing-profilers-vs-sampling-profilers" title="Link to this heading"></a></h2>
+<p><strong>Tracing profilers</strong> record every function call and event in the program,
+logging the exact sequence and duration of events.</p>
+<ul class="simple">
+<li><p><strong>Pros:</strong></p>
+<ul>
+<li><p>Provides detailed information on the program’s execution.</p></li>
+<li><p>Deterministic: Captures exact call sequences and timings.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons:</strong></p>
+<ul>
+<li><p>Higher overhead, slowing down the program.</p></li>
+<li><p>Can generate larger amount of data.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Sampling profilers</strong> periodically samples the program’s state (where it is
+and how much memory is used), providing a statistical view of where time is
+spent.</p>
+<ul class="simple">
+<li><p><strong>Pros:</strong></p>
+<ul>
+<li><p>Lower overhead, as it doesn’t track every event.</p></li>
+<li><p>Scales better with larger programs.</p></li>
+</ul>
+</li>
+<li><p><strong>Cons:</strong></p>
+<ul>
+<li><p>Less precise, potentially missing infrequent or short calls.</p></li>
+<li><p>Provides an approximation rather than exact timing.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition-analogy-imagine-we-want-to-optimize-the-london-underground-subway-system discussion important admonition" id="discussion-2">
+<p class="admonition-title">Analogy: Imagine we want to optimize the London Underground (subway) system</p>
+<p>We wish to detect bottlenecks in the system to improve the service and for this we have
+asked few passengers to help us by tracking their journey.</p>
+<ul class="simple">
+<li><p><strong>Tracing</strong>: We follow every train and passenger, recording every stop
+and delay. When passengers enter and exit the train, we record the exact time
+and location.</p></li>
+<li><p><strong>Sampling</strong>: Every 5 minutes the phone notifies the passenger to note
+down their current location. We then use this information to estimate
+the most crowded stations and trains.</p></li>
+</ul>
+</div>
+</section>
+<section id="example-profiling-case-throwing-darts-to-calculate-pi">
+<h2>Example profiling case: throwing darts to calculate pi<a class="headerlink" href="#example-profiling-case-throwing-darts-to-calculate-pi" title="Link to this heading"></a></h2>
+<section id="problem-description">
+<h3>Problem description<a class="headerlink" href="#problem-description" title="Link to this heading"></a></h3>
+<p>In this example we’ll profile the following Python code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_pi</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hits</span> <span class="o">/</span> <span class="n">n_darts</span>
+    <span class="k">return</span> <span class="n">pi</span>
+</pre></div>
+</div>
+<p>This code implements a well known example of the Monte Carlo method, where by
+throwing darts at a dartboard we can calculate an approximation for pi.</p>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="../_images/dartboard.png"><img alt="Diagram that shows a unit circle inside a square with side length 1" src="../_images/dartboard.png" style="width: 50%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 2: The algorithm throws darts at a dartboard and estimates pi by calculating the ratio of hits to throws</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="profiling-the-example">
+<h3>Profiling the example<a class="headerlink" href="#profiling-the-example" title="Link to this heading"></a></h3>
+<p>Let’s run this with <code class="docutils literal notranslate"><span class="pre">%%time</span></code>-magic and ten million throws:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span>
+<span class="n">calculate_pi</span><span class="p">(</span><span class="mi">10_000_000</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">1.07 s ± 30.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)</span>
+</pre></div>
+</div>
+<p>We can then profile the code with either cProfile by using the <code class="docutils literal notranslate"><span class="pre">%%prun</span></code> magic.
+Here we tell the magic to sort the results by the total time used and to give us
+top 5 time users:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">prun</span> <span class="o">-</span><span class="n">s</span> <span class="n">tottime</span> <span class="o">-</span><span class="n">l</span> <span class="mi">5</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_pi</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hits</span> <span class="o">/</span> <span class="n">n_darts</span>
+    <span class="k">return</span> <span class="n">pi</span> 
+
+<span class="n">calculate_pi</span><span class="p">(</span><span class="mi">10_000_000</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">         30000742 function calls (30000736 primitive calls) in 4.608 seconds</span>
+
+<span class="go">   Ordered by: internal time</span>
+<span class="go">   List reduced from 150 to 5 due to restriction &lt;5&gt;</span>
+
+<span class="go">   ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span>
+<span class="go">        4    2.545    0.636    4.005    1.001 {built-in method time.sleep}</span>
+<span class="go"> 20000000    1.091    0.000    1.091    0.000 {method &#39;random&#39; of &#39;_random.Random&#39; objects}</span>
+<span class="go"> 10000000    0.571    0.000    0.571    0.000 {built-in method math.sqrt}</span>
+<span class="go">        3    0.172    0.057    0.270    0.090 {method &#39;poll&#39; of &#39;select.epoll&#39; objects}</span>
+<span class="go">        1    0.148    0.148    0.233    0.233 &lt;string&gt;:1(calculate_pi)</span>
+</pre></div>
+</div>
+<p>The output shows that most of the time is used by the <code class="docutils literal notranslate"><span class="pre">random.random</span></code> and
+<code class="docutils literal notranslate"><span class="pre">math.sqrt</span></code> function calls. Those functions are called in every iteration of the loop,
+so the profile makes sense.</p>
+</section>
+<section id="naive-optimization-switching-to-numpy-functions">
+<h3>Naive optimization: switching to NumPy functions<a class="headerlink" href="#naive-optimization-switching-to-numpy-functions" title="Link to this heading"></a></h3>
+<p>A naive approach to optimization might be to simply switch to using NumPy functions
+instead of basic Python functions. The code would then look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_pi_numpy</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+<span class="hll">        <span class="n">i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+</span><span class="hll">        <span class="n">j</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+</span><span class="hll">        <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span><span class="p">)</span>
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hits</span> <span class="o">/</span> <span class="n">n_darts</span>
+    <span class="k">return</span> <span class="n">pi</span>
+</pre></div>
+</div>
+<p>However, if we do the same profiling, we’ll find out that the program is
+<strong>ten times slower</strong>. Something must have gone wrong.</p>
+</section>
+<section id="actual-optimization-using-vectorization">
+<h3>Actual optimization: using vectorization<a class="headerlink" href="#actual-optimization-using-vectorization" title="Link to this heading"></a></h3>
+<p>The reason for the bad performance is simple: we didn’t actually reduce
+the number of function calls, we just switched them to ones from NumPy. These
+function call have extra overhead because they have more complex logic compared
+to the standard library ones.</p>
+<p>The actual speedup is right around the corner: switch from the costly for-loop
+to vectorized calls. NumPy’s functions can calculate all of the operations for
+all of our numbers in a single function call without the for-loop:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_numpy_fast</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+<span class="hll">    <span class="n">i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_darts</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">j</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_darts</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span><span class="p">)</span>
+</span><span class="hll">    <span class="n">hits</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> 
+</span>    <span class="n">pi</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hits</span> <span class="o">/</span> <span class="n">n_darts</span>
+    <span class="k">return</span> <span class="n">pi</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">prun</span> <span class="o">-</span><span class="n">s</span> <span class="n">tottime</span> <span class="o">-</span><span class="n">l</span> <span class="mi">5</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_numpy_fast</span><span class="p">(</span><span class="n">n_darts</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_darts</span><span class="p">)</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_darts</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span><span class="p">)</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> 
+    <span class="n">pi</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">hits</span> <span class="o">/</span> <span class="n">n_darts</span>
+    <span class="k">return</span> <span class="n">pi</span>
+
+<span class="n">calculate_numpy_fast</span><span class="p">(</span><span class="mi">10_000_000</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">         664 function calls (658 primitive calls) in 0.225 seconds</span>
+
+<span class="go">   Ordered by: internal time</span>
+<span class="go">   List reduced from 129 to 5 due to restriction &lt;5&gt;</span>
+
+<span class="go">   ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span>
+<span class="go">        1    0.202    0.202    0.205    0.205 &lt;string&gt;:1(calculate_numpy_fast)</span>
+<span class="go">        2    0.010    0.005    0.010    0.005 {method &#39;__exit__&#39; of &#39;sqlite3.Connection&#39; objects}</span>
+<span class="go">      2/1    0.009    0.005    0.214    0.214 &lt;string&gt;:1(&lt;module&gt;)</span>
+<span class="go">        1    0.002    0.002    0.002    0.002 {method &#39;reduce&#39; of &#39;numpy.ufunc&#39; objects}</span>
+<span class="go">        1    0.001    0.001    0.010    0.010 history.py:92(only_when_enabled)</span>
+</pre></div>
+</div>
+<p>So vectorizing the code achieved around five times speedup.</p>
+</section>
+<section id="profiling-with-scalene">
+<h3>Profiling with scalene<a class="headerlink" href="#profiling-with-scalene" title="Link to this heading"></a></h3>
+<p>The previous example can also be profiled with
+<a class="reference external" href="https://github.com/plasma-umass/scalene">scalene</a>. Scalene is a sampling
+profiler and it can be run in Jupyter as well with <code class="docutils literal notranslate"><span class="pre">%scrun</span></code> (line-mode) and
+<code class="docutils literal notranslate"><span class="pre">%%scalene</span></code> (cell-mode).</p>
+<p>Scalene will produce a nice looking output containing line-by-line profiling
+information.</p>
+</section>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading"></a></h2>
+<div class="admonition-exercise-practicing-profiling exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise: Practicing profiling</p>
+<p>In this exercise we will use the Scalene profiler to find out where most of the time is spent
+and most of the memory is used in a given code example.</p>
+<p>Please try to go through the exercise in the following steps:</p>
+<ol class="arabic">
+<li><p>Make sure <code class="docutils literal notranslate"><span class="pre">scalene</span></code> is installed in your environment (if you have followed
+this course from the start and installed the recommended software
+environment, then it is).</p></li>
+<li><p>Download Leo Tolstoy’s “War and Peace” from the following link (the text is
+provided by <a class="reference external" href="https://www.gutenberg.org/">Project Gutenberg</a>):
+<a class="reference external" href="https://www.gutenberg.org/cache/epub/2600/pg2600.txt">https://www.gutenberg.org/cache/epub/2600/pg2600.txt</a>
+(right-click and “save as” to download the file and <strong>save it as “book.txt”</strong>).</p></li>
+<li><p><strong>Before</strong> you run the profiler, try to predict in which function the code
+(the example code is below)
+will spend most of the time and in which function it will use most of the
+memory.</p></li>
+<li><p>Save the example code as <code class="docutils literal notranslate"><span class="pre">example.py</span></code> and
+run the <code class="docutils literal notranslate"><span class="pre">scalene</span></code> profiler on the following code example and browse the
+generated HTML report to find out where most of the time is spent and where
+most of the memory is used:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>scalene<span class="w"> </span>example.py
+</pre></div>
+</div>
+<p>Alternatively you can do this (and then open the generated file in a browser):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>scalene<span class="w"> </span>example.py<span class="w"> </span>--html<span class="w"> </span>&gt;<span class="w"> </span>profile.html
+</pre></div>
+</div>
+<p>You can find an example of the generated HTML report in the solution below.</p>
+</li>
+<li><p>Does the result match your prediction? Can you explain the results?</p></li>
+</ol>
+<p>Example code (<code class="docutils literal notranslate"><span class="pre">example.py</span></code>):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The code below reads a text file and counts the number of unique words in it</span>
+<span class="sd">(case-insensitive).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_unique_words1</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_unique_words2</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">unique_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">:</span>
+                    <span class="n">unique_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_words</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_unique_words3</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">unique_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\b\w+\b&quot;</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+                <span class="n">unique_words</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_words</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># book.txt is downloaded from https://www.gutenberg.org/cache/epub/2600/pg2600.txt</span>
+    <span class="n">_result</span> <span class="o">=</span> <span class="n">count_unique_words1</span><span class="p">(</span><span class="s2">&quot;book.txt&quot;</span><span class="p">)</span>
+    <span class="n">_result</span> <span class="o">=</span> <span class="n">count_unique_words2</span><span class="p">(</span><span class="s2">&quot;book.txt&quot;</span><span class="p">)</span>
+    <span class="n">_result</span> <span class="o">=</span> <span class="n">count_unique_words3</span><span class="p">(</span><span class="s2">&quot;book.txt&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="../_images/exercise1.png"><img alt="Result of the profiling run for the above code example." src="../_images/exercise1.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Result of the profiling run for the above code example. You can click on the image to make it larger.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Results:</p>
+<ul class="simple">
+<li><p>Most time is spent in the <code class="docutils literal notranslate"><span class="pre">count_unique_words2</span></code> function.</p></li>
+<li><p>Most memory is used in the <code class="docutils literal notranslate"><span class="pre">count_unique_words1</span></code> function.</p></li>
+</ul>
+<p>Explanation:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">count_unique_words2</span></code> function is the slowest because it <strong>uses a list</strong>
+to store unique words and checks if a word is already in the list before
+adding it.
+Checking whether a list contains an element might require traversing the
+whole list, which is an O(n) operation. As the list grows in size,
+the lookup time increases with the size of the list.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">count_unique_words1</span></code> and <code class="docutils literal notranslate"><span class="pre">count_unique_words3</span></code> functions are faster
+because they <strong>use a set</strong> to store unique words.
+Checking whether a set contains an element is an O(1) operation.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">count_unique_words1</span></code> function uses the most memory because it <strong>creates
+a list of all words</strong> in the text file and then <strong>creates a set</strong> from that
+list.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">count_unique_words3</span></code> function uses less memory because it traverses
+the text file line by line instead of reading the whole file into memory.</p></li>
+</ul>
+<p>What we can learn from this exercise:</p>
+<ul class="simple">
+<li><p>When processing large files, it can be good to read them line by line
+or in batches
+instead of reading the whole file into memory.</p></li>
+<li><p>It is good to get an overview over standard data structures and their
+advantages and disadvantages (e.g. adding an element to a list is fast but checking whether
+it already contains the element can be slow).</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="additional-resources">
+<h2>Additional resources<a class="headerlink" href="#additional-resources" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://enccs.github.io/python-perf/profile/">Python performance workshop (by ENCCS)</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../scripts/" class="btn btn-neutral float-left" title="Scripts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../productivity/" class="btn btn-neutral float-right" title="Productivity tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

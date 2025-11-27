@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="In depth analysis of some selected file formats" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/data-formats/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Here is a selection of file formats that are commonly used in data science. They are somewhat ordered by their intended use. Storing arbitrary Python objects: Pickle: Pickle is Python’s own seriali..." />
+<meta name="description" content="Here is a selection of file formats that are commonly used in data science. They are somewhat ordered by their intended use. Storing arbitrary Python objects: Pickle: Pickle is Python’s own seriali..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In depth analysis of some selected file formats &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="prev" title="Instructor’s guide" href="../guide/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/">Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work-with-data/">Working with Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiling/">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../productivity/">Productivity tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cython/">Extending Python with Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">In depth analysis of some selected file formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#storing-arbitrary-python-objects">Storing arbitrary Python objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pickle">Pickle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-1">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storing-tidy-data">Storing tidy data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#csv-comma-separated-values">CSV (comma-separated values)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feather">Feather</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parquet">Parquet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-2">Exercise 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storing-array-data">Storing array data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#npy-numpy-array-format">npy (numpy array format)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hdf5-hierarchical-data-format-version-5">HDF5 (Hierarchical Data Format version 5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#netcdf4-network-common-data-form-version-4">NetCDF4 (Network Common Data Form version 4)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-3">Exercise 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-file-formats">Other file formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#json-javascript-object-notation">JSON (JavaScript Object Notation)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#excel">Excel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graph-formats-adjency-lists-gt-graphml-etc">Graph formats (adjency lists, gt, GraphML etc.)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">In depth analysis of some selected file formats</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/data-formats.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="in-depth-analysis-of-some-selected-file-formats">
+<h1>In depth analysis of some selected file formats<a class="headerlink" href="#in-depth-analysis-of-some-selected-file-formats" title="Link to this heading"></a></h1>
+<p>Here is a selection of file formats that are commonly used in data science. They are somewhat ordered by their intended use.</p>
+<section id="storing-arbitrary-python-objects">
+<h2>Storing arbitrary Python objects<a class="headerlink" href="#storing-arbitrary-python-objects" title="Link to this heading"></a></h2>
+<section id="pickle">
+<span id="id1"></span><h3>Pickle<a class="headerlink" href="#pickle" title="Link to this heading"></a></h3>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: Binary format</p></li>
+<li><p><strong>Packages needed:</strong> None (<a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a>-module is included with Python).</p></li>
+<li><p><strong>Space efficiency:</strong> 🟨</p></li>
+<li><p><strong>Arbitrary data:</strong> ✅</p></li>
+<li><p><strong>Tidy data:</strong> 🟨</p></li>
+<li><p><strong>Array data:</strong> 🟨</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ❌! See warning below.</p></li>
+<li><p><strong>Best use cases:</strong> Saving Python objects for debugging.</p></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Loading pickles that you have not created is
+risky as they can contain arbitrary executable code.</p>
+<p>Do not unpickle objects from sources that you do not trust!</p>
+</div>
+<p><a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Pickle</span></code></a> is Python’s own serialization library.
+It allows you to store Python objects into a binary file, but it is not a format you will want to use for long term storage or data sharing.
+It is best suited for debugging your code by saving the Python variables for later inspection:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data_array.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data_array</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data_array.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data_array_pickle</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading"></a></h2>
+<div class="admonition-exercise exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise</p>
+<ul>
+<li><p>Create an arbitrary python object (for example, a string or a list). Pickle it.</p>
+<p>Read the pickled object back in and check if it matches the original one.</p>
+</li>
+</ul>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+
+<span class="n">my_object</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;string.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">my_object</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;string.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">my_pickled_object</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">my_object</span><span class="p">,</span> <span class="n">my_pickled_object</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_object</span> <span class="o">==</span> <span class="n">my_pickled_object</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="storing-tidy-data">
+<h2>Storing tidy data<a class="headerlink" href="#storing-tidy-data" title="Link to this heading"></a></h2>
+<section id="csv-comma-separated-values">
+<span id="csv"></span><h3>CSV (comma-separated values)<a class="headerlink" href="#csv-comma-separated-values" title="Link to this heading"></a></h3>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type:</strong> Text format</p></li>
+<li><p><strong>Packages needed:</strong> numpy, pandas</p></li>
+<li><p><strong>Space efficiency:</strong> ❌</p></li>
+<li><p><strong>Arbitrary data:</strong> ❌</p></li>
+<li><p><strong>Tidy data:</strong> ✅</p></li>
+<li><p><strong>Array data:</strong> 🟨</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ✅</p></li>
+<li><p><strong>Best use cases:</strong> Sharing data. Small data. Data that needs to be human-readable.</p></li>
+</ul>
+</div>
+<p>CSV is by far the most popular file format, as it is human-readable and easily shareable.
+However, it is not the best format to use when you’re working with big data.</p>
+<p>Pandas has a very nice interface for writing and reading CSV files with <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/io.html#io-store-in-csv">to_csv</a>- and <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/io.html#io-read-csv-table">read_csv</a>-functions:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;dataset.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">dataset_csv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Numpy has <a class="reference external" href="https://numpy.org/doc/stable/reference/routines.io.html#text-files">routines</a> for saving and loading arrays as CSV files as well:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;data_array.csv&#39;</span><span class="p">,</span> <span class="n">data_array</span><span class="p">)</span>
+
+<span class="n">data_array_csv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;data_array.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Storing data in CSVs can reduce data precision</p>
+<blockquote>
+<div><p>When working with floating point numbers you should be careful to save the data with enough decimal places so that you won’t lose precision.</p>
+<p>For example, double-precision floating point numbers have <a class="reference external" href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">~16 decimal places of precision</a>, but if you use normal Python to write these numbers, you can easily lose some of that precision.
+Let’s consider the following example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">test_number</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># Write the number in a file</span>
+<span class="n">test_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sqrt2.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">test_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">test_number</span><span class="p">)</span>
+<span class="n">test_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># Read the number from a file</span>
+<span class="n">test_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sqrt2.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">test_number2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">test_file</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+<span class="n">test_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># Calculate the distance between these numbers</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">test_number</span> <span class="o">-</span> <span class="n">test_number2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>CSV writing routines in Pandas and numpy try to avoid problems such as these by writing the floating point numbers with enough precision, but even they are not infallible.
+We can check whether our written data matches the generated data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">dataset_csv</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">data_array</span> <span class="o">==</span> <span class="n">data_array_csv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In our case some rows of <code class="docutils literal notranslate"><span class="pre">dataset_csv</span></code> loaded from CSV do not match the original <code class="docutils literal notranslate"><span class="pre">dataset</span></code> as the last decimal can sometimes be rounded due to <a class="reference external" href="https://docs.python.org/3/tutorial/floatingpoint.html#representation-error">complex technical reasons</a>.</p>
+<p>Storage of these high-precision CSV files is usually very inefficient storage-wise.</p>
+<p>Binary files, where floating point numbers are represented in their native binary format, do not suffer from such problems.</p>
+</div></blockquote>
+</div>
+</section>
+<section id="feather">
+<span id="id2"></span><h3>Feather<a class="headerlink" href="#feather" title="Link to this heading"></a></h3>
+<div class="dropdown admonition">
+<p class="admonition-title">Requires additional packages</p>
+<blockquote>
+<div><p>Using Feather requires <a class="reference external" href="https://arrow.apache.org/docs/python">pyarrow-package</a> to be installed.</p>
+<p>You can try installing pyarrow with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!pip<span class="w"> </span>install<span class="w"> </span>pyarrow
+</pre></div>
+</div>
+<p>or you can take this as a demo.</p>
+</div></blockquote>
+</div>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type:</strong> Binary format</p></li>
+<li><p><strong>Packages needed:</strong> pandas, pyarrow</p></li>
+<li><p><strong>Space efficiency:</strong> ✅</p></li>
+<li><p><strong>Arbitrary data:</strong> ❌</p></li>
+<li><p><strong>Tidy data:</strong> ✅</p></li>
+<li><p><strong>Array data:</strong> ❌</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ❌</p></li>
+<li><p><strong>Best use cases:</strong> Temporary storage of tidy data.</p></li>
+</ul>
+</div>
+<p><a class="reference external" href="https://arrow.apache.org/docs/python/feather.html">Feather</a> is a file format for storing data frames quickly.
+There are libraries for Python, R and Julia.</p>
+<p>We can work with Feather files with <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-feather" title="(in pandas v2.3.3)"><span class="xref std std-ref">to_feather- and read_feather-functions</span></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">to_feather</span><span class="p">(</span><span class="s1">&#39;dataset.feather&#39;</span><span class="p">)</span>
+<span class="n">dataset_feather</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_feather</span><span class="p">(</span><span class="s1">&#39;dataset.feather&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Feather is not a good format for storing array data, so we won’t present an example of that here.</p>
+</section>
+<section id="parquet">
+<span id="id3"></span><h3>Parquet<a class="headerlink" href="#parquet" title="Link to this heading"></a></h3>
+<div class="dropdown admonition">
+<p class="admonition-title">Requires additional packages</p>
+<blockquote>
+<div><p>Using Parquet requires <a class="reference external" href="https://arrow.apache.org/docs/python">pyarrow-package</a> to be installed.</p>
+<p>You can try installing PyArrow with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!pip<span class="w"> </span>install<span class="w"> </span>pyarrow
+</pre></div>
+</div>
+<p>or you can take this as a demo.</p>
+</div></blockquote>
+</div>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type:</strong> Binary format</p></li>
+<li><p><strong>Packages needed:</strong> pandas, pyarrow</p></li>
+<li><p><strong>Space efficiency:</strong> ✅</p></li>
+<li><p><strong>Arbitrary data:</strong> 🟨</p></li>
+<li><p><strong>Tidy data:</strong> ✅</p></li>
+<li><p><strong>Array data:</strong> 🟨</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ✅</p></li>
+<li><p><strong>Best use cases:</strong> Working with big datasets in tidy data format. Archival of said data.</p></li>
+</ul>
+</div>
+<p><a class="reference external" href="https://arrow.apache.org/docs/python/parquet.html">Parquet</a> is a standardized open-source
+columnar storage format that is commonly used for storing big data.
+Parquet is usable from many different languages (C, Java, Python, MATLAB, Julia, etc.).</p>
+<p>We can work with Parquet files with <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-parquet" title="(in pandas v2.3.3)"><span class="xref std std-ref">to_parquet- and read_parquet-functions</span></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="s1">&#39;dataset.parquet&#39;</span><span class="p">)</span>
+<span class="n">dataset_parquet</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;dataset.parquet&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Parquet can be used to store arbitrary data and arrays as well, but doing that is more complicated so we won’t do that here.</p>
+</section>
+</section>
+<section id="exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading"></a></h2>
+<div class="admonition-exercise exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise</p>
+<ul>
+<li><p>Create the example <code class="docutils literal notranslate"><span class="pre">dataset</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">n_rows</span> <span class="o">=</span> <span class="mi">100000</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;carrot&#39;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+        <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;20130101&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;integer&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+        <span class="s1">&#39;float&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Save the dataset <code class="docutils literal notranslate"><span class="pre">dataset</span></code> as CSV. Load the dataset into a variable <code class="docutils literal notranslate"><span class="pre">dataset_csv</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">dataset.compare(dataset_csv)</span></code> to check if loaded dataset matches the original one.</p></li>
+</ul>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">n_rows</span> <span class="o">=</span> <span class="mi">100000</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;carrot&#39;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+        <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;20130101&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;integer&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+        <span class="s1">&#39;float&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">dataset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;dataset.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">dataset_csv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset.csv&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">dataset_csv</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Dataset might not be completely the same. Sometimes the CSV format cannot
+fully represent a floating point value, which will result in rounding errors.</p>
+</div>
+</section>
+<section id="storing-array-data">
+<h2>Storing array data<a class="headerlink" href="#storing-array-data" title="Link to this heading"></a></h2>
+<section id="npy-numpy-array-format">
+<span id="npy"></span><h3>npy (numpy array format)<a class="headerlink" href="#npy-numpy-array-format" title="Link to this heading"></a></h3>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: Binary format</p></li>
+<li><p><strong>Packages needed:</strong> numpy</p></li>
+<li><p><strong>Space efficiency:</strong> 🟨</p></li>
+<li><p><strong>Arbitrary data:</strong> ✅</p></li>
+<li><p><strong>Tidy data:</strong> ❌</p></li>
+<li><p><strong>Array data:</strong> ✅</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ❌</p></li>
+<li><p><strong>Best use cases:</strong> Saving numpy arrays temporarily.</p></li>
+</ul>
+</div>
+<p>If you want to temporarily store numpy arrays, you can use the <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.save.html#numpy.save" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save()</span></code></a>- and <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.load()</span></code></a>-functions:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;data_array.npy&#39;</span><span class="p">,</span> <span class="n">data_array</span><span class="p">)</span>
+<span class="n">data_array_npy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data_array.npy&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There also exists <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savez.html#numpy.savez" title="(in NumPy v2.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.savez()</span></code></a>-function for storing multiple datasets in a single file:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="s1">&#39;data_arrays.npz&#39;</span><span class="p">,</span> <span class="n">data_array0</span><span class="o">=</span><span class="n">data_array</span><span class="p">,</span> <span class="n">data_array1</span><span class="o">=</span><span class="n">data_array</span><span class="p">)</span>
+<span class="n">data_arrays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data_arrays.npz&#39;</span><span class="p">)</span>
+<span class="n">data_arrays</span><span class="p">[</span><span class="s1">&#39;data_array0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For big arrays it’s good idea to check other binary formats such as HDF5 or NetCDF4.</p>
+<p><code class="docutils literal notranslate"><span class="pre">np.save</span></code>- and <code class="docutils literal notranslate"><span class="pre">np.savez</span></code>-functions work with
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html">sparse matrices</a>,
+but one can also use dedicated
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html">scipy.sparse.save_npz</a>- and
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.load_npz.html">scipy.sparse.load_npz</a>-functions.
+Storing sparse matrices using these functions can give huge storage savings.</p>
+</section>
+<section id="hdf5-hierarchical-data-format-version-5">
+<span id="hdf5"></span><h3>HDF5 (Hierarchical Data Format version 5)<a class="headerlink" href="#hdf5-hierarchical-data-format-version-5" title="Link to this heading"></a></h3>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type:</strong> Binary format</p></li>
+<li><p><strong>Packages needed:</strong> numpy, pandas, PyTables, h5py</p></li>
+<li><p><strong>Space efficiency:</strong> ✅</p></li>
+<li><p><strong>Arbitrary data:</strong> ❌</p></li>
+<li><p><strong>Tidy data:</strong> ❌</p></li>
+<li><p><strong>Array data:</strong> ✅</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ✅</p></li>
+<li><p><strong>Best use cases:</strong> Working with big datasets in array data format.</p></li>
+</ul>
+</div>
+<p>HDF5 is a high performance storage format for storing large amounts of data in multiple datasets in a single file.
+It is especially popular in fields where you need to store big multidimensional arrays such as physical sciences.</p>
+<p>Pandas allows you to store tables as HDF5 with <a class="reference external" href="https://www.pytables.org/">PyTables</a>, which uses HDF5 to write the files.
+You can create a HDF5 file with <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-hdf5" title="(in pandas v2.3.3)"><span class="xref std std-ref">to_hdf- and read_parquet-functions</span></a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="s1">&#39;dataset.h5&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">dataset_hdf5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s1">&#39;dataset.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For writing data that is not a table, you can use the excellent <a class="reference external" href="https://docs.h5py.org/en/stable/">h5py-package</a>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+
+<span class="c1"># Writing:</span>
+
+<span class="c1"># Open HDF5 file</span>
+<span class="n">h5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;data_array.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="c1"># Write dataset</span>
+<span class="n">h5_file</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;data_array&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_array</span><span class="p">)</span>
+<span class="c1"># Close file and write data to disk. Important!</span>
+<span class="n">h5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># Reading:</span>
+
+<span class="c1"># Open HDF5 file again</span>
+<span class="n">h5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s1">&#39;data_array.h5&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1"># Read the full dataset</span>
+<span class="n">data_array_h5</span> <span class="o">=</span> <span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;data_array&#39;</span><span class="p">][()]</span>
+<span class="c1"># Close file</span>
+<span class="n">h5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="netcdf4-network-common-data-form-version-4">
+<span id="netcdf4"></span><h3>NetCDF4 (Network Common Data Form version 4)<a class="headerlink" href="#netcdf4-network-common-data-form-version-4" title="Link to this heading"></a></h3>
+<div class="dropdown admonition">
+<p class="admonition-title">Requires additional packages</p>
+<blockquote>
+<div><p>Using NetCDF4 requires <a class="reference external" href="https://unidata.github.io/netcdf4-python">netCDF4</a>- or <a class="reference external" href="https://github.com/h5netcdf/h5netcdf">h5netcdf</a>-package to be installed.
+h5netcdf is often mentioned as being faster to the official netCDF4-package, so we’ll be using it in the example.</p>
+<p>A great NetCDF4 interface is provided by a <a class="reference external" href="https://docs.xarray.dev/en/stable/getting-started-guide/quick-overview.html#read-write-netcdf-files">xarray-package</a>.</p>
+<p>You can try installing these packages with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>!pip<span class="w"> </span>install<span class="w"> </span>h5netcdf<span class="w"> </span>xarray
+</pre></div>
+</div>
+<p>or you can take this as a demo.</p>
+</div></blockquote>
+</div>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: Binary format</p></li>
+<li><p><strong>Packages needed:</strong> pandas, netCDF4/h5netcdf, xarray</p></li>
+<li><p><strong>Space efficiency:</strong> ✅</p></li>
+<li><p><strong>Arbitrary data:</strong> ❌</p></li>
+<li><p><strong>Tidy data:</strong> ❌</p></li>
+<li><p><strong>Array data:</strong> ✅</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ✅</p></li>
+<li><p><strong>Best use cases:</strong> Working with big datasets in array data format. Especially useful if the dataset contains spatial or temporal dimensions. Archiving or sharing those datasets.</p></li>
+</ul>
+</div>
+<p>NetCDF4 is a data format that uses HDF5 as its file format, but it has standardized structure of datasets and metadata related to these datasets.
+This makes it possible to be read from various different programs.</p>
+<p>NetCDF4 is a common format for storing large data from big simulations in physical sciences.</p>
+<p>Using interface provided by <code class="docutils literal notranslate"><span class="pre">xarray</span></code>:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write tidy data as NetCDF4</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s1">&#39;dataset.nc&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;h5netcdf&#39;</span><span class="p">)</span>
+<span class="c1"># Read tidy data from NetCDF4</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="n">dataset_xarray</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">&#39;dataset.nc&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;h5netcdf&#39;</span><span class="p">)</span>
+<span class="n">dataset_netcdf4</span> <span class="o">=</span> <span class="n">dataset_xarray</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="n">dataset_xarray</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Working with array data is easy as well:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write array data as NetCDF4</span>
+<span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data_array</span><span class="p">)</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s1">&#39;data_array.nc&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;h5netcdf&#39;</span><span class="p">)</span>
+<span class="c1"># Read array data from NetCDF4</span>
+<span class="n">data_array_xarray</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataarray</span><span class="p">(</span><span class="s1">&#39;data_array.nc&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;h5netcdf&#39;</span><span class="p">)</span>
+<span class="n">data_array_netcdf4</span> <span class="o">=</span> <span class="n">data_array_xarray</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">data_array_xarray</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The advantage of NetCDF4 compared to HDF5 is that one can easily add other metadata e.g. spatial dimensions (<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code>) or timestamps (<code class="docutils literal notranslate"><span class="pre">t</span></code>) that tell where the grid-points are situated.
+As the format is standardized, many programs can use this metadata for visualization and further analysis.</p>
+</section>
+</section>
+<section id="exercise-3">
+<h2>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading"></a></h2>
+<div class="admonition-exercise exercise important admonition" id="exercise-2">
+<p class="admonition-title">Exercise</p>
+<ul>
+<li><p>Create an example numpy array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">data_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>Store the array as a npy.</p></li>
+<li><p>Read the dataframe back in and compare it to the original one. Does the data match?</p></li>
+</ul>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">data_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;data_array.npy&#39;</span><span class="p">,</span> <span class="n">data_array</span><span class="p">)</span>
+<span class="n">data_array_npy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data_array.npy&#39;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">data_array</span> <span class="o">==</span> <span class="n">data_array_npy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="other-file-formats">
+<h2>Other file formats<a class="headerlink" href="#other-file-formats" title="Link to this heading"></a></h2>
+<section id="json-javascript-object-notation">
+<span id="json"></span><h3>JSON (JavaScript Object Notation)<a class="headerlink" href="#json-javascript-object-notation" title="Link to this heading"></a></h3>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: Text format</p></li>
+<li><p><strong>Packages needed:</strong> None (<a class="reference external" href="https://docs.python.org/3/library/json.html#module-json" title="(in Python v3.14)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">json</span></code></a>-module is included with Python).</p></li>
+<li><p><strong>Space efficiency:</strong> ❌</p></li>
+<li><p><strong>Arbitrary data:</strong> 🟨</p></li>
+<li><p><strong>Tidy data:</strong> ❌</p></li>
+<li><p><strong>Array data:</strong> ❌</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ✅</p></li>
+<li><p><strong>Best use cases:</strong> Saving nested/relational data, storing web requests.</p></li>
+</ul>
+</div>
+<p>JSON is a popular human-readable data format.
+It is especially common when dealing with web applications (REST-APIs etc.).</p>
+<p>You rarely want to keep your data in this format, unless you’re working with
+nested data with multiple layers or lots of interconnections.</p>
+<p>Similarly to other popular files, Pandas can write and read json files with <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_json.html#pandas.DataFrame.to_json" title="(in pandas v2.3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_json()</span></code></a>- and <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_json.html#pandas.read_json" title="(in pandas v2.3.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_json()</span></code></a>-functions:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s1">&#39;dataset.json&#39;</span><span class="p">)</span>
+<span class="n">dataset_json</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s1">&#39;dataset.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="excel">
+<span id="id4"></span><h3>Excel<a class="headerlink" href="#excel" title="Link to this heading"></a></h3>
+<div class="dropdown admonition">
+<p class="admonition-title">Requires additional packages</p>
+<p>Using Excel files with Pandas requires <a class="reference external" href="https://openpyxl.readthedocs.io/en/stable/">openpyxl</a>-package to be installed.</p>
+</div>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: Text format</p></li>
+<li><p><strong>Packages needed:</strong> <a class="reference external" href="https://openpyxl.readthedocs.io/en/stable/">openpyxl</a></p></li>
+<li><p><strong>Space efficiency:</strong> ❌</p></li>
+<li><p><strong>Arbitrary data:</strong> ❌</p></li>
+<li><p><strong>Tidy data:</strong> 🟨</p></li>
+<li><p><strong>Array data:</strong> ❌</p></li>
+<li><p><strong>Long term archival/sharing:</strong> ✅</p></li>
+<li><p><strong>Best use cases:</strong> Sharing data in many fields. Quick data analysis.</p></li>
+</ul>
+</div>
+<p>Excel is very popular in social sciences and economics.
+However, it is <a class="reference external" href="https://www.bbc.com/news/technology-54423988">not a good format</a> for data science.</p>
+<p>See Pandas’ documentation on <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html#io-excel" title="(in pandas v2.3.3)"><span class="xref std std-ref">working with Excel files</span></a>.</p>
+</section>
+<section id="graph-formats-adjency-lists-gt-graphml-etc">
+<span id="graph"></span><h3>Graph formats (adjency lists, gt, GraphML etc.)<a class="headerlink" href="#graph-formats-adjency-lists-gt-graphml-etc" title="Link to this heading"></a></h3>
+<div class="admonition-key-features admonition">
+<p class="admonition-title">Key features</p>
+<ul class="simple">
+<li><p><strong>Type</strong>: Many different formats</p></li>
+<li><p><strong>Packages needed:</strong> Depends on a format.</p></li>
+<li><p><strong>Space efficiency:</strong> 🟨</p></li>
+<li><p><strong>Arbitrary data:</strong> ❌</p></li>
+<li><p><strong>Tidy data:</strong> ❌</p></li>
+<li><p><strong>Array data:</strong> ❌</p></li>
+<li><p><strong>Long term archival/sharing:</strong> 🟨</p></li>
+<li><p><strong>Best use cases:</strong> Saving graphs or data that can be represented as a graph.</p></li>
+</ul>
+</div>
+<p>There are plenty of data formats for storing graphs.
+We won’t list them here as optimal data format depends heavily on the graph structure.</p>
+<p>One can use functions in libraries such as
+<a class="reference external" href="https://networkx.org/documentation/stable/reference/readwrite/index.html">networkx</a>,
+<a class="reference external" href="https://graph-tool.skewed.de/static/doc/quickstart.html#graph-i-o">graph-tool</a>,
+<a class="reference external" href="https://igraph.readthedocs.io/en/stable/tutorial.html#igraph-and-the-outside-world">igraph</a>
+to read and write graphs.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../guide/" class="btn btn-neutral float-left" title="Instructor’s guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

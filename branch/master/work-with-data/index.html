@@ -1,0 +1,675 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Working with Data" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/work-with-data/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Source: xkcd #2116, What is a data format?: Data format can mean two different things data structure or how you’re storing the data in memory while you’re working on it;, file format or the way you..." />
+<meta name="description" content="Source: xkcd #2116, What is a data format?: Data format can mean two different things data structure or how you’re storing the data in memory while you’re working on it;, file format or the way you..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Working with Data &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Scripts" href="../scripts/" />
+    <link rel="prev" title="Plotting with Vega-Altair" href="../plotting-vega-altair/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/">Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Working with Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-a-data-format">What is a data format?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-to-look-for-in-a-file-format">What to look for in a file format?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pros-and-cons">Pros and cons</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binary-file-formats">Binary File formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#good-things">Good things</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bad-things">Bad things</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#textual-formats">Textual formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Good things</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Bad things</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#further-considerations">Further considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise">Exercise</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#case-study-converting-untidy-data-to-tidy-data">Case study: Converting untidy data to tidy data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#things-to-remember">Things to remember</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiling/">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../productivity/">Productivity tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cython/">Extending Python with Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">In depth analysis of some selected file formats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Working with Data</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/work-with-data.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="working-with-data">
+<h1>Working with Data<a class="headerlink" href="#working-with-data" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How do you store your data right now?</p></li>
+<li><p>Are you doing data cleaning / preprocessing every time you load the data?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn benefits/drawbacks of common data formats.</p></li>
+<li><p>Learn how you can read and write data in a variety of formats.</p></li>
+</ul>
+</div>
+<figure class="align-default" id="id3">
+<img alt="https://imgs.xkcd.com/comics/norm_normal_file_format.png" src="https://imgs.xkcd.com/comics/norm_normal_file_format.png" />
+<figcaption>
+<p><span class="caption-text">Source: <a class="reference external" href="https://xkcd.com/2116/">xkcd #2116</a></span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="what-is-a-data-format">
+<h2>What is a data format?<a class="headerlink" href="#what-is-a-data-format" title="Link to this heading"></a></h2>
+<p>Data format can mean two different things</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Data_structure">data structure</a> or how
+you’re storing the data in memory while you’re working on it;</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/File_format">file format</a> or the way you’re
+storing the data in the disk.</p></li>
+</ol>
+<p>Let’s consider this randomly generated DataFrame with various columns:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">n_rows</span> <span class="o">=</span> <span class="mi">100000</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;string&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;carrot&#39;</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+        <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s2">&quot;20130101&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">),</span>
+        <span class="s1">&#39;integer&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+        <span class="s1">&#39;float&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_rows</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">dataset</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This DataFrame is structured in the <em>tidy data</em> format.
+In tidy data we have multiple columns of data that are collected in a Pandas
+DataFrame, where each column represents a value of a specific type.</p>
+<img alt="../_images/tidy_data.png" src="../_images/tidy_data.png" />
+<p>Let’s consider another example:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">data_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">data_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we have a different data structure: we have a two-dimensional array of numbers.
+This is different to a Pandas DataFrame as data is stored as one contiguous block
+instead of individual columns. This also means that the whole array must have one
+data type.</p>
+<figure class="align-default" id="id4">
+<img alt="https://github.com/elegant-scipy/elegant-scipy/raw/master/figures/NumPy_ndarrays_v2.png" src="https://github.com/elegant-scipy/elegant-scipy/raw/master/figures/NumPy_ndarrays_v2.png" />
+<figcaption>
+<p><span class="caption-text">Source: <a class="reference external" href="https://github.com/elegant-scipy/elegant-scipy">Elegant Scipy</a></span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Now the question is: <strong>Can the data be saved to the disk without changing the
+data format?</strong></p>
+<p>For this we need a <strong>file format</strong> that can easily store our <strong>data structure</strong>.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Data type vs. data structure vs. file format</p>
+<ul class="simple">
+<li><p><strong>Data type:</strong> Type of a single piece of data (integer, string,
+float, …).</p></li>
+<li><p><strong>Data structure:</strong> How the data is organized in memory (individual
+columns, 2D-array, nested dictionaries, …).</p></li>
+<li><p><strong>File format:</strong> How the data is organized when it is saved to the disk
+(columns of strings, block of binary data, …).</p></li>
+</ul>
+<p>For example, a black and white image stored as a .png-file (<strong>file format</strong>)
+might be stored in memory as an NxM array (<strong>data structure</strong>) of integers
+(<strong>data type</strong>) with each entry representing the color value of the pixel.</p>
+</div>
+</section>
+<section id="what-to-look-for-in-a-file-format">
+<h2>What to look for in a file format?<a class="headerlink" href="#what-to-look-for-in-a-file-format" title="Link to this heading"></a></h2>
+<p>When deciding which file format you should use for your program, you should
+remember the following:</p>
+<p><strong>There is no file format that is good for every use case.</strong></p>
+<p>and</p>
+<p><strong>It is very likely, that a good format already exists for your use case.</strong></p>
+<p>There are, indeed, various standard file formats for various use cases:</p>
+<figure class="align-default" id="id5">
+<img alt="https://imgs.xkcd.com/comics/standards.png" src="https://imgs.xkcd.com/comics/standards.png" />
+<figcaption>
+<p><span class="caption-text">Source: <a class="reference external" href="https://xkcd.com/927/">xkcd #927</a>.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Usually, you’ll want to consider the following things when choosing a file
+format:</p>
+<ol class="arabic simple">
+<li><p>Is the file format good for my data structure (is it fast/space
+efficient/easy to use)?</p></li>
+<li><p>Is everybody else / leading authorities in my field recommending a certain
+format?</p></li>
+<li><p>Do I need a human-readable format or is it enough to work on it using code?</p></li>
+<li><p>Do I want to archive / share the data or do I just want to store it while
+I’m working?</p></li>
+</ol>
+<p>Pandas supports
+<a class="reference external" href="https://pandas.pydata.org/docs/user_guide/io.html">many file formats</a>
+for tidy data and Numpy supports
+<a class="reference external" href="https://numpy.org/doc/stable/reference/routines.io.html">some file formats</a>
+for array data. However, there are many other file formats that can be used
+through other libraries.</p>
+<p>Table below describes some data formats:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><div class="line-block">
+<div class="line">Name:</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Human</div>
+<div class="line">readable:</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Space</div>
+<div class="line">efficiency:</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Arbitrary</div>
+<div class="line">data:</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Tidy</div>
+<div class="line">data:</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Array</div>
+<div class="line">data:</div>
+</div>
+</th>
+<th class="head"><div class="line-block">
+<div class="line">Long term</div>
+<div class="line">storage/sharing:</div>
+</div>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../data-formats/#pickle"><span class="std std-ref">Pickle</span></a></p></td>
+<td><p>❌</p></td>
+<td><p>🟨</p></td>
+<td><p>✅</p></td>
+<td><p>🟨</p></td>
+<td><p>🟨</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../data-formats/#csv"><span class="std std-ref">CSV</span></a></p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>🟨</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../data-formats/#feather"><span class="std std-ref">Feather</span></a></p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../data-formats/#parquet"><span class="std std-ref">Parquet</span></a></p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>🟨</p></td>
+<td><p>✅</p></td>
+<td><p>🟨</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../data-formats/#npy"><span class="std std-ref">npy</span></a></p></td>
+<td><p>❌</p></td>
+<td><p>🟨</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../data-formats/#hdf5"><span class="std std-ref">HDF5</span></a></p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../data-formats/#netcdf4"><span class="std std-ref">NetCDF4</span></a></p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../data-formats/#json"><span class="std std-ref">JSON</span></a></p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>🟨</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../data-formats/#excel"><span class="std std-ref">Excel</span></a></p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>🟨</p></td>
+<td><p>❌</p></td>
+<td><p>🟨</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../data-formats/#graph"><span class="std std-ref">Graph formats</span></a></p></td>
+<td><p>🟨</p></td>
+<td><p>🟨</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>✅ : Good</p></li>
+<li><p>🟨 : Ok / depends on a case</p></li>
+<li><p>❌ : Bad</p></li>
+</ul>
+</div>
+<p>A more in-depth analysis of the file formats mentioned above, can be found
+<a class="reference internal" href="../data-formats/"><span class="doc">here</span></a>.</p>
+</section>
+<section id="pros-and-cons">
+<h2>Pros and cons<a class="headerlink" href="#pros-and-cons" title="Link to this heading"></a></h2>
+<p>Let’s have a general look at pros and cons of some types of file formats</p>
+<section id="binary-file-formats">
+<h3>Binary File formats<a class="headerlink" href="#binary-file-formats" title="Link to this heading"></a></h3>
+<section id="good-things">
+<h4>Good things<a class="headerlink" href="#good-things" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Can represent floating point numbers with full precision.</p></li>
+<li><p>Can potentially save lots of space, especially, when storing numbers.</p></li>
+<li><p>Data reading and writing is usually much faster than loading from text files,
+since the format contains information about the data structure, and thus
+memory allocation can be done more efficiently.</p></li>
+<li><p>More explicit specification for storing multiple data sets and metadata in
+the same file.</p></li>
+<li><p>Many binary formats allow for partial loading of the data.
+This makes it possible to work with datasets that are larger than your
+computer’s memory.</p></li>
+</ul>
+</section>
+<section id="bad-things">
+<h4>Bad things<a class="headerlink" href="#bad-things" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Commonly requires the use of a specific library to read and write the data.</p></li>
+<li><p>Library specific formats can be version dependent.</p></li>
+<li><p>Not human readable.</p></li>
+<li><p>Sharing can be more difficult (requires some expertise to be able to
+read the data).</p></li>
+<li><p>Might require more documentation efforts.</p></li>
+</ul>
+</section>
+</section>
+<section id="textual-formats">
+<h3>Textual formats<a class="headerlink" href="#textual-formats" title="Link to this heading"></a></h3>
+<section id="id1">
+<h4>Good things<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Human readable.</p></li>
+<li><p>Easy to check for (structural) errors.</p></li>
+<li><p>Supported by many tool out of the box.</p></li>
+<li><p>Easily shared.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h4>Bad things<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Can be slow to read and write.</p></li>
+<li><p>High potential to increase required disk space substantially (e.g. when
+storing floating point numbers as text).</p></li>
+<li><p>Prone to losing precision when storing floating point numbers.</p></li>
+<li><p>Multi-dimensional data can be hard to represent.</p></li>
+<li><p>While the data format might be specified, the data structure might not be
+clear when starting to read the data.</p></li>
+</ul>
+</section>
+</section>
+<section id="further-considerations">
+<h3>Further considerations<a class="headerlink" href="#further-considerations" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>The closer your stored data is to the code, the more likely it depends on the
+environment you are working in. If you <code class="docutils literal notranslate"><span class="pre">pickle</span></code>, e.g. a generated model,
+you can only be sure that the model will work as intended if you load it in
+an environment that has the same versions of all libraries the model depends
+on.</p></li>
+</ul>
+</section>
+</section>
+<section id="exercise">
+<h2>Exercise<a class="headerlink" href="#exercise" title="Link to this heading"></a></h2>
+<div class="admonition-exercise exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise</p>
+<p>You have a model that you have been training for a while.
+Lets assume it’s a relatively simple neural network (consisting of a
+network structure and it’s associated weights).</p>
+<p>Let’s consider 2 scenarios</p>
+<p>A: You have a different project, that is supposed to take this model, and
+do some processing with it to determine it’s efficiency after different
+times of training.</p>
+<p>B: You want to publish the model and make it available to others.</p>
+<p>What are good options to store the model in each of these scenarios?</p>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p>A:</p>
+<blockquote>
+<div><p>Some export into a binary format that can be easily read. E.g. pickle
+or a specific export function from the library you use.</p>
+<p>It also depends on whether you intend to make the intermediary steps
+available to others. If you do, you might also want to consider storing
+structure and weights separately or use a format specific for the
+type of model you are training to keep the data independent of the
+library.</p>
+</div></blockquote>
+<p>B:</p>
+<blockquote>
+<div><p>You might want to consider a more general format that is supported by
+many libraries, e.g. ONNX, or a format that is specifically designed
+for the type of model you are training.</p>
+<p>You might also want to consider additionally storing the model in a way
+that is easily readable by humans, to make it easier for others to
+understand the model.</p>
+</div></blockquote>
+</div>
+</section>
+<section id="case-study-converting-untidy-data-to-tidy-data">
+<h2>Case study: Converting untidy data to tidy data<a class="headerlink" href="#case-study-converting-untidy-data-to-tidy-data" title="Link to this heading"></a></h2>
+<p>Many data analysis tools (like Pandas) are designed to work with tidy data,
+but some data is not in a suitable format. What we have seen often in the
+past is people then not using the powerful tools, but write complicated
+scripts that extract individual pieces from the data each time they need
+to do a calculation.</p>
+<p>As an example, let’s see how we can use country data from an example REST API
+endpoint (for more information on how to work with web APIs, see
+<a class="reference internal" href="../web-apis/"><span class="doc">this page</span></a>). Let’s get the data with the following piece
+of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.sampleapis.com/countries/countries&#39;</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="n">countries_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s try to find the country with the largest population.</p>
+<p>An example of a “questionable” way of solving this problem would be something
+like the following piece of code that is written in pure Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">max_population</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">top_population_country</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries_json</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">country</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_population</span><span class="p">:</span>
+        <span class="n">top_population_country</span> <span class="o">=</span> <span class="n">country</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">max_population</span> <span class="o">=</span> <span class="n">country</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">top_population_country</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is a very natural way of writing a solution for the problem, but it has
+major caveats:</p>
+<ol class="arabic simple">
+<li><p>We throw all of the other data out so we cannot answer any
+follow up questions.</p></li>
+<li><p>For bigger data, this would be very slow and ineffective.</p></li>
+<li><p>We have to write lots of code to do a simple thing.</p></li>
+</ol>
+<p>Another typical solution would be something like the following code,
+which picks some of the data and creates a Pandas dataframe out of it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">countries_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries_json</span><span class="p">:</span>
+    <span class="n">countries_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">country</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">country</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
+
+<span class="n">countries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">countries_list</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;population&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">countries_df</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;population&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This solution has many of the same problems as the previous one, but now we can
+use Pandas to do follow up analysis.</p>
+<p>Better solution would be to use Pandas’
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.from_dict.html">pandas.DataFrame.from_dict</a>
+or <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html">pandas.json_normalize</a>
+to read the full data in:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">countries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">countries_json</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">countries_df</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;population&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">countries_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">countries_json</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">countries_df</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;population&#39;</span><span class="p">)[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition-key-points admonition">
+<p class="admonition-title">Key points</p>
+<ul class="simple">
+<li><p>Convert your data to a format where it is easy to do analysis on it.</p></li>
+<li><p>Check the tools you’re using if they have an existing feature that can help
+you read the data in.</p></li>
+</ul>
+</div>
+</section>
+<section id="things-to-remember">
+<h2>Things to remember<a class="headerlink" href="#things-to-remember" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>There is no file format that is good for every use case.</strong></p></li>
+<li><p>Usually, your research question determines which libraries you want to use
+to solve it. Similarly, the data format you have determines file format you
+want to use.</p></li>
+<li><p>However, if you’re using a previously existing framework or tools or you
+work in a specific field, you should prioritize using the formats that are
+used in said framework/tools/field.</p></li>
+<li><p>When you’re starting your project, it’s a good idea to take your initial
+data, clean it, and store the results in a good binary format that works as
+a starting point for your future analysis. If you’ve written the cleaning
+procedure as a script, you can always reproduce it.</p></li>
+<li><p>Throughout your work, you should use code to turn important data to
+a human-readable format (e.g. plots, averages,
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head" title="(in pandas v2.3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.head()</span></code></a>), not to keep your full data in a
+human-readable format.</p></li>
+<li><p>Once you’ve finished, you should store the data in a format that can be
+easily shared to other people.</p></li>
+</ol>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/io.html">Pandas’ IO tools</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AaltoSciComp/python-for-scicomp/tree/master/extras/data-formats-comparison-tidy.ipynb">Tidy data comparison notebook</a></p></li>
+<li><p><a class="reference external" href="https://github.com/AaltoSciComp/python-for-scicomp/tree/master/extras/data-formats-comparison-array.ipynb">Array data comparison notebook</a></p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Pandas can read and write a variety of data formats.</p></li>
+<li><p>There are many good, standard formats, and you don’t need to create your own.</p></li>
+<li><p>There are plenty of other libraries dedicated to various formats.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../plotting-vega-altair/" class="btn btn-neutral float-left" title="Plotting with Vega-Altair" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../scripts/" class="btn btn-neutral float-right" title="Scripts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

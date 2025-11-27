@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Xarray" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/xarray/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="We have already seen how Pandas simplifies working with tabular NumPy data by adding labels to columns and rows. In this lesson, we take a look at how xarray can be used to add the same functionali..." />
+<meta name="description" content="We have already seen how Pandas simplifies working with tabular NumPy data by adding labels to columns and rows. In this lesson, we take a look at how xarray can be used to add the same functionali..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xarray &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Plotting with Matplotlib" href="../plotting-matplotlib/" />
+    <link rel="prev" title="Pandas" href="../pandas/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Xarray</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-xarray">What is Xarray?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-and-manipulating-data-in-xarray">Accessing and manipulating data in Xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-data-in-xarray">Plotting data in Xarray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-1">Exercises 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-your-own-xarray-dataset">Creating your own Xarray Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#converting-xarray-objects-to-numpy-pandas-and-netcdf">Converting Xarray objects to NumPy, Pandas and NetCDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-2">Exercises 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-topics">Advanced Topics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work-with-data/">Working with Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiling/">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../productivity/">Productivity tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cython/">Extending Python with Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">In depth analysis of some selected file formats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Xarray</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/xarray.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="xarray">
+<span id="id1"></span><h1>Xarray<a class="headerlink" href="#xarray" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How shall we deal with real-world datasets that are usually more than just raw numbers?</p></li>
+<li><p>What is the advantage of using labelled multidimensional arrays?</p></li>
+<li><p>What does Xarray add to Numpy and Pandas to address these questions?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn how to apply operations over dimensions and select values by label</p></li>
+<li><p>Understand Xarray’s DataArrays and Datasets</p></li>
+<li><p>Learn how to easily plot data in Xarray</p></li>
+<li><p>Learn how to turn your own data into an Xarray Dataset</p></li>
+</ul>
+</div>
+<p>We have already seen how Pandas simplifies working with tabular NumPy data by adding labels to columns and rows. In this lesson, we take a look at how xarray can be used to add the same functionality to multidimensional data. Let’s consider the following example:</p>
+<p>Imagine we have a dataset representing temperature measurements across different heights, latitudes, and longitudes. We can store the temperature data as a 3D NumPy array where each axis corresponds to one of these dimensions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="c1"># Create a 3D numpy array: height x latitude x longitude</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># 10 heights, 5 latitudes, 5 longitudes</span>
+</pre></div>
+</div>
+<p>Let’s assume now we want to take a look at a specific value in the dataset at a certain height, latitude, and longitude. We could do this by indexing the array with the corresponding indices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the temperature at height 3, latitude 2, longitude 4</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>OK, we got a value, but how do we know whether this value corresponds to the correct height, latitude and longitude? Are we sure that latitude was the second dimension in the dataset? Was it the second or third index that corresponds to the correct position? In pure NumPy, we are mostly left in the dark and need to manually keep track of these things.</p>
+<p>Unfortunately, Pandas isn’t of much help either since it is not designed for data with more than 2 dimensions. Fortunately, <a class="reference external" href="https://github.com/pydata/xarray/graphs/contributors">some clever climate scientists</a> have come up with a solution to this problem and created Xarray.</p>
+<section id="what-is-xarray">
+<h2>What is Xarray?<a class="headerlink" href="#what-is-xarray" title="Link to this heading"></a></h2>
+<p>Xarray is a powerful Python library that introduces labelled multidimensional arrays. This means the axes have labels (=dimensions), each row/column has a label (coordinates), and labels can even have units of measurement. This makes it much easier to follow what the data in an array means and select specific portions of data.</p>
+<p>We will first download a dataset similar to the example above to illustrate the advantages of Xarray. We will cover how to transform your own data into an Xarray Dataset later in this lecture.</p>
+<p>Let us open a python shell and download a public dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pythia_datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">DATASETS</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filepath</span> <span class="o">=</span> <span class="n">DATASETS</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;NARR_19930313_0000.nc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can now import xarray and open the dataset. Le’ts take a look at what it contains:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="o">&gt;</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">15</span><span class="n">MB</span>
+<span class="n">Dimensions</span><span class="p">:</span>                       <span class="p">(</span><span class="n">time1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">119</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="mi">268</span><span class="p">)</span>
+<span class="n">Coordinates</span><span class="p">:</span>
+  <span class="o">*</span> <span class="n">time1</span>                         <span class="p">(</span><span class="n">time1</span><span class="p">)</span> <span class="n">datetime64</span><span class="p">[</span><span class="n">ns</span><span class="p">]</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">1993</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">13</span>
+  <span class="o">*</span> <span class="n">isobaric1</span>                     <span class="p">(</span><span class="n">isobaric1</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">116</span><span class="n">B</span> <span class="mf">100.0</span> <span class="mf">125.0</span> <span class="o">...</span> <span class="mf">1e+03</span>
+  <span class="o">*</span> <span class="n">y</span>                             <span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">476</span><span class="n">B</span> <span class="o">-</span><span class="mf">3.117e+03</span> <span class="o">...</span> <span class="mf">714.1</span>
+  <span class="o">*</span> <span class="n">x</span>                             <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">1</span><span class="n">kB</span> <span class="o">-</span><span class="mf">3.324e+03</span> <span class="o">...</span> <span class="mf">5.343e+03</span>
+<span class="n">Data</span> <span class="n">variables</span><span class="p">:</span>
+    <span class="n">u</span><span class="o">-</span><span class="n">component_of_wind_isobaric</span>  <span class="p">(</span><span class="n">time1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">4</span><span class="n">MB</span> <span class="o">...</span>
+    <span class="n">LambertConformal_Projection</span>   <span class="n">int32</span> <span class="mi">4</span><span class="n">B</span> <span class="o">...</span>
+    <span class="n">lat</span>                           <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="n">float64</span> <span class="mi">255</span><span class="n">kB</span> <span class="o">...</span>
+    <span class="n">lon</span>                           <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="n">float64</span> <span class="mi">255</span><span class="n">kB</span> <span class="o">...</span>
+    <span class="n">Geopotential_height_isobaric</span>  <span class="p">(</span><span class="n">time1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">4</span><span class="n">MB</span> <span class="o">...</span>
+    <span class="n">v</span><span class="o">-</span><span class="n">component_of_wind_isobaric</span>  <span class="p">(</span><span class="n">time1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">4</span><span class="n">MB</span> <span class="o">...</span>
+    <span class="n">Temperature_isobaric</span>          <span class="p">(</span><span class="n">time1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">4</span><span class="n">MB</span> <span class="o">...</span>
+<span class="n">Attributes</span><span class="p">:</span>
+    <span class="n">Originating_or_generating_Center</span><span class="p">:</span>     <span class="n">US</span> <span class="n">National</span> <span class="n">Weather</span> <span class="n">Service</span><span class="p">,</span> <span class="n">Nation</span><span class="o">...</span>
+    <span class="n">Originating_or_generating_Subcenter</span><span class="p">:</span>  <span class="n">North</span> <span class="n">American</span> <span class="n">Regional</span> <span class="n">Reanalysis</span> <span class="o">...</span>
+    <span class="n">GRIB_table_version</span><span class="p">:</span>                   <span class="mi">0</span><span class="p">,</span><span class="mi">131</span>
+    <span class="n">Generating_process_or_model</span><span class="p">:</span>          <span class="n">North</span> <span class="n">American</span> <span class="n">Regional</span> <span class="n">Reanalysis</span> <span class="o">...</span>
+    <span class="n">Conventions</span><span class="p">:</span>                          <span class="n">CF</span><span class="o">-</span><span class="mf">1.6</span>
+    <span class="n">history</span><span class="p">:</span>                              <span class="n">Read</span> <span class="n">using</span> <span class="n">CDM</span> <span class="n">IOSP</span> <span class="n">GribCollection</span> <span class="n">v3</span>
+    <span class="n">featureType</span><span class="p">:</span>                          <span class="n">GRID</span>
+    <span class="n">History</span><span class="p">:</span>                              <span class="n">Translated</span> <span class="n">to</span> <span class="n">CF</span><span class="o">-</span><span class="mf">1.0</span> <span class="n">Conventions</span> <span class="n">by</span><span class="o">...</span>
+    <span class="n">geospatial_lat_min</span><span class="p">:</span>                   <span class="mf">10.753308882144761</span>
+    <span class="n">geospatial_lat_max</span><span class="p">:</span>                   <span class="mf">46.8308828962289</span>
+    <span class="n">geospatial_lon_min</span><span class="p">:</span>                   <span class="o">-</span><span class="mf">153.88242040519995</span>
+    <span class="n">geospatial_lon_max</span><span class="p">:</span>                   <span class="o">-</span><span class="mf">42.666108129242815</span>
+</pre></div>
+</div>
+<p>That was a lot of information at once, but let’s break it down.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Close to the top of the output we see the <code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> of the dataset: <code class="docutils literal notranslate"><span class="pre">time1</span></code>, <code class="docutils literal notranslate"><span class="pre">isobaric1</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p>Below the dimensions, we see the <code class="docutils literal notranslate"><span class="pre">Coordinates</span></code> of the dataset. These are for each dimension the labels for each value along that dimension. For example, we have a timestamp of each value along the first dimension (<code class="docutils literal notranslate"><span class="pre">time1</span></code>).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">variables</span></code> are the actual data stored in the dataset. We see that the dataset contains a bunch of arrays, most of which are 4-dimensional, where each dimension corresponds to one of the <code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> described above. There are also some 2-dimensional arrays that only have some of the <code class="docutils literal notranslate"><span class="pre">Dimensions</span></code> described above.</p></li>
+<li><p>At the bottom, we see the <code class="docutils literal notranslate"><span class="pre">Attributes</span></code> of the dataset. This is a dictionary that stores metadata about the dataset.</p></li>
+</ul>
+</div></blockquote>
+<p>The following image shows the structure of this particular Xarray Dataset:</p>
+<blockquote>
+<div><img alt="../_images/xarray_dataset_image.png" src="../_images/xarray_dataset_image.png" />
+</div></blockquote>
+</section>
+<section id="accessing-and-manipulating-data-in-xarray">
+<h2>Accessing and manipulating data in Xarray<a class="headerlink" href="#accessing-and-manipulating-data-in-xarray" title="Link to this heading"></a></h2>
+<p>An xarray <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> typically consists of multiple <code class="docutils literal notranslate"><span class="pre">DataArrays</span></code>. Our example dataset has 7 of them (<code class="docutils literal notranslate"><span class="pre">u-component_of_wind_isobaric</span></code>, <code class="docutils literal notranslate"><span class="pre">LambertConformal_Projection</span></code>, <code class="docutils literal notranslate"><span class="pre">lat</span></code>, <code class="docutils literal notranslate"><span class="pre">lon</span></code>, <code class="docutils literal notranslate"><span class="pre">Geopotential_height_isobaric</span></code>, <code class="docutils literal notranslate"><span class="pre">v-component_of_wind_isobaric</span></code>, <code class="docutils literal notranslate"><span class="pre">Temperature_isobaric</span></code>).
+We can select a single <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> from the dataset using a dictionary-like syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temperature_data</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temperature_data</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span> <span class="s1">&#39;Temperature_isobaric&#39;</span> <span class="p">(</span><span class="n">time1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">119</span><span class="p">,</span>
+                                          <span class="n">x</span><span class="p">:</span> <span class="mi">268</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">4</span><span class="n">MB</span>
+<span class="p">[</span><span class="mi">924868</span> <span class="n">values</span> <span class="k">with</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">]</span>
+<span class="n">Coordinates</span><span class="p">:</span>
+  <span class="o">*</span> <span class="n">time1</span>      <span class="p">(</span><span class="n">time1</span><span class="p">)</span> <span class="n">datetime64</span><span class="p">[</span><span class="n">ns</span><span class="p">]</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">1993</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">13</span>
+  <span class="o">*</span> <span class="n">isobaric1</span>  <span class="p">(</span><span class="n">isobaric1</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">116</span><span class="n">B</span> <span class="mf">100.0</span> <span class="mf">125.0</span> <span class="mf">150.0</span> <span class="o">...</span> <span class="mf">950.0</span> <span class="mf">975.0</span> <span class="mf">1e+03</span>
+  <span class="o">*</span> <span class="n">y</span>          <span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">476</span><span class="n">B</span> <span class="o">-</span><span class="mf">3.117e+03</span> <span class="o">-</span><span class="mf">3.084e+03</span> <span class="o">-</span><span class="mf">3.052e+03</span> <span class="o">...</span> <span class="mf">681.6</span> <span class="mf">714.1</span>
+  <span class="o">*</span> <span class="n">x</span>          <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">1</span><span class="n">kB</span> <span class="o">-</span><span class="mf">3.324e+03</span> <span class="o">-</span><span class="mf">3.292e+03</span> <span class="o">...</span> <span class="mf">5.311e+03</span> <span class="mf">5.343e+03</span>
+<span class="n">Attributes</span><span class="p">:</span>
+    <span class="n">long_name</span><span class="p">:</span>           <span class="n">Temperature</span> <span class="o">@</span> <span class="n">Isobaric</span> <span class="n">surface</span>
+    <span class="n">units</span><span class="p">:</span>               <span class="n">K</span>
+    <span class="n">description</span><span class="p">:</span>         <span class="n">Temperature</span>
+    <span class="n">grid_mapping</span><span class="p">:</span>        <span class="n">LambertConformal_Projection</span>
+    <span class="n">Grib_Variable_Id</span><span class="p">:</span>    <span class="n">VAR_7</span><span class="o">-</span><span class="mi">15</span><span class="o">-</span><span class="mi">131</span><span class="o">-</span><span class="mi">11</span><span class="n">_L100</span>
+    <span class="n">Grib1_Center</span><span class="p">:</span>        <span class="mi">7</span>
+    <span class="n">Grib1_Subcenter</span><span class="p">:</span>     <span class="mi">15</span>
+    <span class="n">Grib1_TableVersion</span><span class="p">:</span>  <span class="mi">131</span>
+    <span class="n">Grib1_Parameter</span><span class="p">:</span>     <span class="mi">11</span>
+    <span class="n">Grib1_Level_Type</span><span class="p">:</span>    <span class="mi">100</span>
+    <span class="n">Grib1_Level_Desc</span><span class="p">:</span>    <span class="n">Isobaric</span> <span class="n">surface</span>
+</pre></div>
+</div>
+<p>Xarray uses Numpy(-like) arrays under the hood, we can always access the underlying Numpy array using the <code class="docutils literal notranslate"><span class="pre">.values</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temperature_numpy</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temperature_numpy</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[[[</span><span class="mf">201.88957</span><span class="p">,</span> <span class="mf">202.2177</span> <span class="p">,</span> <span class="mf">202.49895</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">195.10832</span><span class="p">,</span> <span class="mf">195.23332</span><span class="p">,</span>
+          <span class="mf">195.37395</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">201.68645</span><span class="p">,</span> <span class="mf">202.0302</span> <span class="p">,</span> <span class="mf">202.3427</span> <span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">195.24895</span><span class="p">,</span> <span class="mf">195.38957</span><span class="p">,</span>
+          <span class="mf">195.51457</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">201.5302</span> <span class="p">,</span> <span class="mf">201.87395</span><span class="p">,</span> <span class="mf">202.20207</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">195.37395</span><span class="p">,</span> <span class="mf">195.51457</span><span class="p">,</span>
+          <span class="mf">195.63957</span><span class="p">],</span>
+         <span class="o">...</span><span class="p">,</span>
+         <span class="p">[</span><span class="mf">276.735</span>  <span class="p">,</span> <span class="mf">276.70374</span><span class="p">,</span> <span class="mf">276.6881</span> <span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">289.235</span>  <span class="p">,</span> <span class="mf">289.1725</span> <span class="p">,</span>
+          <span class="mf">289.07874</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">276.86</span>   <span class="p">,</span> <span class="mf">276.84436</span><span class="p">,</span> <span class="mf">276.78186</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">289.1881</span> <span class="p">,</span> <span class="mf">289.11</span>   <span class="p">,</span>
+          <span class="mf">289.01624</span><span class="p">],</span>
+         <span class="p">[</span><span class="mf">277.01624</span><span class="p">,</span> <span class="mf">276.82874</span><span class="p">,</span> <span class="mf">276.82874</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">289.14124</span><span class="p">,</span> <span class="mf">289.0475</span> <span class="p">,</span>
+          <span class="mf">288.96936</span><span class="p">]]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Xarray allows you to select data using the <code class="docutils literal notranslate"><span class="pre">.sel()</span></code> method, which uses the labels of the dimensions to extract data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;-3292.0078&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default, you need to enter the exact coordinate, but often we want to select the closest value to some number. For this, you can use <code class="docutils literal notranslate"><span class="pre">method='nearest'</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;-3292&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span> <span class="s1">&#39;Temperature_isobaric&#39;</span> <span class="p">(</span><span class="n">time1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">119</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">14</span><span class="n">kB</span>
+<span class="n">array</span><span class="p">([[[</span><span class="mf">202.2177</span> <span class="p">,</span> <span class="mf">202.0302</span> <span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">219.67082</span><span class="p">,</span> <span class="mf">219.74895</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">202.58566</span><span class="p">,</span> <span class="mf">202.58566</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">219.16379</span><span class="p">,</span> <span class="mf">219.28879</span><span class="p">],</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="p">[</span><span class="mf">292.1622</span> <span class="p">,</span> <span class="mf">292.14658</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">275.05283</span><span class="p">,</span> <span class="mf">275.11533</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">294.1256</span> <span class="p">,</span> <span class="mf">294.14124</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">276.84436</span><span class="p">,</span> <span class="mf">276.82874</span><span class="p">]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">Coordinates</span><span class="p">:</span>
+  <span class="o">*</span> <span class="n">time1</span>      <span class="p">(</span><span class="n">time1</span><span class="p">)</span> <span class="n">datetime64</span><span class="p">[</span><span class="n">ns</span><span class="p">]</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">1993</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">13</span>
+  <span class="o">*</span> <span class="n">isobaric1</span>  <span class="p">(</span><span class="n">isobaric1</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">116</span><span class="n">B</span> <span class="mf">100.0</span> <span class="mf">125.0</span> <span class="mf">150.0</span> <span class="o">...</span> <span class="mf">950.0</span> <span class="mf">975.0</span> <span class="mf">1e+03</span>
+  <span class="o">*</span> <span class="n">y</span>          <span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">476</span><span class="n">B</span> <span class="o">-</span><span class="mf">3.117e+03</span> <span class="o">-</span><span class="mf">3.084e+03</span> <span class="o">-</span><span class="mf">3.052e+03</span> <span class="o">...</span> <span class="mf">681.6</span> <span class="mf">714.1</span>
+    <span class="n">x</span>          <span class="n">float32</span> <span class="mi">4</span><span class="n">B</span> <span class="o">-</span><span class="mf">3.292e+03</span>
+<span class="n">Attributes</span><span class="p">:</span>
+    <span class="n">long_name</span><span class="p">:</span>           <span class="n">Temperature</span> <span class="o">@</span> <span class="n">Isobaric</span> <span class="n">surface</span>
+    <span class="n">units</span><span class="p">:</span>               <span class="n">K</span>
+    <span class="n">description</span><span class="p">:</span>         <span class="n">Temperature</span>
+    <span class="n">grid_mapping</span><span class="p">:</span>        <span class="n">LambertConformal_Projection</span>
+    <span class="n">Grib_Variable_Id</span><span class="p">:</span>    <span class="n">VAR_7</span><span class="o">-</span><span class="mi">15</span><span class="o">-</span><span class="mi">131</span><span class="o">-</span><span class="mi">11</span><span class="n">_L100</span>
+    <span class="n">Grib1_Center</span><span class="p">:</span>        <span class="mi">7</span>
+    <span class="n">Grib1_Subcenter</span><span class="p">:</span>     <span class="mi">15</span>
+    <span class="n">Grib1_TableVersion</span><span class="p">:</span>  <span class="mi">131</span>
+    <span class="n">Grib1_Parameter</span><span class="p">:</span>     <span class="mi">11</span>
+    <span class="n">Grib1_Level_Type</span><span class="p">:</span>    <span class="mi">100</span>
+    <span class="n">Grib1_Level_Desc</span><span class="p">:</span>    <span class="n">Isobaric</span> <span class="n">surface</span>
+</pre></div>
+</div>
+<p>We can also access the same data by index using the <code class="docutils literal notranslate"><span class="pre">.isel()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span> <span class="s1">&#39;Temperature_isobaric&#39;</span> <span class="p">(</span><span class="n">time1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">isobaric1</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">119</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">14</span><span class="n">kB</span>
+<span class="n">array</span><span class="p">([[[</span><span class="mf">202.2177</span> <span class="p">,</span> <span class="mf">202.0302</span> <span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">219.67082</span><span class="p">,</span> <span class="mf">219.74895</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">202.58566</span><span class="p">,</span> <span class="mf">202.58566</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">219.16379</span><span class="p">,</span> <span class="mf">219.28879</span><span class="p">],</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="p">[</span><span class="mf">292.1622</span> <span class="p">,</span> <span class="mf">292.14658</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">275.05283</span><span class="p">,</span> <span class="mf">275.11533</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">294.1256</span> <span class="p">,</span> <span class="mf">294.14124</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">276.84436</span><span class="p">,</span> <span class="mf">276.82874</span><span class="p">]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">Coordinates</span><span class="p">:</span>
+  <span class="o">*</span> <span class="n">time1</span>      <span class="p">(</span><span class="n">time1</span><span class="p">)</span> <span class="n">datetime64</span><span class="p">[</span><span class="n">ns</span><span class="p">]</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">1993</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">13</span>
+  <span class="o">*</span> <span class="n">isobaric1</span>  <span class="p">(</span><span class="n">isobaric1</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">116</span><span class="n">B</span> <span class="mf">100.0</span> <span class="mf">125.0</span> <span class="mf">150.0</span> <span class="o">...</span> <span class="mf">950.0</span> <span class="mf">975.0</span> <span class="mf">1e+03</span>
+  <span class="o">*</span> <span class="n">y</span>          <span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">476</span><span class="n">B</span> <span class="o">-</span><span class="mf">3.117e+03</span> <span class="o">-</span><span class="mf">3.084e+03</span> <span class="o">-</span><span class="mf">3.052e+03</span> <span class="o">...</span> <span class="mf">681.6</span> <span class="mf">714.1</span>
+    <span class="n">x</span>          <span class="n">float32</span> <span class="mi">4</span><span class="n">B</span> <span class="o">-</span><span class="mf">3.292e+03</span>
+<span class="n">Attributes</span><span class="p">:</span>
+    <span class="n">long_name</span><span class="p">:</span>           <span class="n">Temperature</span> <span class="o">@</span> <span class="n">Isobaric</span> <span class="n">surface</span>
+    <span class="n">units</span><span class="p">:</span>               <span class="n">K</span>
+    <span class="n">description</span><span class="p">:</span>         <span class="n">Temperature</span>
+    <span class="n">grid_mapping</span><span class="p">:</span>        <span class="n">LambertConformal_Projection</span>
+    <span class="n">Grib_Variable_Id</span><span class="p">:</span>    <span class="n">VAR_7</span><span class="o">-</span><span class="mi">15</span><span class="o">-</span><span class="mi">131</span><span class="o">-</span><span class="mi">11</span><span class="n">_L100</span>
+    <span class="n">Grib1_Center</span><span class="p">:</span>        <span class="mi">7</span>
+    <span class="n">Grib1_Subcenter</span><span class="p">:</span>     <span class="mi">15</span>
+    <span class="n">Grib1_TableVersion</span><span class="p">:</span>  <span class="mi">131</span>
+    <span class="n">Grib1_Parameter</span><span class="p">:</span>     <span class="mi">11</span>
+    <span class="n">Grib1_Level_Type</span><span class="p">:</span>    <span class="mi">100</span>
+    <span class="n">Grib1_Level_Desc</span><span class="p">:</span>    <span class="n">Isobaric</span> <span class="n">surface</span>
+</pre></div>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> provides a lot of the functionality we expect from Numpy arrays,  such as <code class="docutils literal notranslate"><span class="pre">sum()</span></code>, <code class="docutils literal notranslate"><span class="pre">mean()</span></code>, <code class="docutils literal notranslate"><span class="pre">median()</span></code>, <code class="docutils literal notranslate"><span class="pre">min()</span></code>, and <code class="docutils literal notranslate"><span class="pre">max()</span></code> that we can use these methods to aggregate data over one or multiple dimensions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Calculate the mean over the &#39;isobaric1&#39; dimension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;isobaric1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span> <span class="s1">&#39;Temperature_isobaric&#39;</span> <span class="p">(</span><span class="n">time1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="mi">119</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="mi">268</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">Size</span><span class="p">:</span> <span class="mi">128</span><span class="n">kB</span>
+<span class="n">array</span><span class="p">([[[</span><span class="mf">259.88446</span><span class="p">,</span> <span class="mf">259.90222</span><span class="p">,</span> <span class="mf">259.91678</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">262.61667</span><span class="p">,</span> <span class="mf">262.6285</span> <span class="p">,</span>
+         <span class="mf">262.65167</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">259.74866</span><span class="p">,</span> <span class="mf">259.76752</span><span class="p">,</span> <span class="mf">259.78638</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">262.5757</span> <span class="p">,</span> <span class="mf">262.58218</span><span class="p">,</span>
+         <span class="mf">262.57516</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">259.6156</span> <span class="p">,</span> <span class="mf">259.63498</span><span class="p">,</span> <span class="mf">259.65115</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">262.52075</span><span class="p">,</span> <span class="mf">262.51215</span><span class="p">,</span>
+         <span class="mf">262.4976</span> <span class="p">],</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="p">[</span><span class="mf">249.8796</span> <span class="p">,</span> <span class="mf">249.83649</span><span class="p">,</span> <span class="mf">249.79501</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">254.43617</span><span class="p">,</span> <span class="mf">254.49059</span><span class="p">,</span>
+         <span class="mf">254.54985</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">249.8505</span> <span class="p">,</span> <span class="mf">249.80202</span><span class="p">,</span> <span class="mf">249.75244</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">254.37044</span><span class="p">,</span> <span class="mf">254.42378</span><span class="p">,</span>
+         <span class="mf">254.47711</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">249.82195</span><span class="p">,</span> <span class="mf">249.75998</span><span class="p">,</span> <span class="mf">249.71204</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">254.30956</span><span class="p">,</span> <span class="mf">254.35805</span><span class="p">,</span>
+         <span class="mf">254.41139</span><span class="p">]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">Coordinates</span><span class="p">:</span>
+  <span class="o">*</span> <span class="n">time1</span>    <span class="p">(</span><span class="n">time1</span><span class="p">)</span> <span class="n">datetime64</span><span class="p">[</span><span class="n">ns</span><span class="p">]</span> <span class="mi">8</span><span class="n">B</span> <span class="mi">1993</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">13</span>
+  <span class="o">*</span> <span class="n">y</span>        <span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">476</span><span class="n">B</span> <span class="o">-</span><span class="mf">3.117e+03</span> <span class="o">-</span><span class="mf">3.084e+03</span> <span class="o">-</span><span class="mf">3.052e+03</span> <span class="o">...</span> <span class="mf">681.6</span> <span class="mf">714.1</span>
+  <span class="o">*</span> <span class="n">x</span>        <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">float32</span> <span class="mi">1</span><span class="n">kB</span> <span class="o">-</span><span class="mf">3.324e+03</span> <span class="o">-</span><span class="mf">3.292e+03</span> <span class="o">...</span> <span class="mf">5.311e+03</span> <span class="mf">5.343e+03</span>
+</pre></div>
+</div>
+<p>Let’s take a look at a concrete example and compare it to NumPy. We will calculate the max temperature over the ‘isobaric1’ dimension at a specific value for x:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Xarray</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;-3259.5447&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;isobaric1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[</span><span class="mf">294.11</span>   <span class="p">,</span> <span class="mf">294.14124</span><span class="p">,</span> <span class="mf">294.1256</span> <span class="p">,</span> <span class="mf">294.0475</span> <span class="p">,</span> <span class="mf">293.90686</span><span class="p">,</span> <span class="mf">293.6256</span> <span class="p">,</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="mf">276.46936</span><span class="p">,</span> <span class="mf">276.59436</span><span class="p">,</span> <span class="mf">276.6881</span> <span class="p">,</span> <span class="mf">276.78186</span><span class="p">,</span> <span class="mf">276.82874</span><span class="p">]],</span>
+      <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In comparison, if we were to use plain Numpy, this would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># NumPy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">temperature_numpy</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">2</span> <span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[</span><span class="mf">294.11</span>   <span class="p">,</span> <span class="mf">294.14124</span><span class="p">,</span> <span class="mf">294.1256</span> <span class="p">,</span> <span class="mf">294.0475</span> <span class="p">,</span> <span class="mf">293.90686</span><span class="p">,</span> <span class="mf">293.6256</span> <span class="p">,</span>
+        <span class="o">...</span><span class="p">,</span>
+        <span class="mf">276.46936</span><span class="p">,</span> <span class="mf">276.59436</span><span class="p">,</span> <span class="mf">276.6881</span> <span class="p">,</span> <span class="mf">276.78186</span><span class="p">,</span> <span class="mf">276.82874</span><span class="p">]],</span>
+      <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As you can see, the Xarray code is much more readable and we didn’t need to keep track of the right indices and order of the dimensions.</p>
+</section>
+<section id="plotting-data-in-xarray">
+<h2>Plotting data in Xarray<a class="headerlink" href="#plotting-data-in-xarray" title="Link to this heading"></a></h2>
+<p>Like Pandas, Xarray comes with basic plotting capabilities. We can easily plot data in 1D and 2D using the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method. Xarray uses a widely used plotting library called matplotlib for this. When calling the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method, Xarray checks the dimensionality of the data and plots it accordingly. Let’s import matplotlib and plot the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For a 2D DataArray the plot would resemble this example:</p>
+<blockquote>
+<div><img alt="../_images/xarray_2d_plot.png" src="../_images/xarray_2d_plot.png" />
+</div></blockquote>
+<p>Note, that we didn’t specify the axes labels, Xarray automatically used the coordinates of the DataArray for the plot. This plot might not be one you include directly in a paper, but it is a great way to quickly visualize your data.</p>
+<p>Let’s have a look at a dataslice of 1D data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The resulting plot detects the dimentionality of the data and plots it accordingly:</p>
+<blockquote>
+<div><img alt="../_images/xarray_1d_plot.png" src="../_images/xarray_1d_plot.png" />
+</div></blockquote>
+<p>If the data has more than two dimensions, Xarray will plot a histogram of the data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Temperature_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The resulting plot would look like this:</p>
+<blockquote>
+<div><img alt="../_images/xarray_hist.png" src="../_images/xarray_hist.png" />
+</div></blockquote>
+<p>We can modify the plots by passing additional arguments to the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method. Since we haven’t discussed the plotting library matplotlib in this course, we will not go into further detail here. You can find more information in the <a class="reference external" href="https://xarray.pydata.org/en/stable/plotting.html">Xarray documentation</a>.</p>
+</section>
+<section id="exercises-1">
+<h2>Exercises 1<a class="headerlink" href="#exercises-1" title="Link to this heading"></a></h2>
+<div class="admonition-exercises-xarray-1 exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercises: Xarray-1</p>
+<p>Download the <code class="docutils literal notranslate"><span class="pre">NARR_19930313_0000.nc</span></code> dataset have a look at all Data variables. Calculate the geopotential height at <code class="docutils literal notranslate"><span class="pre">x=5148.3726</span></code> averaged over <code class="docutils literal notranslate"><span class="pre">y</span></code> and return the median value. You can use the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> method to check on the way whether you use the correct dimensions and indices.</p>
+</div>
+<div class="admonition-solutions-xarray-1 solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solutions: Xarray-1</p>
+<p>One way of calculating this is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pythia_datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">DATASETS</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filepath</span> <span class="o">=</span> <span class="n">DATASETS</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;NARR_19930313_0000.nc&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;Geopotential_height_isobaric&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">5148.3726</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="go">&lt;xarray.DataArray &#39;Geopotential_height_isobaric&#39; ()&gt; Size: 4B</span>
+<span class="go">array(4395.487, dtype=float32)</span>
+<span class="go">Coordinates:</span>
+<span class="go">    x        float32 4B 5.148e+03</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="creating-your-own-xarray-dataset">
+<h2>Creating your own Xarray Dataset<a class="headerlink" href="#creating-your-own-xarray-dataset" title="Link to this heading"></a></h2>
+<p>Creating your own Xarray Dataset is quite simple. We can create a Dataset from scratch using basic Python data structures. Let’s create a simple weather dataset with pressure and humidity data with the following script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Define coordinates using basic Python lists</span>
+<span class="n">time</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-02&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-03&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-04&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-01-05&#39;</span><span class="p">]</span>
+<span class="n">location</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Location1&#39;</span><span class="p">,</span> <span class="s1">&#39;Location2&#39;</span><span class="p">,</span> <span class="s1">&#39;Location3&#39;</span><span class="p">]</span>
+
+<span class="c1"># Define data variables as numpy arrays</span>
+<span class="n">pressure_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>  <span class="c1"># Random pressure data in hPa</span>
+<span class="n">humidity_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>  <span class="c1"># Random humidity data</span>
+
+<span class="c1"># Put everything together to create the Dataset</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+    <span class="n">data_vars</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;pressure&quot;</span><span class="p">:</span> <span class="p">([</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">],</span> <span class="n">pressure_data</span><span class="p">),</span>
+        <span class="s2">&quot;humidity&quot;</span><span class="p">:</span> <span class="p">([</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">],</span> <span class="n">humidity_data</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+        <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="n">location</span>
+    <span class="p">},</span>
+    <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Weather data&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;creation_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;Data Scientist&quot;</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="converting-xarray-objects-to-numpy-pandas-and-netcdf">
+<h2>Converting Xarray objects to NumPy, Pandas and NetCDF<a class="headerlink" href="#converting-xarray-objects-to-numpy-pandas-and-netcdf" title="Link to this heading"></a></h2>
+<p>Another handy feature of Xarray is the simple conversion between Xarray objects, NumPy arrays, Pandas DataFrames and even NetCDF files.</p>
+<p>To convert an xarray DataArray to a NumPy array, you can use the <code class="docutils literal notranslate"><span class="pre">.values</span></code> attribute or the <code class="docutils literal notranslate"><span class="pre">.to_numpy()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the &#39;pressure&#39; DataArray to a NumPy array</span>
+<span class="n">pressure_numpy</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># or</span>
+<span class="n">pressure_numpy</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To convert the entire Dataset or individual DataArrays to pandas DataFrames, use the <code class="docutils literal notranslate"><span class="pre">.to_dataframe()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the entire Dataset to a DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span class="c1"># Convert a single DataArray to DataFrame</span>
+<span class="n">pressure_df</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To save the dataset as a NetCDF file, use the <code class="docutils literal notranslate"><span class="pre">.to_netcdf()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the Dataset as a NetCDF file</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s1">&#39;weather_data.nc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="exercises-2">
+<h2>Exercises 2<a class="headerlink" href="#exercises-2" title="Link to this heading"></a></h2>
+<div class="admonition-exercises-xarray-2 exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercises: Xarray-2</p>
+<p>Let’s change from climate science to finance for this example. Put the stock prices and trading volumes of three companies in one dataset. Create an Xarray Dataset that uses time and company as dimensions and contains two DataArrays: <code class="docutils literal notranslate"><span class="pre">stock_price</span></code> and <code class="docutils literal notranslate"><span class="pre">trading_volume</span></code>. You can download the data as a pandas DataFrame with the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+
+<span class="n">AAPL_df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">)</span>
+<span class="n">GOOGL_df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">)</span>
+<span class="n">MSFT_df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As a last thing, add the currency of the stock prices as an attribute to the Dataset.</p>
+</div>
+<div class="admonition-solutions-xarray-2 solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solutions: Xarray-2</p>
+<p>We can use a script similar to this one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="s2">&quot;2020-01-01&quot;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s2">&quot;2024-01-01&quot;</span>
+
+<span class="n">AAPL_df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">)</span>
+<span class="n">GOOGL_df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">)</span>
+<span class="n">MSFT_df</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">)</span>
+
+
+<span class="n">stock_prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">AAPL_df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">GOOGL_df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">MSFT_df</span><span class="p">[</span><span class="s2">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">trading_volumes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">AAPL_df</span><span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">GOOGL_df</span><span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">MSFT_df</span><span class="p">[</span><span class="s2">&quot;Volume&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+
+<span class="n">companies</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">]</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">AAPL_df</span><span class="o">.</span><span class="n">index</span><span class="p">[:]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;stock_price&quot;</span><span class="p">:</span> <span class="p">([</span><span class="s2">&quot;company&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">stock_prices</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]),</span>
+        <span class="s2">&quot;trading_volume&quot;</span><span class="p">:</span> <span class="p">([</span><span class="s2">&quot;company&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">trading_volumes</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]),</span>
+    <span class="p">},</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s2">&quot;company&quot;</span><span class="p">:</span> <span class="n">companies</span><span class="p">},</span>
+    <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;currency&quot;</span><span class="p">:</span> <span class="s2">&quot;USD&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="advanced-topics">
+<h2>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Link to this heading"></a></h2>
+<p>We have barely scratched the surface of all the features Xarray has to offer. Hopefully this quick introduction has shown you whether Xarray is the right tool for your data analysis needs. If you are interested in learning more about Xarray, here are some topics for further reading:</p>
+<ul class="simple">
+<li><p>Xarray integrates with Dask to support parallel computations and streaming computation on datasets that don’t fit into memory. If you work with datasets that are too large for your memory, have a read of the chapter <a class="reference external" href="https://docs.xarray.dev/en/stable/user-guide/dask.html">Parallel computing with Dask</a> in the Xarray documentation.</p></li>
+<li><p>If you want to accelerate Xarray operations with your GPU, have a look at <a class="reference external" href="https://cupy-xarray.readthedocs.io/latest/">CuPy-Xarray</a>.</p></li>
+<li><p>Xarray can be combined with pint, a Python library that adds support for physical quantities to NumPy arrays. This <a class="reference external" href="https://xarray.dev/blog/introducing-pint-xarray">blog post</a> provides a good introduction to the topic.</p></li>
+<li><p>You can extend Xarray with your own methods using the <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.register_dataset_accessor.html">register_dataset_accessor()</a> method. This is a powerful feature that allows you to add custom methods to your own Xarray Datasets.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../pandas/" class="btn btn-neutral float-left" title="Pandas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../plotting-matplotlib/" class="btn btn-neutral float-right" title="Plotting with Matplotlib" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Productivity tools" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/productivity/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Spotting code problems with linters: Python as a programming language has a syntax that specifies the rules that the code must follow. If the code is not written with valid syntax, you will get an ..." />
+<meta name="description" content="Spotting code problems with linters: Python as a programming language has a syntax that specifies the rules that the code must follow. If the code is not written with valid syntax, you will get an ..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productivity tools &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="../_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Scripts" href="../scripts/" />
+    <link rel="prev" title="Data formats with Pandas and Numpy" href="../data-formats/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Productivity tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#spotting-code-problems-with-linters">Spotting code problems with linters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-1">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enforcing-consistent-code-style">Enforcing consistent code style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-2">Exercise 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integrating-productivity-tools-with-git">Integrating productivity tools with git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-nice-tools">Other nice tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Productivity tools</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/productivity.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="productivity-tools">
+<h1>Productivity tools<a class="headerlink" href="#productivity-tools" title="Permalink to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>Do you have preferences on the visual aspects of the code
+and how it should look?</p></li>
+<li><p>Do you use any tools that help you create better looking
+code faster?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn tools that can help you be more productive.</p></li>
+<li><p>Learn how to follow standards that other people have created
+and how to pick your own favorite.</p></li>
+</ul>
+</div>
+<section id="spotting-code-problems-with-linters">
+<h2>Spotting code problems with linters<a class="headerlink" href="#spotting-code-problems-with-linters" title="Permalink to this heading"></a></h2>
+<p>Python as a programming language has a syntax that specifies the
+rules that the code must follow. If the code is not written with
+valid syntax, you will get an error.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Valid syntax, returns 1</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Invalid syntax, returns SyntaxError</span>
+<span class="kc">True</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Spotting syntax errors can be time consuming and to help this
+programmers have created <strong>linters</strong>. Linters are tools that
+check whether code’s syntax is correct.</p>
+<p>Some popular linters include:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a></p></li>
+<li><p><a class="reference external" href="https://pylint.readthedocs.io/en/stable/">Pylint</a></p></li>
+<li><p><a class="reference external" href="https://flake8.pycqa.org/en/latest/">flake8</a></p></li>
+</ul>
+<p>In the following example lets use <code class="docutils literal notranslate"><span class="pre">pylint</span></code> to check the following
+script (<a class="reference download internal" download="" href="../_downloads/397ee019b6b388442dffa61ae3629d85/lint_example.py"><code class="xref download docutils literal notranslate"><span class="pre">lint_example.py</span></code></a>: to easily download
+to JupyterLab, use File → Open from URL → Paste URL → It will download
+and open in a window.):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To run <code class="docutils literal notranslate"><span class="pre">pylint</span></code> from the terminal in JupyterLab, File → New →
+Terminal.  Make sure you are in the right directory, then you can run
+<code class="docutils literal notranslate"><span class="pre">pylint</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pylint<span class="w"> </span>lint_example.py
+<span class="go">************* Module lint_example</span>
+<span class="go">lint_example.py:4:31: E0001: Parsing failed: &#39;unmatched &#39;)&#39; (&lt;unknown&gt;, line 4)&#39; (syntax-error)</span>
+</pre></div>
+</div>
+<p>From here we can see that <code class="docutils literal notranslate"><span class="pre">pylint</span></code> says that there is a unmatched bracket
+on line 4. We also get an message code E0001 (syntax-error). We can find
+description for the message from
+<a class="reference external" href="https://pylint.readthedocs.io/en/stable/user_guide/messages/messages_overview.html#error-category">Pylint’s messages list</a>
+and look at the
+<a class="reference external" href="https://pylint.readthedocs.io/en/stable/user_guide/messages/error/syntax-error.html">specific error page</a> to see an example that describes the error.</p>
+<p>After fixing the problem with the bracket and running <code class="docutils literal notranslate"><span class="pre">pylint</span></code> again we
+get more errors:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pylint<span class="w"> </span>lint_example.py
+<span class="go">************* Module lint_example</span>
+<span class="go">lint_example.py:1:0: C0114: Missing module docstring (missing-module-docstring)</span>
+<span class="go">lint_example.py:4:4: E0602: Undefined variable &#39;np&#39; (undefined-variable)</span>
+<span class="go">lint_example.py:4:19: E0602: Undefined variable &#39;np&#39; (undefined-variable)</span>
+<span class="go">lint_example.py:5:4: E0602: Undefined variable &#39;np&#39; (undefined-variable)</span>
+<span class="go">lint_example.py:1:0: W0611: Unused import numpy (unused-import)</span>
+
+<span class="go">------------------------------------------------------------------</span>
+<span class="go">Your code has been rated at 0.00/10 (previous run: 0.00/10, +0.00)</span>
+</pre></div>
+</div>
+<p>Here we see the following suggestions:</p>
+<ul class="simple">
+<li><p>On line 1 we’re missing a module docstring. This is a warning that we’re
+going against a coding convetion and thus we get a <code class="docutils literal notranslate"><span class="pre">CXXXX</span></code> message code.
+This is not critical, so let’s not focus on this for now.</p></li>
+<li><p>On lines 4 and 5 we have undefined variable <code class="docutils literal notranslate"><span class="pre">np</span></code>. This will create
+error if we would execute the code and thus we get a <code class="docutils literal notranslate"><span class="pre">EXXXX</span></code> message code.</p></li>
+<li><p>On line 1 we have unused import for <code class="docutils literal notranslate"><span class="pre">numpy</span></code> module. This won’t create an
+error, but Pylint flags this as unnecessary and will give a warning
+with <code class="docutils literal notranslate"><span class="pre">WXXX</span></code> message code.</p></li>
+</ul>
+<p>At the end Pylint will give a rating for the code. In this case the
+errors will give an overall rating of <code class="docutils literal notranslate"><span class="pre">0.00/10</span></code> as the code won’t execute
+correctly.</p>
+<p>From these messages we can deduce that the main problem is that the import
+statement does not use <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code> and thus <code class="docutils literal notranslate"><span class="pre">np</span></code> is undefined.</p>
+<p>After changing the import stamement, the code works correctly and running
+<code class="docutils literal notranslate"><span class="pre">pylint</span> <span class="pre">lint_example.py</span></code> will only warn about the missing docstring.
+You can also notice that the changes have increased the rating and
+Pylint will show the improvement since last run.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pylint<span class="w"> </span>lint_example.py
+<span class="go">************* Module lint_example</span>
+<span class="go">lint_example.py:1:0: C0114: Missing module docstring (missing-module-docstring)</span>
+
+<span class="go">------------------------------------------------------------------</span>
+<span class="go">Your code has been rated at 8.33/10 (previous run: 0.00/10, +8.33)</span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this heading"></a></h2>
+<div class="admonition-using-pylint exercise important admonition" id="exercise-0">
+<p class="admonition-title">Using Pylint</p>
+<p>The following code uses scikit-learn to fit a simple linear
+model to randomly generated data with some error. You can download it
+<a class="reference download internal" download="" href="../_downloads/747df499c1e18239511ea006e0433951/exercise1.py"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a> (see
+above for how to easily download and run in JupyterLab).</p>
+<p>It has four mistakes in it. One of these cannot be found by
+Pylint.</p>
+<p>Fix the following code with Pylint and try to determine why
+Pylint did not find the last mistake.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">pylint exercise 1</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Example function:</span>
+
+<span class="sd">    f(x) = x/2 + 2</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+
+
+<span class="c1"># Create example data</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">err</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span> <span class="o">+</span> <span class="n">err</span>
+
+<span class="c1"># Put data into dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x_data</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y_data</span><span class="p">})</span>
+
+<span class="c1"># Create linear model and fit data</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">]])</span>
+
+<span class="n">slope</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">intercept</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">]])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scater</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">]],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;pred&#39;</span><span class="p">]]</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Prediction with slope </span><span class="si">{</span><span class="n">slope</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> and intercept </span><span class="si">{</span><span class="n">intercept</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p>Solution is available
+<a class="reference download internal" download="" href="../_downloads/bd9ea3f34382e553b2a8efaca3708746/exercise1_solution.py"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a>.</p>
+<p>Errors were as follows:</p>
+<ol class="arabic simple">
+<li><p>Line 15 has an extra <code class="docutils literal notranslate"><span class="pre">&quot;</span></code>-character, which results in syntax-error.</p></li>
+<li><p>Line 30 has a missing <code class="docutils literal notranslate"><span class="pre">]</span></code>-bracker, which results in syntax-error.</p></li>
+<li><p>Line 40 is missing a comma at the end, which results in syntax-error.</p></li>
+<li><p>On line 39 the function <code class="docutils literal notranslate"><span class="pre">scatter</span></code> is misspelled. Pylint does not
+notice this as it does not run the code and thus it does not
+create the ax-object.</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">pylint exercise 1</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Example function:</span>
+
+<span class="sd">    f(x) = x/2 + 2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+
+
+<span class="c1"># Create example data</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">err</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span> <span class="o">+</span> <span class="n">err</span>
+
+<span class="c1"># Put data into dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x_data</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y_data</span><span class="p">})</span>
+
+<span class="c1"># Create linear model and fit data</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">]])</span>
+
+<span class="n">slope</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">intercept</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">]])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;y&#39;</span><span class="p">]],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;pred&#39;</span><span class="p">]],</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Prediction with slope </span><span class="si">{</span><span class="n">slope</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> and intercept </span><span class="si">{</span><span class="n">intercept</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="enforcing-consistent-code-style">
+<h2>Enforcing consistent code style<a class="headerlink" href="#enforcing-consistent-code-style" title="Permalink to this heading"></a></h2>
+<p>Python is a very flexible language which makes it possible to use
+all kinds of coding styles.</p>
+<p>For example, one could use the following naming styles for variables:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Different variable styles</span>
+<span class="n">myvariable</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># Lowercase</span>
+<span class="n">myVariable</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># Camel case</span>
+<span class="n">MyVariable</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># Pascal case</span>
+<span class="n">my_variable</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Snake case</span>
+</pre></div>
+</div>
+<p>Everyone has their own preference to what style to use and everybody
+has freedom to use their preferred style, but to improve legibility
+of code there are official style guides for
+<a class="reference external" href="https://peps.python.org/pep-0008/">code (PEP 8)</a> and for
+<a class="reference external" href="https://peps.python.org/pep-0257/">docstrings (PEP 257)</a>.</p>
+<p>There are many code checkers that give you suggestions on how
+to modify your code or do the modifications automatically:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://flake8.pycqa.org/en/latest/">flake8</a></p></li>
+<li><p><a class="reference external" href="https://github.com/psf/black">black</a></p></li>
+<li><p><a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a></p></li>
+<li><p><a class="reference external" href="https://github.com/google/yapf">yapf</a></p></li>
+</ul>
+<p>Let’s use black and flake8 (with <code class="docutils literal notranslate"><span class="pre">pep8-naming</span></code>-extension) to modify
+<a class="reference download internal" download="" href="../_downloads/a99f82e01864794e5780d2697d273d9e/code_style_example.py"><code class="xref download docutils literal notranslate"><span class="pre">code_style_example.py</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span>  <span class="nn">numpy</span>  <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span>  <span class="nf">PI_estimate</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function calculates an estimate of pi with dart thrower algorithm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">pi_Numbers</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pi_Numbers</span><span class="p">[</span> <span class="p">:</span><span class="n">n</span> <span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pi_Numbers</span><span class="p">[</span> <span class="n">n</span><span class="p">:</span> <span class="p">]</span>
+
+    <span class="k">return</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span> <span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">n</span>
+
+
+<span class="k">for</span> <span class="n">number</span>  <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">):</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span> <span class="n">number</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Estimate for PI with </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s1">8d</span><span class="si">}</span><span class="s1"> dart throws: </span><span class="si">{</span><span class="n">PI_estimate</span><span class="p">(</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Running flake8 to check for style problems we get the following output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>flake8<span class="w"> </span>code_style_example.py
+<span class="go">code_style_example.py:1:7: E271 multiple spaces after keyword</span>
+<span class="go">code_style_example.py:1:14: E272 multiple spaces before keyword</span>
+<span class="go">code_style_example.py:3:1: E302 expected 2 blank lines, found 1</span>
+<span class="go">code_style_example.py:3:4: E271 multiple spaces after keyword</span>
+<span class="go">code_style_example.py:3:6: N802 function name &#39;PI_estimate&#39; should be lowercase</span>
+<span class="go">code_style_example.py:7:6: N806 variable &#39;pi_Numbers&#39; in function should be lowercase</span>
+<span class="go">code_style_example.py:7:17: E222 multiple spaces after operator</span>
+<span class="go">code_style_example.py:7:40: E251 unexpected spaces around keyword / parameter equals</span>
+<span class="go">code_style_example.py:7:42: E251 unexpected spaces around keyword / parameter equals</span>
+<span class="go">code_style_example.py:8:20: E201 whitespace after &#39;[&#39;</span>
+<span class="go">code_style_example.py:8:23: E202 whitespace before &#39;]&#39;</span>
+<span class="go">code_style_example.py:9:20: E201 whitespace after &#39;[&#39;</span>
+<span class="go">code_style_example.py:9:23: E202 whitespace before &#39;]&#39;</span>
+<span class="go">code_style_example.py:11:33: E202 whitespace before &#39;)&#39;</span>
+<span class="go">code_style_example.py:14:11: E272 multiple spaces before keyword</span>
+<span class="go">code_style_example.py:14:23: E231 missing whitespace after &#39;,&#39;</span>
+<span class="go">code_style_example.py:16:11: E225 missing whitespace around operator</span>
+<span class="go">code_style_example.py:18:67: E201 whitespace after &#39;(&#39;</span>
+<span class="go">code_style_example.py:18:69: E202 whitespace before &#39;)&#39;</span>
+</pre></div>
+</div>
+<p>There are plenty of errors and warnings. We could fix these manually, but
+instead let’s use <code class="docutils literal notranslate"><span class="pre">black</span></code> to format the code. Black is an “uncompromising
+Python code formatter” from Python Software Foundation and it automatically
+modifies your code to match their recommended coding style.</p>
+<p>It should fix most of the errors automatically without changing the
+functionality.</p>
+<p>After running <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">code_style_example.py</span></code> the code looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">PI_estimate</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function calculates an estimate of pi with dart thrower algorithm.&quot;&quot;&quot;</span>
+
+    <span class="n">pi_Numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pi_Numbers</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pi_Numbers</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span>
+
+    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+
+
+<span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">number</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimate for PI with </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">8d</span><span class="si">}</span><span class="s2"> dart throws: </span><span class="si">{</span><span class="n">PI_estimate</span><span class="p">(</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Much cleaner. If we want to check for variable naming syntax we can still run
+<code class="docutils literal notranslate"><span class="pre">flake8</span> <span class="pre">code_style_example.py</span></code>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>flake8<span class="w"> </span>code_style_example.py
+<span class="go">code_style_example.py:4:6: N802 function name &#39;PI_estimate&#39; should be lowercase</span>
+<span class="go">code_style_example.py:5:80: E501 line too long (81 &gt; 79 characters)</span>
+<span class="go">code_style_example.py:7:6: N806 variable &#39;pi_Numbers&#39; in function should be lowercase</span>
+<span class="go">code_style_example.py:17:67: E201 whitespace after &#39;(&#39;</span>
+<span class="go">code_style_example.py:17:69: E202 whitespace before &#39;)&#39;</span>
+</pre></div>
+</div>
+<p>Fixing these problems we get the final piece of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">pi_estimate</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function calculates an estimate of pi with dart thrower algorithm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">pi_numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pi_numbers</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">pi_numbers</span><span class="p">[</span><span class="n">n</span><span class="p">:]</span>
+
+    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+
+
+<span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">number</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Estimate for PI with </span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">8d</span><span class="si">}</span><span class="s2"> dart throws: </span><span class="si">{</span><span class="n">pi_estimate</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Comparing the fixed one to the original one the code is much more legible.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Problems with styles and writing your own kind of code</p>
+<p>There style black uses is
+<a class="reference external" href="https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html">a bit different to PEP 8</a>
+and one can definitely argue that it
+<a class="reference external" href="https://github.com/psf/black/issues/148">does not handle mathematical expressions in the optimal way</a>.</p>
+<p>However, one can turn formatting off for math heavy sections with <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">fmt:</span> <span class="pre">on</span></code>-
+and <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">fmt:</span> <span class="pre">off</span></code>-comments. Alternatively, you can use formatter such as
+<a class="reference external" href="https://github.com/google/yapf">yapf</a>, which supports formatting based on
+arithmetic precedence:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>yapf<span class="w"> </span>--style<span class="o">=</span><span class="s1">&#39;{based_on_style: pep8, arithmetic_precedence_indication=true}&#39;</span><span class="w"> </span>--diff<span class="w"> </span>code_style_example.py
+<span class="go">--- code_style_example.py       (original)</span>
+<span class="go">+++ code_style_example.py       (reformatted)</span>
+<span class="go">@@ -10,7 +10,7 @@</span>
+<span class="go">     x = pi_numbers[:n]</span>
+<span class="go">     y = pi_numbers[n:]</span>
+
+<span class="go">-    return 4 * np.sum((x * x + y * y) &lt; 1) / n</span>
+<span class="go">+    return 4 * np.sum((x*x + y*y) &lt; 1) / n</span>
+
+
+<span class="go"> for number in range(1, 8):</span>
+</pre></div>
+</div>
+<p>From this diff we see that <code class="docutils literal notranslate"><span class="pre">yapf</span></code>  would change the multiplications to
+match the arithmetic precedence.</p>
+<p>All formatters allow for massive amounts of style changes and you can
+configure them by creating a configuration file in your repository.</p>
+<p>If the formatter makes a change that you do not like you can usually
+disable the change by changing the configuration of the formatter.</p>
+</div>
+</section>
+<section id="exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this heading"></a></h2>
+<div class="admonition-using-black-to-format-code exercise important admonition" id="exercise-1">
+<p class="admonition-title">Using black to format code</p>
+<p>Format
+<a class="reference download internal" download="" href="../_downloads/c0ff880c08336404fab105236689d632/exercise2.py"><code class="xref download docutils literal notranslate"><span class="pre">this</span> <span class="pre">code</span></code></a>
+with black:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span>  <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">dice_toss</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Throw n dice m times and the total value together.&quot;&quot;&quot;</span>
+    <span class="n">dice_rolls</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+    <span class="n">roll_averages</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dice_rolls</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">roll_averages</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span> <span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Number of dices to toss:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dice_toss</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">),</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">bins</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histogram of </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> dice tosses&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Total value&#39;</span> <span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of instances&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<p>Running <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">exercise2.py</span></code> will produce
+<a class="reference download internal" download="" href="../_downloads/b1df8a26f353860c500cc194df1641aa/exercise2_solution.py"><code class="xref download docutils literal notranslate"><span class="pre">this</span> <span class="pre">piece</span> <span class="pre">of</span> <span class="pre">code</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="k">def</span> <span class="nf">dice_toss</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Throw n dice m times and the total value together.&quot;&quot;&quot;</span>
+    <span class="n">dice_rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+
+    <span class="n">roll_averages</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dice_rolls</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">roll_averages</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Number of dices to toss:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dice_toss</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Histogram of </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> dice tosses&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Total value&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Number of instances&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="integrating-productivity-tools-with-git">
+<h2>Integrating productivity tools with git<a class="headerlink" href="#integrating-productivity-tools-with-git" title="Permalink to this heading"></a></h2>
+<p>If you’re using version control you can easily add tools such as
+pylint, flake8, black and ruff as automatic using tools like
+<a class="reference external" href="https://pre-commit.com/">pre-commit</a>.</p>
+<p>Pre-commit is a tool that makes it easy to automatically run various
+code checkers when you’re doing a new commit to the repository.</p>
+<p>For more information see their website.</p>
+</section>
+<section id="other-nice-tools">
+<h2>Other nice tools<a class="headerlink" href="#other-nice-tools" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pycqa.github.io/isort/">isort</a> - Sorts import statements for you</p></li>
+<li><p><a class="reference external" href="https://github.com/ryantam626/jupyterlab_code_formatter">jupyterlab_code_formatter</a> - Adds formatting functionality to jupyterlab.</p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Using linters and formatters can help you write cleaner code.</p></li>
+<li><p>You should adapt your own code and documentation style based
+on standards that other people use.</p></li>
+<li><p>Using pre-commit with your git repository can make many of the
+checks automatic.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../data-formats/" class="btn btn-neutral float-left" title="Data formats with Pandas and Numpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../scripts/" class="btn btn-neutral float-right" title="Scripts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2023, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

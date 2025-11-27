@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Software installation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/installation/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="This course is interactive and demonstrates many different tools. Thus, even beyond Python, extra software (Python libraries) needs to be installed. This page contains the instructions. Once the co..." />
+<meta name="description" content="This course is interactive and demonstrates many different tools. Thus, even beyond Python, extra software (Python libraries) needs to be installed. This page contains the instructions. Once the co..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software installation &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Quick reference" href="../quick-reference/" />
+    <link rel="prev" title="Extending Python with Cython" href="../cython/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/">Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work-with-data/">Working with Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiling/">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../productivity/">Productivity tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cython/">Extending Python with Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Software installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#starting-python">Starting Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-for-scicomp-software-environment">Python for SciComp software environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verification-of-python-and-jupyterlab">Verification of Python and JupyterLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#text-editor">Text editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line">Command line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verification-of-the-command-line">Verification of the command line</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#zoom">Zoom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#need-help">Need help?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">In depth analysis of some selected file formats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Software installation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/installation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="software-installation">
+<h1>Software installation<a class="headerlink" href="#software-installation" title="Link to this heading"></a></h1>
+<p>This course is interactive and demonstrates many different tools.
+Thus, even beyond Python, extra software (Python libraries) needs to
+be installed.  This page contains the instructions.</p>
+<p><strong>Once the course starts, we don’t have time to stop for installing
+software.</strong></p>
+<p>Please make sure before the course that you have all the required
+software installed or some other way access to it.  For example, the
+workshop could be done with a remote Jupyter server, as long as you
+can use the terminal from the Jupyter (you need to be able to access
+the command line for some lessons).</p>
+<div class="important admonition">
+<p class="admonition-title">Do you need help?</p>
+<p>Participants from a partner institution are invited to install help
+sessions. (Hint: ask your institution to become a partner if it
+isn’t already!)</p>
+<p>Otherwise, if you need installation help, show this page to someone
+around you and they can probably help.  These are relatively
+standard tools.</p>
+<p>Don’t be afraid to ask for help.  Installing scientific software is
+<em>harder than it should be</em> and it helps to have someone guide you
+through it.</p>
+</div>
+<section id="python">
+<h2>Python<a class="headerlink" href="#python" title="Link to this heading"></a></h2>
+<p>We expect you to have a working Python installation with some common
+libraries.  <strong>We currently recommend Miniforge, which includes the base and
+packages through a different, freely usable channel.</strong>  You can
+explore the options in the tabs below.</p>
+<div class="dropdown admonition">
+<p class="admonition-title">Python, conda, anaconda, miniforge, etc?</p>
+<p>Unfortunately there’s a lot of jargon.  We’ll go over this in the
+course but here is a crash course:</p>
+<ul class="simple">
+<li><p><strong>Python</strong> is a programming language very commonly used in
+science, it’s the topic of this course.</p></li>
+<li><p><strong>Conda</strong> is a package manager: it allows distributing and
+installing packages, and is designed for complex scientific
+code.</p></li>
+<li><p><strong>Mamba</strong> is a re-implementation of Conda to be much faster with
+resolving dependencies and installing things.</p></li>
+<li><p>An <strong>Environment</strong> is a self-contained collections of packages
+which can be installed separately from others.  They are used so
+each project can install what it needs without affecting others.</p></li>
+<li><p><strong>Anaconda</strong> is a commercial distribution of Python+Conda+many
+packages that all work together.  It used to be freely usable for
+research, but since ~2023-2024 it’s more limited.  Thus, we don’t
+recommend it (even though it has a nice graphical user interface).</p></li>
+<li><p><strong>conda-forge</strong> is another channel of distributing packages that
+is maintained by the community, and thus can be used by anyone.
+(Anaconda’s parent company also hosts conda-forge packages)</p></li>
+<li><p><strong>miniforge</strong> is a distribution of conda pre-configured for
+conda-forge.  It operates via the command line.</p></li>
+<li><p><strong>miniconda</strong> is a distribution of conda pre-configured to use
+the Anaconda channels.</p></li>
+</ul>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TWluaWZvcmdl" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tab" tabindex="0">Miniforge</button><button aria-controls="panel-0-QW5hY29uZGE=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tab" tabindex="-1">Anaconda</button><button aria-controls="panel-0-T3RoZXIgb3B0aW9ucw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-T3RoZXIgb3B0aW9ucw==" name="T3RoZXIgb3B0aW9ucw==" role="tab" tabindex="-1">Other options</button></div><div aria-labelledby="tab-0-TWluaWZvcmdl" class="sphinx-tabs-panel group-tab" id="panel-0-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tabpanel" tabindex="0"><p>This is our recommended method - it can be used for any purpose
+and makes a strong base for the future.</p>
+<p>Follow the <a class="reference external" href="https://github.com/conda-forge/miniforge">instructions on the miniforge web page</a>.  This installs
+the base, and from here other packages can be installed.</p>
+<p>Miniforge uses the command line - this gives you the most power
+but can feel unfamiliar.  See the <a class="reference external" href="https://scicomp.aalto.fi/scicomp/shell/">command line crash course</a> for an intro.</p>
+</div><div aria-labelledby="tab-0-QW5hY29uZGE=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tabpanel" tabindex="0"><p>Anaconda is easier to get started with, but may be more limiting
+in the future.  The Anaconda Navigator provides a graphical
+interface to most of what you would need.</p>
+<p>The <a class="reference external" href="https://docs.continuum.io/anaconda/install/">Anaconda Python distribution</a> conveniently packages
+everything, but its license has does not allow large organizations to
+use it for free (and has actually been enforced against
+universities).</p>
+<p>Note the license of Anaconda - there were recently issues with
+it being used by large universities for free, and this is not
+yet fully resolved.</p>
+</div><div aria-labelledby="tab-0-T3RoZXIgb3B0aW9ucw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-T3RoZXIgb3B0aW9ucw==" name="T3RoZXIgb3B0aW9ucw==" role="tabpanel" tabindex="0"><p>There are many ways to install Python.  Other methods can work,
+as long as you can install the libraries from the
+<code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file mentioned in the Miniforge
+instructions.</p>
+<p>We don’t currently provide a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> for installing
+the required packages without Conda/Mamba, though.</p>
+</div></div>
+</section>
+<section id="starting-python">
+<h2>Starting Python<a class="headerlink" href="#starting-python" title="Link to this heading"></a></h2>
+<p>You need to Python in a way that activates conda/mamba.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-TWluaWZvcmdl" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tab" tabindex="0">Miniforge</button><button aria-controls="panel-1-QW5hY29uZGE=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tab" tabindex="-1">Anaconda</button><button aria-controls="panel-1-T3RoZXIgb3B0aW9ucw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-T3RoZXIgb3B0aW9ucw==" name="T3RoZXIgb3B0aW9ucw==" role="tab" tabindex="-1">Other options</button></div><div aria-labelledby="tab-1-TWluaWZvcmdl" class="sphinx-tabs-panel group-tab" id="panel-1-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-TGludXggLyBNYWNPUw==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tab" tabindex="0">Linux / MacOS</button><button aria-controls="panel-2-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-2-TGludXggLyBNYWNPUw==" class="sphinx-tabs-panel group-tab" id="panel-2-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tabpanel" tabindex="0"><p>Linux/MacOS: Each time you start a new command line terminal,
+you can activate Miniforge by running.  This is needed so that
+Miniforge is usable wherever you need, but doesn’t affect any
+other software on your computer (this is not needed if you
+choose “Do you wish to update your shell profile to
+automatically initialize conda?”, but then it will always be
+active):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>~/miniforge3/bin/activate
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><p>Windows: Use the “Miniforge Prompt” to start Miniforge.  This
+will set up everything so that <code class="docutils literal notranslate"><span class="pre">conda</span></code> and <code class="docutils literal notranslate"><span class="pre">mamba</span></code> are
+available.</p>
+</div></div>
+</div><div aria-labelledby="tab-1-QW5hY29uZGE=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tabpanel" tabindex="0"><p>The <a class="reference external" href="https://docs.anaconda.com/navigator/">Anaconda Navigator</a> provides a convenient
+way to access the software. It can be installed from that page.</p>
+</div><div aria-labelledby="tab-1-T3RoZXIgb3B0aW9ucw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-T3RoZXIgb3B0aW9ucw==" name="T3RoZXIgb3B0aW9ucw==" role="tabpanel" tabindex="0"><p>You are on your own here.</p>
+</div></div>
+</section>
+<section id="python-for-scicomp-software-environment">
+<h2>Python for SciComp software environment<a class="headerlink" href="#python-for-scicomp-software-environment" title="Link to this heading"></a></h2>
+<p>Once Python and conda/mamba are installed, you can use it to install
+an environment.  An <strong>environment</strong> is a self-contained set of extra
+libraries - different projects can use different environments to not
+interfere with each other.  This environment will have all of the
+software needed for this particular course.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-TWluaWZvcmdl" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tab" tabindex="0">Miniforge</button><button aria-controls="panel-3-QW5hY29uZGE=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tab" tabindex="-1">Anaconda</button><button aria-controls="panel-3-T3RoZXIgb3B0aW9ucw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-T3RoZXIgb3B0aW9ucw==" name="T3RoZXIgb3B0aW9ucw==" role="tab" tabindex="-1">Other options</button></div><div aria-labelledby="tab-3-TWluaWZvcmdl" class="sphinx-tabs-panel group-tab" id="panel-3-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tabpanel" tabindex="0"><p>This <a class="reference external" href="https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml">environment file</a>
+contains all packages needed for the course, and can be
+installed with.  The following command will install an
+environment named <code class="docutils literal notranslate"><span class="pre">python-for-scicomp</span></code> (there may be lots of
+warning messages: this is OK if it still goes through):</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-TGludXggLyBNYWNPUw==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-4-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tab" tabindex="0">Linux / MacOS</button><button aria-controls="panel-4-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-4-TGludXggLyBNYWNPUw==" class="sphinx-tabs-panel group-tab" id="panel-4-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>python-for-scicomp<span class="w"> </span>-f<span class="w"> </span>https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>python-for-scicomp<span class="w"> </span>-f<span class="w"> </span>https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+</pre></div>
+</div>
+</div></div>
+<p>Each time you start a new command line, you need to activate
+miniforge and this environment:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-TGludXggLyBNYWNPUw==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-5-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tab" tabindex="0">Linux / MacOS</button><button aria-controls="panel-5-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-5-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-5-TGludXggLyBNYWNPUw==" class="sphinx-tabs-panel group-tab" id="panel-5-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>~/miniforge3/bin/activate
+<span class="gp">$ </span>conda<span class="w"> </span>activate<span class="w"> </span>python-for-scicomp
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-5-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="c1"># Start the Miniforge Prompt.</span>
+<span class="gp">$ </span>conda<span class="w"> </span>activate<span class="w"> </span>python-for-scicomp
+</pre></div>
+</div>
+</div></div>
+</div><div aria-labelledby="tab-3-QW5hY29uZGE=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tabpanel" tabindex="0"><p>Anaconda includes most of the things needed for the course
+automatically, but as of 2024 not everything.  You can use the
+navigator to create new environments from this <a class="reference external" href="https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml">this environment
+file</a>.
+You’ll have to download it and then <a class="reference external" href="https://docs.anaconda.com/navigator/tutorials/manage-environments/#importing-an-environment">import it</a>.</p>
+<p>When running this course’s exercise, make sure the
+<code class="docutils literal notranslate"><span class="pre">python-for-scicomp</span></code> environment is activated before starting
+JupyterLab or any code.  You need to start termnials or
+JupyterLab from the Anaconda Navigator for the
+<code class="docutils literal notranslate"><span class="pre">python-for-scicomp</span></code> environment to be used.</p>
+</div><div aria-labelledby="tab-3-T3RoZXIgb3B0aW9ucw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-T3RoZXIgb3B0aW9ucw==" name="T3RoZXIgb3B0aW9ucw==" role="tabpanel" tabindex="0"><p><strong>Minoconda, Anaconda command line, other conda/mamba command
+line tools</strong>: see “Miniforge” instructions.</p>
+<p>Virtual environments: we don’t currently provide a
+<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> but many package names can probably be
+copied from the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file.  We really recommend
+conda/mamba based systems: it’s designed for complex scientific
+software.</p>
+<p>Any other Python distribution which you can install libraries into
+would work, but because there are so many different ways to do this,
+we don’t support them.  You would need the extra libraries mentioned
+in the Miniforge instructions.</p>
+<p>Remember you need to activate the environment each time you use it.</p>
+</div></div>
+</section>
+<section id="jupyterlab">
+<h2>JupyterLab<a class="headerlink" href="#jupyterlab" title="Link to this heading"></a></h2>
+<p>We do most of the lessons from JupyterLab (and JupyterLab provides
+most of the other tools we need).</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-TWluaWZvcmdl" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-6-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tab" tabindex="0">Miniforge</button><button aria-controls="panel-6-QW5hY29uZGE=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-6-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tab" tabindex="-1">Anaconda</button></div><div aria-labelledby="tab-6-TWluaWZvcmdl" class="sphinx-tabs-panel group-tab" id="panel-6-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tabpanel" tabindex="0"><p>JupyterLab was instaled in the previous step.  To run it, first,
+start the Miniforge command line interface.  Remember, you may
+need to activate Miniforge and the environment first.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-TGludXggLyBNYWNPUw==" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-7-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tab" tabindex="0">Linux / MacOS</button><button aria-controls="panel-7-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-7-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-7-TGludXggLyBNYWNPUw==" class="sphinx-tabs-panel group-tab" id="panel-7-TGludXggLyBNYWNPUw==" name="TGludXggLyBNYWNPUw==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">source</span><span class="w"> </span>~/miniforge3/bin/activate
+<span class="gp">$ </span>conda<span class="w"> </span>activate<span class="w"> </span>python-for-scicomp
+<span class="gp">$ </span>jupyter-lab
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-V2luZG93cw==" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-7-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="c1"># Start the Miniforge Prompt.</span>
+<span class="gp">$ </span>conda<span class="w"> </span>activate<span class="w"> </span>python-for-scicomp
+<span class="gp">$ </span>jupyter-lab
+</pre></div>
+</div>
+</div></div>
+</div><div aria-labelledby="tab-6-QW5hY29uZGE=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-6-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tabpanel" tabindex="0"><p>If you install the full Anaconda distribution, this will be
+available and can be started either through Anaconda Navigator
+or command line.</p>
+<p>Make sure the <code class="docutils literal notranslate"><span class="pre">python-for-scicomp</span></code> environment is selected and
+you can start JupyterLab.</p>
+</div></div>
+</section>
+<section id="verification-of-python-and-jupyterlab">
+<h2>Verification of Python and JupyterLab<a class="headerlink" href="#verification-of-python-and-jupyterlab" title="Link to this heading"></a></h2>
+<div class="admonition-watch-the-video admonition">
+<p class="admonition-title">Watch the video</p>
+<p>See this <a class="reference external" href="https://youtu.be/OEX1ss_HCHc">verification in video form</a> - if you can do this, you are
+ready to go for day one.  Your exact steps may be a bit different.</p>
+<p>Remember that you need to activate the environment first - see the
+step above.</p>
+</div>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-TWluaWZvcmdl" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-8-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tab" tabindex="0">Miniforge</button><button aria-controls="panel-8-QW5hY29uZGE=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-8-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tab" tabindex="-1">Anaconda</button></div><div aria-labelledby="tab-8-TWluaWZvcmdl" class="sphinx-tabs-panel group-tab" id="panel-8-TWluaWZvcmdl" name="TWluaWZvcmdl" role="tabpanel" tabindex="0"><p>You can start JupyterLab from the command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter-lab
+<span class="gp gp-VirtualEnv">(... Jupyter starts in a web browser)</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-8-QW5hY29uZGE=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-8-QW5hY29uZGE=" name="QW5hY29uZGE=" role="tabpanel" tabindex="0"><p><strong>You should be able to start JupyterLab.</strong>  You can do this from the
+<a class="reference external" href="https://docs.anaconda.com/anaconda/navigator/">Anaconda Navigator</a> (recommended if you have it):</p>
+<figure class="align-default" id="id1">
+<img alt="../_images/anaconda-navigator-jupyterlab.png" class="with-border" src="../_images/anaconda-navigator-jupyterlab.png" />
+<figcaption>
+<p><span class="caption-text">Starting JupyterLab from the Anaconda Navigator.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>… or you can start JupyterLab from the command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter-lab
+<span class="gp gp-VirtualEnv">(... Jupyter starts in a web browser)</span>
+</pre></div>
+</div>
+</div></div>
+<p><strong>Verify that you can start a Jupyter notebook.</strong> We will learn how to
+do this in day 1, but you can try running <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello,</span> <span class="pre">world!&quot;)</span></code>
+if you want.</p>
+<figure class="align-default" id="id2">
+<img alt="../_images/jupyterlab-notebook.png" class="with-border" src="../_images/jupyterlab-notebook.png" />
+<figcaption>
+<p><span class="caption-text">Starting a Jupyter Notebook from JupyterLab.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="text-editor">
+<h2>Text editor<a class="headerlink" href="#text-editor" title="Link to this heading"></a></h2>
+<p>For one portion of the course, you will need a text editor.  <strong>If you
+don’t know what to use, you can use the text editor that comes from
+JupyterLab and it will do everything you need - no extra installation
+needed.</strong></p>
+<div class="toggle admonition">
+<p class="admonition-title">Other editors</p>
+<p>Because we need to be simple in our teaching, we only teach the
+most basic editors.  We encourage you to try out more advanced ones
+yourself.</p>
+<p>For other editors, see the <a class="reference external" href="https://coderefinery.github.io/installation/editors/">CodeRefinery instructions</a>.  You don’t
+exactly need a terminal editor - the graphical ones, such as VSCode or
+whatever you use now, will work as well.</p>
+</div>
+</section>
+<section id="command-line">
+<h2>Command line<a class="headerlink" href="#command-line" title="Link to this heading"></a></h2>
+<p><strong>You need access to the command line for some lessons.  JupyterLab
+includes it, so no extra installation is needed.</strong>  If you want to
+test in advance:</p>
+<ul>
+<li><p>You can start it from JupyterLab (recommended):</p>
+<figure class="align-default" id="id3">
+<a class="with-border reference internal image-reference" href="../_images/jupyterlab-terminal.png"><img alt="../_images/jupyterlab-terminal.png" class="with-border" src="../_images/jupyterlab-terminal.png" style="width: 421.5px; height: 181.5px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">From the JupyterLab launcher, select “Terminal”.</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+</ul>
+<div class="toggle admonition">
+<p class="admonition-title">Other ways to access the command line</p>
+<ul>
+<li><p>From the Anaconda Navigator:</p>
+<figure class="align-default" id="id4">
+<img alt="../_images/anaconda-prompt.png" class="with-border" src="../_images/anaconda-prompt.png" />
+<figcaption>
+<p><span class="caption-text">From the Anaconda Navigator, you can select “environments” on the
+left, then click on one, then the arrow, then “Open terminal”.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>From your operating system’s terminal applications, if you activate
+Anaconda.</p></li>
+</ul>
+</div>
+<section id="verification-of-the-command-line">
+<h3>Verification of the command line<a class="headerlink" href="#verification-of-the-command-line" title="Link to this heading"></a></h3>
+<p>To verify command line usage, type the following commands (without the
+<code class="docutils literal notranslate"><span class="pre">$</span></code>), and you should see the corresponding output that lists the
+Python version:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3<span class="w"> </span>-V
+<span class="go">Python 3.8.3</span>
+
+<span class="gp">#</span><span class="c1"># Or python... if it&#39;s installed as that</span>
+<span class="gp">$ </span>python<span class="w"> </span>-V
+<span class="go">Python 3.8.3</span>
+</pre></div>
+</div>
+<p>Any recent version of Python 3 should work for the course (for example
+3.8 or higher).</p>
+</section>
+</section>
+<section id="zoom">
+<h2>Zoom<a class="headerlink" href="#zoom" title="Link to this heading"></a></h2>
+<p>If this is an online workshop, it might use Zoom.  You can see
+<a class="reference external" href="https://coderefinery.github.io/installation/zoom/">CodeRefinery instructions for it</a>.</p>
+</section>
+<section id="need-help">
+<h2>Need help?<a class="headerlink" href="#need-help" title="Link to this heading"></a></h2>
+<p>If you have access, come to one of the installation help sessions.
+Or, ask your colleagues: these are standard tools and you can
+definitely find someone can help you get set up!</p>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=ddCde5Nu2qo&amp;list=PLpLblYHCzJAB6blBBa0O2BEYadVZV3JYf">Research Software Hour on conda</a></p></li>
+<li><p><a class="reference external" href="https://docs.conda.io/en/latest/">Conda manual</a> (technical)</p></li>
+<li><p><a class="reference external" href="https://www.anaconda.com/products/distribution">Anaconda individual edition home</a></p></li>
+<li><p><a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/getting-started/">Anaconda getting started</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../cython/" class="btn btn-neutral float-left" title="Extending Python with Cython" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../quick-reference/" class="btn btn-neutral float-right" title="Quick reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

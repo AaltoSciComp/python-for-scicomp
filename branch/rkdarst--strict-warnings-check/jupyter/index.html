@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Jupyter &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="NumPy" href="../numpy/" />
+    <link rel="prev" title="Introduction to Python" href="../python/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Jupyter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-jupyter">What is Jupyter?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-jupyter">Getting started with Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-code-in-jupyter">Running code in Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-jupyter">Why Jupyter?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-not-jupyter">Why not Jupyter?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Jupyter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/jupyter.ipynb" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jupyter">
+<h1>Jupyter<a class="headerlink" href="#jupyter" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-questions questions admonition">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What is the purpose of a “Computational narrative”?</p></li>
+<li><p>What role does Jupyter play in development?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition">
+<p class="admonition-title">Objectives</p>
+<p>This part will be too easy for some people, and slow for others.  Still, we need to take some time to get everyone on the same page.</p>
+<ul class="simple">
+<li><p>Be able to use Jupyter to run examples for the rest of the course.</p></li>
+<li><p>Be able to run Jupyter in a directory do your own work.</p></li>
+<li><p>You won’t be a Jupyter expert after this, but should be able to do the rest of the course.</p></li>
+</ul>
+</div>
+<div class="section" id="what-is-jupyter">
+<h2>What is Jupyter?<a class="headerlink" href="#what-is-jupyter" title="Permalink to this headline">¶</a></h2>
+<p>Jupyter is a web-based interactive computing system.  It is most well known for having the <em>notebook file format</em> and Jupyter Notebook / Jupyter Lab.  A notebook format contains both the input and the output of the code along documentation, all interleaved to create what is called a <em>computational narrative</em>.</p>
+<p>Jupyter is good for data exploration and interactive work, and making</p>
+<p><strong>We use Jupyter a lot in this course because it is a good way that everyone can follow along, and minimizes the differences between operating systems.</strong></p>
+</div>
+<div class="section" id="getting-started-with-jupyter">
+<h2>Getting started with Jupyter<a class="headerlink" href="#getting-started-with-jupyter" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Start JupyterLab: there are different ways.  From the command line, activate your anaconda environment and run <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code>.  You can also start in from Anaconda Navigator.</p></li>
+</ul>
+<p>For practical purposes, JupyterLab is an integrated development environment that combines file browsing, notebooks, and code editing.  There are many extensions that let you do whatever you may need.</p>
+<p>Here, we see a tour of the JupyterLab interface:</p>
+<p><img alt="Main UI tour" src="../_images/main-ui.png" /></p>
+<div class="admonition-exercises-jupyter-1 challenge admonition">
+<p class="admonition-title">Exercises: Jupyter-1</p>
+<ol class="simple">
+<li><p>Start Jupyter in the directory you want to use for this course.</p>
+<ul class="simple">
+<li><p>If you are starting from the navigator, change to the directory you want to use.</p></li>
+<li><p>If you are starting from the command line, you should navigate to the directory you want to use first.</p></li>
+</ul>
+</li>
+<li><p>Create a Python 3 notebook file.  Save it.  In the next section, you will add stuff to it.</p></li>
+<li><p>(optional, but will be done in future lessons) Explore the file browser, try making some non-notebook text/py/md files and get used to that.</p></li>
+<li><p>(optional, advanced) Look at the notebook file in a text
+editor.  How does it work?</p></li>
+</ol>
+<p>If everything works for you, this will end very quickly.  You can begin reading the next sections independently.</p>
+</div>
+</div>
+<div class="section" id="running-code-in-jupyter">
+<h2>Running code in Jupyter<a class="headerlink" href="#running-code-in-jupyter" title="Permalink to this headline">¶</a></h2>
+<p>A notebook is divided into <strong>cells</strong>.  Each cell has some <strong>input</strong>, and when it is executed an <strong>output</strong> appears right below it.</p>
+<p>There are different types of cells: primarily <strong>code</strong> cells and <strong>markdown</strong> cells.  You can switch between them with the menu bar above.  Code cells run whatever language your notebook uses.  Markdown is a lightweight way of giving <em>style</em> to <code class="docutils literal notranslate"><span class="pre">text</span></code> - you can check out <a class="reference external" href="https://commonmark.org/help/">this reference</a>. For example the previous sentence is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Markdown is a lightweight way of giving *style* to `text` - you can check out [this reference](https://commonmark.org/help/).
+</pre></div>
+</div>
+<p><img alt="notebook UI" src="../_images/notebook-ui.png" /></p>
+<p>When using keyboard shortcuts, you can switch between edit mode and command mode with <code class="docutils literal notranslate"><span class="pre">Enter</span></code> and <code class="docutils literal notranslate"><span class="pre">Esc</span></code>.</p>
+<p>You enter code in a cell, and push the run button to run it.  There are also some important shortcut keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl-Enter</span></code>: Run cell</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Shift-Enter</span></code>: Run cell and select cell below</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Alt-Enter</span></code>: Run cell and insert new cell below</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> / <code class="docutils literal notranslate"><span class="pre">b</span></code>: insert new cell above/below</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code> / <code class="docutils literal notranslate"><span class="pre">y</span></code>: markdown cell / code cell</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: delete cell</p></li>
+</ul>
+<p>Now, let’s look at some code samples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+1
+2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+</pre></div>
+</div>
+</div>
+</div>
+<p>By convention, if the last thing in a cell is an object, that object gets printed:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="nb">sum</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>45
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition to raw cells, there are <strong>magics</strong>, which exist outside of Python.  They are a property of the runtime itself (in Python’s case, they come from <strong>IPython</strong>.  For example, the following cell magic <code class="docutils literal notranslate"><span class="pre">%%bash</span></code> turns the cell into a shell script (may not work on all operating systems):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+for x in $(seq 3) ; do
+    echo $x
+done
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+2
+3
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>A <strong>cell magic</strong> starts with <code class="docutils literal notranslate"><span class="pre">%%</span></code>, goes on the first line of a cell, and applies to the whole cell</p></li>
+<li><p>A <strong>line magic</strong> starts with <code class="docutils literal notranslate"><span class="pre">%</span></code>, goes on any line, and applies to that line.</p></li>
+</ul>
+<div class="admonition-exercises-jupyter-2 challenge admonition">
+<p class="admonition-title">Exercises: Jupyter-2</p>
+<ol class="simple">
+<li><p>Run some trivial code, such as <code class="docutils literal notranslate"><span class="pre">print(1)</span></code>.</p></li>
+<li><p>Run some slightly less trivial code, like print out the first
+ten <a class="reference external" href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers</a>.</p></li>
+<li><p>Make a Markdown cell above your code cell and give it a title and some description of your function.  Use the <a class="reference external" href="https://commonmark.org/help/">reference</a> to add a heading, bullet list, and some (bold, italic, or inline code)</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code> magic function to time your Fibonacci
+function.</p></li>
+<li><p>Again using <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code>, figure out the fastest way to sum the
+numbers 0 to 1000000.</p></li>
+<li><p>Once you are done, close your notebooks and other tabs you don’t need.  Check the running sessions (hint: thin left sidebar) and shut down these kernels.</p></li>
+</ol>
+</div>
+<div class="admonition-solutions-jupyter-2 solution dropdown admonition">
+<p class="admonition-title">Solutions: Jupyter-2</p>
+<ol>
+<li><p>–</p></li>
+<li><p>Simple fibonacci code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+</pre></div>
+</div>
+</li>
+<li><p>Markdown description</p>
+<div class="highlight-md notranslate"><div class="highlight"><pre><span></span><span class="gh"># Fibonacci</span>
+<span class="k">*</span> Start with two variables <span class="sb">`a`</span> and <span class="sb">`b`</span>
+<span class="k">*</span> Repeat 10 times
+    <span class="k">*</span> Print old <span class="sb">`a`</span>, then increment both
+<span class="k">*</span> Makes use of the Python <span class="ge">*tuple assignment*</span>: <span class="sb">`a, b = new_a, new_b`</span>
+</pre></div>
+</div>
+</li>
+<li><p>In this case, the print() statements get out of hand, so we comment that out.  In general, writing output usually takes a lot of time reletive to the computation, so we don’t want to time that (unless output is the main point of the code, then we do have to time it!</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="c1">#print(a)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>395 ns ± 10.2 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)
+</pre></div>
+</div>
+</li>
+<li><p>–</p></li>
+<li><p>–</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="why-jupyter">
+<h2>Why Jupyter?<a class="headerlink" href="#why-jupyter" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Being able to <strong>edit, check, re-edit</strong> quickly is great for <strong>prototyping and testing new ideas</strong></p>
+<ul>
+<li><p>Tends to be best either at the very beginning (getting started) or data analysis/plotting phases.</p></li>
+</ul>
+</li>
+<li><p>You can make a <strong>complete story</strong> - in one place.  No more having code, figures, and description in different places.</p>
+<ul>
+<li><p>Instead of sending plots to your advisor, send plots, the text there, and possibility of checking the code, too.</p></li>
+</ul>
+</li>
+<li><p>Notebook as an interactive publication itself - for example the discovery of gravitational waves data is <a class="reference external" href="https://www.gw-openscience.org/tutorials/">released as a notebook</a>.</p></li>
+<li><p>Jupyter Notebooks display on Github - low-barrier way to share your analysis.</p></li>
+<li><p>Teaching - great for getting difficult software distribution out of the way.</p></li>
+</ul>
+</div>
+<div class="section" id="why-not-jupyter">
+<h2>Why not Jupyter?<a class="headerlink" href="#why-not-jupyter" title="Permalink to this headline">¶</a></h2>
+<p>Jupyter is great for many things, but there are some problems if not used well:</p>
+<ul class="simple">
+<li><p>They <strong>don’t promote modularity</strong>, and once you get started in a
+notebook it can be hard to migrate to modules.</p></li>
+<li><p>They are <strong>difficult to test</strong>.  There are things to run notebooks as
+unit tests like <a class="reference external" href="https://nbval.readthedocs.io/">nbval</a>, but it’s not
+perfect.</p></li>
+<li><p>Notebooks can be <strong>version controlled</strong>
+(<a class="reference external" href="https://nbdime.readthedocs.io/">nbdime</a> helps with that), but
+there are <strong>still limitations</strong>.</p></li>
+<li><p>You can <strong>change code after you run it</strong> and run code out of order.
+This can make debugging hard and results irreproducible if you
+aren’t careful.</p></li>
+<li><p>Notebooks <strong>aren’t named by default</strong> and tend to <strong>acquire a bunch of
+unrelated stuff</strong>.  Be careful with organization!</p></li>
+<li><p>Once lots of code is in notebooks, it can be <strong>hard to change to
+proper programs that can be scripted</strong>.</p></li>
+</ul>
+<p>You can read more about these downsides <a class="reference external" href="https://scicomp.aalto.fi/scicomp/jupyter-pitfalls/">https://scicomp.aalto.fi/scicomp/jupyter-pitfalls/</a>.</p>
+<p><strong>But these downsides aren’t specific to Jupyter!</strong>  They can easily happen in other sources, too.  By studying these, you can make any code better, and find the right balance for what you do.</p>
+<div class="admonition-exercises-jupyter-3 challenge admonition">
+<p class="admonition-title">Exercises: Jupyter-3</p>
+<p>(optional) Discuss the following in groups:</p>
+<ol class="simple">
+<li><p>Have any of you used Jupyter in a way that became impossible to
+maintain: too many files, code all spread out, not able to find
+your code and run it in the right order.  How did you solve that?</p></li>
+<li><p>On the other hand, what are your successes with Jupyter?</p></li>
+<li><p>How can you prevent these problems by better development strategies?</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The <a class="reference external" href="https://coderefinery.github.io/jupyter/">CodeRefinery Jupyter lesson</a> has much more, and the source of some of the content above.</p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Jupyter is powerful and can be used for most work, but not the end solution of all problems</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../numpy/" class="btn btn-neutral float-right" title="NumPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../python/" class="btn btn-neutral float-left" title="Introduction to Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

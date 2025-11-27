@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="NumPy" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="numpy.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="So, we already know about python lists, and that we can put all kinds of things in there. But in scientific usage, lists are often not enough. They are slow and not very flexible. What is an array?..." />
+<meta name="description" content="So, we already know about python lists, and that we can put all kinds of things in there. But in scientific usage, lists are often not enough. They are slow and not very flexible. What is an array?..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NumPy &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced NumPy" href="numpy-advanced.html" />
+    <link rel="prev" title="Jupyter" href="jupyter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NumPy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-an-array">What is an array?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-arrays">Creating arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-1">Exercises 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#array-maths-and-vectorization">Array maths and vectorization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-2">Exercises 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#indexing-and-slicing">Indexing and Slicing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-3">Exercises 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#types-of-operations">Types of operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-4">Exercises 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linear-algebra-and-other-advanced-math">Linear algebra and other advanced math</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-exercises">Additional exercises</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-advanced.html">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scipy.html">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder.html">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">NumPy</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/numpy.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="numpy">
+<span id="id1"></span><h1>NumPy<a class="headerlink" href="#numpy" title="Permalink to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>Why using NumPy instead of pure python?</p></li>
+<li><p>How to use basic NumPy?</p></li>
+<li><p>What is vectorization?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand the Numpy array object</p></li>
+<li><p>Be able to use basic NumPy functionality</p></li>
+<li><p>Understand enough of NumPy to seach for answers to the rest of your questions ;)</p></li>
+</ul>
+<p>We expect most people to be able to do all the basic exercises
+here.  It is probably quite easy for many people; we have advanced
+exercises at the end in that case.</p>
+</div>
+<p>So, we already know about python lists, and that we can put all kinds of things in there.
+But in scientific usage, lists are often not enough. They are slow and
+not very flexible.</p>
+<section id="what-is-an-array">
+<h2>What is an array?<a class="headerlink" href="#what-is-an-array" title="Permalink to this heading"></a></h2>
+<p>For example, consider <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2.5,</span> <span class="pre">'asdf',</span> <span class="pre">False,</span> <span class="pre">[1.5,</span> <span class="pre">True]]</span></code> -
+this is a Python list but it has different types for every
+element.  When you do math on this, every element has to be handled separately.</p>
+<p>NumPy is the most used library for scientific computing.
+Even if you are not using it directly, chances are high that some library uses it in the background.
+NumPy provides the high-performance multidimensional array object and tools to use it.</p>
+<p>An array is a ‘grid’ of values, with all the same types. It is indexed by tuples of
+non negative indices and provides the framework for multiple
+dimensions.  An array has:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.dtypes.html#arrays-dtypes" title="(in NumPy v1.23)"><span class="xref std std-ref">dtype</span></a> - data type.  Arrays always contain one type</p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/glossary.html#term-shape" title="(in NumPy v1.23)"><span class="xref std std-term">shape</span></a> - shape of the data, for example <code class="docutils literal notranslate"><span class="pre">3×2</span></code> or <code class="docutils literal notranslate"><span class="pre">3×2×500</span></code> or even
+<code class="docutils literal notranslate"><span class="pre">500</span></code> (one dimensional) or <code class="docutils literal notranslate"><span class="pre">[]</span></code> (zero dimensional).</p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.data.html#numpy.ndarray.data" title="(in NumPy v1.23)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code></a> - raw data storage in memory.  This can be passed to C or
+Fortran code for efficient calculations.</p></li>
+</ul>
+<p>To test the performance of pure Python vs NumPy we can write in our jupyter notebook:</p>
+<p>Create one list and one ‘empty’ list, to store the result in</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">*</span> <span class="mi">10000</span>
+</pre></div>
+</div>
+<p>In a new cell starting with <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code>, loop through the list <code class="docutils literal notranslate"><span class="pre">a</span></code> and fill the second list <code class="docutils literal notranslate"><span class="pre">b</span></code> with <code class="docutils literal notranslate"><span class="pre">a</span></code> squared</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+  <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>That looks and feels quite fast. But let’s take a look at how NumPy performs for the same task.</p>
+<p>So for the NumPy example, create one array and one ‘empty’ array to store the result in</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In a new cell starting with <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code>, fill <code class="docutils literal notranslate"><span class="pre">b</span></code> with <code class="docutils literal notranslate"><span class="pre">a</span></code> squared</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">**</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>We see that compared to working with numpy arrays, working with traditional python lists is actually slow.</p>
+</section>
+<section id="creating-arrays">
+<h2>Creating arrays<a class="headerlink" href="#creating-arrays" title="Permalink to this heading"></a></h2>
+<p>There are different ways of creating arrays (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.array()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape" title="(in NumPy v1.23)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">numpy.ndarray.shape</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.size.html#numpy.ndarray.size" title="(in NumPy v1.23)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">numpy.ndarray.size</span></code></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>               <span class="c1"># 1-dimensional array (rank 1)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>     <span class="c1"># 2-dimensional array (rank 2)</span>
+
+<span class="n">b</span><span class="o">.</span><span class="n">shape</span>                             <span class="c1"># the shape (rows,columns)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">size</span>                              <span class="c1"># number of elements</span>
+</pre></div>
+</div>
+<p>In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.zeros()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ones.html#numpy.ones" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ones()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.full.html#numpy.full" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.full()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.eye.html#numpy.eye" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.eye()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.arange()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace()</span></code></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>             <span class="c1"># 2x3 array with all elements 0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>               <span class="c1"># 1x2 array with all elements 1</span>
+<span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="mi">7</span><span class="p">)</span>             <span class="c1"># 2x2 array with all elements 7</span>
+<span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>                    <span class="c1"># 2x2 identity matrix</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                <span class="c1"># Evenly spaced values in an interval</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>          <span class="c1"># same as above, see exercise</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;bool&#39;</span><span class="p">)</span>  <span class="c1"># 3x2 boolean array</span>
+</pre></div>
+</div>
+<p>Arrays can also be stored and read from a (.npy) file (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.save.html#numpy.save" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.load.html#numpy.load" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.load()</span></code></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;x.npy&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>           <span class="c1"># save the array a to a .npy file</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;x.npy&#39;</span><span class="p">)</span>          <span class="c1"># load an array from a .npy file and store it in variable x</span>
+</pre></div>
+</div>
+<p>In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.dtype.html#numpy.ndarray.dtype" title="(in NumPy v1.23)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">numpy.ndarray.dtype</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.astype.html#numpy.ndarray.astype" title="(in NumPy v1.23)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">numpy.ndarray.astype()</span></code></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">dtype</span>                    <span class="c1"># datatype of the array</span>
+<span class="n">d</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>            <span class="c1"># change datatype from boolean to integer</span>
+</pre></div>
+</div>
+<p>In the last example, <code class="docutils literal notranslate"><span class="pre">.astype('int')</span></code>, it will make a <strong>copy</strong> of the
+array, and re-allocate data - unless the dtype is exactly the same as
+before.  Understanding and minimizing copies is one of the most
+important things to do for speed.</p>
+</section>
+<section id="exercises-1">
+<h2>Exercises 1<a class="headerlink" href="#exercises-1" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercises-numpy-1 exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercises: Numpy-1</p>
+<ol class="arabic simple">
+<li><p><strong>Datatypes</strong> Try out <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">np.arange(10)</span></code></a> and <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">np.linspace(0,9,10)</span></code></a>, what is the difference? Can you adjust one to do the same as the other?</p></li>
+<li><p><strong>Datatypes</strong> Create a 3x2 array of random float numbers (check <a class="reference external" href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.random.html#numpy.random.random" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.random.random()</span></code></a>) between 0 and 1. Now change the arrays datatype to int (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.astype.html#numpy.ndarray.astype" title="(in NumPy v1.23)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">array.astype</span></code></a>). How does the array look like?</p></li>
+<li><p><strong>Reshape</strong> Create a 3x2 array of random integer numbers between 0 and 10. Change the shape of the array (check <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.reshape.html#numpy.ndarray.reshape" title="(in NumPy v1.23)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">array.reshape</span></code></a>) in any way possible. What is not possible?</p></li>
+<li><p><strong>NumPyI/O</strong> Save above array to .npy file (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.save.html#numpy.save" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.save()</span></code></a>) and read it in again.</p></li>
+</ol>
+</div>
+<div class="admonition-solutions-numpy-1 solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solutions: Numpy-1</p>
+<ol class="arabic simple">
+<li><p><strong>Datatypes</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">np.arange(10)</span></code> results in <code class="docutils literal notranslate"><span class="pre">array([0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9])</span></code> with dtype <strong>int64</strong>,</p></li>
+<li><p>while <code class="docutils literal notranslate"><span class="pre">np.linspace(0,9,10)</span></code> results in <code class="docutils literal notranslate"><span class="pre">array([0.,</span> <span class="pre">1.,</span> <span class="pre">2.,</span> <span class="pre">3.,</span> <span class="pre">4.,</span> <span class="pre">5.,</span> <span class="pre">6.,</span> <span class="pre">7.,</span> <span class="pre">8.,</span> <span class="pre">9.])</span></code> with dtype <strong>float64</strong>.</p></li>
+</ul>
+<p>Both <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> and <code class="docutils literal notranslate"><span class="pre">np.arange</span></code> take dtype as an argument and can be adjusted to match each other in that way.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Datatypes</strong> eg <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">np.random.random((3,2))</span></code>. <code class="docutils literal notranslate"><span class="pre">a.astype('int')</span></code> results in an all zero array, not as maybe expected the rounded int (all numbers [0, 1) are cast to 0).</p></li>
+<li><p><strong>Reshape</strong> eg <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">np.random.randint(0,10,(3,2))</span></code>.</p></li>
+</ol>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">b.reshape((6,1))</span></code> and <code class="docutils literal notranslate"><span class="pre">b.reshape((2,3))</span></code> possible.</p>
+<p>It is not possible to reshape to shapes using more or less elements than <code class="docutils literal notranslate"><span class="pre">b.size</span> <span class="pre">=</span> <span class="pre">6</span></code>, so for example <code class="docutils literal notranslate"><span class="pre">b.reshape((12,1))</span></code> gives an error.</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p><strong>NumPyI/O</strong> <code class="docutils literal notranslate"><span class="pre">np.save('x.npy',</span> <span class="pre">b)</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">np.load('x.npy')</span></code></p></li>
+</ol>
+</div>
+</section>
+<section id="array-maths-and-vectorization">
+<h2>Array maths and vectorization<a class="headerlink" href="#array-maths-and-vectorization" title="Permalink to this heading"></a></h2>
+<p>Clearly, you can do math on arrays.  Math in NumPy is very fast because it is
+implemented in C or Fortran - just like most other high-level languages such as
+R, Matlab, etc do.</p>
+<p>By default, basic arithmetic (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>) in NumPy is
+element-by-element.  That is, the operation is performed for each element in the
+array without you having to write a loop.  We say an operation is “vectorized”
+when the looping over elements is carried out by NumPy internally, which uses
+specialized CPU instructions for this that greatly outperform a regular Python
+loop.</p>
+<p>Note that unlike Matlab, where <code class="docutils literal notranslate"><span class="pre">*</span></code> means matrix multiplication, NumPy uses
+<code class="docutils literal notranslate"><span class="pre">*</span></code> to perform element-by-element multiplication and uses the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol to
+perform matrix multiplication:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]])</span>
+
+<span class="c1"># Addition</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1"># Matrix multiplication</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Other common mathematical operations include: <code class="docutils literal notranslate"><span class="pre">-</span></code> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.subtract.html#numpy.subtract" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.subtract</span></code></a>), <code class="docutils literal notranslate"><span class="pre">*</span></code> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.multiply.html#numpy.multiply" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.multiply</span></code></a>), <code class="docutils literal notranslate"><span class="pre">/</span></code> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.divide.html#numpy.divide" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.divide</span></code></a>), <code class="docutils literal notranslate"><span class="pre">.T</span></code> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.transpose.html#numpy.transpose" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.transpose()</span></code></a>), <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sqrt</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.sum()</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.mean()</span></code></a>, …</p>
+</section>
+<section id="exercises-2">
+<h2>Exercises 2<a class="headerlink" href="#exercises-2" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercises-numpy-2 exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercises: Numpy-2</p>
+<ul class="simple">
+<li><p><strong>Matrix multiplication</strong> What is the difference between <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.multiply.html#numpy.multiply" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.multiply</span></code></a> and <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dot.html#numpy.dot" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.dot()</span></code></a> ? Try it.</p></li>
+<li><p><strong>Axis</strong> What is the difference between <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">np.sum(axis=1)</span></code></a> vs
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html#numpy.sum" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">np.sum(axis=0)</span></code></a> on a two-dimensional array? What if you leave out the axis parameter?</p></li>
+</ul>
+</div>
+<div class="admonition-solutions-numpy-2 solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solutions: Numpy-2</p>
+<ul class="simple">
+<li><p><strong>Matrix multiplication</strong> <code class="docutils literal notranslate"><span class="pre">np.multiply</span></code> does elementwise multiplication on two arrays, while <code class="docutils literal notranslate"><span class="pre">np.dot</span></code> enables matrix multiplication.</p></li>
+<li><p><strong>Axis</strong> <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> does the operation (here: <code class="docutils literal notranslate"><span class="pre">np.sum</span></code>) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.</p></li>
+</ul>
+</div>
+</section>
+<section id="indexing-and-slicing">
+<h2>Indexing and Slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this heading"></a></h2>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://numpy.org/doc/stable/user/basics.indexing.html#basics-indexing" title="(in NumPy v1.23)"><span class="xref std std-ref">Numpy basic indexing docs</span></a></p>
+</div>
+<p>NumPy has many ways to extract values out of arrays:</p>
+<ul class="simple">
+<li><p>You can select a single element</p></li>
+<li><p>You can select rows or columns</p></li>
+<li><p>You can select ranges where a condition is true.</p></li>
+</ul>
+<p>Clever and efficient use of these operations is a key to NumPy’s
+speed: you should try to cleverly use these selectors (written in C)
+to extract data to be used with other NumPy functions written in C or
+Fortran.  This will give you the benefits of Python with most of the
+speed of C.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># 4x4 matrix from 0 to 15</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                             <span class="c1"># first row</span>
+<span class="n">a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>                           <span class="c1"># first column</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>                       <span class="c1"># middle 2x2 array</span>
+
+<span class="n">a</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>                <span class="c1"># second element of first and second row as array</span>
+</pre></div>
+</div>
+<p>Boolean indexing on above created array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>      <span class="c1"># creates boolean matrix of same size as a</span>
+<span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>             <span class="c1"># array with matching values of above criterion</span>
+
+<span class="n">a</span><span class="p">[</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>           <span class="c1"># same as above in one line</span>
+</pre></div>
+</div>
+</section>
+<section id="exercises-3">
+<h2>Exercises 3<a class="headerlink" href="#exercises-3" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercise-numpy-3 exercise important admonition" id="exercise-2">
+<p class="admonition-title">Exercise: Numpy-3</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>View vs copy</strong> Try out above code. How does <code class="docutils literal notranslate"><span class="pre">a</span></code> look like before <code class="docutils literal notranslate"><span class="pre">b</span></code> has changed and after? How could it be avoided?</p></li>
+</ul>
+</div>
+<div class="admonition-solution-numpy-3 solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution: Numpy-3</p>
+<ul class="simple">
+<li><p><strong>View vs copy</strong> The change in <code class="docutils literal notranslate"><span class="pre">b</span></code> has also changed the array <code class="docutils literal notranslate"><span class="pre">a</span></code>!
+This is because <code class="docutils literal notranslate"><span class="pre">b</span></code> is merely a view of a part of array <code class="docutils literal notranslate"><span class="pre">a</span></code>.  Both
+variables point to the same memory. Hence, if one is changed, the other
+one also changes. If you need to keep the original array as is, use
+<code class="docutils literal notranslate"><span class="pre">np.copy(a)</span></code>.</p></li>
+</ul>
+</div>
+</section>
+<section id="types-of-operations">
+<h2>Types of operations<a class="headerlink" href="#types-of-operations" title="Permalink to this heading"></a></h2>
+<p>There are different types of standard operations in NumPy:</p>
+<p><strong>ufuncs</strong>, “<a class="reference external" href="https://numpy.org/doc/stable/reference/ufuncs.html#ufuncs" title="(in NumPy v1.23)"><span class="xref std std-ref">universal functions</span></a>”: These are element-by-element
+functions with standardized arguments:</p>
+<ul>
+<li><p>One, two, or three input arguments</p></li>
+<li><p>For example, <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> is similar to <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.add.html#numpy.add" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">np.add(a,</span> <span class="pre">b)</span></code></a> but the ufunc
+has more control.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out=</span></code> output argument, store output in this array (rather than
+make a new array) - saves copying data!</p></li>
+<li><p>See the <a class="reference external" href="https://numpy.org/doc/stable/reference/ufuncs.html">full reference</a></p></li>
+<li><p>They also do <strong>broadcasting</strong> (<a class="reference external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html#basics-broadcasting" title="(in NumPy v1.23)"><span class="xref std std-ref">ref</span></a>).  Can you add a 1-dimensional array of shape <cite>(3)</cite>
+to an 2-dimensional array of shape <cite>(3, 2)</cite>?   With broadcasting you
+can!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">+</span> <span class="n">b</span>                       <span class="c1"># array([[11, 12, 13],</span>
+                            <span class="c1">#        [14, 15, 16]])</span>
+</pre></div>
+</div>
+<p>Broadcasting is smart and consistent about what it does, which I’m
+not clever enough to explain quickly here: <a class="reference external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html">the manual page on
+broadcasting</a>.
+The basic idea is that it expands dimensions of the smaller array so
+that they are compatible in shape.</p>
+</li>
+</ul>
+<p><strong>Array methods</strong> do something to one array:</p>
+<ul>
+<li><p>Some of these are the same as ufuncs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">x</span>                    <span class="c1">#  array([[ 0,  1,  2,  3],</span>
+                     <span class="c1">#         [ 4,  5,  6,  7],</span>
+                     <span class="c1">#         [ 8,  9, 10, 11]])</span>
+<span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>              <span class="c1">#  11</span>
+<span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>        <span class="c1">#  array([ 8,  9, 10, 11])</span>
+<span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>        <span class="c1">#  array([ 3,  7, 11])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Other functions</strong>: there are countless other functions covering
+linear algebra, scientific functions, etc.</p>
+</section>
+<section id="exercises-4">
+<h2>Exercises 4<a class="headerlink" href="#exercises-4" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercises-numpy-4 exercise important admonition" id="exercise-3">
+<p class="admonition-title">Exercises: Numpy-4</p>
+<ul class="simple">
+<li><p><strong>In-place addition</strong>: Create an array, add it to itself using a
+ufunc.</p></li>
+<li><p><strong>In-place addition</strong> (advanced): Create an array of
+<code class="docutils literal notranslate"><span class="pre">dtype='float'</span></code>, and an array of <code class="docutils literal notranslate"><span class="pre">dtype='int'</span></code>.  Try to use the
+int array is the output argument of the first two arrays.</p></li>
+<li><p><strong>Output arguments and timing</strong> Repeat the initial <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">**</span>
+<span class="pre">2</span></code> example using the output arguments and time it.  Can you make
+it even faster using the output argument?</p></li>
+</ul>
+</div>
+<div class="admonition-solution-numpy-4 solution important dropdown admonition" id="solution-3">
+<p class="admonition-title">Solution: Numpy-4</p>
+<ul>
+<li><p><strong>in-place addition</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>                        <span class="c1"># get the memory-ID of x</span>
+<span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>              <span class="c1"># Third argument is output array</span>
+<span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>                        <span class="c1"># get the memory-ID of x</span>
+                             <span class="c1"># - notice  it is the same</span>
+</pre></div>
+</div>
+<p>You note that <code class="docutils literal notranslate"><span class="pre">np.add()</span></code> has a third argument that is the
+output array (same as <code class="docutils literal notranslate"><span class="pre">out=</span></code>), <em>and</em> the function returns that
+same array.</p>
+</li>
+<li><p><strong>Output arguments and timing</strong> In this case, on my computer, it was
+actually slower (this is due to it being such a small array!):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span>
+<span class="n">numpy</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is a good example of why you always need to time things
+before deciding what is best.</p>
+</li>
+</ul>
+</div>
+</section>
+<section id="linear-algebra-and-other-advanced-math">
+<h2>Linear algebra and other advanced math<a class="headerlink" href="#linear-algebra-and-other-advanced-math" title="Permalink to this heading"></a></h2>
+<p>In general, you use <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">arrays</span></code></a> (n-dimensions), not <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.matrix.html#numpy.matrix" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">matrixes</span></code></a>
+(specialized 2-dimensional) in NumPy.</p>
+<p>Internally, NumPy doesn’t invent its own math routines: it relies on
+<a class="reference external" href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms">BLAS</a>
+and <a class="reference external" href="https://en.wikipedia.org/wiki/LAPACK">LAPACK</a> to do this kind
+of math - the same as many other languages.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/routines.linalg.html">Linear algebra in numpy</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/routines.html">Many, many other array functions</a></p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/">Scipy</a> has even
+more functions</p></li>
+<li><p>Many other libraries use NumPy arrays as the standard data
+structure: they take data in this format, and return it similarly.
+Thus, all the other packages you may want to use are compatible</p></li>
+<li><p>If you need to write your own fast code in C, NumPy arrays can be
+used to pass data.  This is known as <a class="reference external" href="https://docs.python.org/3/extending/">extending Python</a>.</p></li>
+</ul>
+</section>
+<section id="additional-exercises">
+<h2>Additional exercises<a class="headerlink" href="#additional-exercises" title="Permalink to this heading"></a></h2>
+<div class="admonition-numpy-5 exercise important admonition" id="exercise-4">
+<p class="admonition-title">Numpy-5</p>
+<p>If you have extra time, try these out.  These are advanced and
+optional, and will not be done in most courses.</p>
+<ol class="arabic simple">
+<li><p>Reverse a vector. Given a vector, reverse it such that the last
+element becomes the first, e.g. <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">2,</span> <span class="pre">1]</span></code></p></li>
+<li><p>Create a 2D array with zeros on the borders and 1 inside.</p></li>
+<li><p>Create a random array with elements [0, 1), then add 10 to all
+elements in the range [0.2, 0.7).</p></li>
+<li><p>What is <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.round_.html#numpy.round_" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">np.round(0.5)</span></code></a>? What is <code class="docutils literal notranslate"><span class="pre">np.round(1.5)</span></code>? Why?</p></li>
+<li><p>In addition to <code class="docutils literal notranslate"><span class="pre">np.round</span></code>, explore <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ceil.html#numpy.ceil" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.ceil</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.floor.html#numpy.floor" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.floor</span></code></a>,
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.trunc.html#numpy.trunc" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.trunc</span></code></a>. In particular, take note of how they behave with
+negative numbers.</p></li>
+<li><p>Recall the identity <span class="math notranslate nohighlight">\(\sin^2(x) + \cos^2(x) = 1\)</span>. Create a
+random 4x4 array with values in the range [0, 10). Now test the
+equality with <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.equal.html#numpy.equal" title="(in NumPy v1.23)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.equal</span></code></a>. What result do you get with
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.allclose.html#numpy.allclose" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.allclose()</span></code></a> instead of <code class="docutils literal notranslate"><span class="pre">np.equal</span></code>?</p></li>
+<li><p>Create a 1D array with 10 random elements. Sort it.</p></li>
+<li><p>What’s the difference between <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.sort.html#numpy.ndarray.sort" title="(in NumPy v1.23)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">np_array.sort()</span></code></a> and
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.sort.html#numpy.sort" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">np.sort(np_array)</span></code></a>?</p></li>
+<li><p>For the random array in question 8, instead of sorting it, perform
+an indirect sort. That is, return the list of indices which would
+index the array in sorted order.</p></li>
+<li><p>Create a 4x4 array of zeros, and another 4x4 array of ones. Next
+combine them into a single 8x4 array with the content of the zeros
+array on top and the ones on the bottom.  Finally, do the same,
+but create a 4x8 array with the zeros on the left and the ones on
+the right.</p></li>
+<li><p>NumPy functionality Create two 2D arrays and do matrix multiplication
+first manually (for loop), then using the np.dot function. Use %%timeit
+to compare execution times. What is happening?</p></li>
+</ol>
+</div>
+<div class="admonition-solution-numpy-5 solution important dropdown admonition" id="solution-4">
+<p class="admonition-title">Solution Numpy-5</p>
+<ol class="arabic">
+<li><p>One solution is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">a</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>One solution is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">b</span><span class="p">[:,[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">b</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],:]</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>A possible solution is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mf">0.2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>For values exactly halfway between rounded decimal values, NumPy rounds to the nearest even value.</p></li>
+<li><p>Let’s test those functions with few negative and positive values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">3.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">trun</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>One solution is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">oo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">s2c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">oo</span><span class="p">,</span><span class="n">s2c2</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">oo</span><span class="p">,</span><span class="n">s2c2</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Sorting the array itself, without copying it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p>NumPy.sort() returns a sorted copy of an array.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.argsort(x)</span></code></p></li>
+<li><p>One solution is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">z</span><span class="p">,</span><span class="n">o</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">z</span><span class="p">,</span><span class="n">o</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Using numpy without numpy functionality (np.dot) in this case, is still slow.</p></li>
+</ol>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/">NumPy manual</a></p>
+<ul>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.html">Basic array class reference</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.indexing.html">Indexing</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/ufuncs.html">ufuncs</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://www.nature.com/articles/s41586-020-2649-2">2020 Nature paper on NumPy’s role and basic concepts</a></p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>NumPy is a powerful library every scientist using python should know about, since many other libraries also use it internally.</p></li>
+<li><p>Be aware of some NumPy specific peculiarities</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="jupyter.html" class="btn btn-neutral float-left" title="Jupyter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="numpy-advanced.html" class="btn btn-neutral float-right" title="Advanced NumPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

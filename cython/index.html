@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Extending Python with Cython" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aaltoscicomp.github.io/python-for-scicomp/cython/" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Python and performance: Interpreted languages like Python are rather slow to execute compared to languages like C or Fortran that are compiled to machine code ahead of execution. Python in particul..." />
+<meta name="description" content="Python and performance: Interpreted languages like Python are rather slow to execute compared to languages like C or Fortran that are compiled to machine code ahead of execution. Python in particul..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extending Python with Cython &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=e9df6548" />
+      <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_rtd_theme_ext_color_contrast.css?v=8e8ea19f" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+
+  
+    <link rel="shortcut icon" href="../_static/logo-hexagons-02-compact.svg.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=187304be"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=35a8b989"></script>
+      <script src="../_static/minipres.js?v=a0d29692"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = "div.highlight"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+      <script data-domain="aaltoscicomp.github.io/python-for-scicomp" defer="defer" src="https://plausible.cs.aalto.fi/js/script.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Software installation" href="../installation/" />
+    <link rel="prev" title="Web APIs with Python" href="../web-apis/" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../" class="icon icon-home">
+            Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy-advanced/">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xarray/">Xarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-matplotlib/">Plotting with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plotting-vega-altair/">Plotting with Vega-Altair</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work-with-data/">Working with Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiling/">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../productivity/">Productivity tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parallel/">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../web-apis/">Web APIs with Python</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extending Python with Cython</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-and-performance">Python and performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Cython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#your-first-cython-module">Your first Cython module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-cython-with-jupyter">Using Cython with Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-static-type-information">Adding static type information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-numpy-arrays-with-cython">Using Numpy arrays with Cython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#more-numpy-indexing-enhancements">More Numpy indexing enhancements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#when-to-cythonize">When to Cythonize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alternatives-to-cython">Alternatives to Cython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-reading">Further reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercises/">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-formats/">In depth analysis of some selected file formats</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Extending Python with Cython</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/cython.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="extending-python-with-cython">
+<span id="cython"></span><h1>Extending Python with Cython<a class="headerlink" href="#extending-python-with-cython" title="Link to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How does runtime performance of Python compare to languages like C, C++
+or Fortran?</p></li>
+<li><p>How do we use code written in other languages from within Python? In what
+situations is this useful?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand how compiled extension modules can speed up code execution.</p></li>
+<li><p>Build your first compiled extension module with Cython.</p></li>
+<li><p>Learn to optimize your Cython code with static type declarations.</p></li>
+<li><p>Learn to use Numpy arrays in Cython code and implement common performance
+enhancements for Cythonized arrays.</p></li>
+</ul>
+</div>
+<div class="admonition-callout callout admonition" id="callout-0">
+<p class="admonition-title">Callout</p>
+<p>Using Cython requires that you have a working environment for compiling
+C code. This goes beyond the software requirements for this course, so the
+teaching will be given in form of demonstrations and no exercises.
+You may still follow along with the code examples but you will need to have
+Cython and a working C compiler available. You can install both to your
+Conda environment with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">cython</span> <span class="pre">c-compiler</span></code>.</p>
+</div>
+<section id="python-and-performance">
+<h2>Python and performance<a class="headerlink" href="#python-and-performance" title="Link to this heading"></a></h2>
+<p>Interpreted languages like Python are rather slow to execute compared to
+languages like C or Fortran that are compiled to machine code ahead of
+execution. Python in particular is both strongly typed and dynamically typed:
+this means that all variables have a type that matters for operations that
+can be performed on the variable, and that the type is determined only during
+runtime by the Python interpreter. The interpreter does a lot of
+“unboxing” of variable types when performing operations, and this comes with
+significant overhead. For example, when just adding two integers</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>the Python interpreter needs to:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check the types of both operands</p></li>
+<li><p>Check whether they both support the <code class="docutils literal notranslate"><span class="pre">+</span></code> operation</p></li>
+<li><p>Extract the function that performs the <code class="docutils literal notranslate"><span class="pre">+</span></code> operation (due to operator
+overloading objects can have a custom definition for addition)</p></li>
+<li><p>Extract the actual values of the objects</p></li>
+<li><p>Perform the <code class="docutils literal notranslate"><span class="pre">+</span></code> operation</p></li>
+<li><p>Construct a new integer object for the result (“boxing”)</p></li>
+</ol>
+<a class="center reference internal image-reference" href="../_images/unboxing-boxing.png"><img alt="../_images/unboxing-boxing.png" class="center" src="../_images/unboxing-boxing.png" style="width: 90.0%;" />
+</a>
+</div></blockquote>
+<p>Meanwhile in languages like C, the types are known at compilation time, which
+allows the compiler to optimize many of the above steps away for better
+performance at runtime.</p>
+<p>Scientific programs often include computationally expensive sections (e.g.
+simulations of any kind). So how do we make Python execute our code faster in
+these situations? Well that’s the neat part: we don’t! Instead, we write the
+performance critical parts in a faster language and make them usable
+from Python.</p>
+<p>This is called extending Python, and usually boils down to writing C-code
+with Python-specific boilerplate, or using a specialized tool for generating
+such C code from Python code (so-called <em>transpilers</em>). The C-code is compiled
+into a shared library, in this context called a <strong>Python extension module</strong>.
+Most scientific Python libraries (Numpy, Scipy etc) do exactly this: their
+computationally intensive parts are either written in a compiled language,
+or they call an external library written in such language.</p>
+<p>When working on your own Python project, you may find that there is a C
+library that does exactly what you need, but it doesn’t provide a Python
+interface. Or you may have computationally intensive code that doesn’t
+vectorize nicely for Numpy. In cases like these it can be useful to write
+your own extension modules that you then import into your Python code.</p>
+<p>Here we discuss one popular approach for extending Python with compiled code:
+using a tool called Cython.</p>
+</section>
+<section id="id1">
+<h2>Cython<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://cython.org/">Cython</a> is a framework for writing Python-like code
+that can be processed with the Cython compiler to produce optimized code.
+Cython is designed to provide C-like performance for code that is mostly
+written in Python by adding only a few C-like declarations to existing
+Python code. As such, Cython aims to provide the best of the both worlds:
+the good programmer productivity of Python together with the high performance
+of C. Cython also makes it easy to interact with external C/C++ code.</p>
+<p>The Cython compiler processes code written in Python, or more
+commonly the Cython extension of Python language, and turns it into valid
+C-code which is then compiled into a Python extension module using a
+C compiler (GCC, Clang, MSVC, …). The Cython programming language is a
+superset of Python that adds C-like static type declarations and other
+features that make it possible to generate efficient machine code.</p>
+<div class="admonition-callout callout admonition" id="callout-1">
+<p class="admonition-title">Callout</p>
+<p>Unlike plain Python code, Cython code must be compiled ahead of time before
+it can be executed. This is usually done during the build phase of a
+project. Note that Cython is <em>not</em> a just-in-time (JIT) compiler like e.g.
+Numba, although you <em>can</em> call the Cython compiler at runtime for JIT-like
+behavior if you really want to.</p>
+</div>
+</section>
+<section id="your-first-cython-module">
+<h2>Your first Cython module<a class="headerlink" href="#your-first-cython-module" title="Link to this heading"></a></h2>
+<p>Suppose we have a Python module called <code class="docutils literal notranslate"><span class="pre">my_module.py</span></code> that contains:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>Cython allows one to compile <code class="docutils literal notranslate"><span class="pre">my_module.py</span></code> directly to machine code while
+still allowing its contents to be imported and used from Python code. We can
+Cythonize the module “manually” from command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cythonize<span class="w"> </span>-i<span class="w"> </span>my_module.py
+</pre></div>
+</div>
+<p>This produces a file called <code class="docutils literal notranslate"><span class="pre">my_module.c</span></code>, full of C code. One can
+investigate the generated <code class="docutils literal notranslate"><span class="pre">.c</span></code> file but it is not really meant for humans to
+read, because of all the boilerplate that Cython adds in order to make the
+compiled code available to Python. Already this simple function results in
+over 7000 lines of C code!</p>
+<p>The option <code class="docutils literal notranslate"><span class="pre">-i</span></code> (meaning inplace) tells Cython to also compile the generated
+<code class="docutils literal notranslate"><span class="pre">.c</span></code> file into an extension module in the same directory.
+This could also be done manually by invoking a C-compiler of your choice.
+On Linux/Mac systems the compiled module will be called something
+like <code class="docutils literal notranslate"><span class="pre">my_module.cpython-314-x86_64-linux-gnu.so</span></code>, on Windows the suffix will
+be <code class="docutils literal notranslate"><span class="pre">.pyd</span></code>.</p>
+<p>The extension module can be imported from Python in the same way as one would
+import a pure Python module, e.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">my_module</span><span class="w"> </span><span class="kn">import</span> <span class="n">add</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Usually when working with Cython, one does not Cythonize the whole program but
+only selected modules. A typical Cython project is separated into plain Python
+modules (file suffix <code class="docutils literal notranslate"><span class="pre">.py</span></code>), and Cython code files (suffix <code class="docutils literal notranslate"><span class="pre">.pyx</span></code>).
+The <code class="docutils literal notranslate"><span class="pre">.pyx</span></code> files will usually contain Cython-specific code like static type
+information, so that they are not valid Python code anymore and must be
+Cythonized before use.</p>
+<div class="admonition-callout callout admonition" id="callout-2">
+<p class="admonition-title">Callout</p>
+<p>Real-world project don’t usually invoke Cython from the command line and
+instead use an established build tool like <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> to handle the
+Cythonization during the project’s build phase. More info is available on
+the <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/userguide/source_files_and_compilation.html#compilation">Cython documentation</a>.
+See also the <a class="reference internal" href="../packaging/"><span class="doc">course page on packaging</span></a>.</p>
+</div>
+</section>
+<section id="using-cython-with-jupyter">
+<h2>Using Cython with Jupyter<a class="headerlink" href="#using-cython-with-jupyter" title="Link to this heading"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Due to a <a class="reference external" href="https://github.com/cython/cython/issues/7319">known issue</a> with <code class="docutils literal notranslate"><span class="pre">%%cython</span> <span class="pre">-a</span></code> in <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> we have to use the <code class="docutils literal notranslate"><span class="pre">jupyter-nbclassic</span></code> interface
+for this episode.</p>
+</div>
+<p>Jupyter supports Cython compilation directly inside notebooks via <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook">an extension</a>,
+assuming your environment has Cython installed.</p>
+<p>We first load the Cython extension, e.g. in the very first cell:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">Cython</span>
+</pre></div>
+</div>
+<p>We can Cythonize cell contents using the magic <code class="docutils literal notranslate"><span class="pre">%%cython</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>The compiled function can then be called from other cells.</p>
+<div class="admonition-demo demo admonition" id="demo-0">
+<p class="admonition-title">Demo</p>
+<p>There is also <code class="docutils literal notranslate"><span class="pre">%%cython</span> <span class="pre">--annotate</span></code>, or <code class="docutils literal notranslate"><span class="pre">%%cython</span> <span class="pre">-a</span></code> for short, which is
+useful for analyzing the generated C code. Try executing the code for
+<cite>add()</cite> with this magic command in Jupyter. Upon doing so:</p>
+<ol class="arabic simple">
+<li><p>Estimate the amount of interactions with the Python runtime, by the intensity of the yellow background colour.</p></li>
+<li><p>You will be able to inspect the underlying C code.</p></li>
+</ol>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<img alt="../_images/jupyter-cython-annotate.png" src="../_images/jupyter-cython-annotate.png" />
+</div>
+</div>
+</section>
+<section id="adding-static-type-information">
+<h2>Adding static type information<a class="headerlink" href="#adding-static-type-information" title="Link to this heading"></a></h2>
+<p>So far our Cythonized extension module is rather minimal. We have reduced some
+of the interpreting overhead by compiling the code, but it’s still using Python’s
+fully dynamic type system with the same boxing and unboxing overhead as in
+standard Python. This is because there are no type declarations in the code
+that Cython could use to optimize.</p>
+<p>When Cythonizing a Python code, static type information can be added
+either:</p>
+<ul class="simple">
+<li><p>In function signatures by prefixing the formal arguments by their
+type.</p></li>
+<li><p>By declaring variables with the <code class="docutils literal notranslate"><span class="pre">cdef</span></code> Cython keyword, followed by
+the the type.</p></li>
+</ul>
+<p>To make Cython function that adds two integers and returns the result as
+an integer, we would write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="nb">int</span> <span class="n">x</span><span class="p">,</span> <span class="nb">int</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">cdef</span> <span class="nb">int</span> <span class="n">result</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>The function works now only with integers but with less boxing/unboxing
+overhead. Store this as <code class="docutils literal notranslate"><span class="pre">my_module.pyx</span></code> (note the file extension) and
+Cythonize as before:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cythonize<span class="w"> </span>-i<span class="w"> </span>my_module.pyx
+</pre></div>
+</div>
+<p>Import this into Python and confirm that it works as expected with integers.
+However, if passing floating-point numbers the function is forced to interpret
+the inputs as integers before performing the addition. For example,
+<code class="docutils literal notranslate"><span class="pre">add(1.4,</span> <span class="pre">2.7)</span></code> would return <code class="docutils literal notranslate"><span class="pre">3</span></code>. This happens because there is an automatic
+conversion from the input Python objects to the
+declared C-types, in this case integers, when calling the Cythonized function
+from Python. Similarly the returned C variable is converted to a corresponding
+Python object.</p>
+<p>To make the function work with floats we’d instead declare the types to be
+either <code class="docutils literal notranslate"><span class="pre">float</span></code> (32-bit) or <code class="docutils literal notranslate"><span class="pre">double</span></code> (64-bit) type instead of <code class="docutils literal notranslate"><span class="pre">int</span></code>.
+The table below lists the most common C types and their corresponding
+Python types. More information can be found in the <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/userguide/language_basics.html">Cython
+documentation</a>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>From Python types</p></th>
+<th class="head"><p>To C types</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>int</p></td>
+<td><p>int, long</p></td>
+</tr>
+<tr class="row-odd"><td><p>int, float</p></td>
+<td><p>float, double</p></td>
+</tr>
+<tr class="row-even"><td><p>str/bytes</p></td>
+<td><p>char *</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="using-numpy-arrays-with-cython">
+<h2>Using Numpy arrays with Cython<a class="headerlink" href="#using-numpy-arrays-with-cython" title="Link to this heading"></a></h2>
+<p>Cython has built-in support for Numpy arrays.</p>
+<p>As discussed in the <a class="reference internal" href="../numpy-advanced/"><span class="doc">Numpy lectures</span></a>, Numpy arrays provide
+great performance for vectorized operations. In contrast, thing like
+<code class="docutils literal notranslate"><span class="pre">for</span></code>-loops over Numpy arrays should be avoided because of interpreting
+overhead inherent to Python <code class="docutils literal notranslate"><span class="pre">for</span></code>-loops. There is also overhead from
+accessing individual elements of Numpy arrays.</p>
+<p>With Cython we can bypass both restrictions and write efficient loops over
+Numpy arrays. Consider e.g. a double loop that sets values of a 2D array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">slow_looper</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+   <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+   <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>We can Cythonize this as before to optimize the <code class="docutils literal notranslate"><span class="pre">for</span></code>-loops. A quick check
+with <code class="docutils literal notranslate"><span class="pre">timeit</span></code> shows that with <code class="docutils literal notranslate"><span class="pre">N=100</span></code>, the pure Python version takes 820μs
+and the Cythonized version (without any static typing) takes 700μs. This is
+nice, but we are still bottlenecked by array lookups and assignments, i.e. the
+<code class="docutils literal notranslate"><span class="pre">[]</span></code> operator, which invokes Python code.</p>
+<p>We can get a huge speedup by adding a static type declaration for the Numpy
+array, and for the other variables too while we are at it. To do this we must
+import compile-time information about the Numpy module using the
+Cython-specific <code class="docutils literal notranslate"><span class="pre">cimport</span></code> keyword, then use Cython’s Numpy interface to
+declare the array’s datatype and dimensions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>   <span class="c1"># Normal Numpy import</span>
+<span class="n">cimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">cnp</span> <span class="c1"># Import for Numpy C-API</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fast_looper</span><span class="p">(</span><span class="nb">int</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+   <span class="c1"># Type declaration: 2D array of 32-bit integers</span>
+   <span class="n">cdef</span> <span class="n">cnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">[</span><span class="n">cnp</span><span class="o">.</span><span class="n">int32_t</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="p">]</span> <span class="n">data</span>
+   <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+   <span class="n">cdef</span> <span class="nb">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="c1"># double loop is done at nearly C speed</span>
+   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Cythonizing and running the function with <code class="docutils literal notranslate"><span class="pre">timeit</span></code> shows that the function
+now only takes 3.30μs with <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">100</span></code>. This is ~250 times faster than the
+pure Python implementation!</p>
+<div class="admonition-callout callout admonition" id="callout-3">
+<p class="admonition-title">Callout</p>
+<p><code class="docutils literal notranslate"><span class="pre">cimport</span> <span class="pre">numpy</span></code> needs access to Numpy C-headers which are usually included
+in Python distributions. This usually works out of the box for Jupyter
+notebooks. However, if using the command line <code class="docutils literal notranslate"><span class="pre">cythonize</span></code> tool you may need
+to manually set include paths for the C compiler.
+Refer to <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation">the docs</a>
+for more details.</p>
+</div>
+<div class="admonition-callout callout admonition" id="callout-4">
+<p class="admonition-title">Callout</p>
+<p>It is good practice to also call <code class="docutils literal notranslate"><span class="pre">cnp.import_array()</span></code> after doing the
+<code class="docutils literal notranslate"><span class="pre">cimport</span></code> of Numpy. This is required for accessing attributes (like
+<code class="docutils literal notranslate"><span class="pre">.shape</span></code>) of typed Numpy arrays.</p>
+</div>
+</section>
+<section id="more-numpy-indexing-enhancements">
+<h2>More Numpy indexing enhancements<a class="headerlink" href="#more-numpy-indexing-enhancements" title="Link to this heading"></a></h2>
+<p>When indexing arrays, Numpy does some bounds checking in an attempt to catch
+logic errors (e.g. attempting to access element at index 100 of an array of
+length 10). Numpy also checks for negative indices to support wraparound
+syntax like <code class="docutils literal notranslate"><span class="pre">a[-1]</span></code>. We can tell Cython to disable these checks for some
+extra performance:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">cimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">cnp</span>
+<span class="n">cimport</span> <span class="n">cython</span>
+
+<span class="nd">@cython</span><span class="o">.</span><span class="n">boundscheck</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="nd">@cython</span><span class="o">.</span><span class="n">wraparound</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fast_looper</span><span class="p">(</span><span class="nb">int</span> <span class="n">N</span><span class="p">):</span>
+   <span class="c1"># ... Same function body as above ...</span>
+</pre></div>
+</div>
+<p>Whether these decorators <em>actually</em> result in faster code or not depends on
+how complicated your array usage is. In this simple example there is likely
+no measurable improvement: even if the checks are kept, modern compilers and
+processors are rather good at predicting unlikely branches and optimize the
+execution accordingly (“branch prediction”).</p>
+<p>Disabling bounds checking of course means that out-of-bounds indexing will go
+undetected and lead to undefined behavior. It may crash your program or cause
+memory corruption, so be very careful if using these decorators!</p>
+</section>
+<section id="when-to-cythonize">
+<h2>When to Cythonize?<a class="headerlink" href="#when-to-cythonize" title="Link to this heading"></a></h2>
+<p>Static typing in Cython is a tradeoff between performance and the dynamical
+nature of Python code. You most certainly do not want to Cythonize your whole
+project: at that point you may just as well pick a different programming
+language!</p>
+<p>Here are some rules of thumb to keep in mind when optimizing your code with
+Cython (see also <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/quickstart/cythonize.html#determining-where-to-add-types">Cython docs</a>):</p>
+<ul class="simple">
+<li><p>Only Cythonize the modules/functions for which performance is <em>really</em>
+needed. Profiling tools help at identifying such bottlenecks.</p></li>
+<li><p>Static type declarations work the best for fundamental data types (integers,
+floats, strings) and for contiguous arrays. Operations on heterogeneous lists
+and dictionaries do not usually benefit much from Cython.</p></li>
+</ul>
+</section>
+<section id="alternatives-to-cython">
+<h2>Alternatives to Cython<a class="headerlink" href="#alternatives-to-cython" title="Link to this heading"></a></h2>
+<p><a class="reference external" href="https://numba.pydata.org/">Numba</a> is a tool that compiles Python code to
+optimized machine code on the fly without needing a manual compilation step.
+It works with Numpy but does not support all of Python’s features.</p>
+<p>For creating compiled extension modules there are a plethora of tools and
+libraries. If you already have a working C/C++ codebase and would like
+to use it from Python, consider using one of the following:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/ctypes.html">ctypes</a>: part of Python standard library.</p></li>
+<li><p><a class="reference external" href="https://cffi.readthedocs.io/en/stable/index.html">CFFI</a>: somewhat similar to <cite>ctypes</cite> but with more features and probably better for large projects.</p></li>
+<li><p><a class="reference external" href="https://pybind11.readthedocs.io/en/stable/index.html">pybind11</a>: very robust and modern way of creating extension modules. C++ only.</p></li>
+<li><p><a class="reference external" href="https://pyo3.rs/v0.27.1/">PyO3</a> for Rust code.</p></li>
+</ul>
+</section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Cython <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/userguide/memoryviews.html">memory views</a>
+are a newer and more general way of interfacing with Numpy arrays and other buffer-like objects.</p></li>
+<li><p><a class="reference external" href="https://cython.readthedocs.io/en/latest/src/tutorial/external.html">Calling C functions from Cython</a></p></li>
+</ul>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading"></a></h2>
+<p>This material has been adapted from the “Python for HPC” course by CSC - IT Center for Science.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../web-apis/" class="btn btn-neutral float-left" title="Web APIs with Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../installation/" class="btn btn-neutral float-right" title="Software installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2024, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
