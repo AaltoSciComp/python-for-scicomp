@@ -44,29 +44,81 @@ These are the 3 files:
 
 .. literalinclude:: packaging-example-project/calculator/adding.py
    :caption: adding.py
+   :language: python
 
 .. literalinclude:: packaging-example-project/calculator/subtracting.py
    :caption: subtracting.py
+   :language: python
 
 .. literalinclude:: packaging-example-project/calculator/integrating.py
    :caption: integrating.py
+   :language: python
 
 We will add a fourth file:
 
 .. literalinclude:: packaging-example-project/calculator/__init__.py
    :caption: __init__.py
+   :language: python
 
 This ``__init__.py`` file will be the interface of our package/library.
 It also holds the package docstring and the version string.
 Note how it imports functions from the various modules using *relative imports*
 (with the dot).
 
+After that let's create a file called ``README.md`` to the project root
+that will describe our project to other people who might want to use it.
+
+
+.. literalinclude:: packaging-example-project/README.md
+   :caption: README.md
+   :language: markdown
+
+Now our folder should look something like this:
+
+.. code-block:: none
+
+   calculator_myname
+   ├── calculator
+   │   ├── adding.py
+   │   ├── __init__.py
+   │   ├── integrating.py
+   │   └── subtracting.py
+   └── README.md
+
+After this we need to create a file called
+`pyproject.toml <https://packaging.python.org/en/latest/guides/writing-pyproject-toml/>`__,
+which describes our package.
+To make this easier we'll use ``flit`` (which is already installed in the
+course environment) in a terminal to initialize it:
+
+.. code-block:: console
+
+   $ flit init
+   Module name [calculator]: calculator_myname
+   Author: Firstname Lastname
+   Author email: firstname.lastname@example.org
+   Home page: http://www.example.org
+   Choose a license (see http://choosealicense.com/ for more info)
+   1. MIT - simple and permissive
+   2. Apache - explicitly grants patent rights
+   3. GPL - ensures that code based on this is shared with the same terms
+   4. Skip - choose a license later
+   Enter 1-4: 1
+
+   Written pyproject.toml; edit that file to add optional extra info.
+
+``flit`` will ask us questions about your project and it create a
+``pyproject.toml`` into the project folder. The name of the package
+(Module name) should be something that is not already in use. In best
+case scenario it should be the same as the Python module name. In our
+case, let's use a different name and let's fix this later.
+
 This is how we will arrange the files in the project folder/repository:
 
 .. code-block:: none
    :emphasize-lines: 3-6
 
-   project-folder
+   calculator_myname
    ├── calculator
    │   ├── adding.py
    │   ├── __init__.py
@@ -88,26 +140,27 @@ the next section.
 Testing a local pip install
 ---------------------------
 
-To make our example package pip-installable we need to add one more file:
+The ``pyproject.toml`` specification tells Pip what our package is and
+what it should install. It currently looks like this:
 
-.. code-block:: none
-   :emphasize-lines: 9
+.. literalinclude:: packaging-example-project/pyproject.toml-partial
+   :caption: pyproject.toml
+   :language: toml
 
-   project-folder
-   ├── calculator
-   │   ├── adding.py
-   │   ├── __init__.py
-   │   ├── integrating.py
-   │   └── subtracting.py
-   ├── LICENSE
-   ├── README.md
-   └── pyproject.toml
 
-This is how ``pyproject.toml`` looks:
+Let's do couple of finishing touches to it. Because we have different names
+for the package and our module import, we'll add a section that specifies
+that.
+
+We also need to add the dependency to ``scipy``.
+
+After the changes our ``pyproject.toml`` looks like this:
+
 
 .. literalinclude:: packaging-example-project/pyproject.toml
    :caption: pyproject.toml
-   :emphasize-lines: 13-15
+   :emphasize-lines: 12-14,19-20
+   :language: toml
 
 Note how our package requires ``scipy`` and we decided to not pin the version
 here (see :ref:`version_pinning`).
@@ -118,8 +171,8 @@ test before trying to upload a package to PyPI or test-PyPI
 
 .. note::
 
-   Sometime you need to rely on unreleased, development versions as 
-   dependencies and this is also possible. For example, to use the 
+   Sometime you need to rely on unreleased, development versions as
+   dependencies and this is also possible. For example, to use the
    latest ``xarray`` you could add::
 
      dependencies = [
@@ -146,7 +199,7 @@ Exercise 1
 
    .. hint:: To create and activate a virtual environment
       :class: dropdown
-     
+
       .. tabs::
 
          .. tab:: Unix/macOS
@@ -211,9 +264,8 @@ Let's try it out. First we create the distribution package::
 
   $ python3 -m build
 
-We need twine::
-
-  $ pip install twine
+We need also have ``twine`` installed, but it is included in the course
+environment.
 
 And use twine to upload the distribution files to test-PyPI::
 
@@ -242,7 +294,7 @@ And use twine to upload the distribution files to test-PyPI::
 
    #. Under **Token name** write something memorable.
       It should remind you the *purpose*
-      or the *name of the computer*, such that when you are done 
+      or the *name of the computer*, such that when you are done
       using it, you can safely delete it.
    #. Under **Scope** select ``Entire account (all projects)``.
    #. Click on **Create token**.
@@ -266,7 +318,7 @@ Once this is done, create yet another virtual environment and try to install fro
           $ python3 -m pip install \
               -i https://test.pypi.org/simple/ \
               --extra-index-url https://pypi.org/simple/ \
-              calculator-myname
+              calculator_myname
           $ deactivate
 
    .. tab:: Windows
@@ -277,7 +329,7 @@ Once this is done, create yet another virtual environment and try to install fro
           $ python3 -m venv venv-calculator
           $ venv-calculator\Scripts\activate
           $ where python
-          $ python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ calculator-myname
+          $ python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ calculator_myname
           $ deactivate
 
 If you upload packages to PyPI or test PyPI often you can create an API token and
@@ -312,7 +364,7 @@ cross-compatible amongst each other and with ``pip``.
 
    The properties of the project and your development requirements may determine which packaging
    tool suits you. Use the above decision tree from pyOpenSci_ to help make that choice.
-   
+
 
 .. _pyOpenSci: https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html
 
@@ -427,7 +479,7 @@ Tools that simplify sharing conda packages
 
 - `pixi <https://pixi.sh>`__ is package management tool to cover all features of conda, along with
   ability to initialize and package new projects.
-- `rattler-build <https://rattler.build>`__ is a build tool which combines the functionalities of 
+- `rattler-build <https://rattler.build>`__ is a build tool which combines the functionalities of
   ``conda grayskull``, ``conda build`` and allows you to also publish packages.
 
 
