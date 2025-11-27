@@ -9,12 +9,6 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 dynamic = ["version", "description"]
-dependencies = [
-    "scipy"
-]
 
 [project.urls]
 Home = "http://www.example.org"
-
-[tool.flit.module]
-name = "calculator"
