@@ -15,7 +15,7 @@ env:
   # If these SPHINXOPTS are enabled, then be strict about the
   # builds and fail on any warnings.
   #SPHINXOPTS: "-W --keep-going -T"
-  GENERATE_PDF: true          # to enable, must be 'true' lowercase
+  GENERATE_PDF: false          # to enable, must be 'true' lowercase
   GENERATE_SINGLEHTML: true   # to enable, must be 'true' lowercase
   PDF_FILENAME: lesson.pdf
   MULTIBRANCH: true    # to enable, must be 'true' lowercase
@@ -95,6 +95,12 @@ jobs:
         run: |
           make singlehtml
           mv _build/singlehtml/ _build/dirhtml/singlehtml/
+
+      - name: Save HTML as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-dev
+          path: _build
 
       # PDF if requested
       - name: Generate PDF
