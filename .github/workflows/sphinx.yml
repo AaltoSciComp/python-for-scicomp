@@ -8,17 +8,18 @@
 
 
 name: sphinx
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 env:
   DEFAULT_BRANCH: "master"
   # If these SPHINXOPTS are enabled, then be strict about the
   # builds and fail on any warnings.
   #SPHINXOPTS: "-W --keep-going -T"
-  GENERATE_PDF: true          # to enable, must be 'true' lowercase
-  GENERATE_SINGLEHTML: true   # to enable, must be 'true' lowercase
-  PDF_FILENAME: lesson.pdf
   MULTIBRANCH: true    # to enable, must be 'true' lowercase
+  OUTPUT_BASENAME: ${{ github.repository_owner }}-${{ github.event.repository.name }}     # used for pdf, epub
+  GENERATE_SINGLEHTML: true   # to enable, must be 'true' lowercase
+  GENERATE_EPUB: true         # to enable, must be 'true' lowercase
+  GENERATE_PDF: false         # to enable, must be 'true' lowercase
 
 
 jobs:
@@ -30,7 +31,7 @@ jobs:
 
     steps:
       # https://github.com/marketplace/actions/checkout
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           lfs: true
@@ -38,7 +39,7 @@ jobs:
       # https://github.com/marketplace/actions/setup-python
       # ^-- This gives info on matrix testing.
       - name: Install Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -73,9 +74,15 @@ jobs:
           pip list --not-required
           pip list
 
+      - name: Make target publish directory (_gh-pages)
+        run:
+          mkdir _gh-pages/
 
       # Build
+      # Error highlighter
       - uses: ammaraskar/sphinx-problem-matcher@master
+
+      # Main build (dirhtml)
       - name: Build Sphinx docs (dirhtml)
         # SPHINXOPTS used via environment variables
         run: |
@@ -88,37 +95,38 @@ jobs:
           #   https://github.com/sphinx-doc/sphinx/pull/8524
           #   https://github.com/readthedocs/sphinx_rtd_theme/pull/1025
           sed -i 's/url_root="#"/url_root=""/' _build/dirhtml/index.html || true
+          rsync -a _build/dirhtml/ _gh-pages/
 
-      # singlehtml
+      # singlehtml if requested
       - name: Generate singlehtml
         if: ${{ env.GENERATE_SINGLEHTML == 'true' }}
         run: |
           make singlehtml
-          mv _build/singlehtml/ _build/dirhtml/singlehtml/
+          mv _build/singlehtml/ _gh-pages/singlehtml/
 
-      # PDF if requested
-      # Disabled: sphinx_pyppeteer_builder imports sphinx.util.progress_message,
-      # which was removed in Sphinx 8 (now sphinx.util.display.progress_message).
-      #- name: Generate PDF
-      #  if: ${{ env.GENERATE_PDF == 'true' }}
-      #  run: |
-      #    pip install https://github.com/rkdarst/sphinx_pyppeteer_builder/archive/refs/heads/main.zip
-      #    make pyppeteer
-      #    mv _build/pyppeteer/*.pdf _build/dirhtml/${PDF_FILENAME}
+      # epub if requested
+      - name: Generate epub
+        if: ${{ env.GENERATE_EPUB == 'true' }}
+        run: |
+          make epub
+          mv _build/epub/*.epub _gh-pages/${OUTPUT_BASENAME}.epub
 
-      # Stage all deployed assets in _gh-pages/ for simplicity, and to
-      # prepare to do a multi-branch deployment.
-      - name: Copy deployment data to _gh-pages/
-        if: ${{ github.event_name == 'push' }}
-        run:
-          rsync -a _build/dirhtml/ _gh-pages/
+      # PDF if requested.  Disabled by default since it requires more
+      # modules, chromium, and is overall much more fragile.
+      - name: Generate PDF
+        if: ${{ env.GENERATE_PDF == 'true' }}
+        run: |
+          #pip install https://github.com/rkdarst/sphinx_pyppeteer_builder/archive/refs/heads/main.zip
+          pip install sphinx_pyppeteer_builder
+          make SPHINXOPTS="-t pdf" pyppeteer
+          mv _build/pyppeteer/*.pdf _gh-pages/${OUTPUT_BASENAME}.pdf
 
       # Use gh-pages-multibranch to multiplex different branches into
       # one deployment. See
       # https://github.com/coderefinery/gh-pages-multibranch
       - name: gh-pages multibranch
         uses: coderefinery/gh-pages-multibranch@main
-        if: ${{ github.event_name == 'push' && env.MULTIBRANCH == 'true' }}
+        if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && env.MULTIBRANCH == 'true' }}
         with:
           directory: _gh-pages/
           default_branch: ${{ env.DEFAULT_BRANCH }}
@@ -126,13 +134,13 @@ jobs:
 
       # Add the .nojekyll file
       - name: nojekyll
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
         run: |
           touch _gh-pages/.nojekyll
 
       # Save artifact for the next step.
-      - uses: actions/upload-artifact@v4
-        if: ${{ github.event_name == 'push' }}
+      - uses: actions/upload-artifact@v6
+        if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
         with:
           name: gh-pages-build
           path: _gh-pages/
@@ -144,13 +152,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     # This if can't use the env context - find better way later.
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: write
 
     steps:
-      - uses: actions/download-artifact@v4
-        if: ${{ github.event_name == 'push' && ( env.MULTIBRANCH == 'true' || github.ref == format('refs/heads/{0}', env.DEFAULT_BRANCH )) }}
+      - uses: actions/download-artifact@v6
+        if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && ( env.MULTIBRANCH == 'true' || github.ref == format('refs/heads/{0}', env.DEFAULT_BRANCH )) }}
         with:
           name: gh-pages-build
           path: _gh-pages/
@@ -163,8 +171,8 @@ jobs:
       # Deploy
       # https://github.com/peaceiris/actions-gh-pages
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && ( env.MULTIBRANCH == 'true' || github.ref == format('refs/heads/{0}', env.DEFAULT_BRANCH )) }}
+        uses: peaceiris/actions-gh-pages@v4
+        if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && ( env.MULTIBRANCH == 'true' || github.ref == format('refs/heads/{0}', env.DEFAULT_BRANCH )) }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
