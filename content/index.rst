@@ -2,13 +2,13 @@
 Python for Scientific Computing
 ===============================
 
-.. admonition:: Attending the course 25-27 November, 2025?
+.. admonition:: Attending the course 24-26 November, 2026?
 
    `See the course page here
-   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2025/>`__
+   <https://scicomp.aalto.fi/training/scip/python-for-scicomp-2026/>`__
    and watch at https://twitch.tv/coderefinery.
-   Whether you are or aren't, the course material is below.  Videos
-   will appear in `this playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nMWEKWtagJ6h0q9BrFO49tn>`__ (Last year's videos: `playlist <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__).
+   Whether you are or aren't, the course material is below.
+   Last year's videos: `playlist <https://www.youtube.com/watch?v=goFQSVQojMc&list=PLZLVmS9rf3nPYGcdalc8N2Qd7V3QY_MqS>`__.
 
 
 Python is a modern, object-oriented programming language, which has
