@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Why numpy? &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Why numpy?</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/numpy_old.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="why-numpy">
+<h1>Why numpy?<a class="headerlink" href="#why-numpy" title="Permalink to this headline">¶</a></h1>
+<p>The NumPy package provides a N-dimensional array type, and syntax and
+utility functions for working with these arrays.</p>
+<p>In contrast to a python list, a numpy array can only hold elements of
+the same type. The element type can be seen via the ‘dtype’ attribute.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)))</span>
+<span class="n">a</span><span class="o">.</span><span class="n">dtype</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>  <span class="c1"># error!</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">100</span>    <span class="c1"># error!</span>
+</pre></div>
+</div>
+<p>What these restrictions buy you is that the memory layout of a numpy
+array is very efficient, similar to what you see in low level
+languages like C or Fortran.  This means operating on these arrays is
+very efficient; in fact, much of the speed advantage of numpy comes
+from the fact that array syntax is implemented in fast C code.</p>
+<p>Due to the memory layout of numpy being compatible with C and Fortran,
+numpy arrays allows one to use functionality written in these other
+languages.  Much of the SciPy ecosystem (NumPy, SciPy, etc.) consist
+of python wrappers around widely used and battle-tested numerical
+libraries written in C or Fortran such as LAPACK and BLAS.</p>
+<p>The Python list</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>has roughly the following layout in memory:</p>
+<img alt="../_images/a_list.svg" src="../_images/a_list.svg" /><p>In contrast, the NumPy array</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>has the memory layout like</p>
+<img alt="../_images/ndarray.svg" src="../_images/ndarray.svg" /></div>
+<div class="section" id="exercise-2-1">
+<h1>Exercise 2.1<a class="headerlink" href="#exercise-2-1" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><ul class="simple">
+<li><p>ndarray data structure –&gt; better performance than pure python with “large” arrays</p></li>
+<li><p>good for storing uniform data types</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p>In the example above we saw that <code class="docutils literal notranslate"><span class="pre">2**100</span></code> was too large. What is
+the default datatype of a numpy integer array if we don’t
+explicitly specify some type, and what is the largest possible
+integer we can store in such an element.</p></li>
+<li><p>What is the smallest negative element (that is, the largest
+absolute value of a negative number)?  Is it different from the
+largest positive number, and if so, why?</p></li>
+<li><p>What is the absolute value of the smallest negative element? Why?</p></li>
+</ol>
+</div>
+<div class="section" id="other-ways-of-creating-numpy-arrays">
+<h1>Other ways of creating NumPy arrays<a class="headerlink" href="#other-ways-of-creating-numpy-arrays" title="Permalink to this headline">¶</a></h1>
+<p>There are many different ways to create NumPy arrays, here’s a few of
+the most common ones:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>      <span class="c1"># 2x3 array with all elements 0</span>
+<span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">bool</span><span class="p">)</span> <span class="c1"># 3x2 boolean array</span>
+<span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>         <span class="c1"># Evenly spaced values in an interval</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>   <span class="c1"># similar to above... but what is the difference?</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="numpy-array-slicing-syntax">
+<h1>NumPy array slicing syntax<a class="headerlink" href="#numpy-array-slicing-syntax" title="Permalink to this headline">¶</a></h1>
+<p>NumPy provides a convenient array syntax to reference subarrays,
+similar to MATLAB or Fortran.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">[</span><span class="n">low</span><span class="p">:</span><span class="n">high</span><span class="p">:</span><span class="n">step</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>returns the array elements in the range <code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high)</span></code> with a stride
+of <code class="docutils literal notranslate"><span class="pre">step</span></code>. Equivalently for multidimensional arrays.  For
+multidimensional arrays NumPy by default stores arrays in row-major
+order, like C. Note that this is in contrast to e.g. Fortran, MATLAB
+or Julia that use a column-major layout.</p>
+<p>Using array syntax efficiently is <strong>key</strong> to using NumPy in a fashion
+that leads to short as well as efficient code.</p>
+<p>NumPy also provides so-called <em>advanced indexing</em>, where you can
+select elements with a list of indices.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># Will this modify a?</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="views-vs-copies">
+<h1>Views vs. copies<a class="headerlink" href="#views-vs-copies" title="Permalink to this headline">¶</a></h1>
+<p>When slicing an array, you <strong>DO NOT</strong> get a copy of those elements,
+but rather a <em>view</em>.  That is, the data elements are the same as in
+the original array</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Views rather than copies is more efficient, particularly for large
+arrays, but they can sometimes be confusing. Be careful!</p>
+<p>If you do need a copy, NumPy arrays have a <code class="docutils literal notranslate"><span class="pre">copy</span></code> method to create a
+copy rather than getting a view.</p>
+<p><strong>NOTE</strong> With advanced indexing, you always get a copy!</p>
+</div>
+<div class="section" id="array-shape-and-size">
+<h1>Array shape and size<a class="headerlink" href="#array-shape-and-size" title="Permalink to this headline">¶</a></h1>
+<p>NumPy arrays have a shape and size attribute.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size</span>               <span class="c1"># Number of elements</span>
+<span class="n">a</span><span class="o">.</span><span class="n">shape</span>              <span class="c1"># shape tuple</span>
+</pre></div>
+</div>
+<p>We can modify the shape of an array with the <code class="docutils literal notranslate"><span class="pre">reshape</span></code> or <code class="docutils literal notranslate"><span class="pre">resize</span></code>
+methods. Or for the special case of flattening an array to a 1D array,
+<code class="docutils literal notranslate"><span class="pre">ravel</span></code>.</p>
+</div>
+<div class="section" id="combining-splitting-and-rolling-arrays">
+<h1>Combining, splitting and rolling arrays<a class="headerlink" href="#combining-splitting-and-rolling-arrays" title="Permalink to this headline">¶</a></h1>
+<p>For combining multiple arrays into a larger array, see the
+<code class="docutils literal notranslate"><span class="pre">concatenate</span></code>, <code class="docutils literal notranslate"><span class="pre">stack</span></code>, <code class="docutils literal notranslate"><span class="pre">block</span></code>, and the more specialized
+variants <code class="docutils literal notranslate"><span class="pre">hstack</span></code>, <code class="docutils literal notranslate"><span class="pre">vstack</span></code>, <code class="docutils literal notranslate"><span class="pre">dstack</span></code>.</p>
+<p>Similarly, for splitting an array into multiple parts, there’s
+<code class="docutils literal notranslate"><span class="pre">split</span></code>, <code class="docutils literal notranslate"><span class="pre">hsplit</span></code>, <code class="docutils literal notranslate"><span class="pre">vsplit</span></code>.</p>
+<p>To roll an array, that is shift the elements along a give axis, use
+<code class="docutils literal notranslate"><span class="pre">roll</span></code>.</p>
+</div>
+<div class="section" id="exercise-2-2">
+<h1>Exercise 2.2<a class="headerlink" href="#exercise-2-2" title="Permalink to this headline">¶</a></h1>
+<p>Create an array <code class="docutils literal notranslate"><span class="pre">x</span></code> of 100 evenly spaced numbers in the range
+[-2*pi, 2*pi].</p>
+<p>Next, create an array <code class="docutils literal notranslate"><span class="pre">y</span></code>, where each element is the <code class="docutils literal notranslate"><span class="pre">sin</span></code> of each
+element in the previously created array.</p>
+<p>Then, figure out the indices where the array <code class="docutils literal notranslate"><span class="pre">y</span></code> changes sign. What
+are the <code class="docutils literal notranslate"><span class="pre">x</span></code> values for these indices?</p>
+</div>
+<div class="section" id="numpy-i-o">
+<h1>NumPy I/O<a class="headerlink" href="#numpy-i-o" title="Permalink to this headline">¶</a></h1>
+<p>NumPy has functionality for saving and loading NumPy arrays from
+files.  For reading/writing textfiles there is <code class="docutils literal notranslate"><span class="pre">loadtxt</span></code> and
+<code class="docutils literal notranslate"><span class="pre">savetxt</span></code>. See also <code class="docutils literal notranslate"><span class="pre">genfromtxt</span></code> with more sophisticated handling
+of missing values etc.</p>
+<p>For large arrays, it’s faster to use a binary format. For these NumPy
+defines a <code class="docutils literal notranslate"><span class="pre">.npy</span></code> format. Loading and saving these files can be done
+with the <code class="docutils literal notranslate"><span class="pre">load</span></code> and <code class="docutils literal notranslate"><span class="pre">save</span></code> methods.  There’s also the <code class="docutils literal notranslate"><span class="pre">.npz</span></code>
+format, which is a zip archive containing several numpy ndarrays in
+one file. <code class="docutils literal notranslate"><span class="pre">.npz</span></code> format files can be read/written with <code class="docutils literal notranslate"><span class="pre">load</span></code>,
+<code class="docutils literal notranslate"><span class="pre">savez</span></code> and <code class="docutils literal notranslate"><span class="pre">savez_compressed</span></code> methods. This is a good choice for
+temporary or intermediate files such as checkpoints etc. Note that the
+format is Numpy-specific, and other languages might not easily be able
+to read it. Similarly, for long-term archiving other formats might be
+a better choice.</p>
+</div>
+<div class="section" id="random-numbers-in-numpy">
+<h1>Random Numbers in NumPy<a class="headerlink" href="#random-numbers-in-numpy" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> module contains functionality to create
+pseudorandom numbers following different distributions.</p>
+</div>
+<div class="section" id="linear-algebra-in-numpy">
+<h1>Linear algebra in Numpy<a class="headerlink" href="#linear-algebra-in-numpy" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">dot</span></code> method provides a generalized dot product. It can compute
+dot products of 1D vectors, matrix-vector products as well as
+matrix-matrix products.  It is an interface to the famous BLAS
+library, of which multiple highly optimized versions exist.  The
+<code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code> module contains interfaces to the most common linear
+algebra operations, such as calculating eigenvalues, Cholesky and
+singular value decompositions, solving linear systems, least squares,
+(pseudo)inverse. This module is an interface to the LAPACK library
+(which in turn builds on top of BLAS).</p>
+</div>
+<div class="section" id="exercise-2-3">
+<h1>Exercise 2.3<a class="headerlink" href="#exercise-2-3" title="Permalink to this headline">¶</a></h1>
+<p>Remember our first exercise, implementing matrix multiplication? Now
+do the same, but use NumPy arrays and the <code class="docutils literal notranslate"><span class="pre">dot</span></code> method. Compare
+performance to the code you wrote yourself earlier, using the IPython
+%timeit macro.</p>
+</div>
+<div class="section" id="exercise-2-4">
+<h1>Exercise 2.4<a class="headerlink" href="#exercise-2-4" title="Permalink to this headline">¶</a></h1>
+<p>Here’s a number of quick numpy exercises to get you a feel of numpy
+functionality, index manipulation etc.</p>
+<ol class="arabic simple">
+<li><p>Reverse a vector. Given a vector, reverse it such that the last
+element becomes the first, e.g. [1, 2, 3] =&gt; [3, 2, 1]</p></li>
+<li><p>Create an identity matrix of size 4x4.</p></li>
+<li><p>Create a 2D array with zeros on the borders and 1 inside.</p></li>
+<li><p>Create a random array with elements [0, 1), then add 10 to all
+elements in the range [0.2, 0.7).</p></li>
+<li><p>What is <code class="docutils literal notranslate"><span class="pre">np.round(0.5)</span></code>? What is <code class="docutils literal notranslate"><span class="pre">np.round(1.5)</span></code>? Why?</p></li>
+<li><p>In addition to <code class="docutils literal notranslate"><span class="pre">np.round</span></code>, explore <code class="docutils literal notranslate"><span class="pre">np.ceil</span></code>, <code class="docutils literal notranslate"><span class="pre">np.floor</span></code>,
+<code class="docutils literal notranslate"><span class="pre">np.trunc</span></code>. In particular, take note of how they behave with
+negative numbers.</p></li>
+<li><p>Recall the identity <span class="math notranslate nohighlight">\(\sin^2(x) + \cos^2(x) = 1\)</span>. Create a
+random 4x4 array with values in the range [0, 10). Now test the
+equality with <code class="docutils literal notranslate"><span class="pre">np.equal</span></code>. What result do you get with
+<code class="docutils literal notranslate"><span class="pre">np.allclose</span></code> instead of <code class="docutils literal notranslate"><span class="pre">np.equal</span></code>?</p></li>
+<li><p>Create a 1D array with 10 random elements. Sort it.</p></li>
+<li><p>What’s the difference between <code class="docutils literal notranslate"><span class="pre">np_array.sort()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">np.sort(np_array)</span></code>?</p></li>
+<li><p>For the random array in question 8, instead of sorting it, perform
+an indirect sort. That is, return the list of indices which would
+index the array in sorted order.</p></li>
+<li><p>Create a 4x4 array of zeros, and another 4x4 array of ones. Next
+combine them into a single 8x4 array with the content of the zeros
+array on top and the ones on the bottom.  Finally, do the same,
+but create a 4x8 array with the zeros on the left and the ones on
+the rigth.</p></li>
+</ol>
+<p>More quick NumPy exercises like this one <a class="reference external" href="https://www.labri.fr/perso/nrougier/teaching/numpy.100/">over here</a>.</p>
+</div>
+<div class="section" id="exercise-2-5">
+<h1>Exercise 2.5<a class="headerlink" href="#exercise-2-5" title="Permalink to this headline">¶</a></h1>
+<p>The topic of this exercise is <code class="docutils literal notranslate"><span class="pre">np.einsum</span></code> which implements the
+‘Einstein summation convention’.  The <a class="reference external" href="https://en.wikipedia.org/wiki/Einstein_notation">Einstein summation convention</a> is a commonly used
+when working with tensors, but can also be useful for succintly
+representing array expressions.</p>
+<p>For instance, matrix multiplication can be expressed as</p>
+<div class="math notranslate nohighlight">
+\[C^i_k = A^i_j B^j_k\]</div>
+<p>Implement this with the help of <code class="docutils literal notranslate"><span class="pre">np.einsum</span></code>.</p>
+<p>Einstein notation is also available in pytorch and tensorflow. For
+more information about Einstein notation in NumPy see</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://ajcr.net/Basic-guide-to-einsum/">A basic introduction to NumPy’s einsum</a></p></li>
+<li><p><a class="reference external" href="https://obilaniu6266h16.wordpress.com/2016/02/04/einstein-summation-in-numpy/">Einsten Summation in NumPy</a></p></li>
+<li><p><a class="reference external" href="https://rockt.github.io/2018/04/30/einsum">Einsum is all you need - Einstein summation in deep learning</a></p></li>
+</ul>
+<p>(lesson here)</p>
+<div class="admonition-keypoints keypoints admonition">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>K1</p></li>
+<li><p>K2</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

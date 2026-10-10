@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Binder" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="binder.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Why is it sometimes not enough to share your code?: Before we work in groups, let’s take an example from geospatial analysis where the first import in the code would be (please note that it is not ..." />
+<meta name="description" content="Why is it sometimes not enough to share your code?: Before we work in groups, let’s take an example from geospatial analysis where the first import in the code would be (please note that it is not ..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binder &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Packaging" href="packaging.html" />
+    <link rel="prev" title="Dependency management" href="dependencies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-advanced.html">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scipy.html">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Binder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-is-it-sometimes-not-enough-to-share-your-code">Why is it sometimes not enough to share your code?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#exercise-1">Exercise 1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sharing-a-computing-environment-with-binder">Sharing a computing environment with Binder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#binder-exercise-demo">Binder exercise/demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-get-a-doi-from-zenodo">How can I get a DOI from Zenodo?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-binder-link-for-your-zenodo-doi">Create a Binder link for your Zenodo DOI</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Binder</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/binder.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="binder">
+<h1>Binder<a class="headerlink" href="#binder" title="Permalink to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>Why sharing code alone may not be sufficient.</p></li>
+<li><p>How to share a computational environment?</p></li>
+<li><p>What is Binder?</p></li>
+<li><p>How to binderize my Python repository?</p></li>
+<li><p>How to publish my Python repository?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn about reproducible computational environments.</p></li>
+<li><p>Learn to create and share custom computing environments with Binder.</p></li>
+<li><p>Learn to get a DOI from Zenodo for a repository.</p></li>
+</ul>
+</div>
+<section id="why-is-it-sometimes-not-enough-to-share-your-code">
+<h2>Why is it sometimes not enough to share your code?<a class="headerlink" href="#why-is-it-sometimes-not-enough-to-share-your-code" title="Permalink to this heading"></a></h2>
+<p>Before we work in groups,
+let’s take an example from geospatial
+analysis where the first <code class="docutils literal notranslate"><span class="pre">import</span></code> in the code would be (please note that it is
+not necessary to install any of the packages mentioned below):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">osgeo</span> <span class="kn">import</span> <span class="n">ogr</span><span class="p">,</span> <span class="n">osr</span><span class="p">,</span> <span class="n">gdal</span>
+</pre></div>
+</div>
+<p>Depending on how you install this python package, it may be necessary to have
+<cite>libgdal</cite> and its development headers already installed on your system; with
+information on the version you have used, etc.</p>
+<section id="exercise-1">
+<h3>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this heading"></a></h3>
+<div class="admonition-binder-1-10-min exercise important admonition" id="exercise-0">
+<p class="admonition-title">Binder-1 (10 min)</p>
+<p>Lea is a PhD student in computational biology and after 2 years of intensive
+work, she is finally ready to publish her first paper. The code she has used
+for analyzing her data is available on GitHub but her supervisor who is an
+advocate of open science told her that sharing code is not sufficient.</p>
+<p><strong>Why is it possibly not enough to share “just” your code?
+What problems can you anticipate 2-5 years from now?</strong></p>
+<p>We form small groups (4-5 persons) and discuss in groups. If the workshop is
+online, each group will join a breakout room.
+If joining a group is not possible or practical, we use the shared document
+to discuss this collaboratively.</p>
+<p>Each group write a summary (bullet points) of the discussion in the workshop
+shared document (the link will be provided by your instructors).</p>
+</div>
+</section>
+</section>
+<section id="sharing-a-computing-environment-with-binder">
+<h2>Sharing a computing environment with Binder<a class="headerlink" href="#sharing-a-computing-environment-with-binder" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://mybinder.readthedocs.io/en/latest/">Binder</a> allows you to create
+custom computing environments that can be shared and used by many remote users.
+It uses  <a class="reference external" href="https://repo2docker.readthedocs.io/en/latest/">repo2docker</a>  to
+create a container image (<a class="reference external" href="https://www.docker.com/">docker</a> image) of a
+project using information contained in included configuration files.</p>
+<p>Repo2docker is a standalone package that you can install locally on your laptop
+but an <a class="reference external" href="https://mybinder.org/">online Binder</a> service is freely available.
+This is what we will be using in the tutorial.</p>
+<p>The main objective of this exercise is to learn to fork a repository and add a
+requirement file to share the computational environment with Binder.</p>
+<img alt="https://opendreamkit.org/public/images/use-cases/reproducible_logbook.png" src="https://opendreamkit.org/public/images/use-cases/reproducible_logbook.png" />
+<p>Credit: <a class="reference external" href="https://opendreamkit.org/2017/11/02/use-case-publishing-reproducible-notebooks/">Juliette Taka, Logilab and the OpenDreamKit project (2017)</a></p>
+<section id="binder-exercise-demo">
+<h3>Binder exercise/demo<a class="headerlink" href="#binder-exercise-demo" title="Permalink to this heading"></a></h3>
+<p>In an earlier episode (Data visualization with Matplotlib) we have created this notebook:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">data_2007</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2007</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_2007</span><span class="p">[</span><span class="s2">&quot;gdpPercap&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data_2007</span><span class="p">[</span><span class="s2">&quot;lifeExp&quot;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;GDP (USD) per capita&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;life expectancy (years)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will now first share it via <a class="reference external" href="https://github.com/">GitHub</a> “statically”,
+then using <a class="reference external" href="https://mybinder.org/">Binder</a>.</p>
+<div class="admonition-exercise-demo-making-your-notebooks-reproducible-by-anyone-15-min exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise/demo: Making your notebooks reproducible by anyone (15 min)</p>
+<p>Instructor demonstrates this:</p>
+<ul>
+<li><p>Creates a GitHub repository</p></li>
+<li><p>Uploads the notebook file</p></li>
+<li><p>Then we look at the statically rendered version of the notebook on GitHub</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file which contains:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">pandas</span><span class="o">==</span><span class="mf">1.2.3</span>
+<span class="n">matplotlib</span><span class="o">==</span><span class="mf">3.4.2</span>
+</pre></div>
+</div>
+</li>
+<li><p>Commit and push also this file to your notebook repository.</p></li>
+<li><p>Visit <a class="reference external" href="https://mybinder.org">https://mybinder.org</a> and copy paste the code under “Copy the text below …” into your <cite>README.md</cite>:</p>
+<img alt="_images/binder.jpg" src="_images/binder.jpg" />
+</li>
+<li><p>Check that your notebook repository now has a “launch binder”
+badge in your <cite>README.md</cite> file on GitHub.</p></li>
+<li><p>Try clicking the button and see how your repository is launched
+on Binder (can take a minute or two). Your notebooks can now be expored and executed in the cloud.</p></li>
+<li><p>Enjoy being fully reproducible!</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="how-can-i-get-a-doi-from-zenodo">
+<h2>How can I get a DOI from Zenodo?<a class="headerlink" href="#how-can-i-get-a-doi-from-zenodo" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://about.zenodo.org/">Zenodo</a> is a general purpose open-access
+repository built and operated by <a class="reference external" href="https://home.cern/">CERN</a> and <a class="reference external" href="https://www.openaire.eu/">OpenAIRE</a> that allows researchers to archive and get a
+<a class="reference external" href="https://www.doi.org/">Digital Object Identifier (DOI)</a> to data that they
+share.</p>
+<div class="admonition-binder-3-optional exercise important admonition" id="exercise-2">
+<p class="admonition-title">Binder-3 (optional)</p>
+<p><strong>Everything you deposit on Zenodo is meant to be kept (long-term archive).
+Therefore we recommend to practice with the Zenodo “sandbox” (practice/test area)
+instead: https://sandbox.zenodo.org</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Link GitHub with Zenodo</strong>:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Go to <a class="reference external" href="https://sandbox.zenodo.org">https://sandbox.zenodo.org</a> (or to <a class="reference external" href="https://zenodo.org">https://zenodo.org</a> for the real upload later, after practicing).</p></li>
+<li><p>Log in to Zenodo with your GitHub account. Be aware that you may need to
+authorize Zenodo application (Zenodo will redirect you back to GitHub for
+Authorization).</p></li>
+<li><p>Choose the repository webhooks options.</p></li>
+<li><p>From the drop-down menu next to your email address at the top of the page, select GitHub.</p></li>
+<li><p>You will be presented with a list of all your Github repositories.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Archiving a repo</strong>:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select a repository you want to archive on Zenodo.</p></li>
+<li><p>Toggle the “on” button next to the repository ou need to archive.</p></li>
+<li><p>Click on the Repo that you want to reserve.</p></li>
+<li><p>Click on Create release button at the top of the page. Zenodo will redirect you back to GitHub’s repo page to generate a release.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><strong>Trigger Zenodo to Archive your repository</strong></p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Go to GitHub and create a release. Zenodo will automatically download a .zip-ball of each new release and register a DOI.</p></li>
+<li><p>If this is the first release of your code then you should give it a
+version number of v1.0.0. Add description for your release then click the
+Publish release button.</p></li>
+<li><p>Zenodo takes an archive of your GitHub repository each time you create a new Release.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p><strong>To ensure that everything is working</strong>:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Go to <a class="reference external" href="https://zenodo.org/account/settings/github/">https://zenodo.org/account/settings/github/</a> (or the corresponding
+sandbox at <a class="reference external" href="https://sandbox.zenodo.org/account/settings/github/">https://sandbox.zenodo.org/account/settings/github/</a>), or the
+Upload page (<a class="reference external" href="https://zenodo.org/deposit">https://zenodo.org/deposit</a>), you will find your repo is
+listed.</p></li>
+<li><p>Click on the repo, Zenodo will redirect you to a page that contains a DOI for your repo will the information that you added to the repo.</p></li>
+<li><p>You can edit the archive on Zenodo and/or publish a new version of your software.</p></li>
+<li><p>It is recommended that you add a description for your repo and fill in other metadata in the edit page. Instead of editing metadata
+manually, you can also add a <code class="docutils literal notranslate"><span class="pre">.zenodo.json</span></code> or a <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> file to your repo and Zenodo will infer the metadata from this file.</p></li>
+<li><p>Your code is now published on a Github public repository and archived on Zenodo.</p></li>
+<li><p>Update the README file in your repository with the newly created zenodo badge.</p></li>
+</ul>
+</div></blockquote>
+</div>
+</section>
+<section id="create-a-binder-link-for-your-zenodo-doi">
+<h2>Create a Binder link for your Zenodo DOI<a class="headerlink" href="#create-a-binder-link-for-your-zenodo-doi" title="Permalink to this heading"></a></h2>
+<p>Rather than specifying a GitHub repository when launching binder, you can instead use a Zenodo DOI.</p>
+<div class="admonition-binder-4-10-min exercise important admonition" id="exercise-3">
+<p class="admonition-title">Binder-4 (10 min)</p>
+<p>We will be using an existing Zenodo DOI <a class="reference external" href="https://doi.org/10.5281/zenodo.3247652">10.5281/zenodo.3886864</a> to start Binder:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Go to <a class="reference external" href="https://mybinder.org">https://mybinder.org</a> and fill information using Zenodo DOI (as shown on the animation below):</p></li>
+</ul>
+<img alt="https://miro.medium.com/max/1050/1*xOABVY2hNtVmjV5-LXreFw.gif" src="https://miro.medium.com/max/1050/1*xOABVY2hNtVmjV5-LXreFw.gif" />
+<ul class="simple">
+<li><p>You can also get a Binder badge and update the README file in the
+repository. It is good practice to add both the Zenodo badge and the
+corresponding Binder badge.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Sharing reproducible computational environments</p></li>
+<li><p>Binder</p></li>
+<li><p>Zenodo DOI</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dependencies.html" class="btn btn-neutral float-left" title="Dependency management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="packaging.html" class="btn btn-neutral float-right" title="Packaging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

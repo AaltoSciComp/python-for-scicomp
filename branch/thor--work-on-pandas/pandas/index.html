@@ -1,0 +1,552 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pandas &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" />
+    <link rel="next" title="Library ecosystem" href="../libraries/" />
+    <link rel="prev" title="SciPy" href="../scipy/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pandas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-in-a-dataframe">What’s in a dataframe?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tidy-data">Tidy data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-dataframes">Working with dataframes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#time-series-superpowers">Time series superpowers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Pandas</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/pandas.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pandas">
+<h1>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-questions questions admonition">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How do I learn a new Python package?</p></li>
+<li><p>How can I use pandas dataframes in my research?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn simple and some more advanced usage of pandas dataframes</p></li>
+<li><p>Get a feeling for when pandas is useful and know where to find more information</p></li>
+</ul>
+</div>
+<p>Pandas is a Python package that provides high-performance and easy to use
+data structures and data analysis tools.
+This page provides a brief overview of pandas, but the open source community
+developing the pandas package has also created excellent documentation and training
+material, including:</p>
+<ul class="simple">
+<li><p>a  <a class="reference external" href="https://pandas.pydata.org/getting_started.html">Getting started guide</a>
+(including tutorials and a 10 minute flash intro)</p></li>
+<li><p>a <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html#min">“10 minutes to pandas”</a>
+tutorial</p></li>
+<li><p>thorough <a class="reference external" href="https://pandas.pydata.org/docs/">Documentation</a> containing a user guide,
+API reference and contribution guide</p></li>
+<li><p>a <a class="reference external" href="https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf">cheatsheet</a></p></li>
+<li><p>a <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/cookbook.html#cookbook">cookbook</a>.</p></li>
+</ul>
+<p>Let’s get a flavor of what we can do with pandas. We will be working with an
+example dataset containing the passenger list from the Titanic, which is often used in Kaggle competitions and data science tutorials. First step is to load pandas:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+<p>We can download the data from <a class="reference external" href="https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv">this GitHub repository</a>
+by visiting the page and saving it to disk, or by directly reading into
+a <strong>dataframe</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/pandas-dev/pandas/master/doc/data/titanic.csv&quot;</span>
+<span class="n">titanic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can now view the dataframe to get an idea of what it contains and
+print some summary statistics of its numerical data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the first 5 lines of the dataframe</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1"># print summary statistics for each column</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Ok, so we have information on passenger names, survival (0 or 1), age,
+ticket fare, number of siblings/spouses, etc. With the summary statistics we see that the average age is 29.7 years, maximum ticket price is 512 USD, 38% of passengers survived, etc.</p>
+<p>Let’s say we’re interested in the survival probability of different age groups. With two one-liners, we can find the average age of those who survived or didn’t survive, and plot corresponding histograms of the age distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">titanic</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Survived&quot;</span><span class="p">)[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;Survived&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span>
+             <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">rwidth</span><span class="o">=</span><span class="mf">0.9</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Clearly, pandas dataframes allows us to do advanced analysis with very few commands, but it takes a while to get used to how dataframes work so let’s get back to basics.</p>
+<div class="section" id="what-s-in-a-dataframe">
+<h2>What’s in a dataframe?<a class="headerlink" href="#what-s-in-a-dataframe" title="Permalink to this headline">¶</a></h2>
+<p>As we saw above, pandas dataframes are a powerful tool for working with tabular data.
+A pandas
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame">DataFrame object</a>
+is composed of rows and columns:</p>
+<img alt="../_images/01_table_dataframe.svg" src="../_images/01_table_dataframe.svg" /><p>Each column of a dataframe is a
+<a class="reference external" href="https://pandas.pydata.org/docs/user_guide/dsintro.html#series">series object</a>
+- a dataframe is thus a collection of series. Let’s inspect one column of
+the Titanic passanger list data (first downloading and reading the
+titanic.csv datafile into a dataframe if needed, see above):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">Age</span>          <span class="c1"># same as above</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The columns, rows and dtypes can be listed through corresponding
+attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">index</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+<p>We saw above how to select a single column, but there are other ways of selecting
+(and setting) single or multiple rows, columns and values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span>            <span class="c1"># select single value by row and column *name* (fast)</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>       <span class="c1"># set single value by row and column *name* (fast)</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>               <span class="c1"># select same value by row and column *number* (fast)</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span> <span class="c1"># slice the dataframe by row and column *names*</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>          <span class="c1"># same slice as above by row and column *numbers*</span>
+<span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;bar&quot;</span>         <span class="c1"># set a whole column</span>
+</pre></div>
+</div>
+<p>Dataframes also support boolean indexing, just like we saw for <code class="docutils literal notranslate"><span class="pre">numpy</span></code>
+arrays:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="p">[</span><span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">]</span>
+<span class="c1"># &quot;.str&quot; creates a string object from a column</span>
+<span class="n">titanic</span><span class="p">[</span><span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Margaret&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>What if your dataset has missing data? Pandas uses the value <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>
+to represent missing data, and by default does not include it in any computations.
+We can find missing values, drop them from our dataframe, or replace <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>
+with any value we like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">)</span>  <span class="c1"># or how=&quot;all&quot;</span>
+<span class="n">titanic</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Cabin&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition-getting-help callout admonition">
+<p class="admonition-title">Getting help</p>
+<p>Series and DataFrames have a lot functionality, but
+how can we find out what methods are available and how they work? One way is to visit
+the <a class="reference external" href="https://pandas.pydata.org/docs/reference/frame.html">API reference</a>
+and reading through the list.
+Another way is to use the autocompletion feature in Jupyter and type e.g.
+<code class="docutils literal notranslate"><span class="pre">titanic[&quot;Age&quot;].</span></code> in a notebook and then hit <code class="docutils literal notranslate"><span class="pre">TAB</span></code> twice - this should open
+up a list menu of available methods and attributes.</p>
+<p>Jupyter also offers quick access to help pages (docstrings) which can be
+more efficient than searching the internet. Two ways exist:</p>
+<ul class="simple">
+<li><p>Write a function name followed by question mark and execute the cell, e.g.
+write <code class="docutils literal notranslate"><span class="pre">titanic.hist?</span></code> and hit <code class="docutils literal notranslate"><span class="pre">SHIFT</span> <span class="pre">+</span> <span class="pre">ENTER</span></code>.</p></li>
+<li><p>Write the function name and hit <code class="docutils literal notranslate"><span class="pre">SHIFT</span> <span class="pre">+</span> <span class="pre">TAB</span></code>.</p></li>
+</ul>
+</div>
+<div class="admonition-exploring-dataframes challenge admonition">
+<p class="admonition-title">Exploring dataframes</p>
+<ul class="simple">
+<li><p>Have a look at the available methods and attributes using the
+<a class="reference external" href="https://pandas.pydata.org/docs/reference/frame.html">API reference</a>
+or the autocomplete feature in Jupyter.</p></li>
+<li><p>Try out a few methods using the Titanic dataset and have a look at
+the docstrings (help pages) of methods that pique your interest</p></li>
+<li><p>Compute the mean age of the first 10 passengers by slicing and the <code class="docutils literal notranslate"><span class="pre">mean</span></code> method</p></li>
+<li><p>(Advanced) Using boolean indexing, compute the survival rate
+(mean of “Survived” values) among passengers over and under the average age.</p></li>
+</ul>
+</div>
+<div class="admonition-solution solution dropdown admonition">
+<p class="admonition-title">Solution</p>
+<ul class="simple">
+<li><p>Mean age of the first 10 passengers: <code class="docutils literal notranslate"><span class="pre">titanic.iloc[:10,:][&quot;Age&quot;].mean()</span></code>
+or <code class="docutils literal notranslate"><span class="pre">titanic.loc[:9,&quot;Age&quot;].mean()</span></code> or <code class="docutils literal notranslate"><span class="pre">df.iloc[:10,5].mean()</span></code>.</p></li>
+<li><p>Survival rate among passengers over and under average age:
+<code class="docutils literal notranslate"><span class="pre">titanic[titanic[&quot;Age&quot;]</span> <span class="pre">&gt;</span> <span class="pre">titanic[&quot;Age&quot;].mean()][&quot;Survived&quot;].mean()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">titanic[titanic[&quot;Age&quot;]</span> <span class="pre">&lt;</span> <span class="pre">titanic[&quot;Age&quot;].mean()][&quot;Survived&quot;].mean()</span></code>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="tidy-data">
+<h2>Tidy data<a class="headerlink" href="#tidy-data" title="Permalink to this headline">¶</a></h2>
+<p>The above analysis was rather straightforward thanks to the fact
+that the dataset is <em>tidy</em>.</p>
+<img alt="../_images/tidy_data.png" src="../_images/tidy_data.png" />
+<p>What would untidy data look like? Here’s an example from
+some run time statistics from a 1500 m running event:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+        <span class="p">{</span><span class="s1">&#39;Runner&#39;</span><span class="p">:</span> <span class="s1">&#39;Runner 1&#39;</span><span class="p">,</span> <span class="mi">400</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">800</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">1200</span><span class="p">:</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">1500</span><span class="p">:</span> <span class="mi">240</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;Runner&#39;</span><span class="p">:</span> <span class="s1">&#39;Runner 2&#39;</span><span class="p">,</span> <span class="mi">400</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">800</span><span class="p">:</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">1200</span><span class="p">:</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">1500</span><span class="p">:</span> <span class="mi">300</span><span class="p">},</span>
+        <span class="p">{</span><span class="s1">&#39;Runner&#39;</span><span class="p">:</span> <span class="s1">&#39;Runner 3&#39;</span><span class="p">,</span> <span class="mi">400</span><span class="p">:</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">800</span><span class="p">:</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">1200</span><span class="p">:</span> <span class="mi">288</span><span class="p">,</span> <span class="mi">1500</span><span class="p">:</span> <span class="mi">360</span><span class="p">},</span>
+         <span class="p">])</span>
+</pre></div>
+</div>
+<p>To make untidy data tidy, a common operation is to “melt” it,
+which is to convert it from wide form to a long form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;Runner&quot;</span><span class="p">,</span>
+             <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span>
+             <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;distance&quot;</span><span class="p">,</span>
+             <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;time&quot;</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+<p>In this form it’s easier to <strong>filter</strong>, <strong>group</strong>, <strong>join</strong>
+and <strong>aggregate</strong> the data, and it’s also easier to model relationships
+between variables.</p>
+<p>The opposite of melting is to <em>pivot</em> data, which can be useful to
+view data in different ways.</p>
+<p>For a detailed exposition of data tidying, have a look at
+<a class="reference external" href="http://vita.had.co.nz/papers/tidy-data.pdf">this article</a>.</p>
+</div>
+<div class="section" id="working-with-dataframes">
+<h2>Working with dataframes<a class="headerlink" href="#working-with-dataframes" title="Permalink to this headline">¶</a></h2>
+<p>We saw above how we can read in data into a dataframe using the <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> method.
+Pandas also understands multiple other formats, for example using <code class="docutils literal notranslate"><span class="pre">read_excel</span></code>,
+<code class="docutils literal notranslate"><span class="pre">read_hdf</span></code>, <code class="docutils literal notranslate"><span class="pre">read_json</span></code>, etc. (and corresponding methods to write to file:
+<code class="docutils literal notranslate"><span class="pre">to_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">to_excel</span></code>, <code class="docutils literal notranslate"><span class="pre">to_hdf</span></code>, <code class="docutils literal notranslate"><span class="pre">to_json</span></code>, etc.)</p>
+<p>But sometimes you would want to create a dataframe from scratch. Also this can be done
+in multiple ways, for example starting with a numpy array:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;20130101&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">dates</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">&#39;ABCD&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>or a dictionary:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="mi">8</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">),</span>
+                   <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
+                   <span class="s1">&#39;E&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">)})</span>
+</pre></div>
+</div>
+<p>There are many ways to operate on dataframes. Let’s look at a
+few examples in order to get a feeling of what’s possible
+and what the use cases can be.</p>
+<p>We can easily split and concatenate or append dataframes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sub1</span><span class="p">,</span> <span class="n">sub2</span><span class="p">,</span> <span class="n">sub3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">sub1</span><span class="p">,</span> <span class="n">sub2</span><span class="p">,</span> <span class="n">sub3</span><span class="p">]])</span>
+<span class="n">sub1</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">sub2</span><span class="p">,</span> <span class="n">sub3</span><span class="p">])</span>      <span class="c1"># same as above</span>
+</pre></div>
+</div>
+<p>Dataframes can also be merged similarly to in SQL:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">:</span><span class="s2">&quot;B&quot;</span><span class="p">]</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">]]</span>
+<span class="c1"># merge two dataframes on column &quot;A&quot;</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In fact, much of what can be done in SQL
+<a class="reference external" href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html">is also possible with pandas</a>.</p>
+<p>Functions can be applied to a whole dataframe or parts of it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span><span class="s2">&quot;E&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pivot_table()</span></code> and <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> are two powerful methods which
+are applied to dataframes to split and aggregate data in groups.
+They work similarly but differ in the shape of the result.
+To see what’s possible, let’s return to the Titanic dataset.
+We start by rounding all ages to the nearest decade and then create
+a pivot table showing the mean of fares split by gender and survival:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">titanic</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">titanic</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;Fare&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Survived&quot;</span><span class="p">],</span>
+               <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The same operation with group-by is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">titanic</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Survived&quot;</span><span class="p">,</span> <span class="s2">&quot;Age&quot;</span><span class="p">])[</span><span class="s2">&quot;Fare&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition-extracting-information-from-a-dataframe challenge admonition">
+<p class="admonition-title">Extracting information from a dataframe</p>
+<p>In the Titanic passenger list dataset,
+investigate the family size of the passengers (i.e. the “SibSp” column).</p>
+<ul class="simple">
+<li><p>What different family sizes exist in the passenger list? Hint: try the <cite>unique</cite> method</p></li>
+<li><p>What are the names of the people in the largest family group?</p></li>
+<li><p>(Advanced) Create histograms showing the distribution of family sizes for
+passengers split by the fare, i.e. one group of high-fare passengers (where
+the fare is above average) and one for low-fare passengers
+(Hint: you can use the lambda function
+<code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">&quot;Poor&quot;</span> <span class="pre">if</span> <span class="pre">df[&quot;Fare&quot;].loc[x]</span> <span class="pre">&lt;</span> <span class="pre">df[&quot;Fare&quot;].mean()</span> <span class="pre">else</span> <span class="pre">&quot;Rich&quot;</span></code>)</p></li>
+</ul>
+</div>
+<div class="admonition-solution solution dropdown admonition">
+<p class="admonition-title">Solution</p>
+<ul class="simple">
+<li><p>Existing family sizes: <code class="docutils literal notranslate"><span class="pre">df[&quot;SibSp&quot;].unique()</span></code></p></li>
+<li><p>Names of members of largest family(ies): <code class="docutils literal notranslate"><span class="pre">df[df[&quot;SibSp&quot;]</span> <span class="pre">==</span> <span class="pre">8][&quot;Name&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df.hist(&quot;SibSp&quot;,</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">&quot;Poor&quot;</span> <span class="pre">if</span> <span class="pre">df[&quot;Fare&quot;].loc[x]</span> <span class="pre">&lt;</span> <span class="pre">df[&quot;Fare&quot;].mean()</span> <span class="pre">else</span> <span class="pre">&quot;Rich&quot;,</span> <span class="pre">rwidth=0.9)</span></code></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="time-series-superpowers">
+<h2>Time series superpowers<a class="headerlink" href="#time-series-superpowers" title="Permalink to this headline">¶</a></h2>
+<p>An introduction of pandas wouldn’t be complete without mention of its
+special abilities to handle time series. To show just a few examples,
+we will use a new dataset of Nobel prize laureates:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nobel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;http://api.nobelprize.org/v1/laureate.csv&quot;</span><span class="p">)</span>
+<span class="n">nobel</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This dataset has three columns for time, “born”/”died” and “year”.
+These are represented as strings and integers, respectively, and
+need to be converted to datetime format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># the errors=&#39;coerce&#39; argument is needed because the dataset is a bit messy</span>
+<span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;born&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;born&quot;</span><span class="p">],</span> <span class="n">errors</span> <span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;died&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;died&quot;</span><span class="p">],</span> <span class="n">errors</span> <span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pandas knows a lot about dates:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;born&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+<span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;born&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;born&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">weekday</span>
+</pre></div>
+</div>
+<p>We can add a column containing the (approximate) lifespan in years rounded
+to one decimal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;lifespan&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;died&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">nobel</span><span class="p">[</span><span class="s2">&quot;born&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">days</span> <span class="o">/</span> <span class="mi">365</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and finally plot a histogram of lifespans:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nobel</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;lifespan&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">rwidth</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-keypoints keypoints admonition">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>pandas dataframes are a good data structure for tabular data</p></li>
+<li><p>Dataframes allow both simple and advanced analysis in very compact form</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../libraries/" class="btn btn-neutral float-right" title="Library ecosystem" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../scipy/" class="btn btn-neutral float-left" title="SciPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

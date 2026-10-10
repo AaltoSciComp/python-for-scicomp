@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Demo application &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Demo application</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/demo-app.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="demo-application">
+<h1>Demo application<a class="headerlink" href="#demo-application" title="Permalink to this headline">¶</a></h1>
+<p>To demonstrate how to make a simple simulation program, here the
+lecturer will ‘live-code’ a small simulation program.  For a suitable
+model, lets choose a suitably fascinating problem that can be
+simulated with a relatively simple model. First, some background.</p>
+<div class="section" id="topological-phase-transitions">
+<h2>Topological phase transitions<a class="headerlink" href="#topological-phase-transitions" title="Permalink to this headline">¶</a></h2>
+<p>Historically, for a long time we believed there were two, and only
+two, kinds of phase transitions in nature.  So-called discontinous, or
+first-order, transitions which are characterized by the presence of a
+latent heat (mathematically, a discontinuity in the first derivative
+of the free energy with respect to some thermodynamic parameter),
+whereas continuous phase transitions are characterized by a
+discontinuity in the second or higher derivative of the free energy.</p>
+<p>However, in the 1970’ies, some experiments on ultrathin films of
+superfluid Helium-3 were made which produced data that existing
+theories could not describe.  Eventually Kosterlitz and Thouless (and
+independently Berezinskii in the then Soviet Union) were able to
+describe what was happening.  What they had discovered was an entirely
+new kind of phase transition which defied the existing classification
+schemes. Namely, there is <em>NO</em> discontinuity in any free energy
+derivative. So in a way, it’s an <em>infinite</em>-order phase transition.</p>
+<p>What is happening is that <em>topological defects</em> (vortices in this
+case) in the system change how they interact with each other at the
+critical temperature. At low temperatures below the transition
+temperature the correlation function between spins decays as a power
+law, whereas above the transition temperature the correlation decays
+exponentially. This results in vortex-antivortex pairs at low
+temperature, and a <em>vortex unbinding</em> transition at the transition
+temperature with free vortices at higher temperatures.</p>
+<p>This work eventually resulted in the 2016 Nobel Prize in Physics. See
+the <a class="reference external" href="https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize2016-1.pdf">scientific background for the 2016 physics prize</a>.</p>
+</div>
+<div class="section" id="the-xy-model">
+<h2>The XY model<a class="headerlink" href="#the-xy-model" title="Permalink to this headline">¶</a></h2>
+<p>Topological phase transitions can be studied with a XY model (also
+called the planar model, or rotor model). Take a lattice with spins
+rotating in the plane. Each spin interacts with its neighbors, and the
+configuration energy of the system is given by</p>
+<div class="math notranslate nohighlight">
+\[E = -J \sum_{i \ne j} s_i s_j,\]</div>
+<p>where the sum is over nearest neighbor spins.</p>
+<p>In this case we can ignore the constant J which determines the
+interaction strength. Also, since the spin vectors are all of equal
+lengths the dot product can be simplified, so we have</p>
+<div class="math notranslate nohighlight">
+\[E = - \sum_{i \ne j} \cos(\theta_i - \theta_j).\]</div>
+</div>
+<div class="section" id="the-metropolis-hastings-monte-carlo-algorithm">
+<h2>The Metropolis-Hastings Monte Carlo algorithm<a class="headerlink" href="#the-metropolis-hastings-monte-carlo-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The Metropolis-Hastings algorithm is a Markov chain Monte Carlo method
+that can be used for sampling a probability distribution.  In this
+case, the basic idea is that for each spin <code class="docutils literal notranslate"><span class="pre">s</span></code> we do a <em>trial move</em>,
+to change the spin. We then calculate a random trial spin <code class="docutils literal notranslate"><span class="pre">s'</span></code>, and
+calculate an acceptance probability</p>
+<div class="math notranslate nohighlight">
+\[A = min(1, \frac{P(s')}{P(s)}).\]</div>
+<p>In this case the probability density is the
+Boltzmann distribution</p>
+<div class="math notranslate nohighlight">
+\[P(s) = \frac{1}{Z} exp(-\beta E(s)) ,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta\)</span> is the thermodynamic beta, or</p>
+<div class="math notranslate nohighlight">
+\[\beta = \frac{1}{k_B T} ,\]</div>
+<p>where <span class="math notranslate nohighlight">\(k_B\)</span> is the Boltzmann constant. For this simulation we
+can set it to 1 and ignore it hereafter. <span class="math notranslate nohighlight">\(\beta\)</span> is thus just
+the inverse of the temperature.</p>
+<p>Thus the quotient</p>
+<div class="math notranslate nohighlight">
+\[\frac{P(s')}{P(s)}\]</div>
+<p>can be calculated as</p>
+<div class="math notranslate nohighlight">
+\[exp(-\beta (E' - E)).\]</div>
+<p>Then finally, calculate a uniform random number <code class="docutils literal notranslate"><span class="pre">r</span></code> in the interval
+<code class="docutils literal notranslate"><span class="pre">[0,1)</span></code>.  If <span class="math notranslate nohighlight">\(r \le A\)</span> the new state is accepted. Repeating
+this for all the spins constitutes a single Monte Carlo step in the
+algorithm.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
