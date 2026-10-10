@@ -63,7 +63,7 @@ to learn yourself as you need to.
      <https://www.youtube.com/playlist?list=PLZLVmS9rf3nNI3oQEqSJW6yXltOAZnkpa>`__
 
    * 2024 (Please contact us if you would like to help to process the videos): `Videos <https://www.youtube.com/playlist?list=PLZLVmS9rf3nMWEKWtagJ6h0q9BrFO49tn>`__
-
+   * 2025 `YouTube playlist <https://www.youtube.com/watch?v=goFQSVQojMc&list=PLZLVmS9rf3nPYGcdalc8N2Qd7V3QY_MqS>`__
 
 .. csv-table::
    :widths: auto
