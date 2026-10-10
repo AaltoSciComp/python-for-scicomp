@@ -97,12 +97,14 @@ jobs:
           mv _build/singlehtml/ _build/dirhtml/singlehtml/
 
       # PDF if requested
-      - name: Generate PDF
-        if: ${{ env.GENERATE_PDF == 'true' }}
-        run: |
-          pip install https://github.com/rkdarst/sphinx_pyppeteer_builder/archive/refs/heads/main.zip
-          make pyppeteer
-          mv _build/pyppeteer/*.pdf _build/dirhtml/${PDF_FILENAME}
+      # Disabled: sphinx_pyppeteer_builder imports sphinx.util.progress_message,
+      # which was removed in Sphinx 8 (now sphinx.util.display.progress_message).
+      #- name: Generate PDF
+      #  if: ${{ env.GENERATE_PDF == 'true' }}
+      #  run: |
+      #    pip install https://github.com/rkdarst/sphinx_pyppeteer_builder/archive/refs/heads/main.zip
+      #    make pyppeteer
+      #    mv _build/pyppeteer/*.pdf _build/dirhtml/${PDF_FILENAME}
 
       # Stage all deployed assets in _gh-pages/ for simplicity, and to
       # prepare to do a multi-branch deployment.
