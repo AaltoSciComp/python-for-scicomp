@@ -365,11 +365,17 @@ To get a feel for how the curve should look, let's draw the ``(color, magnitude)
 The curve is not a straight line, but something like a fifth order polynomial should be pretty good fit:
 
 .. math::
-   :name: A fifth order polynonial function
+   :name: A fifth order polynomial function
 
    \text{magnitude} = \beta_5\,\text{color}^5 + \beta_4\,\text{color}^4 + \beta_2\,\text{color}^3 + \beta_2\,\text{color}^2 + \beta_1\,\text{color} + \beta_0
 
 "Fitting the curve" now means choosing the optimal :math:`\beta` values so that when we input the ``color``, we get a good prediction of ``magnitude``.
+
+.. note::
+   If you wish to skip the demonstration of how to perform linear algebra, you can use NumPy's build-in function to fit the polynomial function::
+
+       beta = np.polyfit(bin_colors, 5)
+
 A typical way to do this is a machine learning technique called `ordinary least squares (OLS) <https://en.wikipedia.org/wiki/Ordinary_least_squares>`__, where we collect everything we know in a matrix ``X`` and everything we wish to predict in a matrix ``Y`` and compute:
 
 .. math::
@@ -456,11 +462,12 @@ Exercises 2
    
        estimated_parallax = np.pow(10, (magnitude - magnitude_g + 10) / 5)
    
-   1. Write a function to predict the distance of a star given its apparent magnitude, its color, and the ``beta`` coefficients we computed:
+   1. Write a function to predict the distance of a star given its apparent magnitude, its color, and the ``beta`` coefficients we computed. The function signature should be::
+
+       predict_distance(color, magnitude_g, beta)
 
       1. Use the ``predict_magnitude`` function to estimate the true magnitude.
-      2. Use the formula above to convert the difference between the apparent magnitude (``magnitude_g``) and true magnitude (``magnitude``) to a parallax value.
-      3. Convert the parallax value to a distance in light-years. See the lesson material above on how to do this if you don't remember.
+      2. Use the formula above to convert the difference between the apparent magnitude (``magnitude_g``) and true magnitude (``magnitude``) to a parallax value. 3. Convert the parallax value to a distance in light-years. See the lesson material above on how to do this if you don't remember.
 
    2. Some main sequence stars from the Large Magallanic Cloud can be found in :download:`../resources/data/numpy/lmc_stars.csv`.
       To read it, use :func:`numpy.genfromtext` in the same manner as we did with the ``data`` array.
@@ -499,7 +506,7 @@ Exercises 2
               "../resources/data/numpy/lmc_stars.csv", delimiter=",", skip_header=1
           )
           distance = predict_distance(lmc[:, 3], lmc[:, 4] - lmc[:, 5], beta)
-          print(distance.mean())
+          print(np.mean(distance.mean))
 
      The Large Magallanic Cloud is roughly 158000 light-years away.
      This means it does not lie in our galaxy, but must be a galaxy of its own.
