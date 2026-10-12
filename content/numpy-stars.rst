@@ -13,6 +13,7 @@ NumPy
 .. objectives::
 
    This is not a complete NumPy tutorial. Instead, this lesson strives to teach you:
+
    - How to use basic NumPy: arrays, selecting data, performing mathematical operations
    - A sense of how NumPy code looks: vectorized code.
    - To understand enough of NumPy to search for answers to the rest of your questions. ;)
