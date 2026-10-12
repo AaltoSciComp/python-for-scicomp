@@ -5,24 +5,30 @@ NumPy
 
 .. questions::
 
-   - Why use NumPy instead of pure python?
-   - How to use basic NumPy?
-   - What is vectorization?
+   - Why and when should I use NumPy?
+   - How do we frame scientific questions in terms of NumPy computations?
+   - How do I translate a mathematical formula into a line of NumPy code?
+   - Why is NumPy faster than plain Python?
 
 .. objectives::
 
-   - Understand the Numpy array object
-   - Be able to use basic NumPy functionality
-   - Understand enough of NumPy to search for answers to the rest of your questions ;)
+   This is not a complete NumPy tutorial. Instead, this lesson strives to teach you:
+   - How to use basic NumPy: arrays, selecting data, performing mathematical operations
+   - A sense of how NumPy code looks: vectorized code.
+   - To understand enough of NumPy to search for answers to the rest of your questions. ;)
 
 .. admonition:: Example context
    :class: demo
 
-   Each lesson is placed inside an example scientific setting.
-   In this lesson, we will compute the distance of the stars in our night sky, using the data collected by the Gaia sattelite.
+   This lesson is placed inside an example scientific setting.
+   We will compute the distance of the stars in our night sky, using the data collected by the Gaia sattelite.
    To follow along, you must download the :download:`data package <https://drive.google.com/file/d/1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I/view?usp=sharing>` and unzip it in the ``python-for-scicomp`` folder.
 
+Why NumPy?
+----------
+
 NumPy is the most used library for scientific computing.
+If NumPy did not exist, Python would not be such a popular language for scientific computing, because it would be too slow.
 Even if you are not using it directly, chances are high that some library uses it in the background.
 It helps you work with "data", as in large amounts of numbers, by providing:
 
@@ -51,23 +57,46 @@ A sample of the Gaia data can be found in :download:`../resources/data/numpy/loc
 This is a *comma separated value (CSV)* file, where each line contains 6 numbers describing a single object.
 The first line of that file is the "header" indicating the meaning of each number::
 
-    with open("../resources/data/numpy/local_stars.csv") as f:
-        # The file handle `f` acts as a generator that yields lines of text.
-        first_line = next(f)  # take a single item from the generator
-        names = first_line.strip().split(",")  # get a list of individual names
-    print(names)
+    right_ascension,declination,parallax,magnitude_g,magnitude_blue,magnitude_red
+    0.0001786275254186,8.371651684580781,6.857487064725919,12.039392,12.56381,11.3628235
+    0.0003111955790572,58.5575410957825,2.5185016849859228,12.374151,12.819315,11.755815
+    0.0005898233877197,5.380517264865798,6.660454655312786,12.95553,13.5889015,12.193393
+    0.0010609752955102,-55.64880544379682,7.89357866196891,13.52746,14.636247,12.455662
+    0.0011307510147073,3.0206027981262924,4.043843423571794,12.745788,13.150434,12.17218
+    ...
+
+Here is the data, formatted as a table:
+
+=============== =========== ======== =========== ============== =============
+right_ascension declination parallax magnitude_g magnitude_blue magnitude_red
+=============== =========== ======== =========== ============== =============
+0.00017862      8.3716516   6.857487 12.03939    12.56381       11.36282
+0.00031119      58.557541   2.518501 12.37415    12.81931       11.75581
+0.00058982      5.3805172   6.660454 12.95553    13.58890       12.19339
+0.00106097      -55.64880   7.893578 13.52746    14.63624       12.45566
+0.00113075      3.0206027   4.043843 12.74578    13.15043       12.17218
+...             ...         ...      ...         ...            ...
+=============== =========== ======== =========== ============== =============
+
+Here is the meaning of the columns:
+
+0. ``right_ascension``: horizontal position of the star along the celestial equator (degrees)
+#. ``declination``: vertical position of the star above/below celestial equator (degrees)
+#. ``parallax``: amount the star's position in the sky changes throughout the year
+#. ``magnitude_g``: how bright the star appears in our sky (inverse Logarithmic scale)
+#. ``magnitude_blue``: blue-component of the color of the star
+#. ``magnitude_red``: red-component of the color of the star
 
 We can use one of NumPy's functions to load the entire file into memory::
 
     import numpy as np  # we usually use `np` as shorthand
-    # We set `skip_header=1` to skip the first line containing the description of the values.
+    # We set `skip_header=1` to skip the first line containing the column names.
     data = np.genfromtxt("../resources/data/numpy/local_stars.csv", delimiter=",", skip_header=1)
     print(data)
 
 The ``data`` variable is a NumPy array::
 
    print(type(data))
- 
 
 What is an array?
 -----------------
@@ -91,14 +120,7 @@ Let's see how many stars we have. The ``.shape`` property of an array contains t
 
     print(data.shape)
 
-We have information on more than a million stars, and for each star we have 6 values, corresponding to (see ``names`` above):
-
-0. ``right_ascension``: horizontal position of the star along the celestial equator (degrees)
-#. ``declination``: vertical position of the star above/below celestial equator (degrees)
-#. ``parallax``: amount the star's position in the sky changes throughout the year
-#. ``magnitude_g``: how bright the star appears in our sky (inverse Logarithmic scale)
-#. ``magnitude_red``: red-component of the color of the star
-#. ``magnitude_blue``: blue-component of the color of the star
+We have information on more than a million stars, and for each star we have 6 values, corresponding to 6 columns listed above.
 
 
 Working with arrays
@@ -510,3 +532,19 @@ Exercises 2
 
      The Large Magallanic Cloud is roughly 158000 light-years away.
      This means it does not lie in our galaxy, but must be a galaxy of its own.
+
+
+Where to go from here
+---------------------
+To get started using NumPy for your own research projects, we recommend diving into a more detailed tutorial such as the ones offered by the official NumPy website: https://numpy.org/learn.
+
+
+About the data
+--------------
+The data for this exercise is a combination of the `Gaia <https://www.esa.int/Science_Exploration/Space_Science/Gaia>`_ and `SIMBAD <https://simbad.u-strasbg.fr/simbad/>`_ datasets.
+The Gaia satellite did not image the brightest stars, the most famous ones, because their brightness overwhelms her sensors.
+Hence, the 50 brightest stars our dataset were not from Gaia, but were instead taken from the SIMBAD database.
+Those are the stars we look at during the Big Dipper demo.
+
+For the Large Magallanic Cloud exercise, we cherry picked the stars in :download:`../resources/data/numpy/lmc_stars.csv` to be perfectly on the main sequence and thus ensuring that you get a decent estimate of the distance.
+In reality it's quite an ordeal to choose the proper stars to base your distance estimate on.
