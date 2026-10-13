@@ -99,7 +99,7 @@ Let's see how many stars we have. The ``.shape`` property of an array contains t
 
     print(data.shape)
 
-We have information on more than a million stars, and for each star we have 6 values, corresponding to 6 columns listed above.
+We have information on more than a million stars, and for each star we have 6 values.
 
 
 Working with arrays
@@ -172,10 +172,10 @@ To do this, we must first order the stars by distance::
     print(closest_indices)
 
 We now have a list (technically a 1D :class:`numpy.ndarray`) of integer indices of the stars closest to us.
-We can select multiple rows by indexing the array with such a list::
+We can select multiple elements by indexing the array with such a list::
 
-    closest_stars = data[closest_indices, :] 
-    print(distance_ly[closest_indices])
+    print(data[closest_indices, :])   # selecting multiple rows in a 2D array
+    print(distance_ly[closest_indices])  # selecting multiple elements in a 1D array
 
 Can we find the `Big Dipper <https://en.wikipedia.org/wiki/Ursa_Major>`__?
 
