@@ -180,11 +180,11 @@ We can select multiple rows by indexing the array with such a list::
 
 Can we find the `Big Dipper <https://en.wikipedia.org/wiki/Ursa_Major>`__?
 
-.. figure:: img/numpy/Big_Dipper.jpg
-   :width: 300px
+.. figure:: img/numpy/big_dipper.svg
+   :width: 800px
    :align: center
 
-   The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. CC BY license.
+**Left:** The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. **Right:** The Big Dipper on a sky chart. Image `retrieved from in-the-sky.org <https://in-the-sky.org>`__. Both images have a CC-BY license.
 
 
 It lies within a section of the sky with a `right ascension <https://en.wikipedia.org/wiki/Right_ascension>`__ from 160 to 210 degrees, and a `declination <https://en.wikipedia.org/wiki/Declination>`__ from 45 to 65 degrees::
