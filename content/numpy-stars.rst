@@ -66,28 +66,6 @@ The first line of that file is the "header" indicating the meaning of each numbe
     0.0011307510147073,3.0206027981262924,4.043843423571794,12.745788,13.150434,12.17218
     ...
 
-Here is the data, formatted as a table:
-
-=============== =========== ======== =========== ============== =============
-right_ascension declination parallax magnitude_g magnitude_blue magnitude_red
-=============== =========== ======== =========== ============== =============
-0.00017862      8.3716516   6.857487 12.03939    12.56381       11.36282
-0.00031119      58.557541   2.518501 12.37415    12.81931       11.75581
-0.00058982      5.3805172   6.660454 12.95553    13.58890       12.19339
-0.00106097      -55.64880   7.893578 13.52746    14.63624       12.45566
-0.00113075      3.0206027   4.043843 12.74578    13.15043       12.17218
-...             ...         ...      ...         ...            ...
-=============== =========== ======== =========== ============== =============
-
-Here is the meaning of the columns:
-
-0. ``right_ascension``: horizontal position of the star along the celestial equator (degrees)
-#. ``declination``: vertical position of the star above/below celestial equator (degrees)
-#. ``parallax``: amount the star's position in the sky changes throughout the year
-#. ``magnitude_g``: how bright the star appears in our sky (inverse Logarithmic scale)
-#. ``magnitude_blue``: blue-component of the color of the star
-#. ``magnitude_red``: red-component of the color of the star
-
 We can use one of NumPy's functions to load the entire file into memory::
 
     import numpy as np  # we usually use `np` as shorthand
@@ -127,6 +105,28 @@ We have information on more than a million stars, and for each star we have 6 va
 Working with arrays
 -------------------
 
+Here is the data, formatted as a table:
+
+=============== =========== ======== =========== ============== =============
+right_ascension declination parallax magnitude_g magnitude_blue magnitude_red
+=============== =========== ======== =========== ============== =============
+0.00017862      8.3716516   6.857487 12.03939    12.56381       11.36282
+0.00031119      58.557541   2.518501 12.37415    12.81931       11.75581
+0.00058982      5.3805172   6.660454 12.95553    13.58890       12.19339
+0.00106097      -55.64880   7.893578 13.52746    14.63624       12.45566
+0.00113075      3.0206027   4.043843 12.74578    13.15043       12.17218
+...             ...         ...      ...         ...            ...
+=============== =========== ======== =========== ============== =============
+
+Here is the meaning of the columns:
+
+0. ``right_ascension``: horizontal position of the star along the celestial equator (degrees)
+#. ``declination``: vertical position of the star above/below celestial equator (degrees)
+#. ``parallax``: amount the star's position in the sky changes throughout the year
+#. ``magnitude_g``: how bright the star appears in our sky (inverse Logarithmic scale)
+#. ``magnitude_blue``: blue-component of the color of the star
+#. ``magnitude_red``: red-component of the color of the star
+
 Let's compute the distance to some well known stars in our night's sky.
 For that, we need to extract the parallax measurements from the ``data`` array, which are in the column with index ``2``.
 The way the array is laid out in memory makes it very fast to select portions of the data.
@@ -154,14 +154,13 @@ Common mathematical operations include: ``+`` (:data:`numpy.add`), ``-`` (:data:
 
 Let's examine the closest star in the dataset::
 
-    distance_to_closest_star = distance_ly.min()  # returns the minimum value
-    index_of_closest_star = distance_ly.argmin()  # returns the index of the minimum value
+    distance_to_closest_star = np.min(distance_ly)  # returns the minimum value
+    index_of_closest_star = np.argmin(distance_ly)  # returns the index of the minimum value
     print(distance_to_closest_star, index_of_closest_star)
 
 The closest star is `Proxima Centauri <https://en.wikipedia.org/wiki/Proxima_Centauri>`__ at 4.2465 light-years.
 To see all the information we have on it, we can select the entire row using the index we just obtained::
 
-    print(names)  # the column names for reference
     print(data[index_of_closest_star, :])  # select the row corresponding to Proxima Centauri
 
 NumPy has many other ways to select data.
@@ -353,7 +352,7 @@ We will do this using a ``for`` loop and use a typical pattern for creating NumP
     bin_magnitudes = list()
 
     # Loop over all the bins and compute the median color/magnitude.
-    for bin_index in np.arange(n_bins):
+    for bin_index in range(n_bins):
         bin_color = np.median(color[bin_assignment == bin_index])
         bin_magnitude = np.median(magnitude[bin_assignment == bin_index])
         bin_colors.append(bin_color)
