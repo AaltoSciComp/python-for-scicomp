@@ -179,11 +179,11 @@ We can select multiple elements by indexing the array with such a list::
 
 Can we find the `Big Dipper <https://en.wikipedia.org/wiki/Ursa_Major>`__?
 
-.. figure:: img/numpy/Big_Dipper.jpg
-   :width: 300px
+.. figure:: img/numpy/big_dipper.svg
+   :width: 800px
    :align: center
 
-   The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. CC BY license.
+**Left:** The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. **Right:** The Big Dipper on a sky chart. Image `retrieved from in-the-sky.org <https://in-the-sky.org>`__. Both images have a CC-BY license.
 
 
 It lies within a section of the sky with a `right ascension <https://en.wikipedia.org/wiki/Right_ascension>`__ from 160 to 210 degrees, and a `declination <https://en.wikipedia.org/wiki/Declination>`__ from 45 to 65 degrees::
@@ -302,12 +302,13 @@ We can compute this by taking the difference between the blue and red components
 Now we have everything we need to make the plot. Again, just take this plotting code at face value for now::
 
     import matplotlib.pyplot as plt
+    from matplotlib.colors import LinearSegmentedColormap
+    plt.style.use("dark_background")
     plt.figure(figsize=(6, 8))
-    plt.scatter(
-        color, magnitude, s=1, c=distance_ly, cmap="plasma", alpha=0.1
+    cmap = LinearSegmentedColormap.from_list(
+        "stars", ["#ccfeff", "#ffffff", "#fff18f", "#e5d000", "#dd6a00", "#cc0000", "#6b0000"]
     )
-    cb = plt.colorbar(label="Distance (light years)", fraction=0.05, aspect=40)
-    cb.solids.set(alpha=1)  # make the colors in the colorbar not be transparent
+    plt.scatter(color, magnitude, s=1, c=color, cmap=cmap, alpha=0.1, clim=(0, 3))
     plt.gca().invert_yaxis()  # put bright stars on top, dim stars at the bottom
     plt.title("Hertzsprung-Russell diagram")
     plt.xlabel("Color (Blue ⇨ Red)")
