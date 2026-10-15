@@ -191,6 +191,10 @@ Exercises 1
       What are the distances of those stars to us?
       Are they actually as close together as they seem?
 
+      .. figure:: img/numpy/Big_Dipper.jpg
+         :width: 300px
+         :align: center
+
 .. solution:: Solution Numpy-1
 
    #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]``. Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
