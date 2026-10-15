@@ -70,12 +70,12 @@ We can use one of NumPy's functions to load the entire file into memory::
 
     import numpy as np  # we usually use `np` as shorthand
     # We set `skip_header=1` to skip the first line containing the column names.
-    data = np.genfromtxt("../resources/data/numpy/local_stars.csv", delimiter=",", skip_header=1)
-    print(data)
+    stars = np.genfromtxt("../resources/data/numpy/local_stars.csv", delimiter=",", skip_header=1)
+    print(stars)
 
-The ``data`` variable is a NumPy array::
+The ``stars`` variable is a NumPy array::
 
-   print(type(data))
+   print(type(stars))
 
 What is an array?
 -----------------
@@ -84,11 +84,11 @@ An array is a collection of values which are all of the same datatype, tightly p
 This is why we had to skip the first line of the file, the one containing ``str`` type descriptions, so that we were only reading numbers.
 In our case, the datatype of the resulting array is::
 
-    print(data.dtype)
+    print(stars.dtype)
 
 Arrays can have any number of dimensions, ours has::
 
-    print(data.ndim)
+    print(stars.ndim)
 
 You can think of a 1D array as a *list* and a 2D array as a *table*.
 Alternatively, in mathematics, we call a 1D array a *vector*, a 2D array a *matrix*, and an array with 3 or even more dimensions a *tensor*.
@@ -97,7 +97,7 @@ Regardless of how many dimensions the array has, it is always a Python object of
 
 Let's see how many stars we have. The ``.shape`` property of an array contains the size along each dimension::
 
-    print(data.shape)
+    print(stars.shape)
 
 We have information on more than a million stars, and for each star we have 6 values.
 
@@ -119,11 +119,11 @@ parallax    magnitude color
 =========== ========= ==============
 
 Let's compute the distance to some well known stars in our night's sky.
-For that, we need to extract the parallax measurements from the ``data`` array, which are in the first column, the column with index ``0``.
+For that, we need to extract the parallax measurements from the ``stars`` array, which are in the first column, the column with index ``0``.
 The way the array is laid out in memory makes it very fast to select portions of the data.
 We can index/slice arrays in a similar manner as Python lists using ``[index]``, but we do this separately along each dimension: ``[row_index, col_index]``::
 
-    parallax = data[:, 0]  # `:` is a shorthand for "select everything along this dimension"
+    parallax = stars[:, 0]  # `:` is a shorthand for "select everything along this dimension"
     print(parallax)
 
 Now for some basic math.
@@ -152,9 +152,9 @@ If we want to look up its magnitude, we would need to know which item in the ``d
     closest_star_index = np.argmin(distance_ly)
     print(closest_star_index)
 
-That index we could use to select the proper row and column in the big ``data`` array::
+That index we could use to select the proper row and column in the big ``stars`` array::
 
-    print(data[index_of_closest_star, 1])  # column 1 contains the magnitude of the stars
+    print(stars[index_of_closest_star, 1])  # column 1 contains the magnitude of the stars
 
 The magnitude scale works that the brightest stars have a magnitude of 1 and weaker stars have a magnitude of 2, 3 and so on.
 So Proxima Centauri is quite bright in our night's sky!
@@ -170,8 +170,8 @@ To do this, we must first order the stars by distance::
 We now have a list (technically a 1D :class:`numpy.ndarray`) of integer indices of the stars closest to us.
 We can select multiple elements by indexing the array with such a list::
 
-    print(data[closest_indices, 1])   # magnitudes of the closest 10 stars
-    print(data[closest_indices, 2])   # color of the closest 10 stars
+    print(stars[closest_indices, 1])   # magnitudes of the closest 10 stars
+    print(stars[closest_indices, 2])   # color of the closest 10 stars
 
 
 Exercises 1
@@ -179,14 +179,7 @@ Exercises 1
 
 .. challenge:: Exercises: Numpy-1
 
-   Proxima Centauri is part of a 3-star system called `Alpha Centauri <https://en.wikipedia.org/wiki/Alpha_Centauri>`__.
-   The other two stars are very close together and appear as a single object (Alpha Centauri AB) in this dataset.
    
-   #. What is the row index of the binary star Alpha Centauri AB?
-      It is the second closest star to us.
-      What is the distance from us to Alpha Centauri AB?
-   #. What is the distance from us to the brightest star in the dataset (`Sirius <https://en.wikipedia.org/wiki/Sirius>`__)?
-      Remember that a smaller magnitude means a brighter star.
    #. The stars in the Big Dipper are those with indices: ``[512739, 513978, 546586, 559674, 582978, 602054, 616331]``.
       What are the distances of those stars to us?
       Are they actually as close together as they seem?
@@ -195,15 +188,23 @@ Exercises 1
          :width: 300px
          :align: center
 
-      The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. CC-BY license.
+         The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. CC-BY license.
+   #. Proxima Centauri is part of a 3-star system called `Alpha Centauri <https://en.wikipedia.org/wiki/Alpha_Centauri>`__.
+      The other two stars are very close together and appear as a single object (Alpha Centauri AB) in this dataset.
+
+      #. What is the row index of the binary star Alpha Centauri AB?
+         It is the second closest star to us.
+      #. What is the distance from us to Alpha Centauri AB?
+   #. What is the distance from us to the brightest star in the dataset (`Sirius <https://en.wikipedia.org/wiki/Sirius>`__)?
+      Remember that a smaller magnitude means a brighter star.
 
 .. solution:: Solution Numpy-1
 
-   #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]``. Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
-   #. Brightest star index: ``brightest_ind = np.argsort(data[:, 3])[0]``. Its distance is ``distance_ly[brightest_ind]`` = 8.601 light-years.
    #. Distances of the Big Dipper stars: ``distance_ly[[512739, 513978, 546586, 559674, 582978, 602054, 616331]]`` = 84.49, 122.89, 83.18, 80.88, 82.55, 80.6, and 103.94 light years. 
       They are not as far apart from each other as you may think.
       They actually move together through our Galaxy in a formation known as the `Ursa Major Moving Group <https://en.wikipedia.org/wiki/Ursa_Major_moving_group>`__.
+   #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]``. Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
+   #. Brightest star index: ``brightest_ind = np.argsort(stars[:, 3])[0]``. Its distance is ``distance_ly[brightest_ind]`` = 8.601 light-years.
 
 
 Part 2: Estimating the distance of really far away stars
@@ -222,103 +223,24 @@ Still, we can estimate its distance, based on a striking relationship between th
 A `Hertzsprung-Russel diagram <https://en.wikipedia.org/wiki/Hertzsprung%E2%80%93Russell_diagram>`__ illustrates this:
 
 .. figure:: img/numpy/hertzsprung_russel.jpg
-   :width: 400px
+   :width: 500px
    :align: center
 
    All of the stars in our dataset, plotted here as color versus intrinsic magnitude.
    The main sequence is annotated as a green line.
+   Other than the main sequence stars, you can see the red giants branching off at the top, bright but yellow/red, and the white dwarfs at the bottom, very dim but blue/white.
 
-Recall that in our ``data`` array, the column with index ``3`` contains the measurements of the apparent brightness of each star according to Gaia's sensors (``magnitude_g``).
-For the Hertzsprung-Russel diagram, we need to estimate their true magnitude (luminosity), compensating for the fact that the further a star is, the dimmer it appears to us.
-We will use the formula given in an `official Gaia paper <https://doi.org/10.1051/0004-6361/201832843>`__ for this::
+Based on this chart, we can derive a formula to translate the color of a main sequence star (so not a red giant or white dwarf) to its intrinsic magnitude, that is: how bright the star would appear to us if it were only a single parsec away from us.
 
-    magnitude_g = data[:, 3]  # apparent magnitude
-    magnitude = magnitude_g + 5 * np.log10(parallax) - 10  # true magnitude
+.. math::
 
-The :data:`numpy.log10` function is part of NumPy's vast collection of `ufuncs <https://numpy.org/doc/stable/reference/ufuncs.html#available-ufuncs>`__, which are functions that operate on each element of an array.
+   \text{magnitude} = \beta_5\,\text{color}^5 + \beta_4\,\text{color}^4 + \beta_2\,\text{color}^3 + \beta_2\,\text{color}^2 + \beta_1\,\text{color} + \beta_0
 
-In our diagram, we want to show the color of a star on a scale from "very blue" to "very red", with yellow stars in between.
-We can compute this by taking the difference between the blue and red components of its color::
-
-    magnitude_blue = data[:, 4]
-    magnitude_red = data[:, 5]
-    color = magnitude_blue - magnitude_red
-
-Now we have everything we need to make the plot. Again, just take this plotting code at face value for now::
-
-    import matplotlib.pyplot as plt
-    from matplotlib.colors import LinearSegmentedColormap
-    plt.style.use("dark_background")
-    plt.figure(figsize=(6, 8))
-    cmap = LinearSegmentedColormap.from_list(
-        "stars", ["#ccfeff", "#ffffff", "#fff18f", "#e5d000", "#dd6a00", "#cc0000", "#6b0000"]
-    )
-    plt.scatter(color, magnitude, s=1, c=color, cmap=cmap, alpha=0.1, clim=(0, 3))
-    plt.gca().invert_yaxis()  # put bright stars on top, dim stars at the bottom
-    plt.title("Hertzsprung-Russell diagram")
-    plt.xlabel("Color (Blue ⇨ Red)")
-    plt.ylabel("Magnitude")
-    plt.tight_layout()
-
-Other than the main sequence stars, you can see the red giants branching off at the top, bright but red, and the white dwarfs at the bottom, very dim but white.
-
-Based on this chart, we can derive a formula to translate the color of a main sequence star (so not a red giant or white dwarf) to its true brightness.
-Then, we can compare that true brightness with its apparent brightness to deduce how much dimmer it appears to us than it actually is, hence how far away it must be.
+Then, we can compare that intrinsic magnitude with its apparent magnitude to deduce how much dimmer it appears to us than it actually is, hence how far away it must be.
 
 
 Creating arrays
 ---------------
-
-The first step is to extract a bunch of ``(color, magnitude)`` pairs along the main sequence, free from outliers.
-The strategy is to divide the color spectrum into 100 bins and take the median magnitude in each bin.
-With the vast majority of the stars being main sequence stars, the median should be very representative of the general curve of the main sequence.
-
-There are various ways to create an array with equally spaced numbers.
-For example, there is the NumPy equivalent of Python's :func:`range` function, :func:`numpy.arange`::
-
-    bins = np.arange(0.1, 4.5, step=0.04)
-
-But for our purposes, :func:`numpy.linspace` is even better::
-
-    n_bins = 100
-    bins = np.linspace(0.1, 4.5, num=n_bins)  # 100 numbers evenly spread between 0.1 and 4.5
-
-We could assign stars to their respective color bins using boolean masking, but NumPy offers the :func:`numpy.digitize` function especially for this purpose::
-
-    bin_assignment = np.digitize(color, bins)
-    print(bin_assignment)
-
-The function gives for each element of the ``color`` array, the index of the bin it belongs to.
-Since each element of the ``color`` array is the color of a star, we have effectively assigned each star to a bin.
-Now, we can compute for each bin, the median brightness and color of all the stars in that bin.
-We will do this using a ``for`` loop and use a typical pattern for creating NumPy arrays: we first collect the values into a Python list and then convert that list into a NumPy array::
-
-    # We collect the median colors and magnitudes in these lists.
-    bin_colors = list()
-    bin_magnitudes = list()
-
-    # Loop over all the bins and compute the median color/magnitude.
-    for bin_index in range(n_bins):
-        bin_color = np.median(color[bin_assignment == bin_index])
-        bin_magnitude = np.median(magnitude[bin_assignment == bin_index])
-        bin_colors.append(bin_color)
-        bin_magnitudes.append(bin_magnitude)
-
-    # Convert the Python lists to NumPy arrays.
-    bin_colors = np.array(bin_colors)
-    bin_magnitudes = np.array(bin_magnitudes)
-
-    # The white dwarf stars with a color < 0.1 are all lumped in the first bin,
-    # so that bin is unreliable, chop it off.
-    bin_colors = bin_colors[1:]
-    bin_magnitudes = bin_magnitudes[1:]
-
-.. note::
-   Appending values to a Python list is very fast, but appending values to a NumPy array is very slow. This is why we first collect the values in a Python list and then convert it to a NumPy array.
-
-.. seealso::
-
-   `Numpy array creation docs <https://numpy.org/doc/stable/user/basics.creation.html>`_
 
 
 Doing linear algebra
@@ -342,7 +264,6 @@ The curve is not a straight line, but something like a fifth order polynomial sh
 .. note::
    If you wish to skip the demonstration of how to perform linear algebra, you can use NumPy's build-in function to fit the polynomial function::
 
-        beta = np.polyfit(bin_colors, bin_magnitudes, deg=5)
 
 A typical way to do this is a machine learning technique called `ordinary least squares (OLS) <https://en.wikipedia.org/wiki/Ordinary_least_squares>`__, where we collect everything we know in a matrix ``X`` and everything we wish to predict in a matrix ``Y`` and compute:
 
