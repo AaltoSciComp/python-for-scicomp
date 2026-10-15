@@ -41,8 +41,8 @@ Let's explore the fundamentals of this foundational library by analyzing some as
 
 .. highlight:: python
 
-Part 1: Exploring our local stellar neighbourhood
--------------------------------------------------
+Part 1: Measuring distance through the parallax effect
+------------------------------------------------------
 
 The `Gaia sattelite <https://www.esa.int/Science_Exploration/Space_Science/Gaia>`__ has imaged around 1.8 billion stars and other objects.
 Among the things it measured was the "parallax" of each object, which is how much it seems to "move" in relationship to very distant stars as the sattelite traveled around the sun and observed it from different angles.
@@ -195,27 +195,16 @@ Exercises 1
          :width: 300px
          :align: center
 
+      The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. CC-BY license.
+
 .. solution:: Solution Numpy-1
 
    #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]``. Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
    #. Brightest star index: ``brightest_ind = np.argsort(data[:, 3])[0]``. Its distance is ``distance_ly[brightest_ind]`` = 8.601 light-years.
-   #. Distances of the Big Dipper stars: ``distance_ly[512739, 513978, 546586, 559674, 582978, 602054, 616331]``. 
-     They are not as far apart from each other as you may think.
-     They actually move together through our Galaxy in a formation known as the `Ursa Major Moving Group <https://en.wikipedia.org/wiki/Ursa_Major_moving_group>`__.
+   #. Distances of the Big Dipper stars: ``distance_ly[[512739, 513978, 546586, 559674, 582978, 602054, 616331]]`` = 84.49, 122.89, 83.18, 80.88, 82.55, 80.6, and 103.94 light years. 
+      They are not as far apart from each other as you may think.
+      They actually move together through our Galaxy in a formation known as the `Ursa Major Moving Group <https://en.wikipedia.org/wiki/Ursa_Major_moving_group>`__.
 
-Get Orion, explore the distances of the stars of that constallation.
-
-Exercises 2
------------
-
-.. challenge:: Exercises: Numpy-2
-
-   #. How many stars are there in the dataset that are even brighter than the brightest star in Orion? (`Alioth <https://en.wikipedia.org/wiki/Alioth>`__)?
-
-.. solution:: Solution Numpy-2
-
-   #. The brightest star in the Orion has a magnitude of ``np.min(orion[:, 1])`` = 1.77.
-      There are ``data[data[:, 1] < np.min(orion[:, 1])].shape`` = 28 stars in the dataset that are even brighter.
 
 Part 2: Estimating the distance of really far away stars
 --------------------------------------------------------
@@ -229,9 +218,15 @@ When you are on the southern hemisphere of the Earth, you can see a massive clus
    The Large Magallanic Cloud. Photographed and edited by Martin Bernard, `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Large_Magellanic_Cloud_100mm.jpg>`__. CC BY-SA license.
 
 Its parallax is so small that even the Gaia satellite cannot reliably measure it, which means it must be pretty far away.
-Still, we can estimate its distance, based on a striking relationship between the brightness and the color of a star.
-A `Hertzsprung-Russel diagram <https://en.wikipedia.org/wiki/Hertzsprung%E2%80%93Russell_diagram>`__ illustrates this.
-Let's make one!
+Still, we can estimate its distance, based on a striking relationship between the magnitude and the color of a star.
+A `Hertzsprung-Russel diagram <https://en.wikipedia.org/wiki/Hertzsprung%E2%80%93Russell_diagram>`__ illustrates this:
+
+.. figure:: img/numpy/hertzsprung_russel.jpg
+   :width: 400px
+   :align: center
+
+   All of the stars in our dataset, plotted here as color versus intrinsic magnitude.
+   The main sequence is annotated as a green line.
 
 Recall that in our ``data`` array, the column with index ``3`` contains the measurements of the apparent brightness of each star according to Gaia's sensors (``magnitude_g``).
 For the Hertzsprung-Russel diagram, we need to estimate their true magnitude (luminosity), compensating for the fact that the further a star is, the dimmer it appears to us.
@@ -347,7 +342,7 @@ The curve is not a straight line, but something like a fifth order polynomial sh
 .. note::
    If you wish to skip the demonstration of how to perform linear algebra, you can use NumPy's build-in function to fit the polynomial function::
 
-       beta = np.polyfit(bin_colors, 5)
+        beta = np.polyfit(bin_colors, bin_magnitudes, deg=5)
 
 A typical way to do this is a machine learning technique called `ordinary least squares (OLS) <https://en.wikipedia.org/wiki/Ordinary_least_squares>`__, where we collect everything we know in a matrix ``X`` and everything we wish to predict in a matrix ``Y`` and compute:
 
