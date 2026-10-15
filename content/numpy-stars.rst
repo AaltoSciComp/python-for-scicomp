@@ -55,15 +55,15 @@ We can use the amount of parallax to determine how far away a star is.
    Visual explanation of the parallax effect. Image `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Stellarparallax_parsec1.svg>`__. Public domain.
 
 A sample of the Gaia data can be found in :download:`../resources/data/numpy/local_stars.csv`.
-This is a *comma separated value (CSV)* file, where each line contains 6 numbers describing a single object.
-The first line of that file is the "header" indicating the meaning of each number::
+This is a *comma separated value (CSV)* file, where each line contains the parallax, magnitude and color of the star.
+The first line of that file is the "header" containing the column names::
 
-    right_ascension,declination,parallax,magnitude_g,magnitude_blue,magnitude_red
-    0.0001786275254186,8.371651684580781,6.857487064725919,12.039392,12.56381,11.3628235
-    0.0003111955790572,58.5575410957825,2.5185016849859228,12.374151,12.819315,11.755815
-    0.0005898233877197,5.380517264865798,6.660454655312786,12.95553,13.5889015,12.193393
-    0.0010609752955102,-55.64880544379682,7.89357866196891,13.52746,14.636247,12.455662
-    0.0011307510147073,3.0206027981262924,4.043843423571794,12.745788,13.150434,12.17218
+    parallax,magnitude,color
+    0.006857487064725919,12.039392,1.2009865000000008
+    0.002518501684985923,12.374151,1.0634999999999994
+    0.0066604546553127855,12.95553,1.3955085
+    0.00789357866196891,13.52746,2.180584999999999
+    0.004043843423571794,12.745788,0.9782539999999997
     ...
 
 We can use one of NumPy's functions to load the entire file into memory::
@@ -107,40 +107,30 @@ Working with arrays
 
 Here is the data, formatted as a table:
 
-=============== =========== ======== =========== ============== =============
-right_ascension declination parallax magnitude_g magnitude_blue magnitude_red
-=============== =========== ======== =========== ============== =============
-0.00017862      8.3716516   6.857487 12.03939    12.56381       11.36282
-0.00031119      58.557541   2.518501 12.37415    12.81931       11.75581
-0.00058982      5.3805172   6.660454 12.95553    13.58890       12.19339
-0.00106097      -55.64880   7.893578 13.52746    14.63624       12.45566
-0.00113075      3.0206027   4.043843 12.74578    13.15043       12.17218
-...             ...         ...      ...         ...            ...
-=============== =========== ======== =========== ============== =============
-
-Here is the meaning of the columns:
-
-0. ``right_ascension``: horizontal position of the star along the celestial equator (degrees)
-#. ``declination``: vertical position of the star above/below celestial equator (degrees)
-#. ``parallax``: amount the star's position in the sky changes throughout the year
-#. ``magnitude_g``: how bright the star appears in our sky (inverse Logarithmic scale)
-#. ``magnitude_blue``: blue-component of the color of the star
-#. ``magnitude_red``: red-component of the color of the star
+=========== ========= ==============
+parallax    magnitude color
+=========== ========= ==============
+0.006857487 12.03939  1.200986
+0.002518501 12.37415  1.063500
+0.006660454 12.95553  1.395508
+0.007893578 13.52746  2.180585
+0.004043843 12.74578  0.978254
+...         ...       ...
+=========== ========= ==============
 
 Let's compute the distance to some well known stars in our night's sky.
-For that, we need to extract the parallax measurements from the ``data`` array, which are in the column with index ``2``.
+For that, we need to extract the parallax measurements from the ``data`` array, which are in the first column, the column with index ``0``.
 The way the array is laid out in memory makes it very fast to select portions of the data.
 We can index/slice arrays in a similar manner as Python lists using ``[index]``, but we do this separately along each dimension: ``[row_index, col_index]``::
 
-    parallax = data[:, 2]  # `:` is a shorthand for "select everything along this dimension"
+    parallax = data[:, 0]  # `:` is a shorthand for "select everything along this dimension"
     print(parallax)
 
 Now for some basic math.
-The parallax values are currently in `milli-arc-seconds <https://en.wikipedia.org/wiki/Minute_and_second_of_arc>`__.
-We need to convert that into distance.
-A common distance metric is the `"parsec" <https://en.wikipedia.org/wiki/Parsec>`__, which is the distance at which an object has a parallax of exactly one arc-second, which is 3.26156 light-years::
+We need to convert the parallax value into distance.
+When we compute ``1 / parallax`` we get the distance in `"parsecs" <https://en.wikipedia.org/wiki/Parsec>`__ and each parsec is about 3.26156 light-years::
 
-    distance_parsecs = 1 / (parallax / 1000)  # 1000 milli-arc-seconds in an arc-second
+    distance_parsecs = 1 / parallax
     distance_ly = distance_parsecs * 3.26156
 
 Note that we didn't write any ``for``-loops.
@@ -154,94 +144,34 @@ Common mathematical operations include: ``+`` (:data:`numpy.add`), ``-`` (:data:
 
 Let's examine the closest star in the dataset::
 
-    distance_to_closest_star = np.min(distance_ly)  # returns the minimum value
-    index_of_closest_star = np.argmin(distance_ly)  # returns the index of the minimum value
-    print(distance_to_closest_star, index_of_closest_star)
+    print(np.min(distance_ly))
 
 The closest star is `Proxima Centauri <https://en.wikipedia.org/wiki/Proxima_Centauri>`__ at 4.2465 light-years.
-To see all the information we have on it, we can select the entire row using the index we just obtained::
+If we want to look up its magnitude, we would need to know which item in the ``distance_ly`` array was the smallest one::
 
-    print(data[index_of_closest_star, :])  # select the row corresponding to Proxima Centauri
+    closest_star_index = np.argmin(distance_ly)
+    print(closest_star_index)
+
+That index we could use to select the proper row and column in the big ``data`` array::
+
+    print(data[index_of_closest_star, 1])  # column 1 contains the magnitude of the stars
+
+The magnitude scale works that the brightest stars have a magnitude of 1 and weaker stars have a magnitude of 2, 3 and so on.
+So Proxima Centauri is quite bright in our night's sky!
 
 NumPy has many other ways to select data.
 For example, let's see if we can show some information on the 10 stars closest to us.
 To do this, we must first order the stars by distance::
 
-    order_by_distance = np.argsort(distance_parsecs)  # argsort returns indices, not values
+    order_by_distance = np.argsort(distance_ly)  # argsort returns indices, not values
     closest_indices = order_by_distance[:10]  # select the first 10 elements
     print(closest_indices)
 
 We now have a list (technically a 1D :class:`numpy.ndarray`) of integer indices of the stars closest to us.
 We can select multiple elements by indexing the array with such a list::
 
-    print(data[closest_indices, :])   # selecting multiple rows in a 2D array
-    print(distance_ly[closest_indices])  # selecting multiple elements in a 1D array
-
-Can we find the `Big Dipper <https://en.wikipedia.org/wiki/Ursa_Major>`__?
-
-.. figure:: img/numpy/big_dipper.svg
-   :width: 800px
-   :align: center
-
-**Left:** The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. **Right:** The Big Dipper on a sky chart. Image `retrieved from in-the-sky.org <https://in-the-sky.org>`__. Both images have a CC-BY license.
-
-
-It lies within a section of the sky with a `right ascension <https://en.wikipedia.org/wiki/Right_ascension>`__ from 160 to 210 degrees, and a `declination <https://en.wikipedia.org/wiki/Declination>`__ from 45 to 65 degrees::
-
-    right_ascension = data[:, 0]
-    declination = data[:, 1]
-
-To select elements from an array based on some condition, we can create an index based on boolean values.
-Recall that in Python, comparison operations (``==``, ``<``, ``<=``, ``>``, ``>=``) produce a boolean (``True``/``False``) value.
-See what happens when you apply them to an array::
-
-    print(right_ascension > 160)
-
-It produces a new array, of the same dimensions as the original array, but filled with ``True``/``False`` values indicating for each element whether the comparison holds true or not.
-We call this a "boolean mask".
-We can combine multiple masks using Python's boolean "and" operator ``&``::
-
-    boolean_mask = (
-        (right_ascension > 160) &
-        (right_ascension < 210) &
-        (declination > 45) &
-        (declination < 65)
-    )
-
-Once you have a boolean mask, you can apply it to any dimension of the array as long as it has the same number of elements as the mask::
-
-    sky_section = data[boolean_mask, :]
-    print(sky_section.shape)
-
-In our dataset, there are more than 15k stars in our chosen section of sky.
-The Big Dipper should consist of the 7 brightest ones.
-The column with index ``3``, named ``magnitude_g``, denotes how bright the star looks as seen by the Gaia sattelite.
-The `magnitude scale <https://en.wikipedia.org/wiki/Magnitude_(astronomy)>`__ works "in reverse", such that very bright stars have a magnitude of 1 and weaker stars have a larger magnitude.
-
-.. code::
-
-    # Select the 7 brightest stars in our section of sky.
-    order_by_magnitude = np.argsort(sky_section[:, 3])
-    brightest_stars = order_by_magnitude[:7]
-    big_dipper = sky_section[brightest_stars, :]
-
-    # Make a figure with the position of the stars in the sky. You can take this at face
-    # value for now. We will cover how to make figures in a later lesson.
-    import matplotlib.pyplot as plt
-    fig, ax = plt.subplots()
-    ax.scatter(big_dipper[:, 0], big_dipper[:, 1])
-    ax.xaxis.set_inverted(True)  # right ascension goes from right-to-left
-    ax.set_aspect("equal")
-    ax.set_xlabel("right ascension (degrees)")
-    ax.set_ylabel("declination (degrees)")
-
-
-Clever and efficient use of these indexing and mathematical operations is the key to NumPy's speed: you should try to cleverly use these selectors (written in C) to extract data to be used with other NumPy functions written in C or Fortran.
-This will give you the benefits of Python with most of the speed of C.
-
-.. seealso::
-
-   :ref:`Numpy basic indexing docs <basics.indexing>`
+    print(data[closest_indices, 1])   # magnitudes of the closest 10 stars
+    print(data[closest_indices, 2])   # color of the closest 10 stars
 
 
 Exercises 1
@@ -257,15 +187,31 @@ Exercises 1
       What is the distance from us to Alpha Centauri AB?
    #. What is the distance from us to the brightest star in the dataset (`Sirius <https://en.wikipedia.org/wiki/Sirius>`__)?
       Remember that a smaller magnitude means a brighter star.
-   #. How many stars are there in the dataset that are even brighter than the brightest star in the Big Dipper (`Alioth <https://en.wikipedia.org/wiki/Alioth>`__)?
+   #. The stars in the Big Dipper are those with indices: ``[512739, 513978, 546586, 559674, 582978, 602054, 616331]``.
+      What are the distances of those stars to us?
+      Are they actually as close together as they seem?
 
 .. solution:: Solution Numpy-1
 
    #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]``. Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
    #. Brightest star index: ``brightest_ind = np.argsort(data[:, 3])[0]``. Its distance is ``distance_ly[brightest_ind]`` = 8.601 light-years.
-   #. The brightest star in the Big Dipper has a magnitude of ``np.min(big_dipper[:, 3])`` = 1.77.
-      There are ``data[data[:, 3] < np.min(big_dipper[:, 3])].shape`` = 28 stars in the dataset that are even brighter.
+   #. Distances of the Big Dipper stars: ``distance_ly[512739, 513978, 546586, 559674, 582978, 602054, 616331]``. 
+     They are not as far apart from each other as you may think.
+     They actually move together through our Galaxy in a formation known as the `Ursa Major Moving Group <https://en.wikipedia.org/wiki/Ursa_Major_moving_group>`__.
 
+Get Orion, explore the distances of the stars of that constallation.
+
+Exercises 2
+-----------
+
+.. challenge:: Exercises: Numpy-2
+
+   #. How many stars are there in the dataset that are even brighter than the brightest star in Orion? (`Alioth <https://en.wikipedia.org/wiki/Alioth>`__)?
+
+.. solution:: Solution Numpy-2
+
+   #. The brightest star in the Orion has a magnitude of ``np.min(orion[:, 1])`` = 1.77.
+      There are ``data[data[:, 1] < np.min(orion[:, 1])].shape`` = 28 stars in the dataset that are even brighter.
 
 Part 2: Estimating the distance of really far away stars
 --------------------------------------------------------
