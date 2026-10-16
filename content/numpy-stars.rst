@@ -54,7 +54,7 @@ We can use the amount of parallax to determine how far away a star is.
 
    Visual explanation of the parallax effect. Image `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Stellarparallax_parsec1.svg>`__. Public domain.
 
-A sample of the Gaia data can be found in :download:`../resources/data/numpy/local_stars.csv`.
+A sample of the Gaia data can be found in ``local_stars.csv``.
 This is a *comma separated value (CSV)* file, where each line contains the parallax, magnitude and color of the star.
 The first line of that file is the "header" containing the column names::
 
@@ -69,8 +69,12 @@ The first line of that file is the "header" containing the column names::
 We can use one of NumPy's functions to load the entire file into memory::
 
     import numpy as np  # we usually use `np` as shorthand
+
+    # Set this to the location where you unzipped the data package.
+    stars_filename = "../resources/data/numpy/local_stars.csv"
+
     # We set `skip_header=1` to skip the first line containing the column names.
-    stars = np.genfromtxt("../resources/data/numpy/local_stars.csv", delimiter=",", skip_header=1)
+    stars = np.genfromtxt(stars_filename, delimiter=",", skip_header=1)
     print(stars)
 
 The ``stars`` variable is a NumPy array::
@@ -203,8 +207,10 @@ Exercises 1
    #. Distances of the Big Dipper stars: ``distance_ly[[512739, 513978, 546586, 559674, 582978, 602054, 616331]]`` = 84.49, 122.89, 83.18, 80.88, 82.55, 80.6, and 103.94 light years. 
       They are not as far apart from each other as you may think.
       They actually move together through our Galaxy in a formation known as the `Ursa Major Moving Group <https://en.wikipedia.org/wiki/Ursa_Major_moving_group>`__.
-   #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]``. Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
-   #. Brightest star index: ``brightest_ind = np.argsort(stars[:, 3])[0]``. Its distance is ``distance_ly[brightest_ind]`` = 8.601 light-years.
+   #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]`` = 650564.
+      Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
+   #. Brightest star index: ``brightest_ind = np.argsort(stars[:, 1])[0]`` = 303978.
+      Its distance is ``distance_ly[brightest_ind]`` = 8.601 light-years.
 
 
 Part 2: Estimating the distance of really far away stars
@@ -218,119 +224,74 @@ When you are on the southern hemisphere of the Earth, you can see a massive clus
 
    The Large Magallanic Cloud. Photographed and edited by Martin Bernard, `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Large_Magellanic_Cloud_100mm.jpg>`__. CC BY-SA license.
 
-Its parallax is so small that even the Gaia satellite cannot reliably measure it, which means it must be pretty far away.
-Still, we can estimate its distance, based on a striking relationship between the magnitude and the color of a star.
+
+The Gaia data for a collection of stars that are part of the Large Magallanic Cloud can be found in ``lmc_stars.rst``::
+
+    # Set this to where you unzipped the data package
+    lmc_filename = "../resources/data/numpy/lmc_stars.csv"
+    lmc_stars = np.genfromtxt(lmc_filename, delimiter=",", skip_header=1)
+    print(lmc_stars)
+
+Just as before, the first column of the file contains the parallax, but in this case they are all 0.
+The parallax of these stars is so small that even the Gaia satellite cannot reliably measure it, which means they must be pretty far away.
+Still, we can estimate their distances, based on a striking relationship between the magnitude and the color of a star.
 A `Hertzsprung-Russel diagram <https://en.wikipedia.org/wiki/Hertzsprung%E2%80%93Russell_diagram>`__ illustrates this:
 
 .. figure:: img/numpy/hertzsprung_russel.jpg
    :width: 500px
    :align: center
 
-   All of the stars in our dataset, plotted here as color versus intrinsic magnitude.
+   All of the stars in our main dataset, plotted here as color versus intrinsic magnitude.
    The main sequence is annotated as a green line.
    Other than the main sequence stars, you can see the red giants branching off at the top, bright but yellow/red, and the white dwarfs at the bottom, very dim but blue/white.
 
 Based on this chart, we can derive a formula to translate the color of a main sequence star (so not a red giant or white dwarf) to its intrinsic magnitude, that is: how bright the star would appear to us if it were only a single parsec away from us.
+The curve is not a straight line, but this fifth order polynomial is a decent fit:
 
 .. math::
 
-   \text{magnitude} = \beta_5\,\text{color}^5 + \beta_4\,\text{color}^4 + \beta_2\,\text{color}^3 + \beta_2\,\text{color}^2 + \beta_1\,\text{color} + \beta_0
+   \text{magnitude} = -0.29\,\text{color}^5 + 0.28\,\text{color}^4 - 0.88\,\text{color}^3 + 0.65\,\text{color}^2 + 4.2\,\text{color} + 0.95
 
-Then, we can compare that intrinsic magnitude with its apparent magnitude to deduce how much dimmer it appears to us than it actually is, hence how far away it must be.
+To show off NumPy's linear algebra capabilities, we will compute this equation with the following vector-matrix product:
+
+.. math::
+
+   \text{magnitude} =
+   \begin{bmatrix}
+   -0.028, 0.28, -0.88, 0.65, 4.2, 0.95
+   \end{bmatrix}
+   \cdot
+   \begin{bmatrix}
+   \text{color}^5 \\ \text{color}^4 \\ \text{color}^3 \\ \text{color}^2 \\ \text{color} \\ 1
+   \end{bmatrix}
 
 
 Creating arrays
 ---------------
 
+We use the :func:`numpy.array` function to create NumPy arrays.
+First the ``coefficients`` vector::
 
-Doing linear algebra
---------------------
+   coefficients = np.array([-0.028, 0.28, -0.88, 0.65, 4.2, 0.95])
+   print(coefficients.shape)
 
-If we fit a curve through the  ``(color, magnitude)`` combinations, we obtain a function to predict a star's magnitude based on its color.
-We can do this with a bit of linear algebra.
-To get a feel for how the curve should look, let's draw the ``(color, magnitude)`` combinations on top of the Hertzsprung-Russel diagram (assuming it is still open, re-create it if it isn't)::
+And now the matrix containing on each row the colors of the stars, raised to some power::
 
-    plt.plot(bin_colors, bin_magnitudes, color="green", linewidth=2)
+   color = lmc_stars[:, 2]  # this column contains the color of the stars
+   color_powers = np.array([
+       color ** 5,
+       color ** 4,
+       color ** 3,
+       color ** 2,
+       color,
+       np.ones_like(color),  # produces an array filled with 1's
+   ])
+   print(color_powers.shape)
 
-The curve is not a straight line, but something like a fifth order polynomial should be pretty good fit:
+We estimate the intrinsic magnitude of our Large Magallanic Cloud stars by using a matrix multiplication between the ``coefficients`` vector and the ``color_powers`` matrix::
 
-.. math::
-   :name: A fifth order polynomial function
-
-   \text{magnitude} = \beta_5\,\text{color}^5 + \beta_4\,\text{color}^4 + \beta_2\,\text{color}^3 + \beta_2\,\text{color}^2 + \beta_1\,\text{color} + \beta_0
-
-"Fitting the curve" now means choosing the optimal :math:`\beta` values so that when we input the ``color``, we get a good prediction of ``magnitude``.
-
-.. note::
-   If you wish to skip the demonstration of how to perform linear algebra, you can use NumPy's build-in function to fit the polynomial function::
-
-
-A typical way to do this is a machine learning technique called `ordinary least squares (OLS) <https://en.wikipedia.org/wiki/Ordinary_least_squares>`__, where we collect everything we know in a matrix ``X`` and everything we wish to predict in a matrix ``Y`` and compute:
-
-.. math::
-   :name: The ordinary least squares function
-
-   \beta = (X^T X)^{-1} X^T Y
-
-The resulting ``beta`` vector contains the optimal linear combination (in the least-squares sense) of the columns of ``X`` to predict the columns of ``Y``.
-So, if we create a 2D array ``X`` where the columns are ``bin_colors`` raised to different powers, and set ``Y`` to ``bin_magnitude``, we should obtain the beta values we need.
-The code below does this, while demonstrating how to create a 2D array by gluing 1D arrays together, and how to generate an array containing only ``1``'s::
-
-    X = np.column_stack((
-        np.ones_like(bin_colors),  # bin_colors ** 0
-        bin_colors,                # bin_colors ** 1
-        bin_colors ** 2,
-        bin_colors ** 3,
-        bin_colors ** 4,
-        bin_colors ** 5,
-    ))
-    Y = bin_magnitudes
-
-To compute the OLS formula, we need a bunch of linear algebra functionality:
-
-* matrix multiplication, which is written as ``@`` in Python
-* matrix transpose, which NumPy arrays support through their property ``.T``
-* matrix inversion, which is done through :func:`numpy.linalg.inv`
-
-Using NumPy, the Python code can look very much like the math formula::
-
-    beta = np.linalg.inv(X.T @ X) @ X.T @ Y
-    print(beta)
-
-.. seealso::
-   `Numpy linear algebra functionality <https://numpy.org/doc/stable/reference/routines.linalg.html>`__.
-
-
-Creating and documenting functions in the scientific computing style
---------------------------------------------------------------------
-
-Now that we have ``beta``, we can use formula (1) to predict a star's magnitude given its color.
-Let's wrap the formula in a function, so we can give it a name and write documentation on how to use it.
-NumPy comes with a style guide for writing docstrings for functions called `NumPyDoc <https://numpydoc.readthedocs.io/en/latest/format.html>`__::
-
-    def predict_magnitude(color, beta):
-        """Predict a main sequence star's inherent magnitude given its color.
-
-        Parameters
-        ----------
-        color : float | array of float, shape (n_stars,)
-            The color of the star(s), computed as magnitude_blue - magnitude_red.
-        beta: array of float, shape (6,)
-            The coefficients describing the main-sequence curve.
-
-        Returns
-        -------
-        magnitude : float
-            The estimated true magnitude of the star(s).
-        """
-        return (
-            beta[5] * color ** 5 +
-            beta[4] * color ** 4 +
-            beta[3] * color ** 3 +
-            beta[2] * color ** 2 +
-            beta[1] * color +
-            beta[0]
-        )
+    intrinsic_magnitude = coefficients @ color_powers  # `@` means matrix multiplication
+    print(intrinsic_magnitude)
 
 
 Exercises 2
@@ -338,67 +299,35 @@ Exercises 2
 
 .. challenge:: Exercises: Numpy-2
 
-   In this exercise, you will estimate the distance to the Large Magallanic Cloud.
+   In this exercise, you will estimate the distance to the Large Magallanic Cloud (LMC).
 
-   We have shown you how to estimate the true magnitude of a star based on its color and we wrote the ``predict_magnitude`` function to do it.
-   To predict distance, you can compare a star's estimated true magnitude with its apparent magnitude on Gaia's sensors.
-   The further away the star is, the dimmer it appears to Gaia.
-   Recall the formula we used earlier::
-   
-       magnitude = magnitude_g + 5 * np.log10(parallax) - 10
-   
-   When we solve for ``parallax``, we get::
-   
-       estimated_parallax = np.pow(10, (magnitude - magnitude_g + 10) / 5)
-   
-   1. Write a function to predict the distance of a star given its apparent magnitude, its color, and the ``beta`` coefficients we computed. The function signature should be::
+   #. Compare the intrinsic magnitude of the LMC stars as we computed together with their apparent magnitude (how bright they appear on Gaia's sensors: ``lmc_stars[:, 1]``) to deduce how much dimmer they appear to us than they actually are, hence how far away they must be.
+      The formula for this is as follows::
 
-       predict_distance(color, magnitude_g, beta)
+          parallax = 10 ** ((intrinsic_magnitude - apparent_magnitude - 5) / 5)
 
-      1. Use the ``predict_magnitude`` function to estimate the true magnitude.
-      2. Use the formula above to convert the difference between the apparent magnitude (``magnitude_g``) and true magnitude (``magnitude``) to a parallax value. 3. Convert the parallax value to a distance in light-years. See the lesson material above on how to do this if you don't remember.
-
-   2. Some main sequence stars from the Large Magallanic Cloud can be found in :download:`../resources/data/numpy/lmc_stars.csv`.
-      To read it, use :func:`numpy.genfromtext` in the same manner as we did with the ``data`` array.
-      Predict their distance using the function you just created and take the average (:func:`numpy.mean`) as a representative value for roughly how far away the cloud is.
+   #. Convert the ``parallax`` you obtained with the above formula to distance in lightyears.
+      See Part 1 of this lesson on how to do this.
+   #. Use the average distance (:func:`numpy.mean`) as a representative value for roughly how far away the cloud is.
       Given that the `Milky Way <https://en.wikipedia.org/wiki/Milky_Way>`__ galaxy is about 87400 light-years across, what does the distance to the Large Magallanic Cloud tell us?
 
 .. solution:: Solution Numpy-2
 
-   #. .. code::
+   #. .. code-block::
 
-          def predict_distance(color, magnitude_g, beta):
-              """Predict a main sequence star's distance given its apparent magnitude and color.
+         apparent_magnitude = lmc_stars[:, 1]
+         lmc_parallax = 10 ** ((intrinsic_magnitude - apparent_magnitude - 5) / 5)
 
-              Parameters
-              ----------
-              magnitude_g : float | array of float, shape (n_stars,)
-                  The apparent magnitude of the star(s).
-              color : float | array of float, shape (n_stars,)
-                  The color of the star(s), computed as magnitude_blue - magnitude_red.
-              beta: array of float, shape (6,)
-                   The coefficients describing the main-sequence curve.
+   #. .. code-block::
 
-              Returns
-              -------
-              distance : float
-                  The estimated distance in light-years.
-              """
-              magnitude = predict_magnitude(color, beta)
-              parallax = np.pow(10, (magnitude - magnitude_g + 10) / 5)
-              distance_parsecs = 1 / (parallax / 1000)
-              return distance_parsecs * 3.26156  # convert to light-years
+         lmc_distance_ly = (1 / lmc_parallax) * 3.26156
 
-   #. .. code ::
+   #. .. code-block::
 
-          lmc = np.genfromtxt(
-              "../resources/data/numpy/lmc_stars.csv", delimiter=",", skip_header=1
-          )
-          distance = predict_distance(lmc[:, 3], lmc[:, 4] - lmc[:, 5], beta)
-          print(np.mean(distance.mean))
+         print(np.mean(lmc_distance_ly))
 
-     The Large Magallanic Cloud is roughly 158000 light-years away.
-     This means it does not lie in our galaxy, but must be a galaxy of its own.
+      The Large Magallanic Cloud is roughly 159000 light-years away.
+      This means it does not lie in our galaxy, but must be a galaxy of its own.
 
 
 Where to go from here
@@ -413,5 +342,5 @@ The Gaia satellite did not image the brightest stars, the most famous ones, beca
 Hence, the 50 brightest stars our dataset were not from Gaia, but were instead taken from the SIMBAD database.
 Those are the stars we look at during the Big Dipper demo.
 
-For the Large Magallanic Cloud exercise, we cherry picked the stars in :download:`../resources/data/numpy/lmc_stars.csv` to be perfectly on the main sequence and thus ensuring that you get a decent estimate of the distance.
+For the Large Magallanic Cloud exercise, we cherry picked the stars in ``lmc_stars.csv`` to be perfectly on the main sequence and thus ensuring that you get a decent estimate of the distance.
 In reality it's quite an ordeal to choose the proper stars to base your distance estimate on.
