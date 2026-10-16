@@ -6,9 +6,9 @@ NumPy
 .. questions::
 
    - Why and when should I use NumPy?
+   - Why is NumPy faster than plain Python?
    - How do we frame scientific questions in terms of NumPy computations?
    - How do I translate a mathematical formula into a line of NumPy code?
-   - Why is NumPy faster than plain Python?
 
 .. objectives::
 
@@ -286,7 +286,7 @@ And now the matrix containing on each row the colors of the stars, raised to som
        color,
        np.ones_like(color),  # produces an array filled with 1's
    ])
-   print(color_powers.shape)
+   print(color_powers)
 
 We estimate the intrinsic magnitude of our Large Magallanic Cloud stars by using a matrix multiplication between the ``coefficients`` vector and the ``color_powers`` matrix::
 
