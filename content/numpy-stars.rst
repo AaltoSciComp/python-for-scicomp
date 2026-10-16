@@ -234,7 +234,8 @@ Based on this chart, we can derive a formula to translate the color of a main se
 
 .. math::
 
-   \text{magnitude} = \beta_5\,\text{color}^5 + \beta_4\,\text{color}^4 + \beta_2\,\text{color}^3 + \beta_2\,\text{color}^2 + \beta_1\,\text{color} + \beta_0
+   \text{magnitude} = 0.9519014\,\text{color}^5 + 4.24472718\,\text{color}^4 + 0.65014753\,\text{color}^3 + -0.87512072\,\text{color}^2 + 0.27781372\,\text{color} + -0.02884251
+
 
 Then, we can compare that intrinsic magnitude with its apparent magnitude to deduce how much dimmer it appears to us than it actually is, hence how far away it must be.
 
