@@ -1,124 +1,181 @@
-.. _numpy:
+.. _numpy_stars:
 
 NumPy
 =====
 
 .. questions::
 
-   - Why use NumPy instead of pure python?
-   - How to use basic NumPy?
-   - What is vectorization?
+   - Why and when should I use NumPy?
+   - Why is NumPy faster than plain Python?
+   - How do we frame scientific questions in terms of NumPy computations?
+   - How do I translate a mathematical formula into a line of NumPy code?
 
 .. objectives::
 
-   - Understand the Numpy array object
-   - Be able to use basic NumPy functionality
-   - Understand enough of NumPy to seach for answers to the rest of your questions ;)
+   This is not a complete NumPy tutorial. Instead, this lesson strives to teach you:
 
-   We expect most people to be able to do all the basic exercises
-   here.  It is probably quite easy for many people; we have advanced
-   exercises at the end in that case.
+   - How to use basic NumPy: arrays, selecting data, performing mathematical operations
+   - A sense of how NumPy code looks: vectorized code.
+   - To understand enough of NumPy to search for answers to the rest of your questions. ;)
 
+.. admonition:: Example context
+   :class: demo
+
+   This lesson is placed inside an example scientific setting.
+   We will compute the distance of the stars in our night sky, using the data collected by the Gaia sattelite.
+   To follow along, you must download the :download:`data package <https://drive.google.com/file/d/1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I/view?usp=sharing>` and unzip it in the ``python-for-scicomp`` folder.
+
+Why NumPy?
+----------
 
 NumPy is the most used library for scientific computing.
+If NumPy did not exist, Python would not be such a popular language for scientific computing, because it would be too slow.
 Even if you are not using it directly, chances are high that some library uses it in the background.
-NumPy provides the high-performance multidimensional array object and tools to use it.
+It helps you work with "data", as in large amounts of numbers, by providing:
+
+1. A high-performance multidimensional array object to store data in computer memory
+2. Efficient routines to manipulate data, such as reading and writing, splitting and concatenation, and other transformations
+3. Efficient routines to perform computations on data, such as statistics and linear algebra
+
+Let's explore the fundamentals of this foundational library by analyzing some astronomical data and discover the secret of the Large Magallanic Cloud.
 
 .. highlight:: python
+
+Part 1: Measuring distance through the parallax effect
+------------------------------------------------------
+
+The `Gaia sattelite <https://www.esa.int/Science_Exploration/Space_Science/Gaia>`__ has imaged around 1.8 billion stars and other objects.
+Among the things it measured was the "parallax" of each object, which is how much it seems to "move" in relationship to very distant stars as the sattelite traveled around the sun and observed it from different angles.
+We can use the amount of parallax to determine how far away a star is.
+
+.. figure:: img/numpy/parsec.png
+   :width: 300px
+   :align: center
+
+   Visual explanation of the parallax effect. Image `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Stellarparallax_parsec1.svg>`__. Public domain.
+
+A sample of the Gaia data can be found in ``local_stars.csv``.
+This is a *comma separated value (CSV)* file, where each line contains the parallax, magnitude and color of the star.
+The first line of that file is the "header" containing the column names::
+
+    parallax,magnitude,color
+    0.006857487064725919,12.039392,1.2009865000000008
+    0.002518501684985923,12.374151,1.0634999999999994
+    0.0066604546553127855,12.95553,1.3955085
+    0.00789357866196891,13.52746,2.180584999999999
+    0.004043843423571794,12.745788,0.9782539999999997
+    ...
+
+We can use one of NumPy's functions to load the entire file into memory::
+
+    import numpy as np  # we usually use `np` as shorthand
+
+    # Set this to the location where you unzipped the data package.
+    stars_filename = "../resources/data/numpy/local_stars.csv"
+
+    # We set `skip_header=1` to skip the first line containing the column names.
+    stars = np.genfromtxt(stars_filename, delimiter=",", skip_header=1)
+    print(stars)
+
+The ``stars`` variable is a NumPy array::
+
+   print(type(stars))
 
 What is an array?
 -----------------
 
-So, we already know about python lists, and that we can put different types of
-data in the same list. For example, consider
-``[1, 2.5, 'asdf', False, [1.5, True]]``.
-This is a Python list but it has different types for every element.
-This makes them very flexible, but this comes at a cost: if we want to do
-something to each element in the list, for example "add 1", we need to consider
-each element one-by-one, because "add 1" means something different if the item
-is a number then when it is a string, or a sub-list. In scientific usage, we
-want to be able to quickly perform operations on large groups of elements at
-once, which is what NumPy arrays are optimized for.
+An array is a collection of values which are all of the same datatype, tightly packed side-by-side in a continuous chunk of memory.
+This is why we had to skip the first line of the file, the one containing ``str`` type descriptions, so that we were only reading numbers.
+In our case, the datatype of the resulting array is::
 
-An array is a 'grid' of values, with all the same type. It is indexed by tuples of
-non negative indices and provides the framework for multiple
-dimensions.  An array has:
+    print(stars.dtype)
 
-* :ref:`dtype <arrays.dtypes>` - data type.  Arrays always contain one type
-* :term:`shape` - shape of the data, for example ``3×2`` or ``3×2×500`` or even
-  ``500`` (one dimensional) or ``()`` (zero dimensional).
-* :attr:`data <numpy.ndarray.data>` - raw data storage in memory.  This can be passed to C or
-  Fortran code for efficient calculations.
+Arrays can have any number of dimensions, ours has::
 
+    print(stars.ndim)
 
-To test the performance of pure Python vs NumPy we can write in our jupyter notebook:
+You can think of a 1D array as a *list* and a 2D array as a *table*.
+Alternatively, in mathematics, we call a 1D array a *vector*, a 2D array a *matrix*, and an array with 3 or even more dimensions a *tensor*.
+An array can even have zero dimensions if it represents a single *scalar* number.
+Regardless of how many dimensions the array has, it is always a Python object of type :class:`numpy.ndarray`.
 
-Create one list and one 'empty' list, to store the result in ::
+Let's see how many stars we have. The ``.shape`` property of an array contains the size along each dimension::
 
-  a = list(range(10000))
-  b = [ 0 ] * 10000
+    print(stars.shape)
 
-In a new cell starting with ``%%timeit``, loop through the list ``a`` and fill the second list ``b`` with ``a`` squared ::
-  
-  %%timeit
-  for i in range(len(a)):
-    b[i] = a[i]**2
-
-That looks and feels quite fast. But let's take a look at how NumPy performs for the same task.
-
-So for the NumPy example, create one array and one 'empty' array to store the result in ::
-
-  import numpy as np
-  a = np.arange(10000)
-  b = np.zeros(10000)
-
-In a new cell starting with ``%%timeit``, fill ``b`` with ``a`` squared ::
-
-  %%timeit
-  b = a ** 2
-
-We see that compared to working with numpy arrays, working with traditional python lists is actually slow.
+We have information on more than a million stars, and for each star we have 6 values.
 
 
-Creating arrays
----------------
+Working with arrays
+-------------------
 
-There are different ways of creating arrays (:func:`numpy.array`, :attr:`numpy.ndarray.shape`, :attr:`numpy.ndarray.size`)::
+Here is the data, formatted as a table:
 
-  a = np.array([1,2,3])               # 1-dimensional array (rank 1)
-  b = np.array([[1,2,3],[4,5,6]])     # 2-dimensional array (rank 2)
+=========== ========= ==============
+parallax    magnitude color
+=========== ========= ==============
+0.006857487 12.03939  1.200986
+0.002518501 12.37415  1.063500
+0.006660454 12.95553  1.395508
+0.007893578 13.52746  2.180585
+0.004043843 12.74578  0.978254
+...         ...       ...
+=========== ========= ==============
 
-  b.shape                             # the shape (rows,columns)
-  b.size                              # number of elements 
+Let's compute the distance to some well known stars in our night's sky.
+For that, we need to extract the parallax measurements from the ``stars`` array, which are in the first column, the column with index ``0``.
+The way the array is laid out in memory makes it very fast to select portions of the data.
+We can index/slice arrays in a similar manner as Python lists using ``[index]``, but we do this separately along each dimension: ``[row_index, col_index]``::
 
-In addition to above ways of creating arrays, there are many other ways of creating arrays depending on content (:func:`numpy.zeros`, :func:`numpy.ones`, :func:`numpy.full`, :func:`numpy.eye`, :func:`numpy.arange`, :func:`numpy.linspace`)::
+    parallax = stars[:, 0]  # `:` is a shorthand for "select everything along this dimension"
+    print(parallax)
 
-   np.zeros((2, 3))             # 2x3 array with all elements 0
-   np.ones((1,2))               # 1x2 array with all elements 1
-   np.full((2,2),7)             # 2x2 array with all elements 7
-   np.eye(2)                    # 2x2 identity matrix
+Now for some basic math.
+We need to convert the parallax value into distance.
+When we compute ``1 / parallax`` we get the distance in `"parsecs" <https://en.wikipedia.org/wiki/Parsec>`__ and each parsec is about 3.26156 light-years::
 
-   np.arange(10)                # Evenly spaced values in an interval
-   np.linspace(0,9,10)          # same as above, see exercise
+    distance_parsecs = 1 / parallax
+    distance_ly = distance_parsecs * 3.26156
 
-   c = np.ones((3,3))
-   d = np.ones((3, 2), 'bool')  # 3x2 boolean array
+Note that we didn't write any ``for``-loops.
+In NumPy, arithmetic operations on arrays are applied to every element in that array.
+It is very fast, because it is implemented in C or Fortran and makes use of specialized CPU instructions that perform operations on many values at once.
+We say an operation is "vectorized" when the looping over elements is carried out by NumPy internally.
+Common mathematical operations include: ``+`` (:data:`numpy.add`), ``-`` (:data:`numpy.subtract`), ``*`` (:data:`numpy.multiply`), ``/`` (:data:`numpy.divide`), ``.T`` (:func:`numpy.transpose`), :data:`numpy.sqrt`, :func:`numpy.sum`, :func:`numpy.mean`, ...
 
-Arrays can also be stored and read from a (.npy) file (:func:`numpy.save`, :func:`numpy.load`):: 
+.. note::
+   In NumPy, ``*`` performs element-wise multiplication and ``@`` performs matrix multiplication. This is different from other languages such as MATLAB or Julia.
 
-   np.save('x.npy', a)           # save the array a to a .npy file
-   x = np.load('x.npy')          # load an array from a .npy file and store it in variable x
+Let's examine the closest star in the dataset::
 
-In many occasions (especially when something goes different than expected) it is useful to check and control the datatype of the array (:attr:`numpy.ndarray.dtype`, :meth:`numpy.ndarray.astype`)::
+    print(np.min(distance_ly))
 
-   d.dtype                    # datatype of the array
-   d.astype('int')            # change datatype from boolean to integer
+The closest star is `Proxima Centauri <https://en.wikipedia.org/wiki/Proxima_Centauri>`__ at 4.2465 light-years.
+If we want to look up its magnitude, we would need to know which item in the ``distance_ly`` array was the smallest one::
 
-In the last example, ``.astype('int')``, it will make a **copy** of the
-array, and re-allocate data - unless the dtype is exactly the same as
-before.  Understanding and minimizing copies is one of the most
-important things to do for speed.
+    closest_star_index = np.argmin(distance_ly)
+    print(closest_star_index)
 
+That index we could use to select the proper row and column in the big ``stars`` array::
+
+    print(stars[index_of_closest_star, 1])  # column 1 contains the magnitude of the stars
+
+The magnitude scale works that the brightest stars have a magnitude of 1 and weaker stars have a magnitude of 2, 3 and so on.
+So Proxima Centauri is quite bright in our night's sky!
+
+NumPy has many other ways to select data.
+For example, let's see if we can show some information on the 10 stars closest to us.
+To do this, we must first order the stars by distance::
+
+    order_by_distance = np.argsort(distance_ly)  # argsort returns indices, not values
+    closest_indices = order_by_distance[:10]  # select the first 10 elements
+    print(closest_indices)
+
+We now have a list (technically a 1D :class:`numpy.ndarray`) of integer indices of the stars closest to us.
+We can select multiple elements by indexing the array with such a list::
+
+    print(stars[closest_indices, 1])   # magnitudes of the closest 10 stars
+    print(stars[closest_indices, 2])   # color of the closest 10 stars
 
 
 Exercises 1
@@ -126,66 +183,115 @@ Exercises 1
 
 .. challenge:: Exercises: Numpy-1
 
-   1. **Datatypes** Try out :func:`np.arange(10) <numpy.arange>` and :func:`np.linspace(0,9,10) <numpy.linspace>`, what is the difference? Can you adjust one to do the same as the other?
+   
+   #. The stars in the Big Dipper are those with indices: ``[512739, 513978, 546586, 559674, 582978, 602054, 616331]``.
+      What are the distances of those stars to us?
+      Are they actually as close together as they seem?
 
-   2. **Datatypes** Create a 3x2 array of random float numbers (check :func:`numpy.random.random`) between 0 and 1. Now change the arrays datatype to int (:meth:`array.astype <numpy.ndarray.astype>`). How does the array look like? 
+      .. figure:: img/numpy/Big_Dipper.jpg
+         :width: 300px
+         :align: center
 
-   3. **Reshape** Create a 3x2 array of random integer numbers between 0 and 10. Change the shape of the array (check :meth:`array.reshape <numpy.ndarray.reshape>`) in any way possible. What is not possible?
+         The Big Dipper as seen from Fujian. Image `retrieved from WikiMedia <https://en.wikipedia.org/wiki/Big_Dipper#/media/File:Big_Dipper_20210116.jpg>`__. CC-BY license.
+   #. Proxima Centauri is part of a 3-star system called `Alpha Centauri <https://en.wikipedia.org/wiki/Alpha_Centauri>`__.
+      The other two stars are very close together and appear as a single object (Alpha Centauri AB) in this dataset.
 
-   4. **NumPyI/O** Save above array to .npy file (:func:`numpy.save`) and read it in again.
+      #. What is the row index of the binary star Alpha Centauri AB?
+         It is the second closest star to us.
+      #. What is the distance from us to Alpha Centauri AB?
+   #. What is the distance from us to the brightest star in the dataset (`Sirius <https://en.wikipedia.org/wiki/Sirius>`__)?
+      Remember that a smaller magnitude means a brighter star.
 
-.. solution:: Solutions: Numpy-1
+.. solution:: Solution Numpy-1
 
-   1. **Datatypes**
-
-     - ``np.arange(10)`` results in ``array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])`` with dtype **int64**,
-     - while ``np.linspace(0,9,10)`` results in ``array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])`` with dtype **float64**.
-
-     Both ``np.linspace`` and ``np.arange`` take dtype as an argument and can be adjusted to match each other in that way.
-
-   2. **Datatypes** eg ``a = np.random.random((3,2))``. ``a.astype('int')`` results in an all zero array, not as maybe expected the rounded int (all numbers [0, 1) are cast to 0).
-
-   3. **Reshape** eg ``b = np.random.randint(0,10,(3,2))``.
-
-     ``b.reshape((6,1))`` and ``b.reshape((2,3))`` possible.
-
-     It is not possible to reshape to shapes using more or less elements than ``b.size = 6``, so for example ``b.reshape((12,1))`` gives an error.
-
-   4. **NumPyI/O** ``np.save('x.npy', b)`` and ``x = np.load('x.npy')`` 
-
+   #. Distances of the Big Dipper stars: ``distance_ly[[512739, 513978, 546586, 559674, 582978, 602054, 616331]]`` = 84.49, 122.89, 83.18, 80.88, 82.55, 80.6, and 103.94 light years. 
+      They are not as far apart from each other as you may think.
+      They actually move together through our Galaxy in a formation known as the `Ursa Major Moving Group <https://en.wikipedia.org/wiki/Ursa_Major_moving_group>`__.
+   #. Row index: ``alpha_centauri_ind = np.argsort(distance_ly)[1]`` = 650564.
+      Its distance is ``distance_ly[alpha_centauri_ind]`` = 4.395 light-years.
+   #. Brightest star index: ``brightest_ind = np.argsort(stars[:, 1])[0]`` = 303978.
+      Its distance is ``distance_ly[brightest_ind]`` = 8.601 light-years.
 
 
-Array maths and vectorization
------------------------------
+Part 2: Estimating the distance of really far away stars
+--------------------------------------------------------
 
-Clearly, you can do math on arrays.  Math in NumPy is very fast because it is
-implemented in C or Fortran - just like most other high-level languages such as
-R, Matlab, etc do.
+When you are on the southern hemisphere of the Earth, you can see a massive cluster of stars, 20 times wider than the moon:
 
-By default, basic arithmetic (``+``, ``-``, ``*``, ``/``) in NumPy is
-element-by-element.  That is, the operation is performed for each element in the
-array without you having to write a loop.  We say an operation is "vectorized"
-when the looping over elements is carried out by NumPy internally, which uses
-specialized CPU instructions for this that greatly outperform a regular Python
-loop.
+.. figure:: img/numpy/Large_Magellanic_Cloud.jpg
+   :width: 500px
+   :align: center
 
-Note that unlike Matlab, where ``*`` means matrix multiplication, NumPy uses
-``*`` to perform element-by-element multiplication and uses the ``@`` symbol to
-perform matrix multiplication::
+   The Large Magallanic Cloud. Photographed and edited by Martin Bernard, `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Large_Magellanic_Cloud_100mm.jpg>`__. CC BY-SA license.
 
-  a = np.array([[1,2],[3,4]])
-  b = np.array([[5,6],[7,8]])
 
-  # Addition
-  c = a + b
-  d = np.add(a,b)
+The Gaia data for a collection of stars that are part of the Large Magallanic Cloud can be found in ``lmc_stars.rst``::
 
-  # Matrix multiplication
-  e = a @ b
-  f = np.dot(a, b)
+    # Set this to where you unzipped the data package
+    lmc_filename = "../resources/data/numpy/lmc_stars.csv"
+    lmc_stars = np.genfromtxt(lmc_filename, delimiter=",", skip_header=1)
+    print(lmc_stars)
 
-Other common mathematical operations include: ``-`` (:data:`numpy.subtract`), ``*`` (:data:`numpy.multiply`), ``/`` (:data:`numpy.divide`), ``.T`` (:func:`numpy.transpose`), :data:`numpy.sqrt`, :func:`numpy.sum`, :func:`numpy.mean`, ...
+Just as before, the first column of the file contains the parallax, but in this case they are all 0.
+The parallax of these stars is so small that even the Gaia satellite cannot reliably measure it, which means they must be pretty far away.
+Still, we can estimate their distances, based on a striking relationship between the magnitude and the color of a star.
+A `Hertzsprung-Russel diagram <https://en.wikipedia.org/wiki/Hertzsprung%E2%80%93Russell_diagram>`__ illustrates this:
 
+.. figure:: img/numpy/hertzsprung_russel.jpg
+   :width: 500px
+   :align: center
+
+   All of the stars in our main dataset, plotted here as color versus intrinsic magnitude.
+   The main sequence is annotated as a green line.
+   Other than the main sequence stars, you can see the red giants branching off at the top, bright but yellow/red, and the white dwarfs at the bottom, very dim but blue/white.
+
+Based on this chart, we can derive a formula to translate the color of a main sequence star (so not a red giant or white dwarf) to its intrinsic magnitude, that is: how bright the star would appear to us if it were only a single parsec away from us.
+The curve is not a straight line, but this fifth order polynomial is a decent fit:
+
+.. math::
+
+   \text{magnitude} = -0.29\,\text{color}^5 + 0.28\,\text{color}^4 - 0.88\,\text{color}^3 + 0.65\,\text{color}^2 + 4.2\,\text{color} + 0.95
+
+To show off NumPy's linear algebra capabilities, we will compute this equation with the following vector-matrix product:
+
+.. math::
+
+   \text{magnitude} =
+   \begin{bmatrix}
+   -0.028, 0.28, -0.88, 0.65, 4.2, 0.95
+   \end{bmatrix}
+   \cdot
+   \begin{bmatrix}
+   \text{color}^5 \\ \text{color}^4 \\ \text{color}^3 \\ \text{color}^2 \\ \text{color} \\ 1
+   \end{bmatrix}
+
+
+Creating arrays
+---------------
+
+We use the :func:`numpy.array` function to create NumPy arrays.
+First the ``coefficients`` vector::
+
+   coefficients = np.array([-0.028, 0.28, -0.88, 0.65, 4.2, 0.95])
+   print(coefficients.shape)
+
+And now the matrix containing on each row the colors of the stars, raised to some power::
+
+   color = lmc_stars[:, 2]  # this column contains the color of the stars
+   color_powers = np.array([
+       color ** 5,
+       color ** 4,
+       color ** 3,
+       color ** 2,
+       color,
+       np.ones_like(color),  # produces an array filled with 1's
+   ])
+   print(color_powers)
+
+We estimate the intrinsic magnitude of our Large Magallanic Cloud stars by using a matrix multiplication between the ``coefficients`` vector and the ``color_powers`` matrix::
+
+    intrinsic_magnitude = coefficients @ color_powers  # `@` means matrix multiplication
+    print(intrinsic_magnitude)
 
 
 Exercises 2
@@ -193,363 +299,48 @@ Exercises 2
 
 .. challenge:: Exercises: Numpy-2
 
-   Create the following arrays:
+   In this exercise, you will estimate the distance to the Large Magallanic Cloud (LMC).
 
-   .. code-block:: python
+   #. Compare the intrinsic magnitude of the LMC stars as we computed together with their apparent magnitude (how bright they appear on Gaia's sensors: ``lmc_stars[:, 1]``) to deduce how much dimmer they appear to us than they actually are, hence how far away they must be.
+      The formula for this is as follows::
 
-      # 1-dimensional arrays
-      x = np.array([1, 10, 100])
-      # TODO: similar to `x`, create another 1-dimensional array with shape (3,)
-      # y = np.array(...)
+          parallax = 10 ** ((intrinsic_magnitude - apparent_magnitude - 5) / 5)
 
-      # 2-dimensional arrays
-      a = np.array([[1, 2], [3, 4]])
-      # TODO: similar to `a`, create another 2-dimensional array with shape (2, 2)
-      # b = np.array(...)
+   #. Convert the ``parallax`` you obtained with the above formula to distance in lightyears.
+      See Part 1 of this lesson on how to do this.
+   #. Use the average distance (:func:`numpy.mean`) as a representative value for roughly how far away the cloud is.
+      Given that the `Milky Way <https://en.wikipedia.org/wiki/Milky_Way>`__ galaxy is about 87400 light-years across, what does the distance to the Large Magallanic Cloud tell us?
 
-   - **Matrix multiplication** What is the difference between :data:`numpy.multiply` and :func:`numpy.dot` ? Try calling these functions
-     with either ``x, y`` (1D arrays) or ``a, b`` (2D arrays) as input and observe the behaviour.
-   - **Axis** What is the difference between :func:`np.sum(a, axis=1) <numpy.sum>` vs
-     :func:`np.sum(a, axis=0) <numpy.sum>` on a two-dimensional array? What if you leave out the axis parameter?
+.. solution:: Solution Numpy-2
 
+   #. .. code-block::
 
-.. solution:: Solutions: Numpy-2
+         apparent_magnitude = lmc_stars[:, 1]
+         lmc_parallax = 10 ** ((intrinsic_magnitude - apparent_magnitude - 5) / 5)
 
-   - **Matrix multiplication** ``np.multiply`` does elementwise multiplication on two arrays. The function ``np.dot`` enables:
-     - *dot product* and returns a scalar, when both input arrays are 1 dimensional
-     - *matrix multiplication* and returns back a 2-dimensional array, when both the input arrays are 2 dimensional
-     However, ``a @ b`` is preferred over ``np.dot(a, b)`` to express matrix multiplication.
-   - **Axis** ``axis=1`` does the operation (here: ``np.sum``) over each row, while axis=0 does it over each column. If axis is left out, the sum of the full array is given.
+   #. .. code-block::
 
+         lmc_distance_ly = (1 / lmc_parallax) * 3.26156
 
+   #. .. code-block::
 
-Indexing and Slicing
---------------------
+         print(np.mean(lmc_distance_ly))
 
-.. seealso::
+      The Large Magallanic Cloud is roughly 159000 light-years away.
+      This means it does not lie in our galaxy, but must be a galaxy of its own.
 
-   :ref:`Numpy basic indexing docs <basics.indexing>`
 
-NumPy has many ways to extract values out of arrays:
+Where to go from here
+---------------------
+To get started using NumPy for your own research projects, we recommend diving into a more detailed tutorial such as the ones offered by the official NumPy website: https://numpy.org/learn.
 
-- You can select a single element
-- You can select rows or columns
-- You can select ranges where a condition is true.
 
-Clever and efficient use of these operations is a key to NumPy's
-speed: you should try to cleverly use these selectors (written in C)
-to extract data to be used with other NumPy functions written in C or
-Fortran.  This will give you the benefits of Python with most of the
-speed of C.
+About the data
+--------------
+The data for this exercise is a combination of the `Gaia <https://www.esa.int/Science_Exploration/Space_Science/Gaia>`_ and `SIMBAD <https://simbad.u-strasbg.fr/simbad/>`_ datasets.
+The Gaia satellite did not image the brightest stars, the most famous ones, because their brightness overwhelms her sensors.
+Hence, the 50 brightest stars our dataset were not from Gaia, but were instead taken from the SIMBAD database.
+Those are the stars we look at during the Big Dipper demo.
 
-::
-
-  a = np.arange(16).reshape(4, 4)  # 4x4 matrix from 0 to 15
-  a[0]                             # first row
-  a[:,0]                           # first column
-  a[1:3,1:3]                       # middle 2x2 array
-
-  a[(0, 1), (1, 1)]                # second element of first and second row as array
-
-Boolean indexing on above created array::
-
-  idx = (a > 0)      # creates boolean matrix of same size as a 
-  a[idx]             # array with matching values of above criterion
-  
-  a[a > 0]           # same as above in one line 
-
-
-
-Exercises 3
------------
-
-.. challenge:: Exercise: Numpy-3
-
-   ::
-
-      a = np.eye(4)
-      b = a[:, 0]
-      b[0] = 5
-
-   Try out the above code. 
-
-   - How does ``a`` look like before ``b`` has changed and after? 
-   - How could it be avoided?
-
-.. solution:: Solution: Numpy-3
-
-   **View vs copy**: The change in ``b`` has also changed the array ``a``!
-   This is because ``b`` is merely a *view* or a *shallow copy* of a part of array ``a``.  Both
-   variables point to the same memory. Hence, if one is changed, the other
-   one also changes. 
-   
-   In this example, if you need to keep the original array as is, use
-   :func:`np.copy(a) <numpy.copy>` or ``np.copy(a[:, 0])``
-   to create a new *deep copy* of the whole or a slice of array respectively,
-   before updating ``b``.
-   
-   .. seealso::
-
-      NumPy's documentation on :numpy:ref:`quickstart.copies-and-views`
-     
-
-
-Types of operations
--------------------
-
-There are different types of standard operations in NumPy:
-
-**ufuncs**, ":ref:`universal functions <ufuncs>`": These are element-by-element
-functions with standardized arguments:
-
-- One, two, or three input arguments
-- For example, ``a + b`` is similar to :data:`np.add(a, b) <numpy.add>` but the ufunc
-  has more control.
-- ``out=`` output argument, store output in this array (rather than
-  make a new array) - saves copying data!
-- See the `full reference
-  <https://numpy.org/doc/stable/reference/ufuncs.html>`__
-
-- They also do **broadcasting** (:ref:`ref <basics.broadcasting>`).  Can you add a 1-dimensional array of shape `(3)`
-  to an 2-dimensional array of shape `(3, 2)`?   With broadcasting you
-  can!
-
-  ::
-
-     a = np.array([[1, 2, 3],
-                   [4, 5, 6]])
-     b = np.array([10, 10, 10])
-     a + b                       # array([[11, 12, 13],
-                                 #        [14, 15, 16]])
-
-  Broadcasting is smart and consistent about what it does, which I'm
-  not clever enough to explain quickly here: `the manual page on
-  broadcasting
-  <https://numpy.org/doc/stable/user/basics.broadcasting.html>`__.
-  The basic idea is that it expands dimensions of the smaller array so
-  that they are compatible in shape.
-
-**Array methods** do something to one array:
-
-- Some of these are the same as ufuncs::
-
-     x = np.arange(12)
-     x.shape = (3, 4)
-     x                    #  array([[ 0,  1,  2,  3],
-                          #         [ 4,  5,  6,  7],
-                          #         [ 8,  9, 10, 11]])
-     x.max()              #  11
-     x.max(axis=0)        #  array([ 8,  9, 10, 11])
-     x.max(axis=1)        #  array([ 3,  7, 11])
-
-**Other functions**: there are countless other functions covering
-linear algebra, scientific functions, etc.
-
-
-
-Exercises 4
------------
-
-.. challenge:: Exercises: Numpy-4
-
-   - **In-place addition**: Create an array, add it to itself using a
-     ufunc.
-
-   - **In-place addition** (advanced): Create an array of
-     ``dtype='float'``, and an array of ``dtype='int'``.  Try to use the
-     int array as the output argument of the first two arrays.
-
-   - **Output arguments and timing** Repeat the initial ``b = a **
-     2`` example using a ufunc and time it.  Can you make
-     it even faster using the output argument?
-
-.. solution:: Solution: Numpy-4
-
-   - **in-place addition**::
-
-       x = np.array([1, 2, 3])
-       id(x)                        # get the memory-ID of x
-       np.add(x, x, out=x)          # Third argument is output array
-       np.add(x, x, out=x)
-       print(x)
-       id(x)                        # get the memory-ID of x
-                                    # - notice  it is the same
-
-     Note that ``np.add()`` writes the result to the output array (``out=``)
-     *and* the function returns that same array.
-
-
-   - **Output arguments and timing** In this case, on my computer, it was
-     actually slower (this is due to it being such a small array!)::
-
-        a = np.arange(10_000)
-	b = np.zeros(10_000)
-
-     ::
-
-	%%timeit
-	numpy.square(a, out=b)
-
-     This is a good example of why you always need to time things
-     before deciding what is best.
-
-     Note: the ``_`` inside numbers is just for human readability and is
-     ignored by python.
-
-
-
-
-Linear algebra and other advanced math
---------------------------------------
-
-In general, you use :class:`arrays <numpy.ndarray>` (n-dimensions), not :class:`matrixes <numpy.matrix>`
-(specialized 2-dimensional) in NumPy.
-
-Internally, NumPy doesn't invent its own math routines: it relies on
-`BLAS
-<https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms>`__
-and `LAPACK <https://en.wikipedia.org/wiki/LAPACK>`__ to do this kind
-of math - the same as many other languages.
-
-- `Linear algebra in numpy
-  <https://numpy.org/doc/stable/reference/routines.linalg.html>`__
-
-- `Many, many other array functions
-  <https://numpy.org/doc/stable/reference/routines.html>`__
-
-- `Scipy <https://docs.scipy.org/doc/scipy/reference/>`__ has even
-  more functions
-
-- Many other libraries use NumPy arrays as the standard data
-  structure: they take data in this format, and return it similarly.
-  Thus, all the other packages you may want to use are compatible
-
-- If you need to write your own fast code in C, NumPy arrays can be
-  used to pass data.  This is known as `extending Python
-  <https://docs.python.org/3/extending/>`__.
-
-
-
-
-Additional exercises
---------------------
-
-.. challenge:: Numpy-5
-
-   If you have extra time, try these out.  These are advanced and
-   optional, and will not be done in most courses.
-
-   1. Reverse a vector. Given a vector, reverse it such that the last
-      element becomes the first, e.g. ``[1, 2, 3]`` => ``[3, 2, 1]``
-
-   2. Create a 2D array with zeros on the borders and 1 inside.
-
-   3. Create a random array with elements [0, 1), then add 10 to all
-      elements in the range [0.2, 0.7).
-
-   4. What is :func:`np.round(0.5) <numpy.round_>`? What is ``np.round(1.5)``? Why?
-
-   5. In addition to ``np.round``, explore :data:`numpy.ceil`, :data:`numpy.floor`,
-      :data:`numpy.trunc`. In particular, take note of how they behave with
-      negative numbers.
-
-   6. Recall the identity :math:`\sin^2(x) + \cos^2(x) = 1`. Create a
-      random 4x4 array with values in the range [0, 10). Now test the
-      equality with :data:`numpy.equal`. What result do you get with
-      :func:`numpy.allclose` instead of ``np.equal``?
-
-   7. Create a 1D array with 10 random elements. Sort it.
-
-   8. What's the difference between :meth:`np_array.sort() <numpy.ndarray.sort>` and
-      :func:`np.sort(np_array) <numpy.sort>`?
-
-   9. For the random array in question 8, instead of sorting it, perform
-      an indirect sort. That is, return the list of indices which would
-      index the array in sorted order.
-
-   10. Create a 4x4 array of zeros, and another 4x4 array of ones. Next
-       combine them into a single 8x4 array with the content of the zeros
-       array on top and the ones on the bottom.  Finally, do the same,
-       but create a 4x8 array with the zeros on the left and the ones on
-       the right.
-
-   11. NumPy functionality Create two 2D arrays and do matrix multiplication
-       first manually (for loop), then using the np.dot function. Use %%timeit
-       to compare execution times. What is happening?
-
-
-.. solution:: Solution Numpy-5
-
-   1. One solution is:: 
-    
-       a = np.array([1, 2, 3])
-       a[::-1]
-        
-   2. One solution is::
-        
-       b = np.ones((10,10))
-       b[:,[0, -1]]=0
-       b[[0, -1],:]=0
-
-   3. A possible solution is::
-        
-       x = np.random.rand(100)
-       y = x + 10*(x >= 0.2)*(x < 0.7)
-    
-   4. For values exactly halfway between rounded decimal values, NumPy rounds to the nearest even value.
-
-   5. Let's test those functions with few negative and positive values::
-
-       a = np.array([-3.3, -2.5, -1.5, -0.75, -0.5, 0.5, 0.75, 1.5, 2.5, 3])
-       np.round(a)  # [-3. -2. -2. -1. -0.  0.  1.  2.  2.  3.]
-       np.ceil(a)  # [-3. -2. -1. -0. -0.  1.  1.  2.  3.  3.]
-       np.floor(a)  # [-4. -3. -2. -1. -1.  0.  0.  1.  2.  3.]
-       np.trunc(a)  # [-3. -2. -1. -0. -0.  0.  0.  1.  2.  3.]
-
-
-   6. One solution is::
-
-       x = 10*np.random.rand(4,4)
-       oo = np.ones((4,4))
-       s2c2 = np.square(np.sin(x))+np.square(np.cos(x))
-       np.equal(oo,s2c2)
-       np.allclose(oo,s2c2)
-
-   7. Sorting the array itself, without copying it::
-        
-       x = np.random.rand(10)
-       x.sort()
-
-   8. NumPy.sort() returns a sorted copy of an array. 
-
-   9. ``np.argsort(x)``
-
-   10. One solution is::
-
-        z = np.zeros((4,4))
-        o = np.ones((4,4))
-        np.concatenate((z,o))
-        np.concatenate((z,o),axis=1)
-    
-   11. Using numpy without numpy functionality (np.dot) in this case, is still slow.
-
-
-
-See also
---------
-
-* `NumPy manual <https://numpy.org/doc/stable/reference/>`__
-
-  * `Basic array class reference <https://numpy.org/doc/stable/reference/arrays.html>`__
-  * `Indexing
-    <https://numpy.org/doc/stable/reference/arrays.indexing.html>`__
-  * `ufuncs <https://numpy.org/doc/stable/reference/ufuncs.html>`__
-
-* `2020 Nature paper on NumPy's role and basic concepts <https://www.nature.com/articles/s41586-020-2649-2>`__
-
-
-
-.. keypoints::
-
-   - NumPy is a powerful library every scientist using python should know about, since many other libraries also use it internally.
-   - Be aware of some NumPy specific peculiarities
+For the Large Magallanic Cloud exercise, we cherry picked the stars in ``lmc_stars.csv`` to be perfectly on the main sequence and thus ensuring that you get a decent estimate of the distance.
+In reality it's quite an ordeal to choose the proper stars to base your distance estimate on.
