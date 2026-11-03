@@ -413,6 +413,10 @@ Any recent version of Python 3 should work for the course (for example
 3.8 or higher).
 
 
+Data package
+------------
+For the NumPy lesson, you will need to download and extract a data package, which you can find here:
+https://drive.google.com/file/d/1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I/view?usp=sharing
 
 Zoom
 ----
