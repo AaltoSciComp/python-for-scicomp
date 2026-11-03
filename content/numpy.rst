@@ -54,7 +54,7 @@ We can use the amount of parallax to determine how far away a star is.
 
    Visual explanation of the parallax effect. Image `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Stellarparallax_parsec1.svg>`__. Public domain.
 
-A sample of the Gaia data can be found in ``local_stars.csv``.
+A sample of the Gaia data can be found in ``local_stars.csv``, which is part of the :download:`data package <https://drive.google.com/file/d/1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I/view?usp=sharing>`.
 This is a *comma separated value (CSV)* file, where each line contains the parallax, magnitude and color of the star.
 The first line of that file is the "header" containing the column names::
 
