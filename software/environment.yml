@@ -26,4 +26,5 @@ dependencies:
   - netcdf4
   - yfinance
   - pythia-datasets
-  
+  - cython
+  - c-compiler
