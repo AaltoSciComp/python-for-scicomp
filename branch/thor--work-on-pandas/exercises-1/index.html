@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Exercises 1 &mdash; Python for Scientific Computing  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_lesson.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/togglebutton.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex/" />
+    <link rel="search" title="Search" href="../search/" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../" class="icon icon-home" alt="Documentation Home"> Python for Scientific Computing
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search/" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python/">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jupyter/">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../numpy/">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-visualization/">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../packaging/">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scipy/">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pandas/">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libraries/">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies/">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../binder/">Binder</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation/">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../">Python for Scientific Computing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Exercises 1</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/exercises-1.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="exercises-1">
+<h1>Exercises 1<a class="headerlink" href="#exercises-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="exercise-1-1">
+<h2>Exercise 1.1<a class="headerlink" href="#exercise-1-1" title="Permalink to this headline">¶</a></h2>
+<p>Who needs numpy anyway? Implement matrix multiplication with nested
+lists as your matrix representation. <em>Hint for beginners</em>: Create one
+function</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">creatematrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>which creates an NxM matrix filled with random values
+(e.g. random.random()). Then create another function</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">matrixmult</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>which multiplies together two matrices a and b.</p>
+</div>
+<div class="section" id="exercies-1-2">
+<h2>Exercies 1.2<a class="headerlink" href="#exercies-1-2" title="Permalink to this headline">¶</a></h2>
+<p>Lets continue with the previous example, and add some object oriented
+scaffolding around our matrix code.  Create a Matrix class with a
+constructor to create the random matrix, and overload the ‘*’ operator
+to multiply two Matrix instances. Reuse the code from the previous
+exercise.</p>
+</div>
+<div class="section" id="exercise-1-3">
+<h2>Exercise 1.3<a class="headerlink" href="#exercise-1-3" title="Permalink to this headline">¶</a></h2>
+<p>The essence of science is experiment and measurement.  So lets measure
+our matrix multiplication implementation, and calculate how fast it
+can multiply matrices, in terms of “Gflops/s” (Giga floating point
+operations per second). <em>Hint</em>: A “flop” is a floating point multiply
+or addition/subtraction.  First figure out of many flops are needed to
+multiply two matrices. Then you need to time it; for this you can use
+the IPython magic %timeit command. And finally, equipped with this
+information, you can calculate a Gflops/s score for you multiplication
+method.</p>
+</div>
+<div class="section" id="exercise-1-4">
+<h2>Exercise 1.4<a class="headerlink" href="#exercise-1-4" title="Permalink to this headline">¶</a></h2>
+<p>Basic file I/O. Run the following python snippet to create a file
+<code class="docutils literal notranslate"><span class="pre">pangrams.txt</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;pangrams.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The quick brown fox jumps over the lazy dog</span>
+<span class="s2">Sphinx of black quartz, judge my vow</span>
+<span class="s2">The dog ate my homework</span>
+<span class="s2">Pack my box with five dozen liquor jugs</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, create Python code to read that file, and check each line
+whether it’s a pangram. A pangram is a sentence to uses all the
+letters of the alphabet.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, The contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

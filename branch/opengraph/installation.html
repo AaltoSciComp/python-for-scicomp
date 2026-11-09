@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Software installation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="installation.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="This page contains instructions for installing the required software on your computer. Please make sure before the course that you have all the required software installed or some other way access ..." />
+<meta name="description" content="This page contains instructions for installing the required software on your computer. Please make sure before the course that you have all the required software installed or some other way access ..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software installation &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick reference" href="quick-reference.html" />
+    <link rel="prev" title="Packaging" href="packaging.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-advanced.html">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scipy.html">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder.html">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Software installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generic-list-of-tools-required">Generic list of tools required</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verification-of-python-and-jupyterlab">Verification of Python and JupyterLab</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#text-editor">Text editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line">Command line</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verification-of-the-command-line">Verification of the command line</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#zoom">Zoom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#need-help">Need help?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Software installation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/installation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="software-installation">
+<h1>Software installation<a class="headerlink" href="#software-installation" title="Permalink to this heading"></a></h1>
+<p>This page contains instructions for installing the required software
+on your computer.
+Please make sure before the course that you have all the required software
+installed or some other way access to it.  For example, the workshop could be done with a remote Jupyter
+server, as long as you can use the terminal from the Jupyter (you need
+to be able to access the command line for some lessons).</p>
+<p><strong>If you need installation help, show this page to someone around you
+and they can probably do all you need</strong></p>
+<section id="generic-list-of-tools-required">
+<h2>Generic list of tools required<a class="headerlink" href="#generic-list-of-tools-required" title="Permalink to this heading"></a></h2>
+<p>Note: The actual installation instructions are below.  This is a
+generic description which will help those who already understand all
+of the tools.</p>
+<ul class="simple">
+<li><p><strong>Python 3</strong> (Anaconda is recommended, it will include everything)</p>
+<ul>
+<li><p>With some extra packages installed.  They are all included in
+Aanconda, and are listed in the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file you can
+find under miniconda below.</p></li>
+</ul>
+</li>
+<li><p>Text editor (several lessons, can also be done through Jupyterlab)</p></li>
+<li><p>Command-line shell (several lessons, can also be done through Jupyterlab)</p></li>
+<li><p>git (not needed, this lesson is usually done as a demo)</p></li>
+</ul>
+<div class="dropdown admonition">
+<p class="admonition-title">Generic instructions with miniconda and an environment file (advanced)</p>
+<p>This is the advanced, minimal method of installing the Python
+packages.  For most people, we recommend Anaconda (below).  You
+will actually learn about miniconda during the workshop.  This
+doesn’t provide the graphical Anaconda navigator, so you’ll need to
+activate the miniconda environment using the command line.</p>
+<p>You can read how to install miniconda from the <a class="reference external" href="https://coderefinery.github.io/installation/conda/">CodeRefinery
+installation instructions</a>.</p>
+<p>Then <a class="reference external" href="https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml">this environment file</a>
+contains all packages needed, and can be installed with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>conda env create -f https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/software/environment.yml
+</pre></div>
+</div>
+<p>Each time you start a new shell, you need to activate miniconda (if
+you don’t do run <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">init</span></code>), and then you need to activate the
+proper environment with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">python-for-scicomp</span></code>.</p>
+<p>We might have missed some packages, though, which can be later
+installed with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code>.</p>
+</div>
+</section>
+<section id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this heading"></a></h2>
+<p>We expect you to have a working Python installation with some common
+libraries.  We recommend that you install the <a class="reference external" href="https://docs.continuum.io/anaconda/install/">Anaconda python
+distribution</a>.  The
+<a class="reference external" href="https://docs.anaconda.com/anaconda/navigator/">Anaconda Navigator</a>
+provides a convenient way to access the software.</p>
+<div class="toggle admonition">
+<p class="admonition-title">Other options</p>
+<p>We recommend Anaconda, Anaconda Navigator, and JupyterLab in these
+instructions because it is simple and can be used by everyone.  As
+you advance in your career, we
+recommend that you explore other options as well, but
+that can come later.</p>
+<p>Any other Python distribution which you can install libraries into
+would work, but because there are so many different ways to do this,
+we don’t support them.  You would need the extra libraries mentioned
+in the Miniconda instructions above.</p>
+</div>
+<section id="jupyterlab">
+<h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this heading"></a></h3>
+<p>We do most of the lessons from JupyterLab (and JupyterLab provides
+most of the other tools we need).  If you install the full
+Anaconda distribution, this will be available and can be started
+either through Anaconda Navigator or command line.</p>
+</section>
+<section id="verification-of-python-and-jupyterlab">
+<h3>Verification of Python and JupyterLab<a class="headerlink" href="#verification-of-python-and-jupyterlab" title="Permalink to this heading"></a></h3>
+<div class="admonition-watch-the-video admonition">
+<p class="admonition-title">Watch the video</p>
+<p>See this <a class="reference external" href="https://youtu.be/OEX1ss_HCHc">verification in video form</a> - if you can do this, you are
+ready to go for day one.  Your exact steps may be a bit different.</p>
+</div>
+<p><strong>You should be able to start JupyterLab.</strong>  You can do this from the
+<a class="reference external" href="https://docs.anaconda.com/anaconda/navigator/">Anaconda Navigator</a> (recommended if you have it):</p>
+<figure class="align-default" id="id1">
+<img alt="_images/anaconda-navigator-jupyterlab.png" class="with-border" src="_images/anaconda-navigator-jupyterlab.png" />
+<figcaption>
+<p><span class="caption-text">Starting JupyterLab from the Anaconda Navigator.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>… or you can start JupyterLab from the command line:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>jupyter-lab
+<span class="gp gp-VirtualEnv">(... Jupyter starts in a web browser)</span>
+</pre></div>
+</div>
+<p><strong>Verify that you can start a Jupyter notebook.</strong> We will learn how to
+do this in day 1, but you can try running <code class="docutils literal notranslate"><span class="pre">print(&quot;Hello,</span> <span class="pre">world!&quot;)</span></code>
+if you want.</p>
+<figure class="align-default" id="id2">
+<img alt="_images/jupyterlab-notebook.png" class="with-border" src="_images/jupyterlab-notebook.png" />
+<figcaption>
+<p><span class="caption-text">Starting a Jupyter Notebook from JupyterLab.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="text-editor">
+<h2>Text editor<a class="headerlink" href="#text-editor" title="Permalink to this heading"></a></h2>
+<p>For one portion of the course, you will need a text editor.  <strong>If you
+don’t know what to use, you can use the text editor that comes from
+JupyterLab and it will do everything you need - no extra installation
+needed.</strong></p>
+<div class="toggle admonition">
+<p class="admonition-title">Other editors</p>
+<p>Because we need to be simple in our teaching, we only teach the
+most basic editors.  We encourage you to try out more advanced ones
+yourself.</p>
+<p>For other editors, see the <a class="reference external" href="https://coderefinery.github.io/installation/editors/">CodeRefinery instructions</a>.  You don’t
+exactly need a terminal editor - the graphical ones, such as VSCode or
+whatever you use now, will work as well.</p>
+</div>
+</section>
+<section id="command-line">
+<h2>Command line<a class="headerlink" href="#command-line" title="Permalink to this heading"></a></h2>
+<p><strong>You need access to the command line for some lessons.  JupyterLab
+includes it, so no extra installation is needed.</strong>  If you want to
+test in advance:</p>
+<ul>
+<li><p>You can start it from JupyterLab (recommended):</p>
+<figure class="align-default" id="id3">
+<a class="with-border reference internal image-reference" href="_images/jupyterlab-terminal.png"><img alt="_images/jupyterlab-terminal.png" class="with-border" src="_images/jupyterlab-terminal.png" style="width: 421.5px; height: 181.5px;" /></a>
+<figcaption>
+<p><span class="caption-text">From the JupyterLab launcher, select “Terminal”.</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+</ul>
+<div class="toggle admonition">
+<p class="admonition-title">Other ways to access the command line</p>
+<ul>
+<li><p>From the Anaconda Navigator:</p>
+<figure class="align-default" id="id4">
+<img alt="_images/anaconda-prompt.png" class="with-border" src="_images/anaconda-prompt.png" />
+<figcaption>
+<p><span class="caption-text">From the Anaconda Navigator, you can select “environments” on the
+left, then click on one, then the arrow, then “Open terminal”.</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>From your operating system’s terminal applications, if you activate
+Anaconda.</p></li>
+</ul>
+</div>
+<section id="verification-of-the-command-line">
+<h3>Verification of the command line<a class="headerlink" href="#verification-of-the-command-line" title="Permalink to this heading"></a></h3>
+<p>To verify command line usage, type the following commands (without the
+<code class="docutils literal notranslate"><span class="pre">$</span></code>), and you should see the corresponding output that lists the
+Python version:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python -V
+<span class="go">Python 3.8.3</span>
+
+<span class="gp">#</span><span class="c1"># Or python3...</span>
+<span class="gp">$ </span>python3 -V
+<span class="go">Python 3.8.3</span>
+</pre></div>
+</div>
+<p>Any version of Python 3 through a recent Anaconda should work for the
+course.</p>
+</section>
+</section>
+<section id="zoom">
+<h2>Zoom<a class="headerlink" href="#zoom" title="Permalink to this heading"></a></h2>
+<p>If this is an online workshop, it might use Zoom.  You can see
+<a class="reference external" href="https://coderefinery.github.io/installation/zoom/">CodeRefinery instructions for it</a>.</p>
+</section>
+<section id="need-help">
+<h2>Need help?<a class="headerlink" href="#need-help" title="Permalink to this heading"></a></h2>
+<p>If you have access, come to one of the installation help sessions.
+Or, ask your colleagues: these are standard tools and you can
+definitely find someone can help you get set up!</p>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=ddCde5Nu2qo&amp;list=PLpLblYHCzJAB6blBBa0O2BEYadVZV3JYf">Research Software Hour on conda</a></p></li>
+<li><p><a class="reference external" href="https://docs.conda.io/en/latest/">Conda manual</a> (technical)</p></li>
+<li><p><a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda individual edition home</a></p></li>
+<li><p><a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/getting-started/">Anaconda getting started</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="packaging.html" class="btn btn-neutral float-left" title="Packaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quick-reference.html" class="btn btn-neutral float-right" title="Quick reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

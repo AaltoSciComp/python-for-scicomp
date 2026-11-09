@@ -1,0 +1,815 @@
+.. _dependency_management:
+
+Dependency management
+=====================
+
+.. questions::
+
+   - Do you expect your code to work in one year?  Five?  What if it
+     uses ``numpy`` or ``pytorch`` or ``random-github-package`` ?
+   - How can my collaborators easily install my code with all the necessary dependencies?
+   - How can I make it easy for my others (and me in future) to reproduce my results?
+   - How can I work on two (or more) projects with different and conflicting dependencies?
+
+.. objectives::
+
+   - Learn how to record dependencies
+   - Be able to communicate the dependencies as part of a report/thesis/publication
+   - Learn how to use isolated environments for different projects
+   - Simplify the use and reuse of scripts and projects
+
+
+What even is a dependency?
+--------------------------
+
+* **Dependency**: Reliance on a external component.  In this case, a
+  separately installed software package such as ``numpy``.
+
+
+
+Exercise 1
+----------
+
+.. challenge:: Dependencies-1: Discuss dependency management (5 min)
+
+  Please discuss and answer via **collaborative document** the
+  following questions:
+
+  - How do you install Python packages (libraries) that you use in your work?
+    From PyPI using pip? From other places using pip? Using conda?
+  - How do you track/record the dependencies? Do you write them into a file or README? Into
+    ``requirements.txt`` or ``environment.yml``?
+  - If you track dependencies in a file, why do you do this?
+  - Have you ever experienced that a project needed a different version of a Python
+    library than the one on your computer? If yes, how did you solve it?
+
+
+.. _pypi:
+
+PyPI (The Python Package Index) and conda ecosystem
+---------------------------------------------------
+
+PyPI (The Python Package Index) and conda are popular packaging/dependency
+management tools:
+
+- When you use ``pip`` or ``uv`` you typically install from `PyPI
+  <https://pypi.org/>`__, but you can also install packages from
+  source code provided in repositories in e.g. Github.
+
+- When you use ``conda`` you typically install from `Anaconda Cloud
+  <https://anaconda.org/>`__ where there are conda channels maintained
+  by Anaconda Inc. and by various communities.
+
+Why are there two ecosystems?
+
+
+.. admonition:: PyPI
+
+   - **Installation tool:** `pip <https://pip.pypa.io/en/stable/>`__, `uv <https://docs.astral.sh/uv/>`__
+   - **Summary:** PyPI is traditionally used for Python-only packages or
+     for Python interfaces to external libraries. There are also packages
+     that have bundled external libraries (such as numpy).
+   - **Amount of packages:** Huge number.
+   - **How libraries are handled:** If your code depends on external
+     libraries or tools, these things need to be either included in the
+     pip-package or provided via some other installation system (like
+     operating system installer or manual installation).
+   - **Pros:**
+       - Easy to use
+       - Package creation is easy
+   - **Cons:**
+       - Installing packages that need external libraries can be complicated
+
+.. admonition:: Conda
+
+   - **Installation tool:** `conda <https://docs.conda.io/projects/conda/en/stable/>`__, `mamba <https://mamba.readthedocs.io/en/latest/user_guide/mamba.html#>`__
+   - **Summary:** Conda aims to be a more general package distribution tool
+     and it tries to provide not only the Python packages, but also other
+     libraries and tools needed by the Python packages.
+   - **Amount of packages:** Huge number in conda-forge and in other community
+     channels. Curated versions in licensed channels. Other packages can be
+     installed via pip.
+   - **How libraries are handled:** Required libraries are installed as separate
+     conda packages.
+   - **Pros:**
+       - Quite easy to use
+       - Easier to manage packages that need external libraries
+   - **Cons:**
+       - Package creation is harder
+
+
+Conda ecosystem explained
+-------------------------
+
+.. figure:: img/dependencies/conda-ecosystem.png
+   :alt: Figure that shows non-free and free parts of the conda ecosystem. Non-free side has Anaconda Inc., Anaconda repository, Anaconda channels, Miniconda and Anaconda distribution. Free side has Community, conda-forge and Miniforge.
+
+   Figure 1: Conda ecosystem visualized
+
+.. admonition:: Licensing and conda
+
+   Conda was originally created by Anaconda Inc. and they provide their
+   own licensed packages. At the same time a big open-source community
+   provides most of the packages. Thus it is good to know what is free
+   and open source and what is under licenses.
+
+   It is highly recommended to use Miniforge to create the environments
+   and to use conda-forge as the main channel for software. You can add
+   `nodefaults` to channel list to disable Anaconda's repositories.
+
+   **Free:**
+     - conda and mamba (installation tools)
+     - community channels (e.g. conda-forge)
+     - Miniforge
+   **Licensed:**
+     - Anaconda distribution
+     - Anaconda repository (`repo.anaconda.com <https://repo.anaconda.com>`__)
+     - Anaconda's channels in the community repository (anaconda.org)
+       are free in some cases.
+     - Miniconda is free, when it does not download Anaconda's packages.
+
+   All of these are licensed under Anaconda Inc. and free in some cases. See
+   `Academic Policy <https://www.anaconda.com/legal/terms/academic>`__,
+   `Terms of Service <https://www.anaconda.com/legal/terms/terms-of-service#WhenYouCanUseThePlatformForFree>`__
+   and
+   `Non-profit & Research Policy <https://www.anaconda.com/legal/terms/non-profit-research>`__
+   for more information.
+
+- Package repositories:
+
+  - `Anaconda Community Repository (anaconda.org) <https://anaconda.org/>`__
+    aka. Anaconda Cloud is a package cloud maintained by Anaconda Inc.
+    It is a repository that houses mirrors of Anaconda's channels and
+    community maintained channels.
+  - `Anaconda Repository (repo.anaconda.com) <https://repo.anaconda.com>`__
+    houses Anaconda's own proprietary software channels.
+
+- Major package channels:
+
+  - Anaconda's proprietary channels: ``main``, ``r``, ``msys2`` and ``anaconda``.
+    These are sometimes called ``defaults``.
+  - `conda-forge <https://conda-forge.org/>`__ is the largest open source
+    community channel. It has over 27,000 packages that include open-source
+    versions of packages in Anaconda's channels.
+
+- Package distributions and installers:
+
+  - `Anaconda <https://www.anaconda.com/>`__ is a distribution of conda packages
+    made by Anaconda Inc.. When using Anaconda remember to check that your
+    situation abides with their licensing terms.
+  - `Miniconda <https://conda.io/miniconda.html>`__ is a minimal installer
+    maintained by Anaconda Inc. that has conda and uses Anaconda's channels
+    by default. Check licensing terms when using these packages.
+  - `Miniforge <https://github.com/conda-forge/miniforge>`__ is an open-source
+    Miniconda replacement that uses conda-forge as the default channel.
+    Contains mamba as well.
+  - `micromamba <https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html>`__
+    is a tiny stand-alone version of the mamba package manager written in C++.
+    It can be used to create and manage environments without installing
+    base-environment and Python. It is very useful if you want to automate
+    environment creation or want a more lightweight tool.
+
+- Package managers:
+
+  - `conda <https://docs.conda.io/projects/conda/en/stable/>`__ is a package and environment management system
+    used by Anaconda. It is an open source project maintained by Anaconda Inc..
+  - `mamba <https://mamba.readthedocs.io/en/latest/user_guide/mamba.html#>`__ is a drop in
+    replacement for conda with additional UI features.
+
+Exercise 2
+----------
+
+.. challenge:: Dependencies-2: Package language detective (5 min)
+
+   Think about the following sentences:
+
+   1. Yes, you can install my package with pip from GitHub.
+   2. I forgot to specify my channels, so my packages came from the defaults.
+   3. I have a Miniforge installation and I use mamba to create my environments.
+
+   What hidden information is given in these sentences?
+
+   .. solution::
+
+     1. The package is provided as a pip package. However, it is most likely
+        not uploaded to PyPI as it needs to be installed from a repository.
+     2. In this case the person saying the sentence is most likely using
+        Anaconda or Miniconda because these tools use the ``defaults``-channel
+        as the default channel. They probably meant to install software from
+        conda-forge, but forgot to specify the channel.
+     3. Miniforge uses conda-forge as the default channel. So unless some
+        other channel has been specified, packages installed with these
+        tools come from conda-forge as well.
+
+Python environments
+-------------------
+
+An **environment** is a basically a folder that contains a Python
+interpreter and other Python packages in a folder structure similar
+to the operating system's folder structure.
+
+These environments can be created by:
+
+- `venv <https://docs.python.org/3/library/venv.html>`__-module in base Python
+- `uv <https://docs.astral.sh/uv/>`__
+- `conda <https://docs.conda.io/projects/conda/en/stable/>`__ / `mamba <https://mamba.readthedocs.io/en/latest/user_guide/mamba.html#>`__.
+- pip package called `virtualenv <https://virtualenv.pypa.io/en/latest/>`__
+
+Using these environments is highly recommended because they solve the
+following problems:
+
+- Installing packages in environments won't modify system packages.
+
+- You can install specific versions of packages into them.
+
+- You can create an environment for each project and you won't encounter any
+  problems if different projects require different versions of packages.
+
+- If you make some mistake and install something you did not want or need, you
+  can remove the environment and create a new one.
+
+- Others can replicate your environment by reusing the same specification
+  that you used to create the environment.
+
+
+Creating Python environments
+----------------------------
+
+.. tabs::
+
+  .. group-tab:: Creating conda environment from environment.yml
+
+     Record channels and packages you need to a file called
+     ``environment.yml``:
+
+     .. code-block:: yaml
+
+        name: my-environment
+        channels:
+          - conda-forge
+        dependencies:
+          - python
+          - numpy
+          - matplotlib
+          - pandas
+
+     The ``name`` describes the name of the environment,
+     ``channels``-list tells which channels should be search for packages
+     (channel priority goes from top to bottom) and ``dependencies``-list
+     contains all packages that are needed.
+
+     Using this file you can now create an environment with:
+
+     .. code-block:: console
+
+        $ conda env create --file environment.yml
+
+     .. admonition:: You can also use mamba
+
+        If you have mamba installed, you can replace conda
+        with mamba in each command.
+
+     You can then activate the environment with:
+
+     .. code-block:: console
+
+        $ conda activate my-environment
+
+     or
+
+     .. code-block:: console
+
+        $ source activate my-environment
+
+     .. callout:: conda activate versus source activate
+
+        ``conda activate`` will only work if you have run ``conda init``
+        in the past. Running ``conda init`` will make loading environments
+        easier as you will always have a conda environment loaded.
+
+        However, this can also cause problems as programs in the
+        main environment will be constantly loaded and they might be used
+        even when they're not supposed to be used. A common example is
+        not having ``pip`` installed in a conda environment which results
+        ``pip`` from main environment to be used instead.
+
+     You can then check e.g. installed versions of Python and ``numpy``:
+
+     .. code-block:: console
+
+        $ python -c 'import sys; import numpy; print(f"Python version: {sys.version}\nNumPy version: {numpy.__version__}")'
+        Python version: 3.13.0 | packaged by conda-forge | (main, Oct  8 2024, 20:04:32) [GCC 13.3.0]
+        NumPy version: 2.1.2
+
+     To deactivate the environment, you can run:
+
+     .. code-block:: console
+
+        $ conda deactivate
+
+  .. group-tab:: Creating virtual environment from requirements.txt
+
+     Record packages you need to a file called
+     ``requirements.txt``:
+
+     .. code-block:: text
+
+        numpy
+        matplotlib
+        pandas
+
+     This is simply a text file that lists all of the packages that
+     you need. It is usually called ``requirements.txt``.
+
+     Now you can create a virtual environment with:
+
+     .. code-block:: console
+
+        $ python -m venv my-environment
+
+     You can then activate the environment by sourcing a file called
+     ``activate``.
+
+     - **Linux/Mac OSX**:
+
+       .. code-block:: console
+
+          $ source my-environment/bin/activate
+
+     - **Windows**: 
+
+       .. code-block:: console
+
+          $ .venv\Scripts\activate
+
+     Now the environment should be active. You can then install packages
+     listed in ``requirements.txt`` with
+
+     .. code-block:: console
+
+        $ python -m pip install -r requirements.txt
+
+     You can then check e.g. installed versions of Python and ``numpy``:
+
+     .. code-block:: console
+
+        $ python -c 'import sys; import numpy; print(f"Python version: {sys.version}\nNumPy version: {numpy.__version__}")'
+        Python version: 3.10.12 (main, Sep 11 2024, 15:47:36) [GCC 11.4.0]
+        NumPy version: 2.1.2
+
+     To deactivate the environment, you can run:
+
+     .. code-block:: console
+
+        $ deactivate
+
+
+.. admonition:: Creating environments without environment.yml/requirements.txt
+
+   It is possible to create environments with manual commands, but this
+   is highly discouraged for continuous use.
+
+   Firstly, replicating the environment becomes much harder.
+
+   Secondly, running package installation commands manually in an
+   environment can result in unexpected behaviour such as:
+
+   - Package manager might remove an already installed packages or update them.
+   - Package manager might not find a package that works with already
+     installed packages.
+
+   The reason for this behavior is that package managers does not know what
+   commands you ran in the past. It only knows the state of your environment
+   and what you're currently telling it to install.
+
+   These kinds of problems can be mitigated by recording dependencies in an
+   ``environment.yml`` or ``requirements.txt`` and using the relevant
+   package manager to update / recreate the environment.
+
+
+Exercise 3
+----------
+
+.. challenge:: Dependencies-3: Create a Python environment (15 min)
+
+    Use conda or venv to create the environment presented in the
+    example.
+
+
+Adding more packages to existing environments
+---------------------------------------------
+
+Quite often when you're creating a new environment you might forget
+to add all relevant packages to ``environment.yml`` or
+``requirements.txt``.
+
+In these cases the best practice is to add missing packages to
+``environment.yml`` or ``requirements.txt`` and to update the environment.
+
+.. tabs::
+
+   .. group-tab:: Adding new packages to a conda environment
+
+      Add new packages that you want to install to
+      ``dependencies`` in
+      ``environment.yml``.
+
+      Afterwards, run
+
+      .. code-block:: console
+
+         $ conda env update --file environment.yml
+
+      to update the environment.
+
+   .. group-tab:: Adding new packages to a virtual environment
+
+      Add new packages that you want to install to
+      ``requirements.txt``.
+
+      Afterwards, activate the environment and re-run
+
+      .. code-block:: console
+
+         $ pip install -r requirements.txt
+
+      to update the environment.
+
+Sometimes the new packages are incompatible with the ones already
+in the environment. Maybe they have different dependencies that are
+not satisfied with the current versions, maybe the package you're installing
+is incompatible with the ones installed. In these cases the safest approach
+is to re-create the environment. This will let the dependency solvers
+to start from clean slate and with a full picture of what packages
+need to be installed.
+
+
+Pinning package versions
+------------------------
+
+Sometimes your code will only work with a certain range of dependencies.
+Maybe you use a function or a class that was introduced in a later version
+or a newer version has modified its API.
+
+In these situations, you'll want to **pin the package versions**.
+
+For example, there is usually a delay between doing research and that
+research being published. During this time packages used in the research
+might update and reviewers or interested researchers might not be able
+to replicate your results or run your code if new versions are not
+compatible.
+
+.. tabs::
+
+   .. group-tab:: environment.yml with pinned versions
+
+      When pinning versions in ``environment.yml`` one can use a
+      variety of comparison operators:
+
+      .. code-block:: yaml
+
+          name: my-environment
+          channels:
+            - conda-forge
+          dependencies:
+            # Use python 3.11
+            - python=3.11
+            # numpy that is bigger or equal than version 1, but less than version 2
+            - numpy>=1,<2
+            # matplotlib greater than 3.8.2
+            - matplotlib>3.8.2
+            # pandas that is compatible with 2.1
+            - pandas~=2.1
+
+   .. group-tab:: requirements.txt with pinned versions
+
+      When pinning versions in ``requirements.txt`` one can use a
+      variety of comparison operators:
+
+      .. code-block:: text
+
+          # numpy that is bigger or equal than version 1, but less than version 2
+          numpy>=1,<2
+          # matplotlib greater than 3.8.2
+          matplotlib>3.8.2
+          # pandas that is compatible with 2.1
+          pandas~=2.1
+
+For more information on all possible specifications, see
+`this page <https://packaging.python.org/en/latest/specifications/version-specifiers/>`__
+from Python's packaging guide.
+
+See also: https://coderefinery.github.io/reproducible-research/dependencies/
+
+.. admonition:: To pin or not to pin? That is the question.
+
+  Pinning versions means that you pin the environment to
+  **that instance in time** when these specific versions of the
+  dependencies were being used.
+
+  This can be good for single-use applications, like replicating a research
+  paper, but it is usually bad for the long-term maintainability of the software.
+
+  Pinning to major versions or to compatible versions is usually the best
+  practice as that allows your software to co-exist with other packages even
+  when they are updated.
+
+  Remember that at some point in time you **will** face a situation where
+  newer versions of the dependencies are no longer compatible with your
+  software. At this point you'll have to update your software to use the newer
+  versions or to lock it into a place in time.
+
+
+Exporting package versions from an existing environment
+-------------------------------------------------------
+
+Sometimes you want to create a file that contains the exact versions
+of packages in the environment. This is often called *exporting* or
+*freezing* and environment.
+
+Doing this will create a file that does describe the installed
+packages, but it won't tell which packages are **the most important
+ones** and which ones are just dependencies for those packages.
+
+Using manually created ``environment.yml`` or ``requirements.txt``
+are in most cases better than automatically created ones because they
+shows which packages are the important packages needed by the software.
+
+.. tabs::
+
+   .. group-tab:: Exporting environment.yml from a conda environment
+
+     Once you have activated the environment, you can run
+
+     .. code-block:: console
+
+       $ conda env export > environment.yml
+
+     If package build versions are not relevant for the use case,
+     one can also run
+
+     .. code-block:: console
+
+       $ conda env export --no-builds > environment.yml
+
+     which leaves out the package build versions.
+
+     Alternatively one can also run
+
+     .. code-block:: console
+
+       $ conda env export --from-history > environment.yml
+
+     which creates the ``environment.yml``-file based on
+     what packages were asked to be installed.
+
+     .. admonition:: conda-lock
+
+       For even more reproducibility, you should try out
+       `conda-lock <https://github.com/conda/conda-lock>`__.
+       It turns your ``environment.yml`` into a ``conda.lock``
+       that has all information needed to **exactly** create
+       the same environment. You can use ``conda.lock``-files
+       in same way as ``environment.yml`` when you create
+       an environment:
+
+       .. code-block:: console
+
+          $ conda env create --file conda.lock
+
+   .. group-tab:: Exporting requirements.txt from a virtual environment
+
+     Once you have activated the environment, you can run
+
+     .. code-block:: console
+
+        $ pip freeze > requirements.txt
+
+
+
+Exercise 4
+----------
+
+.. challenge:: Dependencies-4: Export an environment (15 min)
+
+   Export the environment you previously created.
+
+How to communicate the dependencies as part of a report/thesis/publication
+--------------------------------------------------------------------------
+
+Each notebook or script or project which depends on libraries should come with
+either a ``requirements.txt`` or a ``environment.yml``, unless you are creating
+and distributing this project as Python package (see next section).
+
+- Attach a ``requirements.txt`` or a ``environment.yml`` to your thesis.
+- Even better: put ``requirements.txt`` or a ``environment.yml`` in your Git repository along your code.
+- Even better: also binderize your analysis pipeline (more about that in a later session).
+
+
+.. _version_pinning:
+
+Version pinning for package creators
+------------------------------------
+
+We will talk about packaging in a different session but when you create a library and package
+projects, you express dependencies either in ``pyproject.toml`` (or ``setup.py``)
+(PyPI) or ``meta.yaml`` (conda).
+
+These dependencies will then be used by either other libraries (who in turn
+write their own ``setup.py`` or ``pyproject.toml`` or ``meta.yaml``) or by
+people directly (filling out ``requirements.txt`` or a ``environment.yml``).
+
+Now as a library creator you have a difficult choice. You can either pin versions very
+narrowly like here (example taken from ``setup.py``):
+
+.. code-block:: python
+   :emphasize-lines: 3-6
+
+   # ...
+   install_requires=[
+      'numpy==1.19.2',
+      'matplotlib==3.3.2'
+      'pandas==1.1.2'
+      'scipy==1.5.2'
+   ]
+   # ...
+
+or you can define a range or keep them undefined like here (example taken from
+``setup.py``):
+
+.. code-block:: python
+   :emphasize-lines: 3-6
+
+   # ...
+   install_requires=[
+      'numpy',
+      'matplotlib'
+      'pandas'
+      'scipy'
+   ]
+   # ...
+
+Should we pin the versions here or not?
+
+- Pinning versions here would be good for reproducibility.
+
+- However pinning versions may make it difficult for this library to be used in a project alongside other
+  libraries with conflicting version dependencies.
+
+- Therefore **as library creator make the version requirements as wide as possible**.
+
+  - Set minimum version when you know of a reason: ``>=2.1``
+
+  - Sometimes set maximum version to next major version (``<4``) (when
+    you currently use ``3.x.y``) when you expect issues with next
+    major version.
+
+- As the "end consumer" of libraries, define your dependencies as narrowly as possible.
+
+
+Common issues
+-------------
+
+Here are couple of common issues that arise for new users of environments.
+
+1. **Global installs:** Installing packages with ``pip install --user``.
+   This installs packages to    your home directory and makes them globally
+   available. This can cause major problems because these packages override
+   packages installed in the environments.
+2. **Environments using lots of storage space:** Python packages that contain
+   libraries can take a lot of space, which can cause quota problems when
+   you're installing Python environments in systems with limited storage
+   space. By default packages are cached to your home folder
+   (see these documentations for `pip <https://pip.pypa.io/en/stable/topics/caching/#where-is-the-cache-stored>`__,
+   `conda <https://docs.conda.io/projects/conda/en/stable/user-guide/configuration/custom-env-and-pkg-locations.html>`__,
+   and `uv <https://docs.astral.sh/uv/concepts/cache/#cache-directory>`__).
+   Conda and uv reuse packages across multiple environments (if you create
+   another environment with the same packages, it won't take more space).
+   For these tools it is important that the cache and environments are
+   stored in the same filesystem. Pip only caches downloads and self-built
+   packages, it won't reuse them across environments.
+3. **Environments creating huge numbers of files:** Python environments
+   can have huge numbers of files. Some systems (like shared HPC systems) do
+   not like that the are lots of small files in the storage system. You can
+   use `containers <https://coderefinery.github.io/hpc-containers/>`__ to put
+   the environement into a single file to solve these problems.
+
+
+Additional tips and tricks
+--------------------------
+
+.. tabs::
+
+   .. group-tab:: Creating a conda environment from requirements.txt
+
+      conda supports installing an environment from ``requirements.txt``.
+
+      .. code-block:: console
+
+        $ conda env create --name my-environment --channel conda-forge --file requirements.txt
+
+      To create an ``environment.yml`` from this environment that mimics
+      the ``requirements.txt``, activate it and run
+
+     .. code-block:: console
+
+       $ conda env export --from-history > environment.yml
+
+   .. group-tab:: Adding pip packages into conda environments
+
+      conda supports installing pip packages in an ``environment.yml``.
+
+      Usually this is done to add those packages that are missing
+      from conda channels.
+
+      To do this you'll want to install ``pip`` into the environment
+      and then add pip-installed packages to a list called ``pip``.
+
+      See this example ``environment.yml``:
+
+      .. code-block:: yaml
+
+         name: my-environment
+         channels:
+           - conda-forge
+         dependencies:
+           - python
+           - pip
+           - pip:
+             - numpy
+             - matplotlib
+             - pandas
+
+      One can even add a full ``requirements.txt`` to the environment:
+
+      .. code-block:: yaml
+
+         name: my-environment
+         channels:
+           - conda-forge
+         dependencies:
+           - python
+           - pip
+           - pip:
+             - "-r requirements.txt"
+
+      Do note that in both methods the pip-packages come from PyPI
+      and not from conda channels. The installation of these packages
+      is done after conda environment is created and this can also
+      remove or update conda packages installed previously.
+
+   .. group-tab:: Installing pip packages from GitHub
+
+      Packages available in GitHub or other repositorios
+      can be given as a URL in ``requirements.txt``.
+
+      For example, to install a development version of the
+      `black code formatter <https://github.com/psf/black>`__, one can
+      write the following ``requirement.txt``.
+
+      .. code-block:: text
+
+         git+https://github.com/psf/black
+
+      or
+
+      .. code-block:: text
+
+         https://github.com/psf/black/archive/master.zip
+
+      First one would use git to clone the repository, second would
+      download the zip archive of the repository.
+
+
+
+See also
+--------
+
+Other tools for dependency management:
+
+- `uv <https://docs.astral.sh/uv/>`__: Tool for managing multiple Python
+  versions and environments.
+- `Poetry <https://python-poetry.org/>`__: Environment and package creation
+  tool.
+- `Pipenv <https://pipenv.pypa.io/>`__: Environment creation tool.
+- `pyenv <https://github.com/pyenv/pyenv>`__: Tool for installing multiple
+  different Python versions.
+- `micromamba <https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html>`__:
+  tiny version of Mamba as a static C++ executable. Does not need base
+  environment or Python for installing an environment.
+- `micropipenv <https://github.com/thoth-station/micropipenv>`__: Small tool
+  that can install dependencies from multiple different environment formats.
+- `pixi <https://pixi.sh>`__ & `prefix.dev <https://prefix.dev/>`__: A package
+  ecosystem that install all sorts of packages using the conda ecosystem.
+
+Other resources:
+
+- https://scicomp.aalto.fi/scicomp/packaging-software/
+
+
+.. keypoints::
+
+   - If somebody asks you what dependencies your code has, you should be able to answer this question **with a file**.
+   - Install dependencies by first recording them in ``requirements.txt`` or
+     ``environment.yml`` and install using these files, then you have a trace.
+   - Use isolated environments and avoid installing packages system-wide.

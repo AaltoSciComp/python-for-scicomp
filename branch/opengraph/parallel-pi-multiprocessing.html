@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Python multithreading solution" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="parallel-pi-multiprocessing.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Here, we will create a simple stochastic calculation of pi, and then parallelize it using multiprocessing (and multithreading to compare). This is the “calculate answer” phase. Do it in parallel wi..." />
+<meta name="description" content="Here, we will create a simple stochastic calculation of pi, and then parallelize it using multiprocessing (and multithreading to compare). This is the “calculate answer” phase. Do it in parallel wi..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python multithreading solution &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dependency management" href="dependencies.html" />
+    <link rel="prev" title="Parallel programming" href="parallel.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy-advanced.html">Advanced NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scipy.html">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Library ecosystem</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="parallel.html">Parallel programming</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#modes-of-parallelism">Modes of parallelism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#multithreading-and-the-gil">Multithreading and the GIL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#multiprocessing">multiprocessing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="parallel.html#exercises-multiprocessing">Exercises, multiprocessing</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Python multithreading solution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#do-it-in-parallel-with-multiprocessing">Do it in parallel with multiprocessing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#do-it-in-parallel-with-threads">Do it in “parallel” with threads</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#future-ideas">Future ideas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#mpi">MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#exercises-mpi">Exercises, MPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#coupling-to-other-languages">Coupling to other languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#dask-and-task-queues">Dask and task queues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#exercises-dask">Exercises, Dask</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parallel.html#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder.html">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="parallel.html">Parallel programming</a></li>
+      <li class="breadcrumb-item active">Python multithreading solution</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/parallel-pi-multiprocessing.ipynb" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python-multithreading-solution">
+<h1>Python multithreading solution<a class="headerlink" href="#python-multithreading-solution" title="Permalink to this heading"></a></h1>
+<p>Here, we will create a simple stochastic calculation of pi, and then parallelize it using multiprocessing (and multithreading to compare).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Make n trials of points in the square.  Return (n, number_in_circle)</span>
+<span class="sd">    </span>
+<span class="sd">    This is our basic function.  By design, it returns everything it\</span>
+<span class="sd">    needs to compute the final answer: both n (even though it is an input</span>
+<span class="sd">    argument) and n_inside_circle.  To compute our final answer, all we</span>
+<span class="sd">    have to do is sum up the n:s and the n_inside_circle:s and do our</span>
+<span class="sd">    computation&quot;&quot;&quot;</span>
+    <span class="n">n_inside_circle</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">n_inside_circle</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">,</span> <span class="n">n_inside_circle</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+<span class="c1"># Do it just for timing</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">n_inside_circle</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>474 ms ± 3.75 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do the actual calculation (the previous result doesn&#39;t get saved)</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">n_inside_circle</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is the “calculate answer” phase.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pi</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_inside_circle</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">pi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.141252
+</pre></div>
+</div>
+</div>
+</div>
+<section id="do-it-in-parallel-with-multiprocessing">
+<h2>Do it in parallel with multiprocessing<a class="headerlink" href="#do-it-in-parallel-with-multiprocessing" title="Permalink to this heading"></a></h2>
+<p>This divides the calculation into 10 tasks and runs <code class="docutils literal notranslate"><span class="pre">sample</span></code> on each of them.  Then it re-combines the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">multiprocessing.pool</span>
+<span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="c1"># The default pool makes one process per CPU</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+<span class="c1"># Do it once to time it</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>305 ms ± 5.52 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do it again to get the results, since the results of the above</span>
+<span class="c1"># cell aren&#39;t accessible because of the %%timeit magic.</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+<span class="n">n_inside_circle_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_inside_circle_sum</span> <span class="o">/</span> <span class="n">n_sum</span><span class="p">)</span>
+<span class="n">pi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.141344
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="do-it-in-parallel-with-threads">
+<h2>Do it in “parallel” with threads<a class="headerlink" href="#do-it-in-parallel-with-threads" title="Permalink to this heading"></a></h2>
+<p>To compare.  This should not be any faster, because the multiple Python functions can not run at the same time in the same process.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">threadpool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">pool</span><span class="o">.</span><span class="n">ThreadPool</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it -o
+<span class="c1"># Do it once to time it</span>
+<span class="n">threadpool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>498 ms ± 5.34 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;TimeitResult : 498 ms ± 5.34 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Do it again to get the results, since the results of the above</span>
+<span class="c1"># cell aren&#39;t accessible because of the %%timeit magic.</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">threadpool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">threadpool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+<span class="n">n_inside_circle_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+<span class="n">pi</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_inside_circle_sum</span> <span class="o">/</span> <span class="n">n_sum</span><span class="p">)</span>
+<span class="n">pi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.14156
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="future-ideas">
+<h2>Future ideas<a class="headerlink" href="#future-ideas" title="Permalink to this heading"></a></h2>
+<p>You could make a separate <code class="docutils literal notranslate"><span class="pre">calculate</span></code> function that take a list of results and returns pi.  This can be used regardless of if it is done with multiprocessing or without.</p>
+<p>Notice the similarity to <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html">split-apply-combine</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/MapReduce">map-reduce</a> which is a specialization of split-apply-combine.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="parallel.html" class="btn btn-neutral float-left" title="Parallel programming" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dependencies.html" class="btn btn-neutral float-right" title="Dependency management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

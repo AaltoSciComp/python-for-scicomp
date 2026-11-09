@@ -1,0 +1,303 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Python multithreading solution\n",
+    "Here, we will create a simple stochastic calculation of pi, and then parallelize it using multiprocessing (and multithreading to compare)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import random"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def sample(n):\n",
+    "    \"\"\"Make n trials of points in the square.  Return (n, number_in_circle)\n",
+    "    \n",
+    "    This is our basic function.  By design, it returns everything it\\\n",
+    "    needs to compute the final answer: both n (even though it is an input\n",
+    "    argument) and n_inside_circle.  To compute our final answer, all we\n",
+    "    have to do is sum up the n:s and the n_inside_circle:s and do our\n",
+    "    computation\"\"\"\n",
+    "    n_inside_circle = 0\n",
+    "    for i in range(n):\n",
+    "        x = random.random()\n",
+    "        y = random.random()\n",
+    "        if x**2 + y**2 < 1.0:\n",
+    "            n_inside_circle += 1\n",
+    "    return n, n_inside_circle"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "598 ms ± 29.4 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)\n"
+     ]
+    }
+   ],
+   "source": [
+    "%%timeit\n",
+    "# Do it just for timing\n",
+    "n, n_inside_circle = sample(10**6)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Do the actual calculation (the previous result doesn't get saved)\n",
+    "n, n_inside_circle = sample(10**6)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This is the \"calculate answer\" phase."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3.144548"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pi = 4.0 * (n_inside_circle / n)\n",
+    "pi"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Do it in parallel with multiprocessing\n",
+    "This divides the calculation into 10 tasks and runs `sample` on each of them.  Then it re-combines the results."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import multiprocessing.pool\n",
+    "pool = multiprocessing.pool.Pool()\n",
+    "# The default pool makes one process per CPU"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "320 ms ± 38.2 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)\n"
+     ]
+    }
+   ],
+   "source": [
+    "%%timeit\n",
+    "# Do it once to time it\n",
+    "results = pool.map(sample, [10**5] * 10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Do it again to get the results, since the results of the above\n",
+    "# cell aren't accessible because of the %%timeit magic.\n",
+    "results = pool.map(sample, [10**5] * 10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pool.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3.140768"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "n_sum = sum(x[0] for x in results)\n",
+    "n_inside_circle_sum = sum(x[1] for x in results)\n",
+    "pi = 4.0 * (n_inside_circle_sum / n_sum)\n",
+    "pi"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Do it in \"parallel\" with threads\n",
+    "To compare.  This should not be any faster, because the multiple Python functions can not run at the same time in the same process."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "threadpool = multiprocessing.pool.ThreadPool()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "635 ms ± 28.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<TimeitResult : 635 ms ± 28.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)>"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%%timeit -o\n",
+    "# Do it once to time it\n",
+    "threadpool.map(sample, [10**5] * 10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Do it again to get the results, since the results of the above\n",
+    "# cell aren't accessible because of the %%timeit magic.\n",
+    "results = threadpool.map(sample, [10**5] * 10)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "threadpool.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3.142388"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "n_sum = sum(x[0] for x in results)\n",
+    "n_inside_circle_sum = sum(x[1] for x in results)\n",
+    "pi = 4.0 * (n_inside_circle_sum / n_sum)\n",
+    "pi"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Future ideas\n",
+    "\n",
+    "You could make a separate `calculate` function that take a list of results and returns pi.  This can be used regardless of if it is done with multiprocessing or without.\n",
+    "\n",
+    "Notice the similarity to [split-apply-combine](https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html) or [map-reduce](https://en.wikipedia.org/wiki/MapReduce) which is a specialization of split-apply-combine."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
