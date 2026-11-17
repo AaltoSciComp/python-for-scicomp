@@ -19,14 +19,19 @@ Extending Python with Cython
    - Learn to use Numpy arrays in Cython code and implement common performance
      enhancements for Cythonized arrays.
 
-.. callout::
+.. note::
 
    Using Cython requires that you have a working environment for compiling
-   C code. This goes beyond the software requirements for this course, so the
-   teaching will be given in form of demonstrations and no exercises.
-   You may still follow along with the code examples but you will need to have
-   Cython and a working C compiler available. You can install both to your
-   Conda environment with ``conda install -c conda-forge cython c-compiler``.
+   C code. **This is included in the software requirements for this course**,
+   but the teaching will be given in form of demonstrations and no exercises.
+   You may still type-along with the code examples.
+
+   .. admonition:: Warning: potential reproducibility bugs ahead
+      :class: error
+
+      Unexpected issues may still happen because a conda environment can still
+      interact with your operating system and various variables in your shell.
+      In which case try to focus on the lectures, and not on the bugs.
 
 
 Python and performance
