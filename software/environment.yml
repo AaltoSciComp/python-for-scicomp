@@ -17,6 +17,7 @@ dependencies:
   - twine
   - poetry
   - flit
+  - uv
   - scikit-learn
   - scalene
   - ruff
