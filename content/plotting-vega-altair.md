@@ -108,8 +108,8 @@ import pandas as pd
 
 url_prefix = "https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/plotting/"
 
-data_tromso = pd.read_csv(url_prefix + "tromso-monthly.csv")
-data_oslo = pd.read_csv(url_prefix + "oslo-monthly.csv")
+data_tromso = pd.read_csv(url_prefix + "tromso-monthly.csv", dtype={"date": str})
+data_oslo = pd.read_csv(url_prefix + "oslo-monthly.csv", dtype={"date": str})
 
 data_monthly = pd.concat([data_tromso, data_oslo], axis=0)
 
