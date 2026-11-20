@@ -1,0 +1,409 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Jupyter\n",
+    "\n",
+    "\n",
+    "```{questions}\n",
+    "\n",
+    "   - What is the purpose of a \"Computational narrative\"?\n",
+    "   - What role does Jupyter play in development?\n",
+    "   - When is Jupyter not a good tool?\n",
+    "```\n",
+    "\n",
+    "```{objectives}\n",
+    "\n",
+    "   This part will be too easy for some people, and slow for others.  Still, we need to take some time to get everyone on the same page.\n",
+    "\n",
+    "   - Be able to use Jupyter to run examples for the rest of the course.\n",
+    "   - Be able to run Jupyter in a directory do your own work.\n",
+    "   - You won't be a Jupyter expert after this, but should be able to do the rest of the course.\n",
+    "```\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## What is Jupyter?\n",
+    "\n",
+    "Jupyter is a web-based interactive computing system.  It is most well known for having the *notebook file format* and Jupyter Notebook / Jupyter Lab.  A notebook format contains both the input and the output of the code along documentation, all interleaved to create what is called a *computational narrative*.\n",
+    "\n",
+    "Jupyter is good for data exploration and interactive work.\n",
+    "\n",
+    "**We use Jupyter a lot in this course because it is a good way that everyone can follow along, and minimizes the differences between operating systems.**\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Getting started with Jupyter\n",
+    "\n",
+    "* Start JupyterLab: there are different ways.  From the command line, activate your anaconda environment and run `jupyter-lab`.  You can also start in from Anaconda Navigator.\n",
+    "\n",
+    "For practical purposes, JupyterLab is an integrated development environment that combines file browsing, notebooks, and code editing.  There are many extensions that let you do whatever you may need."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Here, we see a tour of the JupyterLab interface:\n",
+    "\n",
+    "![Main UI tour](img/jupyter/main-ui.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Exercises 1\n",
+    "```{challenge} Exercises: Jupyter-1\n",
+    "\n",
+    "   1. Start Jupyter in the directory you want to use for this course.\n",
+    "      - If you are starting from the navigator, change to the directory you want to use.\n",
+    "      - If you are starting from the command line, you should navigate to the directory you want to use first.\n",
+    "\n",
+    "   2. Create a Python 3 notebook file.  Save it.  In the next section, you will add stuff to it.\n",
+    "\n",
+    "   4. (optional, but will be done in future lessons) Explore the file browser, try making some non-notebook text/py/md files and get used to that.\n",
+    "\n",
+    "   5. (optional, advanced) Look at the notebook file in a text\n",
+    "      editor.  How does it work?\n",
+    "\n",
+    "If everything works for you, this will end very quickly.  You can begin reading the next sections independently.\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Running code in Jupyter"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A notebook is divided into **cells**.  Each cell has some **input**, and when it is executed an **output** appears right below it.\n",
+    "\n",
+    "There are different types of cells: primarily **code** cells and **markdown** cells.  You can switch between them with the menu bar above.  Code cells run whatever language your notebook uses.  Markdown is a lightweight way of giving *style* to `text` - you can check out [this reference](https://commonmark.org/help/). For example the previous sentence is:\n",
+    "\n",
+    "```none\n",
+    "Markdown is a lightweight way of giving *style* to `text` - you \n",
+    "can check out [this reference](https://commonmark.org/help/).\n",
+    "```\n",
+    "\n",
+    "![notebook UI](img/jupyter/notebook-ui.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "When using keyboard shortcuts, you can switch between edit mode and command mode with `Enter` and `Esc`. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You enter code in a cell, and push the run button to run it.  There are also some important shortcut keys:\n",
+    "* `Ctrl-Enter`: Run cell\n",
+    "* `Shift-Enter`: Run cell and select cell below\n",
+    "* `Alt-Enter`: Run cell and insert new cell below\n",
+    "* `a` / `b`: insert new cell above/below\n",
+    "* `m` / `y`: markdown cell / code cell\n",
+    "* `x`: cut cell\n",
+    "* `c`: copy cell\n",
+    "* `v`: paste cell\n",
+    "* `d, d`: delete cell"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now, let's look at some code samples:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0\n",
+      "1\n",
+      "2\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(3):\n",
+    "    print(i)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "10\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(sum(range(5)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "By convention, if the last thing in a cell is an object, that object gets printed:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "45"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "sum(range(5))\n",
+    "sum(range(10))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In addition to raw cells, there are **magics**, which exist outside of Python.  They are a property of the runtime itself (in Python's case, they come from **IPython**.  For example, the following cell magic [%%bash](https://ipython.readthedocs.io/en/stable/interactive/magics.html#cellmagic-bash)  turns the cell into a shell script (may not work on all operating systems):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1\n",
+      "2\n",
+      "3\n"
+     ]
+    }
+   ],
+   "source": [
+    "%%bash\n",
+    "for x in $(seq 3) ; do\n",
+    "    echo $x\n",
+    "done"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "* A **cell magic** starts with `%%`, goes on the first line of a cell, and applies to the whole cell\n",
+    "* A **line magic** starts with `%`, goes on any line, and applies to that line."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Exercises 2\n",
+    "```{challenge} Exercises: Jupyter-2\n",
+    "\n",
+    "   1. Run some trivial code, such as ``print(1)``.\n",
+    "\n",
+    "   2. Run some slightly less trivial code, like print out the first\n",
+    "      ten [Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number).\n",
+    "\n",
+    "   3. Make a Markdown cell above your code cell and give it a title and some description of your function.  Use the [reference](https://commonmark.org/help/) to add a heading, bullet list, and some (bold, italic, or inline code)\n",
+    "\n",
+    "   4. Use the [%%timeit](https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit) magic function to time your Fibonacci\n",
+    "      function.\n",
+    "\n",
+    "   5. Again using ``%%timeit``, figure out the fastest way to sum the\n",
+    "      numbers 0 to 1000000.\n",
+    "      \n",
+    "   6. Once you are done, close your notebooks and other tabs you don't need.  Check the running sessions (hint: thin left sidebar) and shut down these kernels.\n",
+    "```\n",
+    "\n",
+    "`````{solution} Solutions: Jupyter-2\n",
+    "\n",
+    "1. --\n",
+    "\n",
+    "2. Simple fibonacci code\n",
+    "\n",
+    "   ```python\n",
+    "   a, b = 0, 1\n",
+    "   for i in range(10):\n",
+    "       print(a)\n",
+    "       a, b = b, a+b\n",
+    "   ```\n",
+    "\n",
+    "3. Markdown description\n",
+    "\n",
+    "   ```md\n",
+    "   # Fibonacci\n",
+    "   * Start with two variables `a` and `b`\n",
+    "   * Repeat 10 times\n",
+    "       * Print old `a`, then increment both\n",
+    "   * Makes use of the Python *tuple assignment*: `a, b = new_a, new_b`\n",
+    "   ```\n",
+    "\n",
+    "4. In this case, the print() statements get out of hand, so we comment that out.  In general, writing output usually takes a lot of time reletive to the computation, so we don't want to time that (unless output is the main point of the code, then we do have to time it!\n",
+    "\n",
+    "   ```ipython\n",
+    "   %%timeit\n",
+    "   a, b = 0, 1\n",
+    "   for i in range(10):\n",
+    "       #print(a)\n",
+    "       a, b = b, a+b\n",
+    "   ```\n",
+    "   ```none\n",
+    "   395 ns ± 10.2 ns per loop (mean ± std. dev. of 7 runs, 1000000 loops each)\n",
+    "   ```\n",
+    "\n",
+    "5. --\n",
+    "\n",
+    "6. --\n",
+    "\n",
+    "`````"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Why Jupyter?\n",
+    "\n",
+    "- Being able to **edit, check, re-edit** quickly is great for **prototyping and testing new ideas**\n",
+    "  - Tends to be best either at the very beginning (getting started) or data analysis/plotting phases.\n",
+    "- You can make a **complete story** - in one place.  No more having code, figures, and description in different places.\n",
+    "  - Instead of sending plots to your advisor, send plots, the text there, and possibility of checking the code, too.\n",
+    "- Notebook as an interactive publication itself - for example the discovery of gravitational waves data is [released as a notebook](https://www.gw-openscience.org/tutorials/).\n",
+    "- Jupyter Notebooks display on Github - low-barrier way to share your analysis.\n",
+    "- Teaching - great for getting difficult software distribution out of the way."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Why not Jupyter?\n",
+    "\n",
+    "Jupyter is great for many things, but there are some problems if not used well:\n",
+    "\n",
+    "- They **don't promote modularity**, and once you get started in a\n",
+    "  notebook it can be hard to migrate to modules.\n",
+    "- They are **difficult to test**.  There are things to run notebooks as\n",
+    "  unit tests like [nbval](https://nbval.readthedocs.io/), but it's not\n",
+    "  perfect.\n",
+    "- Notebooks can be **version controlled**\n",
+    "  ([nbdime](https://nbdime.readthedocs.io/) helps with that), but\n",
+    "  there are **still limitations**.\n",
+    "- You can **change code after you run it** and run code out of order.\n",
+    "  This can make debugging hard and results irreproducible if you\n",
+    "  aren't careful.\n",
+    "- Notebooks **aren't named by default** and tend to **acquire a bunch of\n",
+    "  unrelated stuff**.  Be careful with organization!\n",
+    "- Once lots of code is in notebooks, it can be **hard to change to\n",
+    "  proper programs that can be scripted**.\n",
+    "\n",
+    "You can read more about these downsides <https://scicomp.aalto.fi/scicomp/jupyter-pitfalls/>.\n",
+    "\n",
+    "**But these downsides aren't specific to Jupyter!**  They can easily happen in other sources, too.  By studying these, you can make any code better, and find the right balance for what you do.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Exercises 3\n",
+    "```{challenge} Exercises: Jupyter-3\n",
+    "\n",
+    "   (optional) Discuss the following in groups:\n",
+    "\n",
+    "   1. Have any of you used Jupyter in a way that became impossible to\n",
+    "      maintain: too many files, code all spread out, not able to find\n",
+    "      your code and run it in the right order.  How did you solve that?\n",
+    "\n",
+    "   2. On the other hand, what are your successes with Jupyter?\n",
+    "   \n",
+    "   3. How can you prevent these problems by better development strategies?\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## See also\n",
+    "\n",
+    "- The [CodeRefinery Jupyter lesson](https://coderefinery.github.io/jupyter/) has much more, and the source of some of the content above."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "```{keypoints}\n",
+    "\n",
+    "   - Jupyter is powerful and can be used for interactive work\n",
+    "   - ... but not the end solution when you need to scale up.\n",
+    "```"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
