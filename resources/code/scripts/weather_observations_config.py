@@ -2,8 +2,8 @@
 # coding: utf-8
 
 import pandas as pd
-from optionsparser import get_parameters
-import argparse 
+import argparse
+import tomllib
 
 # Lets start reading our confg file. we'll use argparse to get the config file.
 parser = argparse.ArgumentParser()
@@ -13,28 +13,35 @@ args = parser.parse_args()
 
 # Set optional parameters with default values and required parameter values with their type
 defaults = {
-           "xlabel"      : "Date of observation",
-           "title"       : "Weather Observations",
-           "start"       : "01/06/2021",
-           "end"         : "01/10/2021",
-           "output"      : "weather.png",
-           "ylabel"      : "Temperature in Celsius",
-           "data_column" : "T",
-           }
+    "start": "01/06/2021",
+    "end": "01/10/2021",
+    "output": "weather.png"
+}
 
-required = {
-           "input"  : str
-           }
+schema = {
+    "start": str,
+    "end": str,
+    "input": str,
+    "output": str,
+}
            
 # now, parse the config file
-parameters = get_parameters(args.input, required, defaults)
+with open(args.input, "rb") as f:
+    parameters = {**defaults, **tomllib.load(f)}
+
+# validate the parameters against the schema
+for parameter, value in parameters.items():
+    if parameter not in schema:
+        raise ValueError(f"Unknown parameter: {parameter}")
+    if not isinstance(value, schema[parameter]):
+        raise ValueError(f"Parameter {parameter} must be of type {schema[parameter].__name__}")
 
 # load the data
-weather = pd.read_csv(parameters.input,comment='#')
+weather = pd.read_csv(parameters["input"],comment='#')
 
 # obtain start and end date
-start_date=pd.to_datetime(parameters.start, dayfirst=True)
-end_date=pd.to_datetime(parameters.end, dayfirst=True)
+start_date=pd.to_datetime(parameters["start"], dayfirst=True)
+end_date=pd.to_datetime(parameters["end"], dayfirst=True)
 
 # Data preprocessing
 weather['Local time'] = pd.to_datetime(weather['Local time'], dayfirst=True)
@@ -55,4 +62,4 @@ fig.autofmt_xdate()
 
 
 # save the figure
-fig.savefig(parameters.output)
+fig.savefig(parameters["output"])
