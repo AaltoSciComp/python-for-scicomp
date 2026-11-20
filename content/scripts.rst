@@ -267,9 +267,8 @@ Load larger option lists using config files
 -------------------------------------------
 
 In the above example we only allowed the input and output files along with start and end dates to be selected by command line arguments.
-This already leads to a quite large command line call. Now imagine, that we also want to allow the user to select more specific information
-from the dataset, define specific X and Y labels, write their own
-title etc. Now imagine to put all this into the command line:
+This already leads to a quite large command line call.
+As we develop our app we could have more and more options, so that our command line starts to get quite long. Imagine for example:
 
 .. code-block:: console
 
@@ -279,39 +278,51 @@ title etc. Now imagine to put all this into the command line:
 
 This is an even larger line, needs scrolling and becomes quite inconvenient to modify.
 Instead of putting all of this into the command line, you could think about storing and modifying the arguments in a config file.
-There are several ways, how config files can be stored. You can use a simple ``Parameter = Value``
-format, and parse it yourself, or you can use e.g. the ``JSON`` or ``YAML`` formats.
-For both parsers exist that can save you some work, and both formats also allow you to use
-more complex input data, like lists, or dictionaries. We won't go into the details of the formats, and will only give
-a short example using YAML here.
+There are several ways that config files can be stored.
+For example you could use an ad-hoc format of ``Parameter = Value``, and parse it yourself,
+or you can use e.g. the ``JSON``, ``YAML`` or ``TOML`` formats.
+For all of these formats, parsers exist that can save you some work, and each format allows you to use
+more complex input data, like lists, or dictionaries.
+We won't go into the details of the formats, and will only give
+a short example using TOML here.
 
-The YAML file format can be simple or very complex allowing a large variety of data structures to be stored.
-One benefit of YAML is that there is already a Python module (`yaml <https://pyyaml.org/>`__) available for parsing it and it
-directly parses numbers as numbers and text as strings, making conversions unnecessary (the same is true for JSON
-with the :mod:`json` package).
+The TOML file format can be simple but can also scale to more complex configuration files allowing for data structures such as lists and dictionaries to be stored.
+A big benefit of TOML is that a parser is included in the Python standard library in the `tomllib <https://docs.python.org/3/library/tomllib.html>`__ module
+and that it understands the difference between basic types like numbers and strings, making conversions unnecessary (the same is true for JSON
+with the `json <https://docs.python.org/3/library/json.html>`__ standard library module and YAML with the external `PyYAML <https://pyyaml.org/>`__ package).
 
-The Python module :download:`optionsparser.py <../resources/code/scripts/optionsparser.py>` provides a simple parser for YAML styled options files.
-Similar to argparse, it takes a dict of required options, along with a dict of optional parameters.
-Required arguments need to specify a type. Optional argument types are derived from their default values.
+In the TOML format, names and values are separated by ``=``. Our above example would therefore translate to the following TOML file:
 
-In our example above, we could for example add optional parameters that allow the selection of other weather data
-from the dataset (precipitation ...), set the labels and titles explicitly etc.
+.. literalinclude:: ../resources/code/scripts/weather_options.toml
+   :language: toml
 
-In the YAML format, names and values are separated by ``:``. Our above example would therefore translate to the following YAML file:
+When we parse this with ``tomllib``, we'll get a ``dict``, so for example the following script:
 
-.. literalinclude:: ../resources/code/scripts/weather_options.yml
-   :language: yaml
+.. code-block:: python
+
+   import tomllib
+   from pprint import pprint
+
+   with open("weather_options.toml", "rb") as f:
+       data = tomllib.load(f)
+   pprint(data)
+
+...will output:
+
+.. code-block:: python
+
+   {'end': '30/06/2021',
+   'input': 'https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/data/scripts/weather_cairo.csv',
+   'output': 'rain_in_cairo.png',
+   'start': '01/06/2021'}
 
 Exercises 3 (optional)
 ----------------------
 
 .. challenge:: Scripts-3
 
-  1. Download the :download:`optionsparser.py <https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/master/resources/code/scripts/optionsparser.py>`
-     function and load it into your working folder in Jupyterlab (Hint: in JupyterLab, File → Open from URL).
-     Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line
-     (using e.g. :mod:`argparse` or :data:`sys.argv`) still needs to be read from the command line.
-
+  1. Modify the previous script to use a config file parser to read all arguments. The config file is passed in as a single argument on the command line
+     and so still needs to be read from the command line (e.g. using :mod:`argparse` or :data:`sys.argv`).
 
   2. Run your script with different config files.
 
@@ -322,7 +333,7 @@ Exercises 3 (optional)
 
    .. literalinclude:: ../resources/code/scripts/weather_observations_config.py
      :language: python
-     :emphasize-lines: 5,9-12,15-27,30,33,36-37,58
+     :emphasize-lines: 5,6,9-37,40,43,44,65
 
 What did this config file parser get us?  Now, we have separated the
 code from the configuration.  We could save all the configuration in
@@ -334,7 +345,7 @@ understandable.
 .. admonition:: Further reading
 
   - Linking Jupyterlab notebooks to python scripts (making linking ``.py``- and ``.ipynb``-files easier) using `jupytext <https://jupytext.readthedocs.io/en/latest/paired-notebooks.html>`_
-  - The `wikipedia page about YAML <https://en.wikipedia.org/wiki/YAML>`_ contains a lot of additional information on the YAML syntax.
+  - The `wikipedia page about TOML <https://en.wikipedia.org/wiki/TOML>`_ contains a lot of additional information on TOML syntax.
   - `The Coderefinery Lesson about reproducible research <https://coderefinery.github.io/reproducible-research/>`_ can give additional information about good coding practices and workflow automation.
 
   - `CodeRefinery's lesson on Modular code development <https://coderefinery.github.io/modular-type-along/>`__
