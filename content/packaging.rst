@@ -88,7 +88,7 @@ Now our folder should look something like this:
 After this we need to create a file called
 `pyproject.toml <https://packaging.python.org/en/latest/guides/writing-pyproject-toml/>`__,
 which describes our package.
-To make this easier we'll use ``flit`` (which is already installed in the
+To make this easier we'll use ``uv`` (which is already installed in the
 course environment) in a terminal to initialize it:
 
 .. code-block:: console
