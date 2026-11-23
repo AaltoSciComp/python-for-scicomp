@@ -298,8 +298,7 @@ happens.
 
 We need two more things:
 
-- We will do this using `Twine <https://twine.readthedocs.io/>`__ so you need
-  to pip install that, too.
+
 - You need an account on test-PyPI_
 
 .. _test-PyPI: https://test.pypi.org/
@@ -308,17 +307,19 @@ We need two more things:
 
 Let's try it out. First we create the distribution package::
 
-  $ python3 -m build
+  $ uv build
 
-We need also have ``twine`` installed, but it is included in the course
-environment.
+
 
 And use twine to upload the distribution files to test-PyPI::
 
-  $ twine upload -r testpypi dist/*
+  $ uv publish --publish-url https://test.pypi.org/legacy/
 
-  Uploading distributions to https://test.pypi.org/legacy/
-  Enter your API token:
+  Publishing 2 files to https://test.pypi.org/legacy/
+Hashing calculator-myname-0.1.0-py3-none-any.whl (3.2KiB)
+Uploading calculator-myname-0.1.0-py3-none-any.whl (3.2KiB)
+calculator-myname-0.1.0-py3-none-any.whl ------------------------------     0 B/3.25 KiB                                                     Enter username ('__token__' if using a token): 
+
 
 
 .. _Create API token: https://test.pypi.org/manage/account/token/
