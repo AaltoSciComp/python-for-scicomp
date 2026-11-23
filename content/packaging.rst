@@ -253,14 +253,14 @@ Exercise 1
 
              .. code-block:: bash
 
-                 uv init
+                 uv init --bare
                  uv run which python
 
          .. tab:: Windows
 
              .. code-block:: bat
 
-                 uv init
+                 uv init --bare
                  uv run where python
 
    - Install the example package from the project folder
@@ -306,9 +306,6 @@ We need two more things:
 
 Let's try it out. First we create the distribution package::
 
-
-Let's try it out. First we create the distribution package::
-
  $ uv build
 
 
@@ -349,7 +346,7 @@ And upload the distribution files to test-PyPI::
    #. Click on **Copy token** once a long string which starts
       with ``pypi-`` is generated.
 
-   Paste that token back into the terminal where ``twine upload ...`` is running and press ENTER.
+   Paste that token back into the terminal where ``uv publish ...`` is running and press ENTER.
 
 Once this is done, create yet another virtual environment and try to install from test-PyPI (adapt ``myname``).
 
@@ -360,25 +357,26 @@ Once this is done, create yet another virtual environment and try to install fro
       .. code-block:: console
          :emphasize-lines: 4-7
 
-          $ python3 -m venv venv-calculator
-          $ source venv-calculator/bin/activate
-          $ which python
-          $ python3 -m pip install \
-              -i https://test.pypi.org/simple/ \
-              --extra-index-url https://pypi.org/simple/ \
+          $ mkdir test_environment_2
+          $ cd test_environment_2
+          $ uv init --bare
+          $ uv run which python
+          $ uv add \
+              --index https://test.pypi.org/simple/ \
               calculator_myname
-          $ deactivate
 
    .. tab:: Windows
 
       .. code-block:: console
          :emphasize-lines: 4
 
-          $ python3 -m venv venv-calculator
-          $ venv-calculator\Scripts\activate
-          $ where python
-          $ python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ calculator_myname
-          $ deactivate
+          $ mkdir test_environment_2
+          $ cd test_environment_2
+          $ uv init --bare
+          $ uv run where python
+          $ uv add \
+              --index https://test.pypi.org/simple/ \
+              calculator_myname
 
 If you upload packages to PyPI or test PyPI often you can create an API token and
 `save it in the .pypirc file <https://packaging.python.org/en/latest/specifications/pypirc/#common-configurations>`__.
@@ -387,11 +385,9 @@ Tools that simplify sharing via PyPI
 ------------------------------------
 
 The solution that we have used to create the example package (using
-``setuptools`` and ``twine``) is not the only approach. There are many ways to
+``uv``) is not the only approach. There are many ways to
 achieve this and we avoided going into too many details and comparisons to not
-confuse too much. If you web-search this, you will also see that recently the
-trend goes towards using ``pyproject.toml`` as more general
-alternative to the previous ``setup.py``.
+confuse too much.
 
 There are at least five tools which try to make the packaging and PyPI interaction easier:
 
