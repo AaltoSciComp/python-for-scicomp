@@ -547,7 +547,7 @@ for publishing your packages.
    - PyPI is a place for Python packages
    - conda is similar but is not limited to Python
 
-.. [1] In 2025, tools such as pdm_, hatch_, flit_ have similar functionality as uv_. 
+.. [1] In 2026, tools such as pdm_, hatch_, flit_ have similar functionality as uv_. 
 .. [2] Some package build tools are simple and some have advanced features. Refer to 
          `pyOpenSci's guide on the choosing the right tool <https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html>`__
 .. [3] `uv` is also included in the conda environment you have created in :doc:`software installation <installation>` episode.
