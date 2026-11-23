@@ -309,6 +309,9 @@ We need two more things:
 Let's try it out. First we create the distribution package::
 
   $ python3 -m build
+Let's try it out. First we create the distribution package::
+
+ $ uv build
 
 We need also have ``twine`` installed, but it is included in the course
 environment.
