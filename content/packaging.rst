@@ -40,7 +40,10 @@ consisting of 3 functions, each in its own file. We can then imagine that each
 file would contain many more functions. To make it more interesting,
 one of these functions will depend on an external library: ``scipy``.
 
-These are the 3 files:
+
+We will start by creating a *package*, a folder with multiple Python *modules*.
+We will call it ``calculator_myname`` and include the following 3 files in it:
+
 
 .. literalinclude:: packaging-example-project/calculator/adding.py
    :caption: adding.py
@@ -55,6 +58,19 @@ These are the 3 files:
    :language: python
 
 
+This is still only a folder with multiple Python files. To make it a package, we
+need to add a fourth file:
+
+
+.. literalinclude:: packaging-example-project/calculator/__init__.py
+   :caption: __init__.py
+   :language: python
+
+
+This ``__init__.py`` file will be the interface of our package/library.
+It also holds the package docstring and the version string.
+Note how it imports functions from the various modules using *relative imports*
+(with the dot).
 
 
 
@@ -69,11 +85,6 @@ Initializing the package
    tools [1]_, which can be used interchangeably [2]_. We will soon see that the
    resulting package is `pip`-installable without using uv_.
 
-   To install uv, the preferred method is to use the 
-   `standalone installer provided here <https://docs.astral.sh/uv/getting-started/installation/#installation-methods>`__.
-   Alternatively you can obtain ``uv`` via ``pip install uv`` or 
-   ``conda install -c conda-forge uv`` [3]_.
-
 
 .. _uv: https://docs.astral.sh/uv/
 .. _pdm: https://pdm-project.org/en/latest/
@@ -81,26 +92,35 @@ Initializing the package
 .. _flit: https://flit.pypa.io/en/stable/ 
  
 
-Create a new folder with the name ``calculator-myname`` (replace with *myname* with your name),
+Create a new folder with the name ``calculator_myname`` (replace with *myname* with your name),
 open terminal and run:
 
 .. code-block:: console
 
-   $ uv init --lib
-   $ uv init --lib --python 3.10 --no-pin-python
+   $ cd calculator_myname
+   $ uv init 
+   $ mv *.py src/calculator/
 
 This result in the following set of files.
 
-We will add a fourth file:
+.. code-block:: none
 
-.. literalinclude:: packaging-example-project/calculator/__init__.py
-   :caption: __init__.py
-   :language: python
+   calculator_myname
+   ├── src
+   │   ├── calculator_myname
+   │       ├── adding.py
+   │       ├── __init__.py
+   │       ├── integrating.py
+   │       ├── py.typed
+   │       └── subtracting.py
+   └── pyproject.toml
 
-This ``__init__.py`` file will be the interface of our package/library.
-It also holds the package docstring and the version string.
-Note how it imports functions from the various modules using *relative imports*
-(with the dot).
+
+.. note::
+   
+   There is one extra file here, `py.typed`. It is useful if you include 
+   `type hints <https://peps.python.org/pep-0561/>`__ with your code. Otherwise it does not do anything.
+
 
 After that let's create a file called ``README.md`` to the project root
 that will describe our project to other people who might want to use it.
@@ -110,50 +130,21 @@ that will describe our project to other people who might want to use it.
    :caption: README.md
    :language: markdown
 
-Now our folder should look something like this:
 
-.. code-block:: none
+We recommend adding a license file early in package development and we recommend using a commonly chosen license. For more information see 
+`CodeRefinery on licenses <https://coderefinery.github.io/social-coding/software-licensing//>`__
 
-   calculator_myname
-   ├── calculator
-   │   ├── adding.py
-   │   ├── __init__.py
-   │   ├── integrating.py
-   │   └── subtracting.py
-   └── README.md
 
-After this we need to create a file called
-`pyproject.toml <https://packaging.python.org/en/latest/guides/writing-pyproject-toml/>`__,
-which describes our package.
-To make this easier we'll use ``uv`` (which is already installed in the
-course environment) in a terminal to initialize it:
+Here we inlude the MIT license using the `lice` tool
 
 .. code-block:: console
+   
+   $ lice mit > LICENSE
 
-   $ flit init
-   Module name [calculator]: calculator_myname
-   Author: Firstname Lastname
-   Author email: firstname.lastname@example.org
-   Home page: http://www.example.org
-   Choose a license (see http://choosealicense.com/ for more info)
-   1. MIT - simple and permissive
-   2. Apache - explicitly grants patent rights
-   3. GPL - ensures that code based on this is shared with the same terms
-   4. Skip - choose a license later
-   Enter 1-4: 1
 
-   Written pyproject.toml; edit that file to add optional extra info.
-
-``flit`` will ask us questions about your project and it create a
-``pyproject.toml`` into the project folder. The name of the package
-(Module name) should be something that is not already in use. In best
-case scenario it should be the same as the Python module name. In our
-case, let's use a different name and let's fix this later.
-
-This is how we will arrange the files in the project folder/repository:
+Our Python package now has the following files:
 
 .. code-block:: none
-   :emphasize-lines: 3-6
 
    calculator_myname
    ├── calculator
@@ -164,14 +155,14 @@ This is how we will arrange the files in the project folder/repository:
    ├── LICENSE
    └── README.md
 
-Now we are ready to test the package. For this we need to be in the "root"
-folder, what we have called the *project-folder*.  We also need to have
+
+
+Now we are ready to test the package. For this we need to be in the "src"
+folder, where the ``calculator``.  We also need to have
 ``scipy`` available in our environment:
 
-.. literalinclude:: packaging-example-project/test.py
 
-The package is not yet pip-installable, though. We will make this possible in
-the next section.
+.. literalinclude:: packaging-example-project/test.py
 
 
 Testing a local pip install
@@ -185,18 +176,23 @@ what it should install. It currently looks like this:
    :language: toml
 
 
-Let's do couple of finishing touches to it. Because we have different names
-for the package and our module import, we'll add a section that specifies
-that.
+Let's do couple of finishing touches to it. First, we will add the scipy
+dependency.
 
-We also need to add the dependency to ``scipy``.
+.. code-block:: console
+   
+   $ uv add scipy
 
+
+We should edit the description and authors fields in the first section.
+In addition, because we have different names for the package and our
+module import, we'll add a section that specifies that.
 After the changes our ``pyproject.toml`` looks like this:
 
 
 .. literalinclude:: packaging-example-project/pyproject.toml
    :caption: pyproject.toml
-   :emphasize-lines: 12-14,19-20
+   :emphasize-lines: 12-14,20-21
    :language: toml
 
 Note how our package requires ``scipy`` and we decided to not pin the version
