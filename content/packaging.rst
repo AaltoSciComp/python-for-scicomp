@@ -99,7 +99,7 @@ open terminal and run:
 
    $ cd calculator_myname
    $ uv init 
-   $ mv *.py src/calculator/
+   $ mv *.py src/calculator_myname/
 
 This result in the following set of files.
 
@@ -147,11 +147,13 @@ Our Python package now has the following files:
 .. code-block:: none
 
    calculator_myname
-   ├── calculator
-   │   ├── adding.py
-   │   ├── __init__.py
-   │   ├── integrating.py
-   │   └── subtracting.py
+   ├── src
+   │   ├── calculator_myname
+   │       ├── adding.py
+   │       ├── __init__.py
+   │       ├── integrating.py
+   │       ├── py.typed
+   │       └── subtracting.py
    ├── LICENSE
    └── README.md
 
