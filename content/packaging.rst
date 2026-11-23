@@ -261,7 +261,7 @@ Exercise 1
              .. code-block:: bat
 
                  uv init
-                 uv run which python
+                 uv run where python
 
    - Install the example package from the project folder
      into the new environment::
