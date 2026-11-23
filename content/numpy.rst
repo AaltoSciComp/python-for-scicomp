@@ -23,7 +23,13 @@ NumPy
 
    This lesson is placed inside an example scientific setting.
    We will compute the distance of the stars in our night sky, using the data collected by the Gaia sattelite.
-   To follow along, you must download the :download:`data package <https://drive.google.com/file/d/1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I/view?usp=sharing>` and unzip it in the ``python-for-scicomp`` folder.
+   To follow along, you must download the :download:`data package <https://drive.usercontent.google.com/download?id=1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I&export=download&confirm=t>` and unzip it in the ``python-for-scicomp`` folder.
+   You can also download it from the command line:
+
+   .. code-block:: bash
+
+      curl -L -o python-for-scicomp-data-package.zip \
+        "https://drive.usercontent.google.com/download?id=1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I&export=download&confirm=t"
 
 Why NumPy?
 ----------
@@ -54,7 +60,7 @@ We can use the amount of parallax to determine how far away a star is.
 
    Visual explanation of the parallax effect. Image `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Stellarparallax_parsec1.svg>`__. Public domain.
 
-A sample of the Gaia data can be found in ``local_stars.csv``, which is part of the :download:`data package <https://drive.google.com/file/d/1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I/view?usp=sharing>`.
+A sample of the Gaia data can be found in ``local_stars.csv``, which is part of the :download:`data package <https://drive.usercontent.google.com/download?id=1ZbZIpf-tL60S18k9f8LI_YdTe9o8jy-I&export=download&confirm=t>`.
 This is a *comma separated value (CSV)* file, where each line contains the parallax, magnitude and color of the star.
 The first line of that file is the "header" containing the column names::
 
