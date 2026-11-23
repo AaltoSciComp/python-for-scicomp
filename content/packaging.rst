@@ -307,11 +307,13 @@ We need two more things:
 
 Let's try it out. First we create the distribution package::
 
-  $ uv build
+
+Let's try it out. First we create the distribution package::
+
+ $ uv build
 
 
-
-And use twine to upload the distribution files to test-PyPI::
+And upload the distribution files to test-PyPI::
 
   $ uv publish --publish-url https://test.pypi.org/legacy/
 
