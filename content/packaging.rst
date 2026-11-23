@@ -208,13 +208,26 @@ test before trying to upload a package to PyPI or test-PyPI
 
    Sometime you need to rely on unreleased, development versions as
    dependencies and this is also possible. For example, to use the
-   latest ``xarray`` you could add::
+   latest ``xarray`` you could execute:
+   
+   .. code-block:: console
+      
+      $ uv add 'xarray @ https://github.com/pydata/xarray/archive/main.zip'
+      
+  
+   which cause ``uv`` to edit ``pyproject.toml`` as follows:
+   
+   .. code-block:: toml
+      
+      dependencies = [
+           "scipy",
+           "xarray",
+      ]
+       
+      [tool.uv.sources]
+      xarray = { url = "https://github.com/pydata/xarray/archive/main.zip" }
 
-     dependencies = [
-          "scipy",
-          "xarray @ https://github.com/pydata/xarray/archive/main.zip"
-     ]
-
+   
    .. seealso::
       - `pip requirement specifiers <https://pip.pypa.io/en/stable/reference/requirement-specifiers/>`__
       - pyOpenSci tutorial on
@@ -232,7 +245,7 @@ Exercise 1
    - Create a new folder outside of our example project
    - Create a new virtual environment and activate it (more on this in :ref:`dependency_management`)
 
-   .. hint:: To create and activate a virtual environment
+   .. hint:: To create and use a virtual environment
       :class: dropdown
 
       .. tabs::
@@ -241,22 +254,20 @@ Exercise 1
 
              .. code-block:: bash
 
-                 python -m venv .venv
-                 source .venv/bin/activate
-                 which python
+                 uv init
+                 uv run which python
 
          .. tab:: Windows
 
              .. code-block:: bat
 
-                 python -m venv .venv
-                 .venv\Scripts\activate
-                 where python
+                 uv init
+                 uv run which python
 
    - Install the example package from the project folder
      into the new environment::
 
-        pip install --editable /path/to/project-folder/
+        uv add --editable /path/to/project-folder/
 
    - Test the local installation:
 
