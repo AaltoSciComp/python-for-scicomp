@@ -359,7 +359,7 @@ of code:
    import json
    import requests
 
-   url = 'https://https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/refs/heads/master/resources/data/sample_api_data/countries.json'
+   url = 'https://raw.githubusercontent.com/AaltoSciComp/python-for-scicomp/refs/heads/master/resources/data/sample_api_data/countries.json'
 
    response = requests.get(url)
 
