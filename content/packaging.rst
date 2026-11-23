@@ -58,20 +58,6 @@ We will call it ``calculator_myname`` and include the following 3 files in it:
    :language: python
 
 
-This is still only a folder with multiple Python files. To make it a package, we
-need to add a fourth file:
-
-
-.. literalinclude:: packaging-example-project/calculator/__init__.py
-   :caption: __init__.py
-   :language: python
-
-
-This ``__init__.py`` file will be the interface of our package/library.
-It also holds the package docstring and the version string.
-Note how it imports functions from the various modules using *relative imports*
-(with the dot).
-
 
 
 Initializing the package
@@ -114,6 +100,19 @@ This result in the following set of files.
    │       ├── py.typed
    │       └── subtracting.py
    └── pyproject.toml
+
+
+The ``__init__.py`` file will be the interface of our package/library.
+It also holds the package docstring and the version string.
+Note how it imports functions from the various modules using *relative imports*
+(with the dot).
+
+To make our math functions available after importing the package, we need to import them here.
+
+.. literalinclude:: packaging-example-project/calculator/__init__.py
+   :caption: __init__.py
+   :language: python
+
 
 
 .. note::
@@ -318,9 +317,9 @@ And upload the distribution files to test-PyPI::
   $ uv publish --publish-url https://test.pypi.org/legacy/
 
   Publishing 2 files to https://test.pypi.org/legacy/
-Hashing calculator-myname-0.1.0-py3-none-any.whl (3.2KiB)
-Uploading calculator-myname-0.1.0-py3-none-any.whl (3.2KiB)
-calculator-myname-0.1.0-py3-none-any.whl ------------------------------     0 B/3.25 KiB                                                     Enter username ('__token__' if using a token): 
+  Hashing calculator-myname-0.1.0-py3-none-any.whl (3.2KiB)
+  Uploading calculator-myname-0.1.0-py3-none-any.whl (3.2KiB)
+  calculator-myname-0.1.0-py3-none-any.whl ------------------------------     0 B/3.25 KiB                                                     Enter username ('__token__' if using a token): 
 
 
 
