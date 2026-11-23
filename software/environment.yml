@@ -18,6 +18,7 @@ dependencies:
   - poetry
   - flit
   - uv
+  - lice2
   - scikit-learn
   - scalene
   - ruff
