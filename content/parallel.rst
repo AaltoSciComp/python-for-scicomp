@@ -290,7 +290,7 @@ algorithm from above, and we have highlighted the lines which are important
 to get this MPI example to work:
 
 .. code-block:: python
-   :emphasize-lines: 3,23-25,35,39
+   :emphasize-lines: 3,23-25,35,40
 
    import random
    import time
