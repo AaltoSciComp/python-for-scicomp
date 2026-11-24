@@ -290,7 +290,7 @@ algorithm from above, and we have highlighted the lines which are important
 to get this MPI example to work:
 
 .. code-block:: python
-   :emphasize-lines: 3,23-25,29,39,42
+   :emphasize-lines: 3,23-25,35,40
 
    import random
    import time
@@ -320,18 +320,16 @@ to get this MPI example to work:
 
    n = 10 ** 7
 
-   if size > 1:
-       n_task = int(n / size)
-   else:
-       n_task = n
+   n_task = int(n / size)
 
    t0 = time.perf_counter()
    _, n_inside_circle = sample(n_task)
-   t = time.perf_counter() - t0
 
    print(f"before gather: rank {rank}, n_inside_circle: {n_inside_circle}")
    n_inside_circle = comm.gather(n_inside_circle, root=0)
    print(f"after gather: rank {rank}, n_inside_circle: {n_inside_circle}")
+   
+   t = time.perf_counter() - t0
 
    if rank == 0:
        pi_estimate = 4.0 * sum(n_inside_circle) / n
