@@ -327,11 +327,12 @@ to get this MPI example to work:
 
    t0 = time.perf_counter()
    _, n_inside_circle = sample(n_task)
-   t = time.perf_counter() - t0
 
    print(f"before gather: rank {rank}, n_inside_circle: {n_inside_circle}")
    n_inside_circle = comm.gather(n_inside_circle, root=0)
    print(f"after gather: rank {rank}, n_inside_circle: {n_inside_circle}")
+   
+   t = time.perf_counter() - t0
 
    if rank == 0:
        pi_estimate = 4.0 * sum(n_inside_circle) / n
