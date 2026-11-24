@@ -151,9 +151,9 @@ Finally, we need the package name to be unique and use "calculator_myname" with 
 
          mv src/calculator_myname src/calculator
 
-.. tab:: Windows
+   .. tab:: Windows
 
-   .. code-block:: bat
+      .. code-block:: bat
 
          move src/calculator_myname src/calculator
 
