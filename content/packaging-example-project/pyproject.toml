@@ -1,20 +1,22 @@
-[build-system]
-requires = ["flit_core >=3.11,<4"]
-build-backend = "flit_core.buildapi"
-
 [project]
 name = "calculator_myname"
-authors = [{name = "Firstname Lastname", email = "firstname.lastname@example.org"}]
+version = "0.1.0"
+description = "Great calculator with amazing mathematics functions"
 readme = "README.md"
+authors = [
+    {name = "Firstname Lastname", email = "firstname.lastname@example.org"}
+]
+requires-python = ">=3.12"
 license = "MIT"
 license-files = ["LICENSE"]
-dynamic = ["version", "description"]
 dependencies = [
-    "scipy"
+    "scipy>=1.18.1",
 ]
 
-[project.urls]
-Home = "http://www.example.org"
+[build-system]
+requires = ["uv_build>=0.13.9,<0.14.0"]
+build-backend = "uv_build"
 
-[tool.flit.module]
-name = "calculator"
+[tool.uv.build-backend]
+module-name = "calculator"
+

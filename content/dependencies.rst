@@ -82,7 +82,7 @@ Why are there two ecosystems?
 
 .. admonition:: Conda
 
-   - **Installation tool:** `conda <https://docs.conda.io/projects/conda/en/stable/>`__, `mamba <https://mamba.readthedocs.io/en/latest/user_guide/mamba.html#>`__
+   - **Installation tool:** `conda <https://docs.conda.io/projects/conda/en/stable/>`__, `mamba <https://mamba.readthedocs.io/en/latest/user_guide/mamba.html#>`__, `pixi <https://pixi.prefix.dev/latest/>`
    - **Summary:** Conda aims to be a more general package distribution tool
      and it tries to provide not only the Python packages, but also other
      libraries and tools needed by the Python packages.
@@ -175,6 +175,7 @@ Conda ecosystem explained
     used by Anaconda. It is an open source project maintained by Anaconda Inc..
   - `mamba <https://mamba.readthedocs.io/en/latest/user_guide/mamba.html#>`__ is a drop in
     replacement for conda with additional UI features.
+  - `pixi <https://pixi.prefix.dev/latest/>`__ is a newer, feature rich package manager that uses conda_forge and PyPI.
 
 Exercise 2
 ----------
@@ -210,8 +211,9 @@ to the operating system's folder structure.
 
 These environments can be created by:
 
-- `venv <https://docs.python.org/3/library/venv.html>`__-module in base Python
 - `uv <https://docs.astral.sh/uv/>`__
+- `pixi <https://pixi.prefix.dev/latest/>`__
+- `venv <https://docs.python.org/3/library/venv.html>`__-module in base Python
 - `conda <https://docs.conda.io/projects/conda/en/stable/>`__ / `mamba <https://mamba.readthedocs.io/en/latest/user_guide/mamba.html#>`__.
 - pip package called `virtualenv <https://virtualenv.pypa.io/en/latest/>`__
 
@@ -236,6 +238,92 @@ Creating Python environments
 ----------------------------
 
 .. tabs::
+
+  .. group-tab:: Creating a uv environment
+
+     Initialize a `uv` environment using
+
+     .. code-block:: console
+
+        $ uv init --bare
+
+     This will create a text file called `pyproject.toml` that tracks your Python dependencies.
+
+     Add packages using
+
+     .. code-block:: console
+
+        $ uv add numpy matplotlib pandas
+
+     This also creates a virtual environment in your current folder.
+
+     You can run commands using
+
+     .. code-block:: console
+
+        $ uv run ...
+
+     For example, check e.g. installed versions of Python and ``numpy``:
+
+     .. code-block:: console
+
+        $ uv run python -c 'import sys; import numpy; print(f"Python version: {sys.version}\nNumPy version: {numpy.__version__}")'
+        Python version: 3.10.12 (main, Sep 11 2024, 15:47:36) [GCC 11.4.0]
+        NumPy version: 2.1.2
+
+
+  .. group-tab:: Creating a pixi environment
+
+     Initialize a `pixi` environment using
+
+     .. code-block:: console
+
+        $ pixi init
+
+     This will create a text file called `pixi.toml` that tracks your dependencies.
+
+     Add packages using
+
+     .. code-block:: console
+
+        $ pixi add python numpy matplotlib pandas
+
+     This also creates a virtual environment in your current folder.
+
+     You can run commands using
+
+     .. code-block:: console
+
+        $ pixi run ...
+
+     For example, check e.g. installed versions of Python and ``numpy``:
+
+     .. code-block:: console
+
+        $ pixi run python -c 'import sys; import numpy; print(f"Python version: {sys.version}\nNumPy version: {numpy.__version__}")'
+        Python version: 3.15.2 | packaged by conda-forge | (main, Oct 26 2026, 11:39:52) [GCC 15.3.0]
+        NumPy version: 2.5.5
+
+     A `pixi` environment can also be activated using
+
+     .. code-block:: console
+
+        $ pixi shell
+        
+     This allows running python commands directly
+
+     .. code-block:: console
+
+        $ python -c 'import sys; import numpy; print(f"Python version: {sys.version}\nNumPy version: {numpy.__version__}")'
+        Python version: 3.15.2 | packaged by conda-forge | (main, Oct 26 2026, 11:39:52) [GCC 15.3.0]
+        NumPy version: 2.5.5
+
+     Exit the environment by exiting the shell:
+
+     .. code-block:: console
+
+        $ exit
+
 
   .. group-tab:: Creating conda environment from environment.yml
 
@@ -306,6 +394,8 @@ Creating Python environments
      .. code-block:: console
 
         $ conda deactivate
+
+
 
   .. group-tab:: Creating virtual environment from requirements.txt
 
@@ -382,9 +472,10 @@ Creating Python environments
    commands you ran in the past. It only knows the state of your environment
    and what you're currently telling it to install.
 
-   These kinds of problems can be mitigated by recording dependencies in an
-   ``environment.yml`` or ``requirements.txt`` and using the relevant
+   These kinds of problems can be mitigated by recording dependencies in a file
+   and using the relevant
    package manager to update / recreate the environment.
+
 
 
 Exercise 3
@@ -392,7 +483,7 @@ Exercise 3
 
 .. challenge:: Dependencies-3: Create a Python environment (15 min)
 
-    Use conda or venv to create the environment presented in the
+    Use conda, pixi or uv to create the environment presented in the
     example.
 
 
@@ -407,6 +498,22 @@ In these cases the best practice is to add missing packages to
 ``environment.yml`` or ``requirements.txt`` and to update the environment.
 
 .. tabs::
+
+   .. group-tab:: Adding new packages to a `uv` environment
+
+      Add packages by running
+
+      .. code-block:: console
+
+         $ uv add ...
+
+   .. group-tab:: Adding new packages to a `pixi` environment
+
+      Add packages by running
+
+      .. code-block:: console
+
+         $ pixi add ...
 
    .. group-tab:: Adding new packages to a conda environment
 
@@ -461,6 +568,38 @@ compatible.
 
 .. tabs::
 
+   .. group-tab:: `uv` with pinned versions
+
+      When pinning versions with `uv` one can use a
+      variety of comparison operators:
+
+      .. code-block:: console
+
+         # use exactly numpy version 2.1.2
+         $ uv add "numpy==2.1.2"
+         # numpy that is bigger or equal than version 1, but less than version 2
+         $ uv add "numpy>=1,<2"
+         # matplotlib greater than 3.8.2
+         $ uv add "matplotlib>3.8.2"
+         # pandas >=2.1 and <3
+         $ uv add "pandas~=2.1"
+
+   .. group-tab:: `pixi` with pinned versions
+
+      When pinning versions with `pixi` one can use a
+      variety of comparison operators:
+
+      .. code-block:: console
+
+         # use exactly numpy version 2.1.2
+         $ pixi add "numpy==2.1.2"
+         # numpy that is bigger or equal than version 1, but less than version 2
+         $ pixi add "numpy>=1,<2"
+         # matplotlib greater than 3.8.2
+         $ pixi add "matplotlib>3.8.2"
+         # pandas >=2.1 and <3
+         $ pixi add "pandas~=2.1"
+
    .. group-tab:: environment.yml with pinned versions
 
       When pinning versions in ``environment.yml`` one can use a
@@ -478,7 +617,7 @@ compatible.
             - numpy>=1,<2
             # matplotlib greater than 3.8.2
             - matplotlib>3.8.2
-            # pandas that is compatible with 2.1
+            # pandas >=2.1 and <3
             - pandas~=2.1
 
    .. group-tab:: requirements.txt with pinned versions
@@ -492,7 +631,7 @@ compatible.
           numpy>=1,<2
           # matplotlib greater than 3.8.2
           matplotlib>3.8.2
-          # pandas that is compatible with 2.1
+          # pandas >=2.1 and <3
           pandas~=2.1
 
 For more information on all possible specifications, see
@@ -536,6 +675,25 @@ are in most cases better than automatically created ones because they
 shows which packages are the important packages needed by the software.
 
 .. tabs::
+
+   .. group-tab:: Exporting a `uv` environment
+
+     `uv` automatically maintains a file called `uv.lock` with exact versions of all installed packages. You need both `pyproject.toml` and `uv.lock` to exactly recreate the environment.
+
+     To recreate the environment, run 
+
+     .. code-block:: console
+
+       $ uv sync --locked
+
+   .. group-tab:: Exporting a `pixi` environment
+
+     `pixi` automatically maintains a file called `pixi.lock` with exact versions of all installed packages. You need both `pixi.toml` and `pixi.lock` to exactly recreate the environment.
+
+     .. code-block:: console
+
+       $ pixi install --locked
+
 
    .. group-tab:: Exporting environment.yml from a conda environment
 
@@ -611,22 +769,22 @@ and distributing this project as Python package (see next section).
 Version pinning for package creators
 ------------------------------------
 
-We will talk about packaging in a different session but when you create a library and package
+We talk about packaging in a different session but when you create a library and package
 projects, you express dependencies either in ``pyproject.toml`` (or ``setup.py``)
 (PyPI) or ``meta.yaml`` (conda).
 
 These dependencies will then be used by either other libraries (who in turn
-write their own ``setup.py`` or ``pyproject.toml`` or ``meta.yaml``) or by
+write their own ``pyproject.toml``, ``setup.py`` or ``meta.yaml``) or by
 people directly (filling out ``requirements.txt`` or a ``environment.yml``).
 
 Now as a library creator you have a difficult choice. You can either pin versions very
-narrowly like here (example taken from ``setup.py``):
+narrowly like here (example taken from ``pyproject.toml``):
 
 .. code-block:: python
    :emphasize-lines: 3-6
 
    # ...
-   install_requires=[
+   dependencies=[
       'numpy==1.19.2',
       'matplotlib==3.3.2'
       'pandas==1.1.2'
@@ -635,13 +793,13 @@ narrowly like here (example taken from ``setup.py``):
    # ...
 
 or you can define a range or keep them undefined like here (example taken from
-``setup.py``):
+``pyproject.toml``):
 
 .. code-block:: python
    :emphasize-lines: 3-6
 
    # ...
-   install_requires=[
+   dependencies=[
       'numpy',
       'matplotlib'
       'pandas'
@@ -700,6 +858,27 @@ Additional tips and tricks
 
 .. tabs::
 
+   .. group-tab:: Converting from `requirements.txt` to `pyproject.toml`
+   
+      You can convert a list of packages in requirements.txt to a `uv` project file using
+   
+      .. code-block:: console
+   
+           $ uv add -r requirements.txt
+   
+      This will install all the listed packages into a `uv` environment and maintain a list in `pyproject.toml`, but `uv` will not manage the requirements.txt file.
+   
+   
+   .. group-tab:: Converting from `environment.yml to `pixi.toml`
+   
+      You can convert a conda environment to a `pixi environment with`
+   
+      .. code-block:: console
+   
+           $ pixi init --import environment.yml
+   
+      This will install all the listed packages into a `pixi` environment and maintain a list in `pixi.toml`, but `pixi` will not manage the requirements.txt file.
+   
    .. group-tab:: Creating a conda environment from requirements.txt
 
       conda supports installing an environment from ``requirements.txt``.
