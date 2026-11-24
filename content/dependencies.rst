@@ -858,7 +858,7 @@ Additional tips and tricks
 
 .. tabs::
 
-   .. info:: Converting from `requirements.txt` to `pyproject.toml`
+   .. group-tab:: Converting from `requirements.txt` to `pyproject.toml`
    
       You can convert a list of packages in requirements.txt to a `uv` project file using
    
@@ -869,7 +869,7 @@ Additional tips and tricks
       This will install all the listed packages into a `uv` environment and maintain a list in `pyproject.toml`, but `uv` will not manage the requirements.txt file.
    
    
-   .. info:: Converting from `environment.yml to `pixi.toml`
+   .. group-tab:: Converting from `environment.yml to `pixi.toml`
    
       You can convert a conda environment to a `pixi environment with`
    
