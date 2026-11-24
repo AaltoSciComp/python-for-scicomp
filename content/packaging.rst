@@ -93,7 +93,7 @@ This result in the following set of files.
 
    calculator_myname
    ├── src
-   │   ├── calculator_myname
+   │   ├── calculator
    │       ├── adding.py
    │       ├── __init__.py
    │       ├── integrating.py
@@ -141,13 +141,30 @@ Here we inlude the MIT license using the `lice` tool
    $ lice mit > LICENSE
 
 
+Finally, we need the package name to be unique and use "calculator_myname" with our own name. But we would still like to import it with ``import calculator``. To do that, we should rename the folder in `src/`.
+
+.. tabs::
+
+   .. tab:: Unix/macOS
+
+      .. code-block:: bash
+
+         mv src/calculator_myname src/calculator
+
+.. tab:: Windows
+
+   .. code-block:: bat
+
+         move src/calculator_myname src/calculator
+
+
 Our Python package now has the following files:
 
 .. code-block:: none
 
    calculator_myname
    ├── src
-   │   ├── calculator_myname
+   │   ├── calculator
    │       ├── adding.py
    │       ├── __init__.py
    │       ├── integrating.py
