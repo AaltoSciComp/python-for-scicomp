@@ -290,7 +290,7 @@ algorithm from above, and we have highlighted the lines which are important
 to get this MPI example to work:
 
 .. code-block:: python
-   :emphasize-lines: 3,23-25,29,39,42
+   :emphasize-lines: 3,23-25,36,39
 
    import random
    import time
@@ -320,10 +320,7 @@ to get this MPI example to work:
 
    n = 10 ** 7
 
-   if size > 1:
-       n_task = int(n / size)
-   else:
-       n_task = n
+   n_task = int(n / size)
 
    t0 = time.perf_counter()
    _, n_inside_circle = sample(n_task)
