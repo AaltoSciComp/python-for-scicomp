@@ -85,7 +85,7 @@ open terminal and run:
 
    $ cd calculator_myname
    $ uv init 
-   $ mv *.py src/calculator_myname/
+   $ mv ../*.py src/calculator_myname/
 
 This result in the following set of files.
 
@@ -93,7 +93,7 @@ This result in the following set of files.
 
    calculator_myname
    ├── src
-   │   ├── calculator
+   │   ├── calculator_myname
    │       ├── adding.py
    │       ├── __init__.py
    │       ├── integrating.py
