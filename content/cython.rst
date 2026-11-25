@@ -423,6 +423,7 @@ to use it from Python, consider using one of the following:
 - `ctypes <https://docs.python.org/3/library/ctypes.html>`__: part of Python standard library.
 - `CFFI <https://cffi.readthedocs.io/en/stable/index.html>`__: somewhat similar to `ctypes` but with more features and probably better for large projects.
 - `pybind11 <https://pybind11.readthedocs.io/en/stable/index.html>`__: very robust and modern way of creating extension modules. C++ only.
+  See also its newer cousin `nanobind <https://nanobind.readthedocs.io>`__.
 - `PyO3 <https://pyo3.rs/v0.27.1/>`__ for Rust code.
 
 Further reading
