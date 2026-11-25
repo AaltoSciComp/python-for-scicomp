@@ -318,9 +318,9 @@ and the Cythonized version (without any static typing) takes 700μs. This is
 nice, but we are still bottlenecked by array lookups and assignments, i.e. the
 ``[]`` operator, which invokes Python code.
 
-We can get a huge speedup by adding a static type declaration for the Numpy
-array. The recommended way of doing this is with a **typed memoryview**: a
-Cython type that describes a block of memory with given element type and shape.
+We can get a huge speedup by Cythonizing the array access.
+The recommended way of doing this is with a **typed memoryview**: a Cython type
+that describes a block of memory with given element type and shape.
 In the following we use a 2D memoryview for writing to the array-owned memory,
 which lets Cython optimize the memory accesses. We've also added static type
 declarations for the integer variables.
