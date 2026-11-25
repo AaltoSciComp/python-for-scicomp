@@ -13,7 +13,7 @@ Extending Python with Cython
 
 .. objectives::
 
-   - Understand how compiled extension modules can speed up code execution. 
+   - Understand how compiled extension modules can speed up code execution.
    - Build your first compiled extension module with Cython.
    - Learn to optimize your Cython code with static type declarations.
    - Learn to use Numpy arrays in Cython code and implement common performance
@@ -47,11 +47,11 @@ runtime by the Python interpreter. The interpreter does a lot of
 significant overhead. For example, when just adding two integers
 
 .. code:: python
-   
+
    a = 7
    b = 6
    c = a + b
-   
+
 the Python interpreter needs to:
 
   1. Check the types of both operands
@@ -107,7 +107,7 @@ of C. Cython also makes it easy to interact with external C/C++ code.
 The Cython compiler processes code written in Python, or more
 commonly the Cython extension of Python language, and turns it into valid
 C-code which is then compiled into a Python extension module using a
-C compiler (GCC, Clang, MSVC, ...). The Cython programming language is a 
+C compiler (GCC, Clang, MSVC, ...). The Cython programming language is a
 superset of Python that adds C-like static type declarations and other
 features that make it possible to generate efficient machine code.
 
@@ -182,7 +182,12 @@ Using Cython with Jupyter
 .. important::
 
    Due to a `known issue`_ with ``%%cython -a`` in ``jupyter-lab`` we have to use the ``jupyter-nbclassic`` interface
-   for this episode.
+   for this episode. Install and launch it with:
+
+   .. code:: bash
+
+      pip install nbclassic
+      jupyter nbclassic
 
 .. _known issue: https://github.com/cython/cython/issues/7319
 
@@ -293,49 +298,50 @@ With Cython we can bypass both restrictions and write efficient loops over
 Numpy arrays. Consider e.g. a double loop that sets values of a 2D array:
 
 .. code:: python
-   
+
    import numpy as np
 
    def slow_looper(N):
-      """"""
-      data = np.empty((N, N), dtype=int)
-      
-      counter = 0
-      for i in range(N):
-         for j in range(N):
+       """"""
+       data = np.empty((N, N), dtype=np.int32)
+
+       counter = 0
+       for i in range(N):
+           for j in range(N):
                data[i, j] = counter
-               counter += 1 
+               counter += 1
 
 
-We can Cythonize this as before to optimize the ``for``-loops. A quick check 
+We can Cythonize this as before to optimize the ``for``-loops. A quick check
 with ``timeit`` shows that with ``N=100``, the pure Python version takes 820μs
 and the Cythonized version (without any static typing) takes 700μs. This is
 nice, but we are still bottlenecked by array lookups and assignments, i.e. the
 ``[]`` operator, which invokes Python code.
 
-We can get a huge speedup by adding a static type declaration for the Numpy
-array, and for the other variables too while we are at it. To do this we must
-import compile-time information about the Numpy module using the
-Cython-specific ``cimport`` keyword, then use Cython's Numpy interface to
-declare the array's datatype and dimensions:
+We can get a huge speedup by Cythonizing the array access.
+The recommended way of doing this is with a **typed memoryview**: a Cython type
+that describes a block of memory with given element type and shape.
+In the following we use a 2D memoryview for writing to the array-owned memory,
+which lets Cython optimize the memory accesses. We've also added static type
+declarations for the integer variables.
 
 .. code:: python
-   
-   import numpy as np   # Normal Numpy import
-   cimport numpy as cnp # Import for Numpy C-API
+
+   import numpy as np
 
    def fast_looper(int N):
-      """"""
+       """"""
+       data = np.empty((N, N), dtype=np.int32)
 
-      # Type declaration: 2D array of 32-bit integers 
-      cdef cnp.ndarray[cnp.int32_t, ndim=2] data
-      data = np.empty((N, N), dtype=np.int32)
-      
-      cdef int counter = 0    
-      # double loop is done at nearly C speed
-      for i in range(N):
-         for j in range(N):
-               data[i, j] = counter
+       # Create a 2D Cython view into the array. Cheap operation.
+       cdef int[:, :] data_view = data
+
+       cdef int counter = 0
+       # double loop is done at nearly C speed
+       for i in range(N):
+           for j in range(N):
+               # Modify the array via the Cython memory view
+               data_view[i, j] = counter
                counter += 1
 
 
@@ -345,18 +351,13 @@ pure Python implementation!
 
 .. callout::
 
-   ``cimport numpy`` needs access to Numpy C-headers which are usually included
-   in Python distributions. This usually works out of the box for Jupyter
-   notebooks. However, if using the command line ``cythonize`` tool you may need
-   to manually set include paths for the C compiler.
-   Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>`__
-   for more details.
+   Memoryviews are not specific to Numpy: any Python object that exposes the
+   `buffer protocol <https://docs.python.org/3/c-api/buffer.html>`__ (e.g.
+   Python's built-in ``array`` module, or other array libraries) can be
+   assigned to a memoryview, using the same syntax as above.
 
-.. callout::
-
-   It is good practice to also call ``cnp.import_array()`` after doing the
-   ``cimport`` of Numpy. This is required for accessing attributes (like
-   ``.shape``) of typed Numpy arrays.
+   Cython also has a `Numpy-specific array syntax <https://cython.readthedocs.io/en/latest/src/tutorial/numpy.html>`__
+   that you may see used especially in older code.
 
 
 More Numpy indexing enhancements
@@ -371,13 +372,12 @@ extra performance:
 .. code:: python
 
    import numpy as np
-   cimport numpy as cnp
    cimport cython
 
    @cython.boundscheck(False)
    @cython.wraparound(False)
    def fast_looper(int N):
-      # ... Same function body as above ...
+       # ... Same function body as above ...
 
 
 Whether these decorators *actually* result in faster code or not depends on
@@ -403,7 +403,7 @@ Here are some rules of thumb to keep in mind when optimizing your code with
 Cython (see also `Cython docs <https://cython.readthedocs.io/en/latest/src/quickstart/cythonize.html#determining-where-to-add-types>`__):
 
 - Only Cythonize the modules/functions for which performance is *really*
-  needed. Profiling tools help at identifying such bottlenecks.  
+  needed. Profiling tools help at identifying such bottlenecks.
 - Static type declarations work the best for fundamental data types (integers,
   floats, strings) and for contiguous arrays. Operations on heterogeneous lists
   and dictionaries do not usually benefit much from Cython.
@@ -423,13 +423,12 @@ to use it from Python, consider using one of the following:
 - `ctypes <https://docs.python.org/3/library/ctypes.html>`__: part of Python standard library.
 - `CFFI <https://cffi.readthedocs.io/en/stable/index.html>`__: somewhat similar to `ctypes` but with more features and probably better for large projects.
 - `pybind11 <https://pybind11.readthedocs.io/en/stable/index.html>`__: very robust and modern way of creating extension modules. C++ only.
+  See also its newer cousin `nanobind <https://nanobind.readthedocs.io>`__.
 - `PyO3 <https://pyo3.rs/v0.27.1/>`__ for Rust code.
 
 Further reading
 ---------------
 
-- Cython `memory views <https://cython.readthedocs.io/en/latest/src/userguide/memoryviews.html>`__
-  are a newer and more general way of interfacing with Numpy arrays and other buffer-like objects.
 - `Calling C functions from Cython <https://cython.readthedocs.io/en/latest/src/tutorial/external.html>`__
 
 
