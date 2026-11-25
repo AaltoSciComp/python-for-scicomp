@@ -303,7 +303,7 @@ Numpy arrays. Consider e.g. a double loop that sets values of a 2D array:
 
    def slow_looper(N):
        """"""
-       data = np.empty((N, N), dtype=int)
+       data = np.empty((N, N), dtype=np.int32)
 
        counter = 0
        for i in range(N):
@@ -319,28 +319,29 @@ nice, but we are still bottlenecked by array lookups and assignments, i.e. the
 ``[]`` operator, which invokes Python code.
 
 We can get a huge speedup by adding a static type declaration for the Numpy
-array, and for the other variables too while we are at it. To do this we must
-import compile-time information about the Numpy module using the
-Cython-specific ``cimport`` keyword, then use Cython's Numpy interface to
-declare the array's datatype and dimensions:
+array. The recommended way of doing this is with a **typed memoryview**: a
+Cython type that describes a block of memory with given element type and shape.
+In the following we use a 2D memoryview for writing to the array-owned memory,
+which lets Cython optimize the memory accesses. We've also added static type
+declarations for the integer variables.
 
 .. code:: python
 
-   import numpy as np   # Normal Numpy import
-   cimport numpy as cnp # Import for Numpy C-API
+   import numpy as np
 
    def fast_looper(int N):
        """"""
-
-       # Type declaration: 2D array of 32-bit integers
-       cdef cnp.ndarray[cnp.int32_t, ndim=2] data
        data = np.empty((N, N), dtype=np.int32)
+
+       # Create a 2D Cython view into the array. Cheap operation.
+       cdef int[:, :] data_view = data
 
        cdef int counter = 0
        # double loop is done at nearly C speed
        for i in range(N):
            for j in range(N):
-               data[i, j] = counter
+               # Modify the array via the Cython memory view
+               data_view[i, j] = counter
                counter += 1
 
 
@@ -350,18 +351,13 @@ pure Python implementation!
 
 .. callout::
 
-   ``cimport numpy`` needs access to Numpy C-headers which are usually included
-   in Python distributions. This usually works out of the box for Jupyter
-   notebooks. However, if using the command line ``cythonize`` tool you may need
-   to manually set include paths for the C compiler.
-   Refer to `the docs <https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#compilation>`__
-   for more details.
+   Memoryviews are not specific to Numpy: any Python object that exposes the
+   `buffer protocol <https://docs.python.org/3/c-api/buffer.html>`__ (e.g.
+   Python's built-in ``array`` module, or other array libraries) can be
+   assigned to a memoryview, using the same syntax as above.
 
-.. callout::
-
-   It is good practice to also call ``cnp.import_array()`` after doing the
-   ``cimport`` of Numpy. This is required for accessing attributes (like
-   ``.shape``) of typed Numpy arrays.
+   Cython also has a `Numpy-specific array syntax <https://cython.readthedocs.io/en/latest/src/tutorial/numpy.html>`__
+   that you may see used especially in older code.
 
 
 More Numpy indexing enhancements
@@ -376,7 +372,6 @@ extra performance:
 .. code:: python
 
    import numpy as np
-   cimport numpy as cnp
    cimport cython
 
    @cython.boundscheck(False)
@@ -433,8 +428,6 @@ to use it from Python, consider using one of the following:
 Further reading
 ---------------
 
-- Cython `memory views <https://cython.readthedocs.io/en/latest/src/userguide/memoryviews.html>`__
-  are a newer and more general way of interfacing with Numpy arrays and other buffer-like objects.
 - `Calling C functions from Cython <https://cython.readthedocs.io/en/latest/src/tutorial/external.html>`__
 
 
