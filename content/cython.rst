@@ -182,7 +182,12 @@ Using Cython with Jupyter
 .. important::
 
    Due to a `known issue`_ with ``%%cython -a`` in ``jupyter-lab`` we have to use the ``jupyter-nbclassic`` interface
-   for this episode.
+   for this episode. Install and launch it with:
+
+   .. code:: bash
+
+      pip install nbclassic
+      jupyter nbclassic
 
 .. _known issue: https://github.com/cython/cython/issues/7319
 
