@@ -13,7 +13,7 @@ Extending Python with Cython
 
 .. objectives::
 
-   - Understand how compiled extension modules can speed up code execution. 
+   - Understand how compiled extension modules can speed up code execution.
    - Build your first compiled extension module with Cython.
    - Learn to optimize your Cython code with static type declarations.
    - Learn to use Numpy arrays in Cython code and implement common performance
@@ -47,11 +47,11 @@ runtime by the Python interpreter. The interpreter does a lot of
 significant overhead. For example, when just adding two integers
 
 .. code:: python
-   
+
    a = 7
    b = 6
    c = a + b
-   
+
 the Python interpreter needs to:
 
   1. Check the types of both operands
@@ -107,7 +107,7 @@ of C. Cython also makes it easy to interact with external C/C++ code.
 The Cython compiler processes code written in Python, or more
 commonly the Cython extension of Python language, and turns it into valid
 C-code which is then compiled into a Python extension module using a
-C compiler (GCC, Clang, MSVC, ...). The Cython programming language is a 
+C compiler (GCC, Clang, MSVC, ...). The Cython programming language is a
 superset of Python that adds C-like static type declarations and other
 features that make it possible to generate efficient machine code.
 
@@ -293,21 +293,21 @@ With Cython we can bypass both restrictions and write efficient loops over
 Numpy arrays. Consider e.g. a double loop that sets values of a 2D array:
 
 .. code:: python
-   
+
    import numpy as np
 
    def slow_looper(N):
-      """"""
-      data = np.empty((N, N), dtype=int)
-      
-      counter = 0
-      for i in range(N):
-         for j in range(N):
+       """"""
+       data = np.empty((N, N), dtype=int)
+
+       counter = 0
+       for i in range(N):
+           for j in range(N):
                data[i, j] = counter
-               counter += 1 
+               counter += 1
 
 
-We can Cythonize this as before to optimize the ``for``-loops. A quick check 
+We can Cythonize this as before to optimize the ``for``-loops. A quick check
 with ``timeit`` shows that with ``N=100``, the pure Python version takes 820μs
 and the Cythonized version (without any static typing) takes 700μs. This is
 nice, but we are still bottlenecked by array lookups and assignments, i.e. the
@@ -320,21 +320,21 @@ Cython-specific ``cimport`` keyword, then use Cython's Numpy interface to
 declare the array's datatype and dimensions:
 
 .. code:: python
-   
+
    import numpy as np   # Normal Numpy import
    cimport numpy as cnp # Import for Numpy C-API
 
    def fast_looper(int N):
-      """"""
+       """"""
 
-      # Type declaration: 2D array of 32-bit integers 
-      cdef cnp.ndarray[cnp.int32_t, ndim=2] data
-      data = np.empty((N, N), dtype=np.int32)
-      
-      cdef int counter = 0    
-      # double loop is done at nearly C speed
-      for i in range(N):
-         for j in range(N):
+       # Type declaration: 2D array of 32-bit integers
+       cdef cnp.ndarray[cnp.int32_t, ndim=2] data
+       data = np.empty((N, N), dtype=np.int32)
+
+       cdef int counter = 0
+       # double loop is done at nearly C speed
+       for i in range(N):
+           for j in range(N):
                data[i, j] = counter
                counter += 1
 
@@ -377,7 +377,7 @@ extra performance:
    @cython.boundscheck(False)
    @cython.wraparound(False)
    def fast_looper(int N):
-      # ... Same function body as above ...
+       # ... Same function body as above ...
 
 
 Whether these decorators *actually* result in faster code or not depends on
@@ -403,7 +403,7 @@ Here are some rules of thumb to keep in mind when optimizing your code with
 Cython (see also `Cython docs <https://cython.readthedocs.io/en/latest/src/quickstart/cythonize.html#determining-where-to-add-types>`__):
 
 - Only Cythonize the modules/functions for which performance is *really*
-  needed. Profiling tools help at identifying such bottlenecks.  
+  needed. Profiling tools help at identifying such bottlenecks.
 - Static type declarations work the best for fundamental data types (integers,
   floats, strings) and for contiguous arrays. Operations on heterogeneous lists
   and dictionaries do not usually benefit much from Cython.
