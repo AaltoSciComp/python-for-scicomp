@@ -19,7 +19,6 @@ dependencies:
   - flit
   - uv
   - pixi
-  - lice2
   - scikit-learn
   - scalene
   - ruff
@@ -31,3 +30,6 @@ dependencies:
   - pythia-datasets
   - cython
   - c-compiler
+  - pip:
+    - lice2
+
