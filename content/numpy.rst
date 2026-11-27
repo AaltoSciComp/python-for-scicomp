@@ -43,7 +43,7 @@ It helps you work with "data", as in large amounts of numbers, by providing:
 2. Efficient routines to manipulate data, such as reading and writing, splitting and concatenation, and other transformations
 3. Efficient routines to perform computations on data, such as statistics and linear algebra
 
-Let's explore the fundamentals of this foundational library by analyzing some astronomical data and discover the secret of the Large Magallanic Cloud.
+Let's explore the fundamentals of this foundational library by analyzing some astronomical data and discover the secret of the Large Magellanic Cloud.
 
 .. highlight:: python
 
@@ -228,10 +228,10 @@ When you are on the southern hemisphere of the Earth, you can see a massive clus
    :width: 500px
    :align: center
 
-   The Large Magallanic Cloud. Photographed and edited by Martin Bernard, `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Large_Magellanic_Cloud_100mm.jpg>`__. CC BY-SA license.
+   The Large Magellanic Cloud. Photographed and edited by Martin Bernard, `retrieved from WikiMedia <https://commons.wikimedia.org/wiki/File:Large_Magellanic_Cloud_100mm.jpg>`__. CC BY-SA license.
 
 
-The Gaia data for a collection of stars that are part of the Large Magallanic Cloud can be found in ``lmc_stars.rst``::
+The Gaia data for a collection of stars that are part of the Large Magellanic Cloud can be found in ``lmc_stars.rst``::
 
     # Set this to where you unzipped the data package
     lmc_filename = "../resources/data/numpy/lmc_stars.csv"
@@ -294,7 +294,7 @@ And now the matrix containing on each row the colors of the stars, raised to som
    ])
    print(color_powers)
 
-We estimate the intrinsic magnitude of our Large Magallanic Cloud stars by using a matrix multiplication between the ``coefficients`` vector and the ``color_powers`` matrix::
+We estimate the intrinsic magnitude of our Large Magellanic Cloud stars by using a matrix multiplication between the ``coefficients`` vector and the ``color_powers`` matrix::
 
     intrinsic_magnitude = coefficients @ color_powers  # `@` means matrix multiplication
     print(intrinsic_magnitude)
@@ -305,7 +305,7 @@ Exercises 2
 
 .. challenge:: Exercises: Numpy-2
 
-   In this exercise, you will estimate the distance to the Large Magallanic Cloud (LMC).
+   In this exercise, you will estimate the distance to the Large Magellanic Cloud (LMC).
 
    #. Compare the intrinsic magnitude of the LMC stars as we computed together with their apparent magnitude (how bright they appear on Gaia's sensors: ``lmc_stars[:, 1]``) to deduce how much dimmer they appear to us than they actually are, hence how far away they must be.
       The formula for this is as follows::
@@ -315,7 +315,7 @@ Exercises 2
    #. Convert the ``parallax`` you obtained with the above formula to distance in lightyears.
       See Part 1 of this lesson on how to do this.
    #. Use the average distance (:func:`numpy.mean`) as a representative value for roughly how far away the cloud is.
-      Given that the `Milky Way <https://en.wikipedia.org/wiki/Milky_Way>`__ galaxy is about 87400 light-years across, what does the distance to the Large Magallanic Cloud tell us?
+      Given that the `Milky Way <https://en.wikipedia.org/wiki/Milky_Way>`__ galaxy is about 87400 light-years across, what does the distance to the Large Magellanic Cloud tell us?
 
 .. solution:: Solution Numpy-2
 
@@ -332,7 +332,7 @@ Exercises 2
 
          print(np.mean(lmc_distance_ly))
 
-      The Large Magallanic Cloud is roughly 159000 light-years away.
+      The Large Magellanic Cloud is roughly 159000 light-years away.
       This means it does not lie in our galaxy, but must be a galaxy of its own.
 
 
@@ -348,5 +348,5 @@ The Gaia satellite did not image the brightest stars, the most famous ones, beca
 Hence, the 50 brightest stars our dataset were not from Gaia, but were instead taken from the SIMBAD database.
 Those are the stars we look at during the Big Dipper demo.
 
-For the Large Magallanic Cloud exercise, we cherry picked the stars in ``lmc_stars.csv`` to be perfectly on the main sequence and thus ensuring that you get a decent estimate of the distance.
+For the Large Magellanic Cloud exercise, we cherry picked the stars in ``lmc_stars.csv`` to be perfectly on the main sequence and thus ensuring that you get a decent estimate of the distance.
 In reality it's quite an ordeal to choose the proper stars to base your distance estimate on.
