@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Advanced NumPy" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="numpy-advanced.html" />
+<meta property="og:site_name" content="Python for Scientific Computing" />
+<meta property="og:description" content="Python, being an interpreted programming language, is quite slow. Manipulating large amounts of numbers using Python’s build-in lists would be impractically slow for any serious data analysis. Yet,..." />
+<meta name="description" content="Python, being an interpreted programming language, is quite slow. Manipulating large amounts of numbers using Python’s build-in lists would be impractically slow for any serious data analysis. Yet,..." />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced NumPy &mdash; Python for Scientific Computing  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_lesson.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sphinx_rtd_theme_ext_color_contrast.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/logo-hexagons-02-compact.svg.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/minipres.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pandas" href="pandas.html" />
+    <link rel="prev" title="NumPy" href="numpy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Python for Scientific Computing
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Introduction to Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter.html">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numpy.html">NumPy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced NumPy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#numpy-can-be-really-fast">NumPy can be really fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-1">Exercise 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-library-behind-the-curtain-blas">The library behind the curtain: BLAS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#numpy-tries-to-avoid-copying-data">NumPy tries to avoid copying data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-ndarray-exposed">The ndarray exposed</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercise-2">Exercise 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#strides">Strides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#an-example-matrix-transpose">An example: matrix transpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#another-example-reshaping">Another example: reshaping</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exercises-3">Exercises 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-fast-thing-a-fast-thing-a-fast-thing">A fast thing + a fast thing = a fast thing?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#copy-versus-view">Copy versus view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-visualization.html">Data visualization with Matplotlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-formats.html">Data formats with Pandas and Numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scipy.html">SciPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Library ecosystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parallel.html">Parallel programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="binder.html">Binder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging.html">Packaging</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Software installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">List of exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide.html">Instructor’s guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Python for Scientific Computing</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Advanced NumPy</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/AaltoSciComp/python-for-scicomp/blob/master/content/numpy-advanced.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="advanced-numpy">
+<h1>Advanced NumPy<a class="headerlink" href="#advanced-numpy" title="Permalink to this heading"></a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How can NumPy be so fast?</p></li>
+<li><p>Why are some things fast and some things slow?</p></li>
+<li><p>How can I control whether NumPy makes a copy or operates in-place?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand why NumPy has so many specialized functions for specific operations</p></li>
+<li><p>Understand the underlying machinery of the Numpy <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> object</p></li>
+<li><p>Understand when and why NumPy makes a copy of the data rather than a view</p></li>
+</ul>
+<p>This is intended as a follow-up to the basic NumPy lesson.  The indended
+audience for this advanced lesson is those who have used NumPy before and
+now want to learn how to get the most out of this amazing package.</p>
+</div>
+<p>Python, being an interpreted programming language, is quite slow. Manipulating
+large amounts of numbers using Python’s build-in lists would be impractically
+slow for any serious data analysis. Yet, the NumPy package can be really
+fast. How does it do that? We will dive into how NumPy works behind the scenes
+and use this knowledge to our advantage. This lesson also serves as an
+introduction to reading the definitive work on this topic:
+<a class="reference external" href="http://web.mit.edu/dvp/Public/numpybook.pdf">Guide to NumPy</a> by
+Travis E. Oliphant, its initial creator.</p>
+<section id="numpy-can-be-really-fast">
+<h2>NumPy can be really fast<a class="headerlink" href="#numpy-can-be-really-fast" title="Permalink to this heading"></a></h2>
+<p>Python, being an interpreted programming language, is quite slow. Manipulating
+large amounts of numbers using Python’s build-in lists would be impractically
+slow for any serious data analysis. Yet, the numpy package can be really fast.</p>
+<p>How fast can NumPy be? Let’s race NumPy against C. The contest will be to sum
+together 100 000 000 random numbers. We will give the C version below, you get
+to write the NumPy version:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#define N_ELEMENTS 100000000</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">double</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">N_ELEMENTS</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">N_ELEMENTS</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RAND_MAX</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="n">N_ELEMENTS</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%f&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="exercise-1">
+<h2>Exercise 1<a class="headerlink" href="#exercise-1" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercises-numpy-advanced-1 exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercises: Numpy-Advanced-1</p>
+<p>Write a Python script that uses NumPy to generate 100 million (100000000)
+random numbers and add them all together. Time how long it takes to execute.
+Can you beat the C version?</p>
+<p>If you are having trouble with this, we recommend completing the
+<a class="reference internal" href="numpy.html#numpy"><span class="std std-ref">basic NumPy lession</span></a> before continuing with this advanced lesson.</p>
+</div>
+<div class="admonition-solutions-numpy-advanced-2 solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solutions: Numpy-Advanced-2</p>
+<p>The script can be implemented like this:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">import</span><span class="w"> </span><span class="n">numpy</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">np</span><span class="w"></span>
+<span class="n">print</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="n">_000_000</span><span class="p">).</span><span class="n">sum</span><span class="p">())</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="the-library-behind-the-curtain-blas">
+<h2>The library behind the curtain: BLAS<a class="headerlink" href="#the-library-behind-the-curtain-blas" title="Permalink to this heading"></a></h2>
+<p>NumPy is fast because it outsources most of its heavy lifting to
+<a class="reference external" href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms">Basic Linear Algebra Subprograms (BLAS)</a>.
+BLAS for Fortran was <a class="reference external" href="https://doi.org/10.1145/355841.355847">published in 1979</a>
+and is a collection of algorithms for common mathematical operations that are
+performed on arrays of numbers. Algorithms such as element-wise sum, matrix
+multiplication, computing the vector length, etc.</p>
+<p>The API of that software library was later standardized, and today there are
+many modern implementations available. These libraries represent over 40 years
+of optimizing efforts and make use of
+<a class="reference external" href="https://www.youtube.com/watch?v=Pc8DfEyAxzg&amp;list=PLzLzYGEbdY5lrUYSssHfk5ahwZERojgid">specialized CPU instructions for manipulating arrays</a>.
+In other words, they are <em>fast</em>.</p>
+<p>One of the functions inside the BLAS library is a
+<a class="reference external" href="https://www.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/blas-and-sparse-blas-routines/blas-routines/blas-level-1-routines-and-functions/cblas-nrm2.html#cblas-nrm2">function</a>
+to compute the “norm” of a vector, which is the same as computing its length, using the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Pythagorean_theorem">Pythagorean theorem</a>:
+<span class="math notranslate nohighlight">\(\sqrt(a[0]^2 + a[1]^2 + \ldots)\)</span>.</p>
+<p>Let’s race the BLAS function versus a naive “manual” version of computing the vector norm.
+We start by creating a decently long vector filled with random numbers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100_000_000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We now implement the Pythagorean theorem using basic NumPy functionality and
+use <code class="docutils literal notranslate"><span class="pre">%%timeit</span></code> to record how long it takes to execute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And here is the version using the specialized BLAS function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="numpy-tries-to-avoid-copying-data">
+<h2>NumPy tries to avoid copying data<a class="headerlink" href="#numpy-tries-to-avoid-copying-data" title="Permalink to this heading"></a></h2>
+<p>Understanding the kind of operations that are expensive (take a long time) and
+which ones are cheap can be surprisingly hard when it comes to NumPy. A big
+part of data processing speed is memory management. Copying big arrays takes
+time, so the less of that we do, the faster our code runs. The rules of when
+NumPy copies data are not trivial and it is worth your while to take a closer
+look at them. This involves developing an understanding of how NumPy’s
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> datastructure works behind the scenes.</p>
+<section id="the-ndarray-exposed">
+<h3>The ndarray exposed<a class="headerlink" href="#the-ndarray-exposed" title="Permalink to this heading"></a></h3>
+<p>The first thing you need to know about <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> is that the
+memory backing it up is always a flat 1D array. For example, a 2D matrix is
+stored with all the rows concatenated as a single long vector.</p>
+<img alt="_images/01_memory_layout.svg" src="_images/01_memory_layout.svg" /><p>NumPy is faking the second dimension behind the scenes! When we request the
+element at say, <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">3]</span></code>, NumPy converts this to the correct index in the
+long 1D array <code class="docutils literal notranslate"><span class="pre">[11]</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Converting <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">3]</span></code> → <code class="docutils literal notranslate"><span class="pre">[11]</span></code> is called “raveling”</p></li>
+<li><p>The reverse, converting <code class="docutils literal notranslate"><span class="pre">[11]</span></code> → <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">3]</span></code> is called “unraveling”</p></li>
+</ul>
+</div></blockquote>
+<p>The implications of this are many, so take let’s take some time to understand
+it properly by writing our own <code class="docutils literal notranslate"><span class="pre">ravel()</span></code> function.</p>
+</section>
+</section>
+<section id="exercise-2">
+<h2>Exercise 2<a class="headerlink" href="#exercise-2" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercises-numpy-advanced-2 exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercises: Numpy-Advanced-2</p>
+<p>Write a function called <code class="docutils literal notranslate"><span class="pre">ravel()</span></code> that takes as input:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">row</span></code> The row of the requested element in the matrix as integer index.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">col</span></code> The column of the requested element in the matrix as integer index.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_rows</span></code> The total number of rows of the matrix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_cols</span></code> The total number of columns of the matrix.</p></li>
+</ul>
+</div></blockquote>
+<p>And produces as output the appropriate index in the 1D array. Use the image above as a
+guide. Here are some examples of input and desired output:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ravel(2,</span> <span class="pre">3,</span> <span class="pre">n_rows=4,</span> <span class="pre">n_cols=4)</span></code> → <code class="docutils literal notranslate"><span class="pre">11</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ravel(2,</span> <span class="pre">3,</span> <span class="pre">n_rows=4,</span> <span class="pre">n_cols=8)</span></code> → <code class="docutils literal notranslate"><span class="pre">19</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ravel(0,</span> <span class="pre">0,</span> <span class="pre">n_rows=1,</span> <span class="pre">n_cols=1)</span></code> → <code class="docutils literal notranslate"><span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ravel(3,</span> <span class="pre">3,</span> <span class="pre">n_rows=4,</span> <span class="pre">n_cols=4)</span></code> → <code class="docutils literal notranslate"><span class="pre">15</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ravel(3_465,</span> <span class="pre">18_923,</span> <span class="pre">n_rows=10_000,</span> <span class="pre">n_cols=20_000)</span></code> → <code class="docutils literal notranslate"><span class="pre">69_318_923</span></code></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="admonition-solutions-numpy-advanced-2 solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solutions: Numpy-Advanced-2</p>
+<p>The function can be implemented like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ravel</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">row</span> <span class="o">*</span> <span class="n">n_cols</span> <span class="o">+</span> <span class="n">col</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="strides">
+<h2>Strides<a class="headerlink" href="#strides" title="Permalink to this heading"></a></h2>
+<p>As seen in the exercise, to get to the next row, we have to skip over
+<code class="docutils literal notranslate"><span class="pre">n_cols</span></code> indices. To get to the next column, we can just add 1. To generalize
+this code to work with an arbitrary number of dimensions, NumPy has the concept
+of “strides”:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">strides</span>           <span class="c1"># (64, 8)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span><span class="o">.</span><span class="n">strides</span>  <span class="c1"># (13440, 2688, 448, 64, 8)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.strides</span></code> attribute contains for each dimension, the number of <em>bytes</em> (not array indexes) we
+have to skip over to get to the next element along that dimension. For example,
+the result above tells us that to get to the next row in a 4 ✕ 8 matrix, we
+have to skip ahead 64 bytes. 64? Yes! We have created a matrix consisting of
+double-precision floating point numbers. Each one of those bad boys takes up 8
+bytes, so all the indices are multiplied by 8 to get to the proper byte in the
+memory array. To move to the next column in the matrix, we skip ahead 8 bytes.</p>
+<section id="an-example-matrix-transpose">
+<h3>An example: matrix transpose<a class="headerlink" href="#an-example-matrix-transpose" title="Permalink to this heading"></a></h3>
+<p>Transposing a matrix means that all rows become columns and all columns become
+rows. All off-diagonal values change places. Let’s see how long NumPy’s
+transpose function takes, by transposing a huge (10 000 ✕ 20 000) matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10_000</span><span class="p">,</span> <span class="mi">20_000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Matrix `a` takes up </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="si">}</span><span class="s1"> MB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s time the <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.transpose.html#numpy.transpose" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.transpose()</span></code></a> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It takes mere nanoseconds to transpose 1600 MB of data! NumPy avoided copying
+any data by <em>only</em> modifying the <code class="docutils literal notranslate"><span class="pre">.strides</span></code> of the existing array in-place:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">strides</span><span class="p">)</span>  <span class="c1"># (160000, 8)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">strides</span><span class="p">)</span>  <span class="c1"># (8, 160000)</span>
+</pre></div>
+</div>
+</section>
+<section id="another-example-reshaping">
+<h3>Another example: reshaping<a class="headerlink" href="#another-example-reshaping" title="Permalink to this heading"></a></h3>
+<p>Modifying the shape of an array through <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.reshape.html#numpy.reshape" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.reshape()</span></code></a> is also
+accomplished without any copying of data by modifying the <code class="docutils literal notranslate"><span class="pre">.strides</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20_000</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">strides</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># (80000, 8)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">40_000</span><span class="p">,</span> <span class="mi">5_000</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">strides</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># (40000, 8)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">20_000</span><span class="p">,</span> <span class="mi">5_000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">strides</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># (80000, 16, 8)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="exercises-3">
+<h2>Exercises 3<a class="headerlink" href="#exercises-3" title="Permalink to this heading"></a></h2>
+<div class="admonition-exercises-numpy-advanced-3 exercise important admonition" id="exercise-2">
+<p class="admonition-title">Exercises: Numpy-Advanced-3</p>
+<p>A little known feature of NumPy is the <code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.stride_tricks</span></code> module
+that allows you to modify the <code class="docutils literal notranslate"><span class="pre">.strides</span></code> attribute directly. Playing
+around with this is very educational.</p>
+<ol class="arabic">
+<li><p>Create your own <code class="docutils literal notranslate"><span class="pre">transpose()</span></code> function that will transpose a 2D matrix
+by reversing its <code class="docutils literal notranslate"><span class="pre">.shape</span></code> and <code class="docutils literal notranslate"><span class="pre">.strides</span></code> attributes using
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.stride_tricks.as_strided.html#numpy.lib.stride_tricks.as_strided" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.lib.stride_tricks.as_strided()</span></code></a>.</p></li>
+<li><p>Create a (5 ✕ 100 000 000 000) array containing on the first row all
+1’s, the second row all 2’s, and so on.  Start with an 1D array
+<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">np.array([1.,</span> <span class="pre">2.,</span> <span class="pre">3.,</span> <span class="pre">4.,</span> <span class="pre">5.])</span></code>
+and modify its <code class="docutils literal notranslate"><span class="pre">shape</span></code> and <code class="docutils literal notranslate"><span class="pre">strides</span></code> attributes using
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.stride_tricks.as_strided.html#numpy.lib.stride_tricks.as_strided" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.lib.stride_tricks.as_strided()</span></code></a> to obtain the desired 2D
+matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">]])</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonition-solutions-numpy-advanced-3 solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solutions: Numpy-Advanced-3</p>
+<ol class="arabic">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">transpose()</span></code> function can be implemented like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.lib.stride_tricks</span> <span class="kn">import</span> <span class="n">as_strided</span>
+<span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">as_strided</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">strides</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">strides</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Testing the function on a small matrix</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Before transpose:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;After transpose:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><ol class="arabic" start="2">
+<li><p>By setting one of the <code class="docutils literal notranslate"><span class="pre">.strides</span></code> to <cite>0</cite>, we can repeat a value
+infinitely many times without using any additional memory:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.lib.stride_tricks</span> <span class="kn">import</span> <span class="n">as_strided</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">])</span>
+<span class="n">as_strided</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">100_000_000_000</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</div>
+</section>
+<section id="a-fast-thing-a-fast-thing-a-fast-thing">
+<h2>A fast thing + a fast thing = a fast thing?<a class="headerlink" href="#a-fast-thing-a-fast-thing-a-fast-thing" title="Permalink to this heading"></a></h2>
+<p>If <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.transpose.html#numpy.transpose" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.transpose()</span></code></a> is fast, and <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.reshape.html#numpy.reshape" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.reshape()</span></code></a> is fast, then
+doing them both must be fast too, right?:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a large array</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10_000</span><span class="p">,</span> <span class="mi">20_000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Measuring the time it takes to first transpose and then reshape:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">1</span> <span class="o">-</span><span class="n">r</span> <span class="mi">1</span>
+<span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">40_000</span><span class="p">,</span> <span class="mi">5_000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case, the data actually had to be copied and it’s super slow (it takes
+seconds instead of nanoseconds). When the array is first created, it is laid
+out in memory row-by-row (see image above). The transpose left the data laid
+out in memory column-by-column. To see why the copying of data was inevitable,
+look at what happens to this smaller (2 ✕ 3) matrix after transposition and
+reshaping. You can verify for yourself there is no way to get the final array
+based on the first array and some clever setting of the <code class="docutils literal notranslate"><span class="pre">.strides</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Original array:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Transposed:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Transposed and then reshaped:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="copy-versus-view">
+<h2>Copy versus view<a class="headerlink" href="#copy-versus-view" title="Permalink to this heading"></a></h2>
+<p>Whenever NumPy constructs a new array by modifying the <code class="docutils literal notranslate"><span class="pre">.strides</span></code> instead of
+copying data, we way it created a “view”. This also happens when we select only
+a portion of an existing matrix. Whenever a view is created, the
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> object will have a reference to the original array in
+its <code class="docutils literal notranslate"><span class="pre">.base</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">base</span><span class="p">)</span>  <span class="c1"># None</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># (5, 5)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When you create a large array and select only a portion of it, the large
+array will stay in memory if a view was created!</p>
+</div>
+<p>The new array <code class="docutils literal notranslate"><span class="pre">b</span></code> object has a pointer to the same memory buffer as the array
+it has been derived from:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">__array_interface__</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">__array_interface__</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Views are created by virtue of modifying the value of the <cite>.shape</cite> attribute
+and, if necessary, apply an offset to the pointer into the memory buffer so it
+no longer points to the start of the buffer, but somewhere in the middle:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>   <span class="c1"># This view does not start at the beginning</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">__array_interface__</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">a</span><span class="o">.</span><span class="n">__array_interface__</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Offset:&#39;</span> <span class="n">offset</span><span class="p">,</span> <span class="s1">&#39;bytes&#39;</span><span class="p">)</span>  <span class="c1"># Offset: 48 bytes</span>
+</pre></div>
+</div>
+<img alt="_images/02_views.svg" src="_images/02_views.svg" /><p>Since the base array and its derived view share the same memory, any changes to
+the data in a view also affects the data in the base array:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># Original matrix was modified</span>
+</pre></div>
+</div>
+<p>Whenever you index an array, NumPy will attempt to create a view. Whether or
+not that succeeds depends on the memory layout of the array and what kind of
+indexing operation was done. If no view can be created, NumPy will create a new
+array and copy over the selected data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>  <span class="c1"># Select rows 0 and 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">base</span><span class="p">)</span>  <span class="c1"># None. So not a view.</span>
+</pre></div>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://web.mit.edu/dvp/Public/numpybook.pdf">Guide to Numpy</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/">NumPy manual</a></p>
+<ul>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.html">Basic array class reference</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.indexing.html">Indexing</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/ufuncs.html">ufuncs</a></p></li>
+<li><p><a class="reference external" href="https://towardsdatascience.com/advanced-numpy-master-stride-tricks-with-25-illustrated-exercises-923a9393ab20">Advanced NumPy: Master stride tricks with 25 illustrated exercises</a></p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>The best way to make your code more efficient is to learn more about the
+NumPy API and use specialized functions whenever possible.</p></li>
+<li><p>NumPy will avoid copying data whenever it can. Whether it can depends on
+what kind of layout the data is currently in.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="numpy.html" class="btn btn-neutral float-left" title="NumPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pandas.html" class="btn btn-neutral float-right" title="Pandas" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020, The contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
