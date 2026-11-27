@@ -30,6 +30,7 @@ dependencies:
   - pythia-datasets
   - cython
   - c-compiler
+  - pip
   - pip:
     - lice2
 
